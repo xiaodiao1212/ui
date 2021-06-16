@@ -1,23 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classnames from "classnames";
-import { ContainerProps } from "./Container.types";
-import { createUseStyles } from "react-jss";
-import { Theme } from "../../constants/theme";
-const useStylesFromThemeFunction = createUseStyles(
-  (theme: Theme) => ({
-  
-    container: {
-      height: (props) => (props.fullHeight ? "100%" : "auto"),
-      padding: (props) => {
-        if (props.noPadding) return "";
-        else if (props.noYPadding) return "0 " + props.padding;
-        else if (props.noXPadding) return props.padding + " 0";
-        else return props.padding;
-      },
-    },
-  }),
-  { classNamePrefix: "Container" }
-);
+import type {
+  ContainerProps,
+  ContainerPropsWithHTMLAttributes,
+} from "./container.types";
+import useStyles from "../../hooks/useStyles";
 
 const Container = ({
   noPadding = false,
@@ -28,14 +15,28 @@ const Container = ({
   className,
   children,
   ...props
-}: ContainerProps) => {
-  const classes = useStylesFromThemeFunction({
-    noPadding,
-    padding,
-    noYPadding,
-    noXPadding,
-    fullHeight,
-  });
+}: ContainerPropsWithHTMLAttributes) => {
+  const classes = useStyles(
+    (theme) => ({
+      container: {
+        height: (props) => (props.fullHeight ? "100%" : "auto"),
+        padding: (props) => {
+          if (props.noPadding) return "";
+          else if (props.noYPadding) return "0 " + props.padding;
+          else if (props.noXPadding) return props.padding + " 0";
+          else return props.padding;
+        },
+      },
+    }),
+    {
+      noPadding,
+      padding,
+      noYPadding,
+      noXPadding,
+      fullHeight,
+    },
+    { classNamePrefix: "Container" }
+  );
   const cns = classnames(classes.container, className);
   return (
     <div className={cns} {...props}>

@@ -3,6 +3,7 @@ import classnames from "classnames";
 import type { TimelineProps } from "./Timeline.types";
 import TimelineItem from "./TimelineItem";
 import { createUseStyles, useTheme } from "react-jss";
+//TODO timeline组件的规范，重构
 type TimelineItemProps = React.ComponentProps<typeof TimelineItem>;
 const Timeline = (props: TimelineProps) => {
   const { className, children } = props;

@@ -12,8 +12,12 @@ describe("Test Row", () => {
 
   afterEach(cleanup);
 
-  const renderDefaultComponent = () =>
+  const renderComponentDefaultProps = () =>
     render(<Row data-testid="row" {...defaultProps} />);
   
-    it("nothing to occur", () => {});
+    it("There should be proper rendering with default props", () => {
+      const { getByTestId } = renderComponentDefaultProps();
+      const element = getByTestId("row") as HTMLDivElement;
+      expect(element).toBeInTheDocument();
+    });
 });

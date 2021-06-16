@@ -7,13 +7,13 @@ import {
 } from "@testing-library/react";
 
 import Button from "./Button";
-import { ButtonProps } from "./Button.types";
+import { ButtonPropsWithHTMLAttributes } from "./Button.types";
 
 describe("Test Button", () => {
-  let defaultProps: ButtonProps;
-  let differentProps: ButtonProps;
-  let linkProps: ButtonProps;
-  let disabledProps: ButtonProps;
+  let defaultProps: ButtonPropsWithHTMLAttributes;
+  let differentProps: ButtonPropsWithHTMLAttributes;
+  let linkProps: ButtonPropsWithHTMLAttributes;
+  let disabledProps: ButtonPropsWithHTMLAttributes;
   beforeEach(() => {
     defaultProps = {
       onClick: jest.fn(),

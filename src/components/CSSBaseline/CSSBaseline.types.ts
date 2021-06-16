@@ -1,5 +1,3 @@
-interface CSSBaselineBaseProps {
- children?:React.ReactNode 
+export interface CSSBaselineProps {
+ 
 }
-
-export type CSSBaselineProps = Partial<CSSBaselineBaseProps & React.HTMLAttributes<HTMLDivElement>>

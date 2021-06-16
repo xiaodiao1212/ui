@@ -1,4 +1,4 @@
-interface BaseOverlayProps {
+export interface OverlayProps {
     show:boolean,
     opacity ?:string|number
     zIndex?:string|number
@@ -6,4 +6,4 @@ interface BaseOverlayProps {
     children?:React.ReactNode 
 }
 
-export type OverlayProps = Partial<BaseOverlayProps & React.HTMLAttributes<HTMLDivElement>>
+export type OverlayPropsWithHTMLAttributes = Partial<OverlayProps & React.HTMLAttributes<HTMLDivElement>>

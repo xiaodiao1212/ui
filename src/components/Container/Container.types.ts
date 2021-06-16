@@ -1,4 +1,4 @@
-interface ContainerBaseProps {
+export type ContainerProps =  {
   noPadding?: boolean;
   padding?: string;
   noYPadding?: boolean;
@@ -7,6 +7,6 @@ interface ContainerBaseProps {
   children?: React.ReactNode;
 }
 
-export type ContainerProps = Partial<
-  ContainerBaseProps & React.HTMLAttributes<HTMLDivElement>
+export type ContainerPropsWithHTMLAttributes = Partial<
+ContainerProps & React.HTMLAttributes<HTMLDivElement>
 >;

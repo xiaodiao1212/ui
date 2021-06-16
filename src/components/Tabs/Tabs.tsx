@@ -4,6 +4,7 @@ import { TabsProps, TabsContextType } from "./Tabs.types";
 import { createUseStyles, useTheme, ThemeProvider } from "react-jss";
 import { TabProps } from "./Tab.types";
 import Tab from "./Tab";
+//TODO tabs组件的规范，重构
 export const TabsContext = createContext<TabsContextType>({ index: 0 });
 export const Tabs: React.FC<TabsProps> = (props) => {
   const { className, mode, style, children, defaultIndex, onSelect } = props;

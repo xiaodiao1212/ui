@@ -1,11 +1,9 @@
 import React from "react";
-import classnames from "classnames";
-import { CSSBaselineProps } from "./CSSBaseline.types";
-import {useStyles,useGlobalStyles} from "../../hooks"
+import {useGlobalStyles} from "../../hooks"
 
-const CSSBaseline = ({ children }: CSSBaselineProps): JSX.Element => {
+const CSSBaseline = (): JSX.Element => {
   useGlobalStyles()
-  return <div data-testid="CSSBaseline">{children}</div>;
+  return <div data-testid="CSSBaseline"/>;
 };
 
 export default CSSBaseline;

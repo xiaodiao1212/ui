@@ -1,14 +1,19 @@
-import { createUseStyles, Styles } from "react-jss";
-import { } from "jss"
+import { createUseStyles } from "react-jss";
+import { Classes, Styles } from "jss";
 import { Theme } from "../constants/theme";
-const useStyles = function <T extends string = string>(
-  styles?: Styles<T>,
-  props?: {[key:string]:any},
+const useStyles = function <ComponentClassNames extends string, ComponentProps>(
+  styles?: Styles<ComponentClassNames,ComponentProps,Theme> | ((theme: Theme) => Styles<ComponentClassNames,ComponentProps,Theme>),
+  props?: ComponentProps,
   JSSOptions?
 ) {
-  return createUseStyles((theme: Theme) => {
-    return styles;
-  }, JSSOptions)(props);
+  const useButtonStyles: (
+    data?: ComponentProps & { theme?: Theme }
+  ) => Classes<ComponentClassNames> = createUseStyles<ComponentClassNames>(
+    styles,
+    JSSOptions
+  );
+
+  return useButtonStyles(props);
 };
 
 export default useStyles;

@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classnames from "classnames";
-import { ButtonProps } from "./Button.types";
+import {
+  ButtonPropsWithHTMLAttributes,
+} from "./Button.types";
 import { useStyles } from "../../hooks";
 
-const Button = ({
+const Button = React.forwardRef<HTMLButtonElement,ButtonPropsWithHTMLAttributes>(({
   block = false,
   disabled = false,
   text = false,
@@ -15,11 +17,29 @@ const Button = ({
   className,
   children,
   ...props
-}: ButtonProps) => {
+},ref) => {
   const classes = useStyles(
-    {
-      button: {},
-    },
+    (theme) => ({
+      button: (props) => ({
+        borderRadius: "0px",
+        color: props.color === "" ? "white" : "black",
+        fontSize: "14px",
+        '&:hover': {
+        textDecoration: 'none',
+        backgroundColor: '',
+        '@media (hover: none)': {
+          backgroundColor: 'transparent',
+        },
+        '&$disabled': {
+          backgroundColor: 'transparent',
+        },
+      },
+      '&$disabled': {
+        color: '',
+      },
+      }),
+      
+    }),
     {
       block,
       disabled,
@@ -34,10 +54,10 @@ const Button = ({
   );
   const cns = classnames(classes.button, className);
   return (
-    <button className={cns} disabled={disabled} {...props}>
+    <button ref={ref} className={cns} disabled={disabled} {...props}>
       {children}
     </button>
   );
-};
+});
 
 export default Button;
