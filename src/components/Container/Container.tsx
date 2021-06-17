@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import classnames from "classnames";
 import type {
-  ContainerProps,
   ContainerPropsWithHTMLAttributes,
 } from "./container.types";
 import useStyles from "../../hooks/useStyles";

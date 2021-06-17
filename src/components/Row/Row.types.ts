@@ -7,7 +7,7 @@ export interface RowProps {
   justify?:RowJustify;
   tag?:string;
   gutters?:number;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
-  className?:string
+
 }
+
+export type RowPropsWithHTMLAttributes = RowProps & React.ComponentPropsWithoutRef<"div">

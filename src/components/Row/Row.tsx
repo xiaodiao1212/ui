@@ -1,28 +1,35 @@
-import React, {
-
-} from "react";
+import React from "react";
 import classnames from "classnames";
-import { RowProps } from "./Row.types";
+import { RowPropsWithHTMLAttributes } from "./Row.types";
 
-import "../../index.css";
-
-const Row: React.FC<RowProps> = (props) => {
-  const {
-    align,
-    justify,
-    tag,
-    gutters,
-    children,
-    className,
-    style,
-    ...restProps
-  } = props;
-
-  const classes = classnames('row', {
-  },className);
+import useStyles from "../../hooks/useStyles";
+const Row = ({
+  align,
+  justify,
+  tag,
+  gutters,
+  children,
+  className,
+  ...restProps
+}: RowPropsWithHTMLAttributes) => {
+  const classes = useStyles(
+    (theme) => ({
+      row: (props) => ({
+        display:'flex'
+      }),
+    }),
+    {
+      align,
+      justify,
+      tag,
+      gutters,
+    },
+    { classNamePrefix: "Row" }
+  );
+  const cns = classnames(classes.row, className);
   const childClasses = classnames({});
   return (
-    <div className={classes} style={style} {...restProps}>
+    <div className={cns} {...restProps}>
       {React.Children.map(children, (child, index) => {
         const childCompoent = child as React.FunctionComponentElement<any>;
         return typeof child === "string"
