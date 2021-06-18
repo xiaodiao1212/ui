@@ -6,9 +6,7 @@ import { theme } from "../../constants/theme";
 const App = ({ children }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
-      <div data-testid="app">
-        {children}
-      </div>
+      <div data-testid="app">{children}</div>
     </ThemeProvider>
   );
 };

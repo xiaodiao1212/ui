@@ -10,8 +10,7 @@ describe("Test App", () => {
     defaultProps = {};
   });
   afterEach(cleanup);
-  const renderComponentDefaultProps = () =>
-    render(<App {...defaultProps}/>);
+  const renderComponentDefaultProps = () => render(<App {...defaultProps} />);
 
   it("There should be proper rendering with default props", () => {
     const { getByTestId } = renderComponentDefaultProps();
