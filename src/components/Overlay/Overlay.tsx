@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classnames from "classnames";
+import ReactDOM from "react-dom";
 import { OverlayPropsWithHTMLAttributes } from "./Overlay.types";
 import { useStyles } from "../../hooks";
 
@@ -22,8 +23,8 @@ const Overlay = ({
         left: 0,
         bottom: 0,
         right: 0,
-        backgroundColor: theme.overlay.backgroundColor,
-        borderColor: theme.overlay.borderColor,
+        backgroundColor: theme?.overlay?.backgroundColor || "rgb(33, 33, 33)",
+        borderColor: theme?.overlay?.borderColor || "rgb(33, 33, 33)",
         zIndex: (props) => props.zIndex,
         opacity: (props) => props.opacity,
         display: (props) => (props.show ? "flex" : "none"),
@@ -34,9 +35,11 @@ const Overlay = ({
   );
   const cns = classnames(classes.overlay, className);
   return (
-    <div data-testid="overlay" className={cns} {...props}>
-      {children}
-    </div>
+    show && (
+      <div data-testid="overlay" className={cns} {...props}>
+        {children}
+      </div>
+    )
   );
 };
 

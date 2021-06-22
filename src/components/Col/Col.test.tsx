@@ -7,14 +7,8 @@ import { ColProps } from "./Col.types";
 describe("Test Col", () => {
   let defaultProps: ColProps;
   let differentProps: ColProps;
-  beforeEach(() => {   
-
-
-    
-    (defaultProps = {}),
-      (differentProps = {
-        alignSelf: "center",
-      });
+  beforeEach(() => {
+    (defaultProps = {}), (differentProps = {});
   });
 
   afterEach(cleanup);

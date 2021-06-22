@@ -1,12 +1,12 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
-import Navigation from "./Navigation";
-import { NavigationProps } from "./Navigation.types";
+import Modal from "./Modal";
+import { ModalProps } from "./Modal.types";
 
-describe("Test Navigation", () => {
-  let defaultProps: NavigationProps;
-  let differentProps: NavigationProps;
+describe("Test Modal", () => {
+  let defaultProps: ModalProps;
+  let differentProps: ModalProps;
   beforeEach(() => {
     (defaultProps = {}), (differentProps = {});
   });
@@ -14,20 +14,20 @@ describe("Test Navigation", () => {
   afterEach(cleanup);
 
   const renderDefaultComponent = () =>
-    render(<Navigation data-testid="navigation" {...defaultProps} />);
+    render(<Modal data-testid="modal" {...defaultProps} />);
 
   it("There should be proper rendering with default props", () => {
     const { getByTestId } = renderDefaultComponent();
-    const element = getByTestId("navigation") as HTMLDivElement;
+    const element = getByTestId("modal") as HTMLDivElement;
     expect(element).toBeInTheDocument();
   });
 
   const renderComponentDifferentProps = () =>
-    render(<Navigation data-testid="navigation" {...differentProps} />);
+    render(<Modal data-testid="modal" {...differentProps} />);
 
   it("There should be proper rendering based on different props", () => {
     const { getByTestId } = renderComponentDifferentProps();
-    const element = getByTestId("navigation") as HTMLDivElement;
+    const element = getByTestId("modal") as HTMLDivElement;
     expect(element).toBeInTheDocument();
   });
 });

@@ -4,7 +4,7 @@ import Overlay from "./Overlay";
 import { OverlayProps } from "./Overlay.types";
 
 describe("Test Overlay", () => {
-  let defaultProps,showProps,otherProps: OverlayProps;
+  let defaultProps, showProps, otherProps: OverlayProps;
   beforeEach(() => {
     defaultProps = {
       show: false,
@@ -14,7 +14,7 @@ describe("Test Overlay", () => {
     };
     otherProps = {
       show: true,
-      opacity:0.58
+      opacity: 0.58,
     };
   });
 
@@ -24,9 +24,8 @@ describe("Test Overlay", () => {
     render(<Overlay {...defaultProps}></Overlay>);
 
   it("There should be proper rendering with default props", () => {
-    // const { getByTestId } = renderComponentDefaultProps();
-    // const element = getByTestId("overlay") as HTMLButtonElement;
-    // expect(element).toBeInTheDocument();
+    const { getByTestId } = renderComponentDefaultProps();
+    expect(() => getByTestId("overlay")).toThrow();
     // expect(element).toHaveStyle('opacity:0.46')
     // expect(element).toHaveStyle('display:none')
     // expect(element).toHaveStyle('position:fixed')
