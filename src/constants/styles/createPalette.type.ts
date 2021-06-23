@@ -1,4 +1,4 @@
-import { Color } from '../colors/index.type';
+import { Color } from "../palette/index.type";
 
 export {};
 // use standalone interface over typeof colors/commons
@@ -7,7 +7,7 @@ export interface CommonColors {
   black: string;
   white: string;
 }
-export type PaletteType = 'light' | 'dark';
+export type PaletteType = "light" | "dark";
 export type ColorPartial = Partial<Color>;
 
 export interface TypeText {
@@ -68,7 +68,6 @@ export type PaletteTonalOffset =
       dark: number;
     };
 
-
 export interface Palette {
   common: CommonColors;
   type: PaletteType;
@@ -97,7 +96,9 @@ export interface Palette {
   };
 }
 
-export type PartialTypeObject = { [P in keyof TypeObject]?: Partial<TypeObject[P]> };
+export type PartialTypeObject = {
+  [P in keyof TypeObject]?: Partial<TypeObject[P]>;
+};
 
 export interface PaletteOptions {
   primary?: PaletteColorOptions;

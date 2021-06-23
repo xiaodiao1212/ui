@@ -1,29 +1,29 @@
-import  deepmerge  from '../../utils/deepmerge';
-import {TypeObject, Palette, PaletteOptions} from "./createPalette.type"
-import common from '../colors/common';
-import grey from '../colors/grey';
-import indigo from '../colors/indigo';
-import pink from '../colors/pink';
-import red from '../colors/red';
-import orange from '../colors/orange';
-import blue from '../colors/blue';
-import green from '../colors/green';
-import { darken, getContrastRatio, lighten } from './colorManipulator';
+import deepmerge from "../../utils/deepmerge";
+import { TypeObject, Palette, PaletteOptions } from "./createPalette.type";
+import common from "../palette/common";
+import grey from "../palette/grey";
+import indigo from "../palette/indigo";
+import pink from "../palette/pink";
+import red from "../palette/red";
+import orange from "../palette/orange";
+import blue from "../palette/blue";
+import green from "../palette/green";
+import { darken, getContrastRatio, lighten } from "./colorManipulator";
 
-export const light:TypeObject = {
+export const light: TypeObject = {
   // The colors used to style the text.
   text: {
     // The most important text.
-    primary: 'rgba(0, 0, 0, 0.87)',
+    primary: "rgba(0, 0, 0, 0.87)",
     // Secondary text.
-    secondary: 'rgba(0, 0, 0, 0.54)',
+    secondary: "rgba(0, 0, 0, 0.54)",
     // Disabled text have even lower visual prominence.
-    disabled: 'rgba(0, 0, 0, 0.38)',
+    disabled: "rgba(0, 0, 0, 0.38)",
     // Text hints.
-    hint: 'rgba(0, 0, 0, 0.38)',
+    hint: "rgba(0, 0, 0, 0.38)",
   },
   // The color used to divide different elements.
-  divider: 'rgba(0, 0, 0, 0.12)',
+  divider: "rgba(0, 0, 0, 0.12)",
   // The background colors used to style the surfaces.
   // Consistency between these values is important.
   background: {
@@ -33,46 +33,46 @@ export const light:TypeObject = {
   // The colors used to style the action elements.
   action: {
     // The color of an active action like an icon button.
-    active: 'rgba(0, 0, 0, 0.54)',
+    active: "rgba(0, 0, 0, 0.54)",
     // The color of an hovered action.
-    hover: 'rgba(0, 0, 0, 0.04)',
+    hover: "rgba(0, 0, 0, 0.04)",
     hoverOpacity: 0.04,
     // The color of a selected action.
-    selected: 'rgba(0, 0, 0, 0.08)',
+    selected: "rgba(0, 0, 0, 0.08)",
     selectedOpacity: 0.08,
     // The color of a disabled action.
-    disabled: 'rgba(0, 0, 0, 0.26)',
+    disabled: "rgba(0, 0, 0, 0.26)",
     // The background color of a disabled action.
-    disabledBackground: 'rgba(0, 0, 0, 0.12)',
+    disabledBackground: "rgba(0, 0, 0, 0.12)",
     disabledOpacity: 0.38,
-    focus: 'rgba(0, 0, 0, 0.12)',
+    focus: "rgba(0, 0, 0, 0.12)",
     focusOpacity: 0.12,
     activatedOpacity: 0.12,
   },
 };
 
-export const dark:TypeObject = {
+export const dark: TypeObject = {
   text: {
     primary: common.white,
-    secondary: 'rgba(255, 255, 255, 0.7)',
-    disabled: 'rgba(255, 255, 255, 0.5)',
-    hint: 'rgba(255, 255, 255, 0.5)'
+    secondary: "rgba(255, 255, 255, 0.7)",
+    disabled: "rgba(255, 255, 255, 0.5)",
+    hint: "rgba(255, 255, 255, 0.5)",
   },
-  divider: 'rgba(255, 255, 255, 0.12)',
+  divider: "rgba(255, 255, 255, 0.12)",
   background: {
     paper: grey[800],
-    default: '#303030',
+    default: "#303030",
   },
   action: {
     active: common.white,
-    hover: 'rgba(255, 255, 255, 0.08)',
+    hover: "rgba(255, 255, 255, 0.08)",
     hoverOpacity: 0.08,
-    selected: 'rgba(255, 255, 255, 0.16)',
+    selected: "rgba(255, 255, 255, 0.16)",
     selectedOpacity: 0.16,
-    disabled: 'rgba(255, 255, 255, 0.3)',
-    disabledBackground: 'rgba(255, 255, 255, 0.12)',
+    disabled: "rgba(255, 255, 255, 0.3)",
+    disabledBackground: "rgba(255, 255, 255, 0.12)",
     disabledOpacity: 0.38,
-    focus: 'rgba(255, 255, 255, 0.12)',
+    focus: "rgba(255, 255, 255, 0.12)",
     focusOpacity: 0.12,
     activatedOpacity: 0.24,
   },
@@ -85,15 +85,15 @@ function addLightOrDark(intent, direction, shade, tonalOffset) {
   if (!intent[direction]) {
     if (intent.hasOwnProperty(shade)) {
       intent[direction] = intent[shade];
-    } else if (direction === 'light') {
+    } else if (direction === "light") {
       intent.light = lighten(intent.main, tonalOffsetLight);
-    } else if (direction === 'dark') {
+    } else if (direction === "dark") {
       intent.dark = darken(intent.main, tonalOffsetDark);
     }
   }
 }
 
-export default function createPalette(palette:PaletteOptions):Palette {
+export default function createPalette(palette: PaletteOptions): Palette {
   const {
     primary = {
       light: indigo[300],
@@ -125,12 +125,12 @@ export default function createPalette(palette:PaletteOptions):Palette {
       main: green[500],
       dark: green[700],
     },
-    type = 'light',
+    type = "light",
     contrastThreshold = 3,
     tonalOffset = 0.2,
     ...other
   } = palette;
-  
+
   function getContrastText(background) {
     const contrastText =
       getContrastRatio(background, dark.text.primary) >= contrastThreshold
@@ -140,13 +140,18 @@ export default function createPalette(palette:PaletteOptions):Palette {
     return contrastText;
   }
 
-  const augmentColor = (color, mainShade:number|string = 500, lightShade:number|string = 300, darkShade:number|string = 700) => {
+  const augmentColor = (
+    color,
+    mainShade: number | string = 500,
+    lightShade: number | string = 300,
+    darkShade: number | string = 700
+  ) => {
     color = { ...color };
     if (!color.main && color[mainShade]) {
       color.main = color[mainShade];
     }
-    addLightOrDark(color, 'light', lightShade, tonalOffset);
-    addLightOrDark(color, 'dark', darkShade, tonalOffset);
+    addLightOrDark(color, "light", lightShade, tonalOffset);
+    addLightOrDark(color, "dark", darkShade, tonalOffset);
     if (!color.contrastText) {
       color.contrastText = getContrastText(color.main);
     }
@@ -156,9 +161,11 @@ export default function createPalette(palette:PaletteOptions):Palette {
 
   const types = { dark, light };
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     if (!types[type]) {
-      console.error(`Galaxy Design: The palette type \`${type}\` is not supported.`);
+      console.error(
+        `Galaxy Design: The palette type \`${type}\` is not supported.`
+      );
     }
   }
 
@@ -171,7 +178,7 @@ export default function createPalette(palette:PaletteOptions):Palette {
       // The colors used to represent primary interface elements for a user.
       primary: augmentColor(primary),
       // The colors used to represent secondary interface elements for a user.
-      secondary: augmentColor(secondary, 'A400', 'A200', 'A700'),
+      secondary: augmentColor(secondary, "A400", "A200", "A700"),
       // The colors used to represent interface elements that the user should be made aware of.
       error: augmentColor(error),
       // The colors used to represent potentially dangerous actions or important messages.
@@ -196,7 +203,7 @@ export default function createPalette(palette:PaletteOptions):Palette {
       // The light and dark type object.
       ...types[type],
     },
-    other,
+    other
   );
 
   return paletteOutput;

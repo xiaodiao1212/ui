@@ -1,4 +1,4 @@
-import * as Colors from "../colors";
+import palette from "../palette";
 const defaultCSS = {
   "@global": {
     html: {
@@ -78,9 +78,10 @@ const defaultCSS = {
     "[disabled]": {
       cursor: "default",
     },
-    "[type='number']::-webkit-inner-spin-button, [type='number']::-webkit-outer-spin-button": {
-      height: "auto",
-    },
+    "[type='number']::-webkit-inner-spin-button, [type='number']::-webkit-outer-spin-button":
+      {
+        height: "auto",
+      },
     "[type='search']": {
       webkitAppearance: "textfield",
       outlineOffset: -2,
@@ -104,17 +105,20 @@ const defaultCSS = {
     "button, select": {
       textTransform: "none",
     },
-    "button, [type='button'], [type='reset'], [type='submit'], [role='button']": {
-      cursor: "pointer",
-      color: "inherit",
-    },
-    "button::-moz-focus-inner, [type='button']::-moz-focus-inner, [type='reset']::-moz-focus-inner, [type='submit']::-moz-focus-inner": {
-      borderStyle: "none",
-      padding: "0",
-    },
-    "button:-moz-focusring, [type='button']::-moz-focus-inner, [type='reset']::-moz-focus-inner, [type='submit']::-moz-focus-inner": {
-      outline: "1px dotted ButtonText",
-    },
+    "button, [type='button'], [type='reset'], [type='submit'], [role='button']":
+      {
+        cursor: "pointer",
+        color: "inherit",
+      },
+    "button::-moz-focus-inner, [type='button']::-moz-focus-inner, [type='reset']::-moz-focus-inner, [type='submit']::-moz-focus-inner":
+      {
+        borderStyle: "none",
+        padding: "0",
+      },
+    "button:-moz-focusring, [type='button']::-moz-focus-inner, [type='reset']::-moz-focus-inner, [type='submit']::-moz-focus-inner":
+      {
+        outline: "1px dotted ButtonText",
+      },
     "button, html [type='button'], [type='reset'], [type='submit']": {
       webkitAppearance: "button",
     },
@@ -163,13 +167,15 @@ const defaultCSS = {
       cursor: "default",
     },
   },
-}
+};
 const theme: Theme = {
   default: defaultCSS,
-  colorPrimary: Colors.indigo[500],
-  textColorPrimary: Colors.grey[500],
-  textColorSecondary: Colors.grey[500],
-  textColorHint: Colors.grey[500],
+  palette: palette,
+  colorPrimary: palette.indigo[500],
+  colorSecondary: palette.red[500],
+  textColorPrimary: palette.grey[500],
+  textColorSecondary: palette.grey[500],
+  textColorHint: palette.grey[500],
   overlay: {
     backgroundColor: "rgb(33, 33, 33)",
     borderColor: "rgb(33, 33, 33)",
@@ -177,7 +183,9 @@ const theme: Theme = {
 };
 type Theme = {
   default: typeof defaultCSS;
+  palette: typeof palette;
   colorPrimary: string;
+  colorSecondary: string;
   textColorPrimary: string;
   textColorSecondary: string;
   textColorHint: string;
