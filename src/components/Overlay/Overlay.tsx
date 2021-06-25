@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classnames from "classnames";
-import ReactDOM from "react-dom";
 import { OverlayPropsWithHTMLAttributes } from "./Overlay.types";
+import { Card } from "../Card";
 import { useStyles } from "../../hooks";
-
-// TODO: shy 功能的实现，即点击消失
 
 const Overlay = ({
   opacity = 0.46,
@@ -15,7 +13,8 @@ const Overlay = ({
   children,
   ...props
 }: OverlayPropsWithHTMLAttributes) => {
-  const classes = useStyles(
+  const [_show, setShow] = useState(show);
+  const _classes = useStyles(
     (theme) => ({
       overlay: {
         position: "fixed",
@@ -33,10 +32,21 @@ const Overlay = ({
     { show, opacity, zIndex },
     { classNamePrefix: "Overlay" }
   );
-  const cns = classnames(classes.overlay, className);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (shy) setShow((s) => !s);
+    props?.onClick(e);
+  };
+  const _cns = classnames(_classes.overlay, className);
   return (
-    show && (
-      <div data-testid="overlay" className={cns} {...props}>
+    show &&
+    _show && (
+      <div
+        data-testid="overlay"
+        className={_cns}
+        {...props}
+        onClick={handleClick}
+      >
         {children}
       </div>
     )

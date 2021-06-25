@@ -11,7 +11,12 @@ const Card = ({
 }: CardPropsWithHTMLAttributes) => {
   const classes = useStyles(
     (theme) => ({
-      card: {},
+      card: {
+        boxShadow:
+          "rgb(17 17 26 / 5%) 0px 4px 16px, rgb(17 17 26 / 5%) 0px 8px 32px",
+        borderRadius: "4px",
+        minHeight: "2em",
+      },
     }),
     {},
     { classNamePrefix: "Card" }
@@ -19,11 +24,10 @@ const Card = ({
   const cns = classnames(classes.card, className);
   return (
     <div className={cns} {...props}>
-      <Container>{children}</Container>
+      <Container className={cns} {...props}>
+        {children}
+      </Container>
     </div>
   );
 };
-Card.Header = () => <div></div>;
-Card.Content = () => <div></div>;
-Card.Footer = () => <div></div>;
 export default Card;

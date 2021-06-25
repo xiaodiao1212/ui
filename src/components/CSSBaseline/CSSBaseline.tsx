@@ -1,9 +1,12 @@
-import React from "react";
-import {useGlobalStyles} from "../../hooks"
+import React, { useEffect } from "react";
+import { useGlobalStyles } from "../../hooks";
 
 const CSSBaseline = (): JSX.Element => {
-  useGlobalStyles()
-  return <div data-testid="CSSBaseline"/>;
+  useEffect(() => {
+    useGlobalStyles();
+  }, []);
+
+  return <div data-testid="CSSBaseline" />;
 };
 
 export default CSSBaseline;

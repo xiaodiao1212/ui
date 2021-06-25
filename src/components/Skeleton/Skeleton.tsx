@@ -14,12 +14,14 @@ const Skeleton = ({
   const classes = useStyles(
     (theme) => ({
       skeleton: (props) => ({
+        minHeight: "2em",
+        borderRadius: "4px",
         background:
           "linear-gradient(90deg,rgba(255, 255, 255, 0) 40%,rgba(255, 255, 255, .5) 50%,rgba(255, 255, 255, 0) 60%) " +
             theme?.palette?.grey[300] || "#e0e0e0",
         backgroundSize: "200% 100%",
         backgroundPositionX: "180%",
-        animation: props.duration + "s loading ease-in-out infinite",
+        animation: props.duration + "s $loading ease-in-out infinite",
         animationDelay: props.delay + "s",
       }),
       "skeleton-circle": (props) => ({
@@ -47,7 +49,13 @@ const Skeleton = ({
     classes["skeleton-circle"],
     className
   );
-  return <div className={circle ? cnsCircle : cns} style={style} />;
+  return (
+    <div
+      data-testid="skeleton"
+      className={circle ? cnsCircle : cns}
+      style={style}
+    />
+  );
 };
 
 export default Skeleton;

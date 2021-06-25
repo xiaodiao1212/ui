@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, screen } from "@testing-library/react";
 
 import Skeleton from "./Skeleton";
 import { SkeletonProps } from "./Skeleton.types";
@@ -13,21 +13,15 @@ describe("Test Skeleton", () => {
 
   afterEach(cleanup);
 
-  const renderDefaultComponent = () =>
-    render(<Skeleton data-testid="skeleton" {...defaultProps} />);
-
   it("There should be proper rendering with default props", () => {
-    const { getByTestId } = renderDefaultComponent();
-    const element = getByTestId("skeleton") as HTMLDivElement;
+    render(<Skeleton {...defaultProps} />);
+    const element = screen.getByTestId("skeleton") as HTMLDivElement;
     expect(element).toBeInTheDocument();
   });
 
-  const renderComponentDifferentProps = () =>
-    render(<Skeleton data-testid="skeleton" {...differentProps} />);
-
   it("There should be proper rendering based on different props", () => {
-    const { getByTestId } = renderComponentDifferentProps();
-    const element = getByTestId("skeleton") as HTMLDivElement;
+    render(<Skeleton {...differentProps} />);
+    const element = screen.getByTestId("skeleton") as HTMLDivElement;
     expect(element).toBeInTheDocument();
   });
 });
