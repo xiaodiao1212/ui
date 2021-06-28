@@ -1,43 +1,37 @@
 import React from "react";
 import classnames from "classnames";
-import type { ProgressPropsWithHTMLAttributes } from "./Progress.types";
+import type { ProgressProps } from "./Progress.types";
 import useStyles from "../../hooks/useStyles";
 
 const Progress = ({
-  noPadding = false,
-  noYPadding = false,
-  noXPadding = false,
-  padding = "1em",
-  fullHeight = false,
+  percent = 0,
+  backgroundColor,
+  color,
   className,
-  children,
   ...props
-}: ProgressPropsWithHTMLAttributes) => {
+}: ProgressProps) => {
   const classes = useStyles(
     (theme) => ({
-      container: {
-        height: (props) => (props.fullHeight ? "100%" : "auto"),
-        padding: (props) => {
-          if (props.noPadding) return "";
-          else if (props.noYPadding) return "0 " + props.padding;
-          else if (props.noXPadding) return props.padding + " 0";
-          else return props.padding;
-        },
-      },
+      progress: ({ backgroundColor }) => ({
+        backgroundColor:
+          backgroundColor || theme?.palette?.grey["300"] || "grey",
+      }),
+      bar: ({ color }) => ({
+        backgroundColor: color || theme?.colorPrimary || "#3f51b5",
+      }),
     }),
     {
-      noPadding,
-      padding,
-      noYPadding,
-      noXPadding,
-      fullHeight,
+      backgroundColor,
+      color,
+      percent,
     },
     { classNamePrefix: "Progress" }
   );
-  const cns = classnames(classes.container, className);
+  const cns = classnames(classes.progress, className);
+  const cnsBar = classnames(classes.bar, className);
   return (
     <div className={cns} {...props}>
-      {children}
+      <div className={cnsBar}></div>
     </div>
   );
 };

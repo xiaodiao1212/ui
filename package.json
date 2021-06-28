@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "rollup -wc rollup.config.dev.js",
-    "build:dev": "npm run test && rollup -c rollup.config.dev.js",
+    "build:dev": "rollup -c rollup.config.dev.js",
     "build:prod": "npm run test && rollup -c rollup.config.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",

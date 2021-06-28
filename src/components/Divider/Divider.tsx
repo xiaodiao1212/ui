@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import { DividerPropsWithHTMLAttributes } from "./Divider.types";
+import { DividerProps } from "./Divider.types";
 import useStyles from "../../hooks/useStyles";
 
 const Divider = ({
@@ -9,7 +9,7 @@ const Divider = ({
   className,
   children,
   ...props
-}: DividerPropsWithHTMLAttributes) => {
+}: DividerProps) => {
   const classes = useStyles(
     (theme) => ({
       divider: (props) => ({

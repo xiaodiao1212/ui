@@ -1,12 +1,12 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
-import Card from "./Card";
-import { CardProps } from "./Card.types";
+import Loading from "./Loading";
+import { LoadingProps } from "./Loading.types";
 
-describe("Test Card", () => {
-  let defaultProps: CardProps;
-  let differentProps: CardProps;
+describe("Test Loading", () => {
+  let defaultProps: LoadingProps;
+  let differentProps: LoadingProps;
   beforeEach(() => {
     (defaultProps = {}), (differentProps = {});
   });
@@ -14,20 +14,20 @@ describe("Test Card", () => {
   afterEach(cleanup);
 
   const renderDefaultComponent = () =>
-    render(<Card data-testid="card" {...defaultProps} />);
+    render(<Loading data-testid="loading" {...defaultProps} />);
 
   it("There should be proper rendering with default props", () => {
     // const { getByTestId } = renderDefaultComponent();
-    // const element = getByTestId("card") as HTMLDivElement;
+    // const element = getByTestId("loading") as HTMLDivElement;
     // expect(element).toBeInTheDocument();
   });
 
   const renderComponentDifferentProps = () =>
-    render(<Card data-testid="card" {...differentProps} />);
+    render(<Loading data-testid="loading" {...differentProps} />);
 
   it("There should be proper rendering based on different props", () => {
     // const { getByTestId } = renderComponentDifferentProps();
-    // const element = getByTestId("card") as HTMLDivElement;
+    // const element = getByTestId("loading") as HTMLDivElement;
     // expect(element).toBeInTheDocument();
   });
 });

@@ -1,8 +1,10 @@
-
-type BaseTimelineProps =  {
-    derection:'vertical'|'horizontal',
-    reverse ?:boolean
-    children?:React.ReactNode 
-}
-
-export type TimelineProps = Partial<BaseTimelineProps & React.ButtonHTMLAttributes<HTMLElement>>
+export type TimelineItem = {
+  title?: string;
+  content?: string;
+  direction: "left" | "right";
+};
+export type TimelineProps = {
+  data: TimelineItem[];
+  lineColor?: string;
+  lineWidth?: number;
+} & React.ComponentPropsWithoutRef<"div">;

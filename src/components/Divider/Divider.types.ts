@@ -1,7 +1,4 @@
-
-export type DividerProps =  {
+export type DividerProps = {
   vertical?: boolean;
-  dashed?:boolean
-}
-
-export type DividerPropsWithHTMLAttributes = DividerProps & React.ComponentPropsWithoutRef<"hr">
+  dashed?: boolean;
+} & React.ComponentPropsWithoutRef<"hr">;

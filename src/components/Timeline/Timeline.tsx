@@ -1,103 +1,137 @@
 import React from "react";
 import classnames from "classnames";
-import type { TimelineProps } from "./Timeline.types";
-import TimelineItem from "./TimelineItem";
-import { createUseStyles, useTheme } from "react-jss";
-//TODO timeline组件的规范，重构
-type TimelineItemProps = React.ComponentProps<typeof TimelineItem>;
-const Timeline = (props: TimelineProps) => {
-  const { className, children } = props;
-  const useStyles = createUseStyles({
-    timeline: {
-      position: "relative",
-      height: "16em",
-      width: "100%",
-    },
-    circle: {
-      width: "1.2em",
-      background: "#c66b57",
-      height: "1.2em",
-      borderRadius: "50px",
-      textAlign: "center",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      color: "white",
-    },
-    line: {
-      width: "0.1em",
-      background: "#c66b57",
-      height: "3em",
-      margin: "0.5em 0 0.5em 0.6em",
-    },
-    content: {
-      position: "absolute",
-      top: "0",
-      left: "2em",
-    },
-    "content' > div": {
-      fontSize: "0.8em",
-      paddingBottom: "1.5em",
-      height: "5em",
-    },
-  });
-  const theme = useTheme();
-  const classes = useStyles({ ...props, theme });
-  const style = classnames(classes.timeline);
+import type { TimelineProps, TimelineItem } from "./Timeline.types";
+import { useStyles } from "../../hooks";
+const Timeline = ({
+  lineWidth = 6,
+  lineColor,
+  data = [],
+  className,
+}: TimelineProps) => {
+  const classes = useStyles(
+    (theme) => ({
+      timeline: {
+        position: "relative",
+        maxWidth: 1200,
+        margin: "0 auto",
+      },
+      "timeline::after": ({ lineColor, lineWidth }) => ({
+        content: '""',
+        position: "absolute",
+        width: `${lineWidth}px`,
+        backgroundColor: lineColor || theme?.palette?.common?.white || "white",
+        top: "0",
+        bottom: "0",
+        left: "50%",
+        marginLeft: -lineWidth / 3,
+      }),
+      container: {
+        padding: "10px 40px",
+        position: "relative",
+        backgroundColor: "inherit",
+        width: "50%",
+      },
+      "container::after": {
+        content: '""',
+        position: "absolute",
+        width: 25,
+        height: 25,
+        right: -17,
+        backgroundColor: "white",
+        border: "4px solid #ff9f55",
+        top: 15,
+        borderRadius: "50%",
+        zIndex: "1",
+      },
+      left: {
+        left: "0",
+      },
+      right: {
+        left: "50%",
+      },
+      "left::before": {
+        content: '" "',
+        height: "0",
+        position: "absolute",
+        top: 22,
+        width: "0",
+        zIndex: "1",
+        right: 30,
+        border: "medium solid white",
+        borderWidth: "10px 0 10px 10px",
+        borderColor: "transparent transparent transparent white",
+      },
+      "right::before": {
+        content: '" "',
+        height: "0",
+        position: "absolute",
+        top: 22,
+        width: "0",
+        zIndex: "1",
+        left: 30,
+        border: "medium solid white",
+        borderWidth: "10px 10px 10px 0",
+        borderColor: "transparent white transparent transparent",
+      },
+      "right::after": {
+        left: -16,
+      },
+      content: {
+        padding: "20px 30px",
+        backgroundColor: "white",
+        position: "relative",
+        borderRadius: 6,
+      },
+      "@media screen and (max-width: 600px)": {
+        "timeline::after": {
+          left: 31,
+        },
+        container: {
+          width: "100%",
+          paddingLeft: 70,
+          paddingRight: 25,
+        },
+        "container::before": {
+          left: 60,
+          border: "medium solid white",
+          borderWidth: "10px 10px 10px 0",
+          borderColor: "transparent white transparent transparent",
+        },
+        "left::after,  right::after": {
+          left: 15,
+        },
+        right: {
+          left: "0%",
+        },
+      },
+    }),
 
-  const renderChildren = () => {
-    return React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<
-        TimelineItemProps
-      >;
-      const { displayName } = childElement.type;
-      if (displayName === TimelineItem.displayName) {
-        return React.cloneElement(childElement, {
-          index,
-        });
-      } else {
-        console.error(
-          "Galaxy Design:Timeline has a child which is not a TimelinItem"
-        );
-      }
-    });
+    { lineWidth, lineColor },
+    { classNamePrefix: "Timeline" }
+  );
+  const cns = classnames(classes.timeline, className);
+
+  const cnsChildContent = classnames(classes.content);
+
+  const getTimelineItemClassNames = (item: TimelineItem) => {
+    return classnames(
+      classes.container,
+      item.direction == "left" ? classes.left : classes.right
+    );
   };
   return (
-    <article className={classes.timeline}>
-      <div>
-        <div className={classes.circle}>1</div>
-      </div>
-      <div>
-        <div className={classes.line}></div>
-      </div>
-      <div>
-        <div className="circle">2</div>
-      </div>
-      <div>
-        <div className="line"></div>
-      </div>
-      <div>
-        <div className="circle">3</div>
-      </div>
-      <div className="content">
-        <div>
-          Puede guardar esta página del cupón en su teléfono móvil o encontrarla
-          nuevamente aquí.
-        </div>
-        <div>
-          Proporcione al cajero el código de barras y finalice el pago en
-          efectivo en la tienda de OXXO.
-        </div>
-        <div>
-          Actualizaremos un registro del reembolso de su préstamo después de
-          recibir la notificación de que el reembolso se completó.
-        </div>
-      </div>
-    </article>
+    <div className={cns}>
+      {data &&
+        data.map((v) => (
+          <div className={getTimelineItemClassNames(v)}>
+            <div className={cnsChildContent}>
+              <h2>{v.title}</h2>
+              <p>{v.content}</p>
+            </div>
+          </div>
+        ))}
+    </div>
   );
 };
-Timeline.defaultProps = {
-  reverse: false,
-  derection: "vertical",
-};
+
 export default Timeline;
