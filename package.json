@@ -13,6 +13,7 @@
     "build:prod": "npm run test && rollup -c rollup.config.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",
+    "convert": "jss convert source.css -f json > source.js",
     "lint": "eslint src --fix --ext .ts,.tsx "
   },
   "repository": {

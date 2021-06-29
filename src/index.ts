@@ -17,8 +17,12 @@ import { Loading } from "./components/Loading";
 import { Alert } from "./components/Alert";
 import { Timeline } from "./components/Timeline";
 import { Collapse } from "./components/Collapse";
+import { Chip } from "./components/Chip";
+import { Snackbar } from "./components/Snackbar";
 import { useStyles } from "./hooks";
 export {
+  Chip,
+  Snackbar,
   Button,
   Container,
   Row,
