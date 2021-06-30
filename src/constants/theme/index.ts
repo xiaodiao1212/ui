@@ -72,9 +72,7 @@ const defaultCSS = {
       borderColor: "inherit",
       textIndent: "0",
     },
-    input: {
-      borderRadius: "0",
-    },
+    input: {},
     "[disabled]": {
       cursor: "default",
     },
@@ -125,6 +123,7 @@ const defaultCSS = {
     "button, input, select, textarea": {
       backgroundColor: "transparent",
       borderStyle: "none",
+      border: "none",
     },
     "a:focus, button:focus, input:focus, select:focus, textarea:focus": {
       outlineWidth: "0",
@@ -172,23 +171,30 @@ const theme: Theme = {
   default: defaultCSS,
   palette: palette,
   colorPrimary: palette.indigo[500],
+  paddingInput: "12px",
+  borderRadiusDefault: "4px",
+  borderRadiusCircle: "50%",
+
   colorSecondary: palette.red[500],
-  textColorPrimary: palette.grey[500],
-  textColorSecondary: palette.grey[500],
-  textColorHint: palette.grey[500],
+  colorText: palette.grey[900],
+  colorPlaceholder: palette.grey[400],
+  backgroundColorInput: palette.grey[100],
   overlay: {
-    backgroundColor: "rgb(33, 33, 33)",
-    borderColor: "rgb(33, 33, 33)",
+    backgroundColor: palette.grey[400],
+    borderColor: palette.grey[400],
   },
 };
 type Theme = {
   default: typeof defaultCSS;
   palette: typeof palette;
+  borderRadiusCircle: string;
+  borderRadiusDefault: string;
   colorPrimary: string;
+  paddingInput: string;
   colorSecondary: string;
-  textColorPrimary: string;
-  textColorSecondary: string;
-  textColorHint: string;
+  colorText: string;
+  colorPlaceholder: string;
+  backgroundColorInput: string;
   overlay: {
     backgroundColor: string;
     borderColor: string;

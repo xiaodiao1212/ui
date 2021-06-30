@@ -3,7 +3,6 @@ import { Container } from "./components/Container";
 import { App } from "./components/App";
 import { Tabs, Tab } from "./components/Tabs";
 import { Row } from "./components/Row";
-import { CSSBaseline } from "./components/CSSBaseline";
 import { Overlay } from "./components/Overlay";
 import { Divider } from "./components/Divider";
 import { Col } from "./components/Col";
@@ -19,9 +18,12 @@ import { Timeline } from "./components/Timeline";
 import { Collapse } from "./components/Collapse";
 import { Chip } from "./components/Chip";
 import { Snackbar } from "./components/Snackbar";
-import { useStyles } from "./hooks";
+import { Input } from "./components/Input";
+import { useStyles, useCustomTheme, useGlobalStyles } from "./hooks";
+import paltete from "./constants/palette";
 export {
   Chip,
+  Input,
   Snackbar,
   Button,
   Container,
@@ -31,17 +33,19 @@ export {
   Tab,
   Tabs,
   Overlay,
-  CSSBaseline,
   Divider,
   Skeleton,
   Card,
   Modal,
   Picker,
+  useGlobalStyles,
   Navigation,
   Progress,
   Loading,
   Alert,
   Collapse,
   Timeline,
+  useCustomTheme,
   useStyles,
+  paltete,
 };

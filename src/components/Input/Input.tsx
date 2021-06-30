@@ -11,6 +11,7 @@ const Input = ({ children, className, ...props }: InputProps) => {
         padding: theme?.paddingInput || "12px",
         backgroundColor: theme?.backgroundColorInput || palette.grey[100],
         color: theme?.colorText || palette.grey[900],
+        borderRadius: theme?.borderRadiusDefault || "4px",
       },
     }),
     {},

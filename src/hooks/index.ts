@@ -1,3 +1,4 @@
 import useStyles from "./useStyles";
 import useGlobalStyles from "./useGlobalStyles";
-export { useStyles, useGlobalStyles };
+import useCustomTheme from "./useCustomTheme";
+export { useStyles, useGlobalStyles, useCustomTheme };
