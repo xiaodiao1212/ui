@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 import { ChipProps } from "./Chip.types";
+import palette from "../../constants/palette";
 import useStyles from "../../hooks/useStyles";
 
 const Chip = ({
@@ -16,7 +17,7 @@ const Chip = ({
     (theme) => ({
       chip: ({ outline, color, backgroundColor, borderRadius }) => ({
         display: "inline-flex",
-        color: color || theme?.textColorPrimary || "white",
+        color: color || theme?.colorText || palette.grey[900],
         borderRadius: borderRadius || "16px",
         ...(!outline
           ? {

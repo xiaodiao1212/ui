@@ -1,9 +1,9 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
 
-import Alert from "./Alert";
+import Input from "./Input";
 
-describe("Test Alert", () => {
+describe("Test Input", () => {
   let defaultProps;
   beforeEach(() => {
     defaultProps = {};
@@ -12,11 +12,11 @@ describe("Test Alert", () => {
   afterEach(cleanup);
 
   const renderDefaultComponent = () =>
-    render(<Alert data-testid="alert" {...defaultProps} />);
+    render(<Input data-testid="input" {...defaultProps} />);
 
   it("There should be proper rendering with default props", () => {
     const { getByTestId } = renderDefaultComponent();
-    const element = getByTestId("alert") as HTMLHRElement;
+    const element = getByTestId("input") as HTMLHRElement;
     expect(element).toBeInTheDocument();
     expect(element).toHaveStyle({
       display: "flex",

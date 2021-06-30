@@ -2,10 +2,9 @@ import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import App from "./App";
-import { AppProps } from "./App.types";
 
 describe("Test App", () => {
-  let defaultProps: AppProps;
+  let defaultProps: any;
   beforeEach(() => {
     defaultProps = {};
   });

@@ -1,11 +1,12 @@
 import React from "react";
-import { AppProps } from "./App.types";
 import { ThemeProvider } from "react-jss";
-import { theme } from "../../constants/theme";
-
-const App = ({ children }: AppProps) => {
+import { theme, Theme } from "../../constants/theme";
+type AppProps = {
+  customTheme?: Theme;
+} & React.ComponentPropsWithoutRef<"div">;
+const App = ({ children, customTheme }: AppProps) => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={customTheme || theme}>
       <div data-testid="app">{children}</div>
     </ThemeProvider>
   );

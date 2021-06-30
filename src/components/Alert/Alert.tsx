@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import classnames from "classnames";
-import { AlertPropsWithHTMLAttributes } from "./Alert.types";
 import useStyles from "../../hooks/useStyles";
+
+type AlertPropsWithHTMLAttributes =
+  {} & React.ComponentPropsWithoutRef<"aside">;
 
 const Alert = ({
   children,
