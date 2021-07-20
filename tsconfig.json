@@ -11,11 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*", "src/components/Card/.test.tsx"],
-  "exclude": [
-    "node_modules",
-    "build",
-    "src/**/*.stories.tsx",
-    "src/**/*.test.tsx"
-  ]
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules", "src/**/*.stories.tsx", "src/**/*.test.tsx"]
 }

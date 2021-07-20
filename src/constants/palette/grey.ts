@@ -1,6 +1,4 @@
-import { Color } from "./index.type";
-
-const grey: Color = {
+const grey = {
   50: "#fafafa",
   100: "#f5f5f5",
   200: "#eeeeee",
@@ -12,6 +10,7 @@ const grey: Color = {
   700: "#616161",
   800: "#424242",
   900: "#212121",
+
   A100: "#d5d5d5",
   A200: "#aaaaaa",
   A400: "#303030",

@@ -1,6 +1,4 @@
-import { Color } from "./index.type";
-
-const red: Color = {
+const red = {
   50: "#ffebee",
   100: "#ffcdd2",
   200: "#ef9a9a",
