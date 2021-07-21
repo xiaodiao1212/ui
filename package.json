@@ -2,64 +2,83 @@
   "name": "xkits-components",
   "version": "0.1.1",
   "description": "A mobile react tool library",
-  "main": "build/index.js",
-  "module": "build/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "files": [
-    "build"
+    "dist"
   ],
-  "typings": "build/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "dev": "rollup -wc rollup.config.dev.js",
     "build:dev": "rollup -c rollup.config.dev.js",
-    "build:prod": "npm run test && rollup -c rollup.config.prod.js",
+    "build:prod": "npm run lint && npm run test && rollup -c rollup.config.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "convert": "jss convert source.css -f json > source.js",
-    "lint": "eslint src --fix --ext .ts,.tsx "
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "convert": "jss convert target.css -f json > target.json",
+    "lint": "eslint --fix --ext .ts,.tsx src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fogcity/components.git"
   },
-  "keywords": [],
-  "author": "trevor",
+  "keywords": [
+    "react-project",
+    "typescript-project",
+    "react-typescript",
+    "mobile"
+  ],
+  "author": {
+    "name": "trevor",
+    "email": "xymzhs@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fogcity/components/issues"
   },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "15 KB"
+    }
+  ],
   "homepage": "https://github.com/fogcity/components#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "@size-limit/preset-small-lib": "^5.0.1",
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.4.7",
     "@types/jest": "^26.0.7",
-    "@types/react": "^16.9.43",
-    "@typescript-eslint/eslint-plugin": "^3.7.1",
-    "@typescript-eslint/parser": "^3.7.1",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "classnames": "^2.2.6",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
     "jest": "^26.1.0",
-    "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "jss-cli": "^6.0.2",
+    "prettier": "^2.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-jss": "^10.7.1",
-    "rollup": "^2.23.0",
-    "rollup-plugin-peer-deps-external": "^2.2.3",
+    "rollup": "^2.53.3",
+    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^6.1.0",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-typescript2": "^0.27.3",
+    "size-limit": "^5.0.1",
     "ts-jest": "^26.1.4",
-    "typescript": "^3.9.10"
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5"
   },
   "peerDependencies": {
     "react-jss": "^10.7.1",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
-  },
-  "dependencies": {
-    "react-transition-group": "^4.4.2"
   }
 }

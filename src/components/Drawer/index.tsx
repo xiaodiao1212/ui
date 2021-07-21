@@ -1,180 +1,173 @@
-import React, { useEffect, useState } from "react";
-import classnames from "classnames";
-import { createUseStyles } from "react-jss";
-import { Theme } from "../../constants/theme";
-import Overlay from "../Overlay";
+import classnames from 'classnames'
+import { createUseStyles } from 'react-jss'
+import React from 'react'
+import { Theme } from '../../constants/theme'
+import Overlay from '../Overlay'
 
-type RuleNames =
-  | "drawer"
-  | "drawer-content"
-  | "@keyframes drawerIn"
-  | "@keyframes drawerOut";
-type DrawerPosition = "left" | "right" | "top" | "bottom";
+type RuleNames = 'drawer' | 'drawer-content' | '@keyframes drawerIn' | '@keyframes drawerOut'
+type DrawerPosition = 'left' | 'right' | 'top' | 'bottom'
 interface DrawerProps {
-  width?: string;
-  height?: string;
-  position?: DrawerPosition;
-  showOverlay?: boolean;
-  shy?: boolean;
-  open?: boolean;
-  onClose: (e: any) => any;
+  width?: string
+  height?: string
+  position?: DrawerPosition
+  showOverlay?: boolean
+  shy?: boolean
+  open?: boolean
+  onClose: (e: any) => any
 }
 
-const useStyles = createUseStyles<
-  RuleNames,
-  Omit<DrawerProps, "onClose" | "shy">,
-  Theme
->((theme) => ({
-  "@keyframes drawerIn": ({ position, width, height }) => {
+const useStyles = createUseStyles<RuleNames, Omit<DrawerProps, 'onClose' | 'shy'>, Theme>((theme) => ({
+  '@keyframes drawerIn': ({ position, width, height }) => {
     let from: any = {
-      left: "-" + width,
-    };
+      left: '-' + width,
+    }
     let to: any = {
-      left: "0",
-    };
+      left: '0',
+    }
 
     switch (position) {
-      case "right":
+      case 'right':
         from = {
-          right: "-" + width,
-        };
+          right: '-' + width,
+        }
         to = {
-          right: "0",
-        };
-        break;
-      case "top":
+          right: '0',
+        }
+        break
+      case 'top':
         from = {
-          top: "-" + height,
-        };
+          top: '-' + height,
+        }
         to = {
-          top: "0",
-        };
-        break;
-      case "bottom":
+          top: '0',
+        }
+        break
+      case 'bottom':
         from = {
-          bottom: "-" + height,
-        };
+          bottom: '-' + height,
+        }
         to = {
-          bottom: "0",
-        };
-        break;
+          bottom: '0',
+        }
+        break
       default:
-        break;
+        break
     }
 
     return {
       from: from,
       to: to,
-    };
+    }
   },
-  "@keyframes drawerOut": ({ position, width, height }) => {
+  '@keyframes drawerOut': ({ position, width, height }) => {
     let to: any = {
-      left: "-" + width,
-    };
+      left: '-' + width,
+    }
     let from: any = {
-      left: "0",
-    };
+      left: '0',
+    }
     switch (position) {
-      case "right":
+      case 'right':
         to = {
-          right: "-" + width,
-        };
+          right: '-' + width,
+        }
         from = {
-          right: "0",
-        };
-        break;
-      case "top":
+          right: '0',
+        }
+        break
+      case 'top':
         to = {
-          top: "-" + height,
-        };
+          top: '-' + height,
+        }
         from = {
-          top: "0",
-        };
-        break;
-      case "bottom":
+          top: '0',
+        }
+        break
+      case 'bottom':
         to = {
-          bottom: "-" + height,
-        };
+          bottom: '-' + height,
+        }
         from = {
-          bottom: "0",
-        };
-        break;
+          bottom: '0',
+        }
+        break
       default:
-        break;
+        break
     }
 
     return {
       from: from,
       to: to,
-    };
+    }
   },
-  "drawer-content": ({ open, position, width, height }) => {
+  'drawer-content': ({ open, position, width, height }) => {
     let contentStyle = {},
-      closeStyle = {},
-      openStyle = {};
-    const baseOffset = "-" + height;
+      openStyle = {}
+
+    const closeStyle = {}
+    const baseOffset = '-' + height
     switch (position) {
-      case "left":
+      case 'left':
         contentStyle = {
           width: width,
-          height: "100%",
+          height: '100%',
           left: baseOffset,
-          top: "0",
-          bottom: "0",
-        };
-        openStyle = { left: 0 };
-        break;
-      case "right":
+          top: '0',
+          bottom: '0',
+        }
+        openStyle = { left: 0 }
+        break
+      case 'right':
         contentStyle = {
           width: width,
-          height: "100%",
+          height: '100%',
           right: baseOffset,
-          top: "0",
-          bottom: "0",
-        };
-        openStyle = { right: 0 };
-        break;
-      case "top":
+          top: '0',
+          bottom: '0',
+        }
+        openStyle = { right: 0 }
+        break
+      case 'top':
         contentStyle = {
-          width: "100%",
+          width: '100%',
           height: height,
           left: 0,
           right: 0,
           top: baseOffset,
-        };
-        openStyle = { top: 0 };
-        break;
-      case "bottom":
+        }
+        openStyle = { top: 0 }
+        break
+      case 'bottom':
         contentStyle = {
-          width: "100%",
+          width: '100%',
           height: height,
           left: 0,
           right: 0,
           bottom: baseOffset,
-        };
-        openStyle = { bottom: 0 };
-        break;
+        }
+        openStyle = { bottom: 0 }
+        break
       default:
-        break;
+        break
     }
     return {
-      position: "fixed",
+      position: 'fixed',
       zIndex: theme.zIndex.drawer,
       ...contentStyle,
-      transition: "all .4s",
+      transition: 'all .4s',
 
       ...(open ? openStyle : { ...closeStyle }),
-    };
+    }
   },
   drawer: ({ open }) => ({
-    visibility: open ? "visible" : "hidden",
+    visibility: open ? 'visible' : 'hidden',
   }),
-}));
+}))
 
 const Drawer = ({
-  width = "40vh",
-  height = "18em",
-  position = "left",
+  width = '40vh',
+  height = '18em',
+  position = 'left',
   open = false,
   onClose,
   showOverlay = true,
@@ -182,34 +175,30 @@ const Drawer = ({
   children,
   className,
   ...props
-}: DrawerProps & React.ComponentProps<"aside">) => {
-  const classes = useStyles({ open, width, height, position });
-  const computedClassNames = classnames(classes.drawer);
-  const computedChildClassNames = classnames(
-    classes["drawer-content"],
-    className
-  );
+}: DrawerProps & React.ComponentProps<'aside'>) => {
+  const classes = useStyles({ open, width, height, position })
+  const computedClassNames = classnames(classes.drawer)
+  const computedChildClassNames = classnames(classes['drawer-content'], className)
   const handleClickOverlay = (e: any) => {
     if (shy) {
-      onClose(e);
+      onClose(e)
     }
-  };
+  }
 
   return (
     <aside className={computedClassNames} {...props}>
-      {React.cloneElement(
-        children as React.FunctionComponentElement<{ className: string }>,
-        { className: computedChildClassNames }
-      )}
+      {React.cloneElement(children as React.FunctionComponentElement<{ className: string }>, {
+        className: computedChildClassNames,
+      })}
       <Overlay
         show={open}
         onClick={handleClickOverlay}
         cssOptions={{
-          display: showOverlay ? "flex" : "none",
+          display: showOverlay ? 'flex' : 'none',
         }}
       />
     </aside>
-  );
-};
+  )
+}
 
-export default Drawer;
+export default Drawer

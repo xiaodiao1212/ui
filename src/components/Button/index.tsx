@@ -1,22 +1,23 @@
-import React, { useCallback, useEffect, useState } from "react";
-import classnames from "classnames";
-import { createUseStyles, useTheme } from "react-jss";
-import { Theme } from "../../constants/theme";
+import { useCallback, useEffect, useState } from 'react'
+import * as React from 'react'
+import classnames from 'classnames'
+import { createUseStyles, useTheme } from 'react-jss'
+import { Theme } from '../../constants/theme'
 type ButtonProps = {
-  padding?: string;
-  block?: boolean;
-  disabled?: boolean;
-  text?: boolean;
-  outlined?: boolean;
-  icon?: boolean;
-  tile?: boolean;
-  backgroundColor?: string;
-  borderRadius?: string;
-  color?: string;
-  flat?: boolean;
-  cssOptions?: React.CSSProperties;
-};
-type RuleNames = "button";
+  padding?: string
+  block?: boolean
+  disabled?: boolean
+  text?: boolean
+  outlined?: boolean
+  icon?: boolean
+  tile?: boolean
+  backgroundColor?: string
+  borderRadius?: string
+  color?: string
+  flat?: boolean
+  cssOptions?: React.CSSProperties
+}
+type RuleNames = 'button'
 
 const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>((theme) => ({
   button: ({
@@ -33,33 +34,26 @@ const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>((theme) => ({
     outlined,
     backgroundColor,
   }) => ({
-    padding: icon ? "" : "0.6em 1.2em",
-    width: block ? "100%" : "auto",
-    border: outlined
-      ? "1px solid " + (color || theme.colorPrimary || "#333")
-      : "none",
-    borderRadius: tile
-      ? theme.borderRadius0 || "0px"
-      : borderRadius || theme.borderRadiusDefault || "4px",
+    padding: icon ? '' : '0.6em 1.2em',
+    width: block ? '100%' : 'auto',
+    border: outlined ? '1px solid ' + (color || theme.colorPrimary || '#333') : 'none',
+    borderRadius: tile ? theme.borderRadius0 || '0px' : borderRadius || theme.borderRadiusDefault || '4px',
     color: text
-      ? color || theme.colorPrimary || "#333"
+      ? color || theme.colorPrimary || '#333'
       : color || outlined
       ? theme.colorPrimary
-      : theme.colorTextInLight || "#fff",
+      : theme.colorTextInLight || '#fff',
     backgroundColor:
       disabled == false
         ? text || outlined || icon
-          ? "transparent"
+          ? 'transparent'
           : backgroundColor || theme.colorPrimary
         : theme.palette.grey[400],
     ...cssOptions,
   }),
-}));
+}))
 
-const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps & React.ComponentPropsWithoutRef<"button">
->(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.ComponentPropsWithoutRef<'button'>>(
   (
     {
       block = false,
@@ -78,9 +72,9 @@ const Button = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const theme = useTheme<Theme>();
+    const theme = useTheme<Theme>()
     const classes = useStyles({
       theme,
       color,
@@ -95,19 +89,14 @@ const Button = React.forwardRef<
       backgroundColor,
       borderRadius,
       padding,
-    });
-    const computedClassNames = classnames(classes.button, className);
+    })
+    const computedClassNames = classnames(classes.button, className)
     return (
-      <button
-        ref={ref}
-        className={computedClassNames}
-        disabled={disabled}
-        {...props}
-      >
+      <button ref={ref} className={computedClassNames} disabled={disabled} {...props}>
         {children}
       </button>
-    );
-  }
-);
+    )
+  },
+)
 
-export default Button;
+export default Button
