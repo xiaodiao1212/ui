@@ -1,16 +1,19 @@
-import { ThemeProvider, createUseStyles } from 'react-jss'
+import { ThemeProvider, createUseStyles, JssProvider } from 'react-jss'
 import { defaultStyle } from '../../constants/style'
 import { theme, Theme } from '../../constants/theme'
-type AppProps = {
+type AppProps = React.ComponentPropsWithoutRef<'div'> & {
   customTheme?: Theme
-} & React.ComponentPropsWithoutRef<'div'>
+}
+
 const useDefaultStyle = createUseStyles(defaultStyle)
 const App = ({ children, customTheme }: AppProps) => {
   useDefaultStyle()
   return (
-    <ThemeProvider theme={customTheme || theme}>
-      <div data-testid="app">{children}</div>
-    </ThemeProvider>
+    <JssProvider id={{ minify: true }}>
+      <ThemeProvider theme={customTheme || theme}>
+        <div data-testid="app">{children}</div>
+      </ThemeProvider>
+    </JssProvider>
   )
 }
 

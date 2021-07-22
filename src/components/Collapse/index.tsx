@@ -59,6 +59,7 @@ const Collapse = ({
   const classes = useStyles({
     expand,
   })
+  console.log(classes)
   const handleClickExpand = () => {
     props?.onClickExpand?.()
   }

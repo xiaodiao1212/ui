@@ -1,6 +1,6 @@
 {
   "name": "xkits-components",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A mobile react tool library",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -24,10 +24,11 @@
     "url": "git+https://github.com/fogcity/components.git"
   },
   "keywords": [
-    "react-project",
-    "typescript-project",
-    "react-typescript",
-    "mobile"
+    "react",
+    "ui",
+    "mobile ui",
+    "react-component",
+    "typescript"
   ],
   "author": {
     "name": "trevor",

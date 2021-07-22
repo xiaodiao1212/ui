@@ -1,12 +1,14 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App } from '../src/index'
+import { App, Container, Button, useCustomTheme } from '../src'
 
 const Main = () => {
   return (
-    <div>
-      <App />
-    </div>
+    <App>
+      <Container>
+        <Button>1</Button>
+      </Container>
+    </App>
   )
 }
 

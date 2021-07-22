@@ -1,29 +1,12 @@
-import palette from '../palette'
-
 const theme: Theme = {
-  palette: palette,
-  colorPrimary: palette.indigo[500],
-  paddingInput: '.6em',
-  borderRadius0: '0px',
-  borderRadiusDefault: '4px',
-  borderRadiusCircle: '50%',
-  backgroundColorDefault: palette.common.white,
-  colorSecondary: palette.red[500],
-  colorTextInLight: palette.grey[900],
-  colorTextInDark: palette.common.white,
-  colorPlaceholder: palette.grey[400],
-  backgroundColorInput: palette.grey[100],
-  border: {
-    color: '#CDCDCD',
-  },
-  text: {
-    disabled: palette.common.grey,
-    primary: palette.common.black,
-    secondary: palette.common.grey,
-  },
-  overlay: {
-    backgroundColor: palette.grey[900],
-    borderColor: palette.grey[900],
+  mode: 'light',
+  color: {
+    primary: '#231F9C',
+    primaryLight: '#CDCBED',
+    black: '#111827',
+    grey: '#6b7280',
+    greyLight: '#F3F4F6',
+    white: '#fff',
   },
   zIndex: {
     appBar: 700,
@@ -35,6 +18,7 @@ const theme: Theme = {
   },
 }
 type Theme = {
+  mode: 'dark' | 'light'
   zIndex: {
     appBar: number
     bottomNavigation: number
@@ -43,29 +27,14 @@ type Theme = {
     snackbar: number
     drawer: number
   }
-  border: {
-    color: string
-  }
-  text: {
+  color: {
     primary: string
-    secondary: string
-    disabled: string
-  }
-  palette: typeof palette
-  borderRadiusCircle: string
-  borderRadiusDefault: string
-  colorPrimary: string
-  borderRadius0: string
-  backgroundColorDefault: string
-  paddingInput: string
-  colorSecondary: string
-  colorTextInLight: string
-  colorTextInDark: string
-  colorPlaceholder: string
-  backgroundColorInput: string
-  overlay: {
-    backgroundColor: string
-    borderColor: string
+    primaryLight: string
+    black: string
+    grey: string
+    greyLight: string
+    white: string
   }
 }
+
 export { theme, Theme }

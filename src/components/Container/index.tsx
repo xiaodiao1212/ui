@@ -80,9 +80,14 @@ const Container = ({
     fullScreen,
     cssOptions,
   })
-  const computedClassNames = classnames(classes.container, {
-    [`${className}`]: true,
-  })
+  const computedClassNames = classnames(
+    classes.container,
+    className && {
+      [`${className}`]: true,
+    },
+  )
+  console.log(computedClassNames)
+
   return (
     <div className={computedClassNames} {...props}>
       {children}

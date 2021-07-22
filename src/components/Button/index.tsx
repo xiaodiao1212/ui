@@ -19,39 +19,42 @@ type ButtonProps = {
 }
 type RuleNames = 'button'
 
-const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>((theme) => ({
-  button: ({
-    block,
-    color,
-    tile,
-    cssOptions,
-    padding,
-    icon,
-    disabled,
-    borderRadius,
-    flat,
-    text,
-    outlined,
-    backgroundColor,
-  }) => ({
-    padding: icon ? '' : '0.6em 1.2em',
-    width: block ? '100%' : 'auto',
-    border: outlined ? '1px solid ' + (color || theme.colorPrimary || '#333') : 'none',
-    borderRadius: tile ? theme.borderRadius0 || '0px' : borderRadius || theme.borderRadiusDefault || '4px',
-    color: text
-      ? color || theme.colorPrimary || '#333'
-      : color || outlined
-      ? theme.colorPrimary
-      : theme.colorTextInLight || '#fff',
-    backgroundColor:
-      disabled == false
-        ? text || outlined || icon
-          ? 'transparent'
-          : backgroundColor || theme.colorPrimary
-        : theme.palette.grey[400],
-    ...cssOptions,
+const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>(
+  (theme) => ({
+    button: ({
+      block,
+      color,
+      tile,
+      cssOptions,
+      padding,
+      icon,
+      disabled,
+      borderRadius,
+      flat,
+      text,
+      outlined,
+      backgroundColor,
+    }) => ({
+      padding: icon ? '' : '0.6em 1.2em',
+      width: block ? '100%' : 'auto',
+      border: outlined ? '1px solid ' + (color || theme.colorPrimary || '#333') : 'none',
+      borderRadius: tile ? theme.borderRadius0 || '0px' : borderRadius || theme.borderRadiusDefault || '4px',
+      color: text
+        ? color || theme.colorPrimary || '#333'
+        : color || outlined
+        ? theme.colorPrimary
+        : theme.colorTextInLight || '#fff',
+      backgroundColor:
+        disabled == false
+          ? text || outlined || icon
+            ? 'transparent'
+            : backgroundColor || theme.colorPrimary
+          : theme.palette.grey[400],
+      ...cssOptions,
+    }),
   }),
-}))
+  { name: 'Button', classNamePrefix: 'Button' },
+)
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.ComponentPropsWithoutRef<'button'>>(
   (
@@ -90,7 +93,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.Component
       borderRadius,
       padding,
     })
-    const computedClassNames = classnames(classes.button, className)
+    // jss bug 会生成一个额外的无用类
+    const buttonStyle = classes.button.split(' ')[1]
+    const computedClassNames = classnames(buttonStyle, className)
     return (
       <button ref={ref} className={computedClassNames} disabled={disabled} {...props}>
         {children}
