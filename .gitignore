@@ -3,3 +3,4 @@ dist
 example/node_modules
 example/dist
 example/.cache
+yarn.lock
