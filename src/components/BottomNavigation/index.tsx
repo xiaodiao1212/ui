@@ -31,7 +31,7 @@ const useStyles = createUseStyles<RuleNames, BottomNavigationProps, Theme>((them
   }),
   BottomNavigation: ({ absolute, cssOptions, height, shy }) => ({
     position: absolute ? 'absolute' : 'fixed',
-    backgroundColor: palette.common.white,
+    backgroundColor: theme.mode == 'light' ? theme.color.white || '#fff' : theme.color.black || '#111827',
     left: 0,
     right: 0,
     bottom: 0,

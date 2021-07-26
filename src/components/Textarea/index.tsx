@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import * as React from 'react'
 import classnames from 'classnames'
-import palette from '../../constants/palette'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
@@ -12,10 +10,10 @@ type RuleNames = 'textarea'
 
 const useStyles = createUseStyles<RuleNames, TextareaProps, Theme>((theme) => ({
   textarea: ({ cssOptions }) => ({
-    maxWidth: '100%',
-    padding: theme?.paddingInput || '12px',
-    backgroundColor: theme?.backgroundColorInput || palette.grey[100],
-    color: theme?.colorTextInLight || palette.common.white,
+    width: '100%',
+    padding: '12px',
+    backgroundColor: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.white) : 'transparent',
+    color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827',
     ...cssOptions,
   }),
 }))

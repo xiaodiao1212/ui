@@ -30,8 +30,9 @@ import Tabs from './components/Tabs'
 import BottomNavigation from './components/BottomNavigation'
 import { useCustomTheme } from './hooks'
 import palette from './constants/palette'
-
+import List from './components/List'
 export {
+  List,
   Tabs,
   BottomNavigation,
   Image,
