@@ -20,7 +20,15 @@ const useStyles = createUseStyles<RuleNames, TextProps, Theme>((theme) => ({
     ...props,
     fontWeight: fontWeight || (blod ? '700' : '500'),
     display: span ? 'inline-block' : 'block',
-    color: color || (dark ? theme.colorTextInDark || '#fff' : theme.colorTextInLight || '#2e2e2e'),
+    color:
+      color ||
+      (dark
+        ? theme?.color?.white || '#fff'
+        : theme
+        ? theme.mode == 'light'
+          ? theme.color.black
+          : theme.color.white
+        : '#111827'),
     // display: "contents",
     ...cssOptions,
   }),

@@ -10,10 +10,10 @@ type ProgressProps = {
 type RuleNames = 'progress' | 'bar'
 const useStyles = createUseStyles<RuleNames, ProgressProps, Theme>((theme) => ({
   progress: ({ backgroundColor }) => ({
-    backgroundColor: backgroundColor || theme?.palette?.grey['300'] || 'grey',
+    backgroundColor: backgroundColor || theme?.color?.greyLight || '#F3F4F6',
   }),
   bar: ({ color }) => ({
-    backgroundColor: color || theme?.colorPrimary || '#3f51b5',
+    backgroundColor: color || theme?.color?.primary || '#231F9C',
   }),
 }))
 const Progress = ({

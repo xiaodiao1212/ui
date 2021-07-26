@@ -1,7 +1,4 @@
-import { useState } from 'react'
-import * as React from 'react'
 import classnames from 'classnames'
-import palette from '../../constants/palette'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 import Col from '../Col'
@@ -11,34 +8,34 @@ type InputProps = {
   flex?: number
   gap?: string
   format?: (value: string) => string
+  onChange?: (value: string, e: any) => any
   prefix?: { node: React.ReactNode; flex: number }
   suffix?: { node: React.ReactNode; flex: number }
-  border?: boolean
+  outline?: boolean
   contain?: boolean
   cssOptions?: React.CSSProperties
 }
 type RuleNames = 'input' | 'input-container'
 
 const useStyles = createUseStyles<RuleNames, InputProps & { disabled?: boolean }, Theme>((theme) => ({
-  input: ({ cssOptions, disabled, border, contain }) => ({
+  input: ({ cssOptions, disabled, outline, contain }) => ({
     width: '100%',
-    padding: theme?.paddingInput || '.6em',
+    padding: '.6em',
     backgroundColor: contain
-      ? theme?.backgroundColorInput || palette.grey[100]
+      ? theme?.color?.greyLight || '#F3F4F6'
       : disabled
-      ? theme?.backgroundColorInput || palette.grey[100]
+      ? theme?.color?.greyLight || '#F3F4F6'
       : 'transparent',
-
-    color: disabled ? theme?.text.disabled : theme?.colorTextInLight || palette.common.white,
-    border: border ? (!disabled ? '1px solid ' + theme?.border.color : 'none') : 'none',
-    borderRadius: theme?.borderRadiusDefault || '4px',
+    color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
+    outline: outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
+    borderRadius: '4px',
     ...cssOptions,
   }),
   'input-container': ({ cssOptions, disabled, contain }) => ({
     backgroundColor: contain
-      ? theme?.backgroundColorInput || palette.grey[100]
+      ? theme?.color?.greyLight || '#F3F4F6'
       : disabled
-      ? theme?.backgroundColorInput || palette.grey[100]
+      ? theme?.color?.greyLight || '#F3F4F6'
       : 'transparent',
     ...cssOptions,
   }),
@@ -54,27 +51,30 @@ const Input = ({
   flex = 1,
   gap,
   contain = false,
-  border = false,
+  outline = false,
   format,
   disabled,
+  onChange,
   cssOptions,
   children,
   className,
   ...props
-}: InputProps & Omit<React.ComponentPropsWithoutRef<'input'>, 'suffix' | 'prefix'>) => {
-  const classes = useStyles({ cssOptions, disabled, border, contain })
+}: Omit<React.ComponentPropsWithoutRef<'input'>, 'suffix' | 'prefix'> & InputProps) => {
+  const classes = useStyles({ cssOptions, disabled, outline, contain })
   const computedClassNames = classnames(classes.input, className)
   const clsnsContainer = classnames(classes['input-container'], className)
+  const handleInputChange = (e: { target: { value: string } }) => {
+    onChange?.(format?.(e.target.value) || e.target.value, e)
+  }
+  const inputNode = <input className={computedClassNames} {...props} onChange={handleInputChange} />
   return prefix || suffix ? (
     <Row className={clsnsContainer} gap={gap}>
       {prefix && <Col flex={prefix.flex}>{prefix.node}</Col>}
-      <Col flex={flex}>
-        <input className={computedClassNames} {...props} />
-      </Col>
+      <Col flex={flex}>{inputNode}</Col>
       {suffix && <Col flex={suffix.flex}>{suffix.node}</Col>}
     </Row>
   ) : (
-    <input className={computedClassNames} {...props} />
+    { inputNode }
   )
 }
 

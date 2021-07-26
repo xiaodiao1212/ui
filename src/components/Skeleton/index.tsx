@@ -16,7 +16,7 @@ const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>((theme) => ({
     borderRadius: '4px',
     background:
       'linear-gradient(90deg,rgba(255, 255, 255, 0) 40%,rgba(255, 255, 255, .5) 50%,rgba(255, 255, 255, 0) 60%) ' +
-        theme?.palette?.grey[300] || '#e0e0e0',
+        theme?.color?.greyLight || '#F3F4F6',
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: props.duration + 's $loading ease-in-out infinite',
@@ -25,7 +25,7 @@ const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>((theme) => ({
   'skeleton-circle': (props) => ({
     width: props.width,
     height: props.height,
-    border: '1px solid ' + theme?.palette?.grey[300] || '#e0e0e0',
+    border: '1px solid ' + theme?.color?.greyLight || '#F3F4F6',
     borderRadius: '50%',
   }),
   '@keyframes loading': {
