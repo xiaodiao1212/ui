@@ -33,7 +33,9 @@ const List = ({
     cssOptions,
   })
 
-  const clsns = classnames(classes.list, { [`${className}`]: true })
+  const clsns = classnames(classes.list, className)
+  const [scrollTop, setScrollTop] = useState(0)
+  const [isTouch, setIsTouch] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const handleScrollToBottomOver = () => {
     setIsFetching(false)
@@ -45,10 +47,20 @@ const List = ({
 
   const handleScroll = (e: any) => {
     const element = e.target
+    setScrollTop(element.scrollTop)
     if (element.scrollTop + element.clientHeight + triggerValue < element.scrollHeight || isFetching) return
     setIsFetching(true)
   }
-
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (scrollTop > 0 && isTouch) e.stopPropagation()
+    setIsTouch(true)
+  }
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (scrollTop > 0 && isTouch) e.stopPropagation()
+  }
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    setIsTouch(false)
+  }
   useEffect(() => {
     if (!isFetching) return
     handleScrollToBottom()
@@ -56,7 +68,14 @@ const List = ({
 
   return (
     <>
-      <div onScroll={handleScroll} className={clsns} {...props}>
+      <div
+        onScroll={handleScroll}
+        onTouchStart={(e) => handleTouchStart(e)}
+        onTouchMove={(e) => handleTouchMove(e)}
+        onTouchEnd={(e) => handleTouchEnd(e)}
+        className={clsns}
+        {...props}
+      >
         {children}
       </div>
       {isFetching && fetchNode}

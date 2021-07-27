@@ -19,7 +19,6 @@ import Image from './components/Image'
 import Alert from './components/Alert'
 import Timeline from './components/Timeline/Timeline'
 import Collapse from './components/Collapse'
-
 import Chip from './components/Chip'
 import Snackbar from './components/Snackbar'
 import Input from './components/Input'
@@ -31,8 +30,10 @@ import BottomNavigation from './components/BottomNavigation'
 import { useCustomTheme } from './hooks'
 import palette from './constants/palette'
 import List from './components/List'
+import PullToRefresh from './components/PullToRefresh'
 export {
   List,
+  PullToRefresh,
   Tabs,
   BottomNavigation,
   Image,

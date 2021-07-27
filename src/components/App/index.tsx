@@ -9,7 +9,7 @@ const useDefaultStyle = createUseStyles(defaultStyle)
 const App = ({ children, customTheme }: AppProps) => {
   useDefaultStyle()
   return (
-    <JssProvider id={{ minify: true }}>
+    <JssProvider>
       <ThemeProvider theme={customTheme || theme}>
         <div data-testid="app">{children}</div>
       </ThemeProvider>

@@ -39,7 +39,7 @@ const useStyles = createUseStyles<RuleNames, ContainerProps, Theme>((theme) => (
     else paddingComputed = padding
     return {
       height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
-      overflow: scroll ? 'auto' : 'visible',
+      overflow: scroll ? 'auto' : '',
       padding: paddingComputed,
       ...(sticky && {
         position: 'sticky',
