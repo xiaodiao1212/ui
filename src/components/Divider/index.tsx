@@ -22,13 +22,13 @@ const useStyles = createUseStyles<RuleNames, DividerProps, Theme>((theme) => ({
           borderLeft: '1px ' + (dashed ? 'dashed' : 'solid'),
           width: 0,
           maxWidth: 0,
-          borderLeftColor: color || theme.backgroundColorDefault,
+          borderLeftColor: color || theme.color.greyLight,
         }
       : {
           borderTop: '1px ' + (dashed ? 'dashed' : 'solid'),
           height: 0,
           maxHeight: 0,
-          borderTopColor: color || theme.backgroundColorDefault,
+          borderTopColor: color || theme.color.greyLight,
         }),
     ...cssOptions,
   }),

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import * as React from 'react'
 import classnames from 'classnames'
 import palette from '../../constants/palette'
-import { Theme } from '../../constants/theme'
+import { theme, Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 import Button from '../Button'
 import Col from '../Col'
@@ -38,7 +38,7 @@ const Tabs = ({ items, onClickTab, color, tab, cssOptions, className }: TabsProp
         <Col
           key={i}
           cssOptions={{
-            backgroundColor: color || '#27067D',
+            backgroundColor: color || theme.color.greyLight,
           }}
         >
           <Text
@@ -51,9 +51,9 @@ const Tabs = ({ items, onClickTab, color, tab, cssOptions, className }: TabsProp
               padding: '0.3em 0',
               ...(tab == v.key
                 ? {
-                    borderBottom: '3px solid white',
+                    borderBottom: '3px solid ' + theme.color.white,
                   }
-                : { borderBottom: '3px solid ' + (color || '#27067D') }),
+                : { borderBottom: '3px solid ' + (color || theme.color.greyLight) }),
             }}
           >
             {v.title}
