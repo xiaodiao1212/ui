@@ -11,45 +11,29 @@ type ButtonProps = {
   outlined?: boolean
   icon?: boolean
   tile?: boolean
-  backgroundColor?: string
-  borderRadius?: string
   color?: string
-  flat?: boolean
   cssOptions?: React.CSSProperties
 }
 type RuleNames = 'button'
 
 const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>(
   (theme) => ({
-    button: ({
-      block,
-      color,
-      tile,
-      cssOptions,
-      padding,
-      icon,
-      disabled,
-      borderRadius,
-      flat,
-      text,
-      outlined,
-      backgroundColor,
-    }) => ({
+    button: ({ block, color, tile, cssOptions, icon, disabled, text, outlined }) => ({
       padding: icon ? '' : '0.6em 1.2em',
       width: block ? '100%' : 'auto',
-      border: outlined ? '1px solid ' + (color || theme.colorPrimary || '#333') : 'none',
-      borderRadius: tile ? theme.borderRadius0 || '0px' : borderRadius || theme.borderRadiusDefault || '4px',
-      color: text
-        ? color || theme.colorPrimary || '#333'
-        : color || outlined
-        ? theme.colorPrimary
-        : theme.colorTextInLight || '#fff',
+      border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
+      borderRadius: tile ? '0px' : '4px',
+      color: theme.mode == 'light' ? theme.color.white || '#fff' : theme.color.black || '#111827',
       backgroundColor:
         disabled == false
           ? text || outlined || icon
             ? 'transparent'
-            : backgroundColor || theme.colorPrimary
-          : theme.palette.grey[400],
+            : theme
+            ? theme.color.primary
+            : '#231F9C'
+          : theme
+          ? theme.color.greyLight
+          : '#F3F4F5',
       ...cssOptions,
     }),
   }),
@@ -67,9 +51,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.Component
       icon = false,
       tile = false,
       color,
-      borderRadius,
-      backgroundColor,
-      flat = true,
       padding,
       className,
       children,
@@ -84,18 +65,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.Component
       block,
       tile,
       icon,
-      flat,
       disabled,
       text,
       cssOptions,
       outlined,
-      backgroundColor,
-      borderRadius,
       padding,
     })
-    // jss bug 会生成一个额外的无用类
-    const buttonStyle = classes.button.split(' ')[1]
-    const computedClassNames = classnames(buttonStyle, className)
+
+    const computedClassNames = classnames(classes.button, className)
     return (
       <button ref={ref} className={computedClassNames} disabled={disabled} {...props}>
         {children}

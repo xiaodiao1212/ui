@@ -35,9 +35,11 @@ const useStyles = createUseStyles<RuleNames, Omit<SnackbarProps, 'onClose'>, The
   },
   snackbar: ({ show, color }) => ({
     visibility: 'hidden',
-    backgroundColor: color || theme.colorPrimary || palette.grey[900],
+    backgroundColor: color || theme ? theme.color.black : '#111827',
+    color: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.greyLight) : '#fff',
+
     textAlign: 'center',
-    borderRadius: theme.borderRadiusDefault || '4px',
+    borderRadius: '4px',
     padding: '0.4em',
     position: 'fixed',
     zIndex: theme.zIndex.snackbar,
