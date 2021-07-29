@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ListProps = {
   triggerValue?: number
-  onScrollToBottom: (handleScrollToBottomOver: () => any) => any
+  onScrollToBottom?: (handleScrollToBottomOver: () => any) => any
   fetchNode?: React.ReactNode
   cssOptions?: React.CSSProperties
 }
@@ -42,7 +42,7 @@ const List = ({
   }
 
   const handleScrollToBottom = () => {
-    onScrollToBottom(handleScrollToBottomOver)
+    onScrollToBottom?.(handleScrollToBottomOver)
   }
 
   const handleScroll = (e: any) => {
@@ -67,19 +67,17 @@ const List = ({
   }, [isFetching])
 
   return (
-    <>
-      <div
-        onScroll={handleScroll}
-        onTouchStart={(e) => handleTouchStart(e)}
-        onTouchMove={(e) => handleTouchMove(e)}
-        onTouchEnd={(e) => handleTouchEnd(e)}
-        className={clsns}
-        {...props}
-      >
-        {children}
-      </div>
+    <div
+      onScroll={handleScroll}
+      onTouchStart={(e) => handleTouchStart(e)}
+      onTouchMove={(e) => handleTouchMove(e)}
+      onTouchEnd={(e) => handleTouchEnd(e)}
+      className={clsns}
+      {...props}
+    >
+      {children}
       {isFetching && fetchNode}
-    </>
+    </div>
   )
 }
 

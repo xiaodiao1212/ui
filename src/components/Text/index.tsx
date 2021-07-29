@@ -1,25 +1,26 @@
-import { CSSProperties, useState } from 'react'
-import * as React from 'react'
-import { createUseStyles, useTheme } from 'react-jss'
+import { createUseStyles } from 'react-jss'
 import classnames from 'classnames'
 import { Theme } from '../../constants/theme'
 type TextProps = Partial<{
   blod: boolean
   color: string | string
   fontSize: string
-  fontWeight: number
+  maxLength: number
   dark: boolean
-  span: boolean
-  cssOptions?: React.CSSProperties
+  cssOptions: React.CSSProperties
 }>
 
 type RuleNames = 'text'
 
 const useStyles = createUseStyles<RuleNames, TextProps, Theme>((theme) => ({
-  text: ({ color, dark, blod, fontWeight, cssOptions, span, ...props }) => ({
+  text: ({ color, dark, blod, maxLength, cssOptions, ...props }) => ({
     ...props,
-    fontWeight: fontWeight || (blod ? '700' : '500'),
-    display: span ? 'inline-block' : 'block',
+    fontWeight: blod ? '700' : '500',
+    display: 'inline-block',
+    textOverflow: maxLength ? 'ellipsis' : '',
+    whiteSpace: maxLength ? 'nowrap' : '',
+    width: maxLength || '',
+    overflow: maxLength ? 'hidden' : '',
     color:
       color ||
       (dark
@@ -29,18 +30,15 @@ const useStyles = createUseStyles<RuleNames, TextProps, Theme>((theme) => ({
           ? theme.color.black
           : theme.color.white
         : '#111827'),
-    // display: "contents",
     ...cssOptions,
   }),
 }))
 
 const Text = ({
   dark = false,
-  blod = false,
-  span = false,
-  fontWeight,
-
+  maxLength,
   fontSize,
+  blod,
   color,
   children,
   cssOptions,
@@ -49,10 +47,9 @@ const Text = ({
 }: TextProps & React.ComponentProps<'div'>) => {
   const classes = useStyles({
     color,
-    fontSize,
     blod,
-    span,
-    fontWeight,
+    fontSize,
+    maxLength,
     dark,
     cssOptions,
   })

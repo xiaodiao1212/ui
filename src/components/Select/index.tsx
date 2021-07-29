@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
@@ -50,7 +49,7 @@ const Select = ({ value, onSelectChange, data, open, onClose, children, classNam
     onClose()
   }
   return (
-    <Drawer height="14em" position="bottom" open={open} onClose={handleClickDrawer} className={computedClassNames}>
+    <Drawer position="bottom" open={open} onClose={handleClickDrawer} className={computedClassNames}>
       <div
         style={{
           borderTopRightRadius: '8px',

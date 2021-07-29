@@ -46,7 +46,7 @@ const Divider = ({
   className,
   children,
   ...props
-}: DividerProps & React.ComponentPropsWithoutRef<'hr'>) => {
+}: DividerProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     vertical,
     dashed,
@@ -55,7 +55,7 @@ const Divider = ({
   })
 
   const computedClassNames = classnames(classes.divider, className)
-  return <hr className={computedClassNames} {...props} />
+  return <div className={computedClassNames} {...props} />
 }
 
 export default Divider

@@ -10,29 +10,44 @@ type PullToRefreshProps = {
   onPull?: (pullLength: number) => any
   onPullEnd?: () => any
   onRefresh?: (refreshOver: () => any) => any
+  refreshLoading?: React.ReactNode
   cssOptions?: React.CSSProperties
 }
-type RuleNames = 'pullToRefresh'
-const useStyles = createUseStyles<RuleNames, Pick<PullToRefreshProps, 'cssOptions'> & { translateY: number }, Theme>(
-  (theme) => ({
-    pullToRefresh: ({ translateY, cssOptions }) => {
-      const pullToRefreshStyle: React.CSSProperties = {
-        height: '100%',
-        transition: '.2s transform cubic-bezier(0, 0, 0.19, 1.25)',
-        transform: `translate3d(0px, ${translateY}px, 0px)`,
-        cursor: 'grab',
-        ...cssOptions,
-      }
-      return pullToRefreshStyle
-    },
-  }),
-)
+type RuleNames = 'pullToRefresh' | 'refresh-loading'
+const useStyles = createUseStyles<
+  RuleNames,
+  Pick<PullToRefreshProps, 'cssOptions' | 'triggerValue'> & { translateY: number },
+  Theme
+>((theme) => ({
+  'refresh-loading': ({ translateY, triggerValue, cssOptions }) => {
+    const pullToRefreshStyle: React.CSSProperties = {
+      transform: `translate3d(0px, ${-(triggerValue as number) + translateY}px, 0px)`,
+      maxHeight: triggerValue,
+      height: translateY,
+      transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
+      display: translateY > (triggerValue as number) / 4 ? 'block' : 'none',
+      ...cssOptions,
+    }
+    return pullToRefreshStyle
+  },
+  pullToRefresh: ({ translateY, triggerValue }) => {
+    const pullToRefreshStyle: React.CSSProperties = {
+      height: '100%',
+      overflow: 'auto',
+      // transition: '.3s transform cubic-bezier(0, 0, 0.19, 1.25)',
+      // transform: `translate3d(0px, ${translateY - (triggerValue as number)}px, 0px)`,
+      cursor: 'grab',
+    }
+    return pullToRefreshStyle
+  },
+}))
 const PullToRefresh = ({
-  triggerValue = 100,
+  triggerValue = 80,
   onPull,
   onPullStart,
   onPullEnd,
   onRefresh,
+  refreshLoading,
   className,
   children,
   cssOptions,
@@ -42,18 +57,18 @@ const PullToRefresh = ({
   const [isRefresh, setIsRefresh] = useState(false)
   const [translateY, setTranslateY] = useState(0)
   const [startY, setStartY] = useState(0)
-  const classes = useStyles({ translateY, cssOptions })
-  const computedClassNames = classnames(classes.pullToRefresh, className)
+  const classes = useStyles({ translateY, triggerValue, cssOptions })
+  const computedRefreshClassNames = classnames(classes.pullToRefresh, className)
+  const computedLoadingClassNames = classnames(classes['refresh-loading'], className)
+
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setStartY(e.touches[0].pageY)
     onPullStart?.()
   }
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (startY != 0 && !e.isDefaultPrevented()) {
+    if (startY != 0 && !e.isPropagationStopped()) {
       length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)))
-      console.log('length', length)
-
       const pl = Math.min(triggerValue, length)
       setTranslateY(pl)
       setPullLength(length)
@@ -70,6 +85,7 @@ const PullToRefresh = ({
   const handleTouchEnd = () => {
     onPullEnd?.()
     if (pullLength >= triggerValue) {
+      setTranslateY((v) => v / 1.2)
       setIsRefresh(true)
       onRefresh?.(() => setIsRefresh(false))
     } else {
@@ -85,20 +101,15 @@ const PullToRefresh = ({
 
   return (
     <div
-      className={computedClassNames}
-      onScroll={() => {
-        console.log('refresh scroll')
-      }}
+      className={computedRefreshClassNames}
+      onScroll={() => {}}
       onTouchStart={(e) => handleTouchStart(e)}
       onTouchMove={(e) => handleTouchMove(e)}
       onTouchEnd={(e) => handleTouchEnd()}
       {...props}
     >
-      {React.cloneElement(children as React.FunctionComponentElement<{ cssOptions: React.CSSProperties }>, {
-        cssOptions: {
-          // overflow: pullLength > 0 ? 'hidden' : '',
-        },
-      })}
+      <div className={computedLoadingClassNames}>{refreshLoading}</div>
+      {children}
     </div>
   )
 }
