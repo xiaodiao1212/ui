@@ -52,7 +52,6 @@ const List = ({
     setIsFetching(true)
   }
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (scrollTop > 0 && isTouch) e.stopPropagation()
     setIsTouch(true)
   }
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {

@@ -6,6 +6,7 @@ import { Theme } from '../../constants/theme'
 
 type PullToRefreshProps = {
   triggerValue?: number
+  delay?: number
   onPullStart?: () => any
   onPull?: (pullLength: number) => any
   onPullEnd?: () => any
@@ -16,16 +17,18 @@ type PullToRefreshProps = {
 type RuleNames = 'pullToRefresh' | 'refresh-loading'
 const useStyles = createUseStyles<
   RuleNames,
-  Pick<PullToRefreshProps, 'cssOptions' | 'triggerValue'> & { translateY: number },
+  Pick<PullToRefreshProps, 'cssOptions' | 'triggerValue'> & {
+    translateY: number
+  },
   Theme
 >((theme) => ({
   'refresh-loading': ({ translateY, triggerValue, cssOptions }) => {
     const pullToRefreshStyle: React.CSSProperties = {
       transform: `translate3d(0px, ${-(triggerValue as number) + translateY}px, 0px)`,
-      maxHeight: triggerValue,
+      // maxHeight: triggerValue,
       height: translateY,
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
-      display: translateY > (triggerValue as number) / 4 ? 'block' : 'none',
+      // display: translateY > (triggerValue as number) / 4 ? "block" : "none",
       ...cssOptions,
     }
     return pullToRefreshStyle
@@ -33,7 +36,7 @@ const useStyles = createUseStyles<
   pullToRefresh: ({ translateY, triggerValue }) => {
     const pullToRefreshStyle: React.CSSProperties = {
       height: '100%',
-      overflow: 'auto',
+      overflow: 'hidden',
       // transition: '.3s transform cubic-bezier(0, 0, 0.19, 1.25)',
       // transform: `translate3d(0px, ${translateY - (triggerValue as number)}px, 0px)`,
       cursor: 'grab',
@@ -43,6 +46,7 @@ const useStyles = createUseStyles<
 }))
 const PullToRefresh = ({
   triggerValue = 80,
+  delay = 30,
   onPull,
   onPullStart,
   onPullEnd,
@@ -57,7 +61,11 @@ const PullToRefresh = ({
   const [isRefresh, setIsRefresh] = useState(false)
   const [translateY, setTranslateY] = useState(0)
   const [startY, setStartY] = useState(0)
-  const classes = useStyles({ translateY, triggerValue, cssOptions })
+  const classes = useStyles({
+    translateY,
+    triggerValue,
+    cssOptions,
+  })
   const computedRefreshClassNames = classnames(classes.pullToRefresh, className)
   const computedLoadingClassNames = classnames(classes['refresh-loading'], className)
 
@@ -67,10 +75,10 @@ const PullToRefresh = ({
   }
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (startY != 0 && !e.isPropagationStopped()) {
+    if (startY != 0) {
       length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)))
-      const pl = Math.min(triggerValue, length)
-      setTranslateY(pl)
+      const pl = Math.min(triggerValue + delay, length)
+      setTranslateY(pl > (delay as number) ? pl - (delay as number) : 0)
       setPullLength(length)
       onPull?.(length)
     }
@@ -84,8 +92,9 @@ const PullToRefresh = ({
 
   const handleTouchEnd = () => {
     onPullEnd?.()
-    if (pullLength >= triggerValue) {
-      setTranslateY((v) => v / 1.2)
+    if (pullLength >= triggerValue + delay) {
+      const ty = ((translateY / 1.2).toFixed(2) as any) * 1
+      setTranslateY(ty)
       setIsRefresh(true)
       onRefresh?.(() => setIsRefresh(false))
     } else {
@@ -109,7 +118,14 @@ const PullToRefresh = ({
       {...props}
     >
       <div className={computedLoadingClassNames}>{refreshLoading}</div>
-      {children}
+      {React.cloneElement(children as React.DetailedReactHTMLElement<any, HTMLElement>, {
+        style:
+          translateY > 0
+            ? {
+                overflow: 'hidden',
+              }
+            : {},
+      })}
     </div>
   )
 }
