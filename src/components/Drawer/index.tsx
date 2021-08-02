@@ -175,7 +175,7 @@ const Drawer = ({
   children,
   className,
   ...props
-}: DrawerProps & React.ComponentProps<'aside'>) => {
+}: DrawerProps & React.ComponentPropsWithoutRef<'aside'>) => {
   const classes = useStyles({ open, width, height, position })
   const computedClassNames = classnames(classes.drawer)
   const computedChildClassNames = classnames(classes['drawer-content'], className)

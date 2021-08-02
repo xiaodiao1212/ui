@@ -26,7 +26,7 @@ const Upload = ({
   cssOptions,
   className,
   ...props
-}: UploadProps & React.ComponentProps<any>) => {
+}: UploadProps & React.ComponentPropsWithoutRef<any>) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = (e.target.files as FileList)[0]
     onFileChange?.(file, URL.createObjectURL(file), e)

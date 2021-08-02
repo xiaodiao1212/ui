@@ -7,7 +7,6 @@ import { createUseStyles } from 'react-jss'
 
 type AppBarProps = {
   fixed?: boolean
-
   cssOptions?: React.CSSProperties
 } & React.ComponentPropsWithoutRef<'div'>
 

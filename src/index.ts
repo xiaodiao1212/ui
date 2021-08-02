@@ -28,6 +28,7 @@ import Textarea from './components/Textarea'
 import Tabs from './components/Tabs'
 import BottomNavigation from './components/BottomNavigation'
 import { useCustomTheme } from './hooks'
+import * as helper from './constants/style'
 import palette from './constants/palette'
 import List from './components/List'
 import Upload from './components/Upload'
@@ -36,6 +37,7 @@ import Carousel from './components/Carousel'
 import PullToRefresh from './components/PullToRefresh'
 export {
   List,
+  helper,
   Upload,
   Carousel,
   Switch,

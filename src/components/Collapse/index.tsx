@@ -41,7 +41,7 @@ const Collapse = ({
   children,
   className,
   ...props
-}: CollapseProps & React.ComponentProps<'div'>) => {
+}: CollapseProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     expand,
   })

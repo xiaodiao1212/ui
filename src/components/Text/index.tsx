@@ -44,7 +44,7 @@ const Text = ({
   cssOptions,
   className,
   ...props
-}: TextProps & React.ComponentProps<'div'>) => {
+}: TextProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     color,
     blod,

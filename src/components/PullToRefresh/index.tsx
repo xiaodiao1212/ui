@@ -56,7 +56,7 @@ const PullToRefresh = ({
   children,
   cssOptions,
   ...props
-}: React.ComponentProps<'div'> & PullToRefreshProps) => {
+}: React.ComponentPropsWithoutRef<'div'> & PullToRefreshProps) => {
   const [pullLength, setPullLength] = useState(0)
   const [isRefresh, setIsRefresh] = useState(false)
   const [translateY, setTranslateY] = useState(0)

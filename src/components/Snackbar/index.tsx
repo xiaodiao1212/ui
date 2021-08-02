@@ -64,7 +64,7 @@ const Snackbar = ({
   children,
   className,
   ...props
-}: SnackbarProps & React.ComponentProps<'aside'>) => {
+}: SnackbarProps & React.ComponentPropsWithoutRef<'aside'>) => {
   const classes = useStyles({ show, color })
 
   const computedClassNames = classnames(classes.snackbar, className)

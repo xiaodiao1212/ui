@@ -4,6 +4,7 @@ import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 // 也可也直接用宽高的背景色来实现divider组件
 type DividerProps = {
+  width?: number
   vertical?: boolean
   color?: string
   dashed?: boolean
@@ -13,32 +14,31 @@ type DividerProps = {
 type RuleNames = 'divider'
 
 const useStyles = createUseStyles<RuleNames, DividerProps, Theme>((theme) => ({
-  divider: ({ color, vertical, cssOptions, dashed }) => ({
-    // borderWidth: "thin 0 0",
-
+  divider: ({ color, width, vertical, cssOptions, dashed }) => ({
     ...(vertical
       ? {
           display: 'inline',
           borderLeft: '1px ' + (dashed ? 'dashed' : 'solid'),
           width: 0,
           maxWidth: 0,
-          borderLeftColor: color || theme.color.greyLight,
+          borderLeftColor:
+            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
+          borderLeftWidth: `${width}px`,
         }
       : {
           borderTop: '1px ' + (dashed ? 'dashed' : 'solid'),
           height: 0,
           maxHeight: 0,
-          borderTopColor: color || theme.color.greyLight,
+          borderTopColor:
+            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
+          borderTopWidth: `${width}px`,
         }),
     ...cssOptions,
   }),
 }))
 
-/**
- * Divider :
- * if vertical == true , must set the cssOptions.height
- */
 const Divider = ({
+  width = 1,
   vertical = false,
   dashed = false,
   color,
@@ -51,6 +51,7 @@ const Divider = ({
     vertical,
     dashed,
     color,
+    width,
     cssOptions,
   })
 

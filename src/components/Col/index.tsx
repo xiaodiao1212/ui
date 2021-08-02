@@ -32,7 +32,7 @@ const Col = ({
   className,
   children,
   ...props
-}: ColProps & React.ComponentProps<'div'>) => {
+}: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     alignSelf,
     flex,

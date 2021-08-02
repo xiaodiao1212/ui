@@ -39,7 +39,7 @@ const Loading = ({
   color = '#555',
   backgroudColor = '#f3f3f3',
   className,
-}: LoadingProps & React.ComponentProps<'div'>) => {
+}: LoadingProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     backgroudColor,
     color,

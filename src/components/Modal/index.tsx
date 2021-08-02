@@ -98,7 +98,7 @@ const useStyles = createUseStyles<typeof prefixCls | '@keyframes spin', ModalPro
   }),
 }))
 
-const Modal = (props: ModalProps & React.ComponentProps<'div'>) => {
+const Modal = (props: ModalProps & React.ComponentPropsWithoutRef<'div'>) => {
   const { visible, title, maskClosable, onOk, onClose, footer, className, children } = props
   const classes = useStyles({ ...props })
   const computedClassNames = classnames(classes.modal, className)

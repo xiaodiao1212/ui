@@ -6,14 +6,19 @@ type ProgressProps = {
   percent?: number
   backgroundColor?: string
   color?: string
+  cssOptions?: React.CSSProperties
 }
-type RuleNames = 'progress' | 'bar'
+type RuleNames = 'progress'
 const useStyles = createUseStyles<RuleNames, ProgressProps, Theme>((theme) => ({
-  progress: ({ backgroundColor }) => ({
-    backgroundColor: backgroundColor || theme?.color?.greyLight || '#F3F4F6',
-  }),
-  bar: ({ color }) => ({
-    backgroundColor: color || theme?.color?.primary || '#231F9C',
+  progress: ({ backgroundColor, color, percent }) => ({
+    height: '100%',
+    backgroundColor:
+      backgroundColor || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
+    '& > .progress-bar': {
+      height: '100%',
+      width: percent + '%',
+      backgroundColor: color || theme?.color?.primary || '#231F9C',
+    },
   }),
 }))
 const Progress = ({
@@ -22,17 +27,16 @@ const Progress = ({
   color,
   className,
   ...props
-}: ProgressProps & React.ComponentProps<'div'>) => {
+}: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     backgroundColor,
     color,
     percent,
   })
   const computedClassNames = classnames(classes.progress, className)
-  const clsnsBar = classnames(classes.bar, className)
   return (
-    <div className={computedClassNames} {...props}>
-      <div className={clsnsBar}></div>
+    <div aria-label="progress" role="progressbar" className={computedClassNames} {...props}>
+      <div className="progress-bar" />
     </div>
   )
 }

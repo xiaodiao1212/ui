@@ -41,15 +41,8 @@ const Image = ({
   ...props
 }: ImageProps & React.ComponentPropsWithoutRef<'img'>) => {
   const classes = useStyles({ center, cssOptions, filter, fit, width, height })
-
-  const handleClickImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    props?.onClick?.(e)
-  }
   const computedClassNames = classnames(classes.image, { [classes.circle]: circle }, className)
-
-  return (
-    <img className={computedClassNames} src={src} alt={alt} onClick={handleClickImage} loading={loading} {...props} />
-  )
+  return <img className={computedClassNames} src={src} alt={alt} loading={loading} {...props} />
 }
 
 export default Image

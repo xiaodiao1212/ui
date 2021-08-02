@@ -18,7 +18,11 @@ const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>((theme) => ({
     borderRadius: circle ? '50%' : '4px',
     background:
       'linear-gradient(90deg,rgba(255, 255, 255, 0) 40%,rgba(255, 255, 255, .5) 50%,rgba(255, 255, 255, 0) 60%) ' +
-        theme?.color?.greyLight || '#F3F4F6',
+      theme
+        ? theme.mode == 'light'
+          ? theme.color.greyLight
+          : theme.color.grey
+        : '#F3F4F6',
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: `${duration}s $loading  ${delay}s ease-in-out infinite`,
@@ -40,7 +44,7 @@ const Skeleton = ({
   height = '100%',
   className,
   ...props
-}: SkeletonProps & React.ComponentProps<'div'>) => {
+}: SkeletonProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     duration,
     delay,
@@ -50,7 +54,7 @@ const Skeleton = ({
     cssOptions,
   })
   const computedClassNames = classnames(classes.skeleton, className)
-  return <div data-testid="skeleton" className={computedClassNames} {...props} />
+  return <div aria-label="skeleton" className={computedClassNames} {...props} />
 }
 
 export default Skeleton
