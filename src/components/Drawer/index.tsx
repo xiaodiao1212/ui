@@ -184,7 +184,6 @@ const Drawer = ({
       onClose(e)
     }
   }
-
   return (
     <aside className={computedClassNames} {...props}>
       {React.cloneElement(children as React.FunctionComponentElement<{ className: string }>, {

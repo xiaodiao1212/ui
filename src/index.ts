@@ -16,7 +16,6 @@ import Progress from './components/Progress'
 import Loading from './components/Loading'
 import Select from './components/Select'
 import Image from './components/Image'
-import Alert from './components/Alert'
 import Timeline from './components/Timeline/Timeline'
 import Collapse from './components/Collapse'
 import Chip from './components/Chip'
@@ -33,9 +32,13 @@ import palette from './constants/palette'
 import List from './components/List'
 import Upload from './components/Upload'
 import Switch from './components/Switch'
+import Popover from './components/Popover'
+import FloatingWindow from './components/FloatingWindow'
 import Carousel from './components/Carousel'
 import PullToRefresh from './components/PullToRefresh'
 export {
+  Popover,
+  FloatingWindow,
   List,
   helper,
   Upload,
@@ -68,7 +71,6 @@ export {
   Picker,
   Progress,
   Loading,
-  Alert,
   Collapse,
   Timeline,
   useCustomTheme,

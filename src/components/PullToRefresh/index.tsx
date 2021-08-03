@@ -11,39 +11,49 @@ type PullToRefreshProps = {
   onPull?: (pullLength: number) => any
   onPullEnd?: () => any
   onRefresh?: (refreshOver: () => any) => any
-  refreshLoading?: React.ReactNode
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
-type RuleNames = 'pullToRefresh' | 'refresh-loading'
-const useStyles = createUseStyles<
-  RuleNames,
+
+type RefreshLoadingProps = {
+  children?: React.ReactNode
+  className?: string
+  cssOptions?: (theme: Theme) => React.CSSProperties
+}
+
+const usePullToRefreshStyles = createUseStyles<
+  'pullToRefresh',
   Pick<PullToRefreshProps, 'cssOptions' | 'triggerValue'> & {
     translateY: number
   },
   Theme
 >((theme) => ({
-  'refresh-loading': ({ translateY, triggerValue, cssOptions }) => {
-    const pullToRefreshStyle: React.CSSProperties = {
-      transform: `translate3d(0px, ${-(triggerValue as number) + translateY}px, 0px)`,
-      // maxHeight: triggerValue,
-      height: translateY,
+  pullToRefresh: ({ translateY, cssOptions }) => ({
+    height: '100%',
+    overflow: 'hidden',
+    '& > .refresh-container': {
+      transform: `translate3d(0px, ${translateY}px, 0px)`,
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
-      // display: translateY > (triggerValue as number) / 4 ? "block" : "none",
-      ...cssOptions,
-    }
-    return pullToRefreshStyle
-  },
-  pullToRefresh: ({ translateY, triggerValue }) => {
-    const pullToRefreshStyle: React.CSSProperties = {
       height: '100%',
-      overflow: 'hidden',
-      // transition: '.3s transform cubic-bezier(0, 0, 0.19, 1.25)',
-      // transform: `translate3d(0px, ${translateY - (triggerValue as number)}px, 0px)`,
-      cursor: 'grab',
-    }
-    return pullToRefreshStyle
-  },
+      ...cssOptions?.(theme),
+    },
+  }),
 }))
+
+const useRefreshLoadingStyles = createUseStyles<'refresh-loading', Pick<RefreshLoadingProps, 'cssOptions'>, Theme>(
+  (theme) => ({
+    'refresh-loading': ({ cssOptions }) => {
+      const pullToRefreshStyle: React.CSSProperties = {
+        position: 'absolute',
+        width: '100%',
+        left: 0,
+        textAlign: 'center',
+        transform: 'translateY(-100%)',
+        ...cssOptions?.(theme),
+      }
+      return pullToRefreshStyle
+    },
+  }),
+)
 const PullToRefresh = ({
   triggerValue = 80,
   delay = 30,
@@ -51,7 +61,6 @@ const PullToRefresh = ({
   onPullStart,
   onPullEnd,
   onRefresh,
-  refreshLoading,
   className,
   children,
   cssOptions,
@@ -61,13 +70,12 @@ const PullToRefresh = ({
   const [isRefresh, setIsRefresh] = useState(false)
   const [translateY, setTranslateY] = useState(0)
   const [startY, setStartY] = useState(0)
-  const classes = useStyles({
+  const classes = usePullToRefreshStyles({
     translateY,
     triggerValue,
     cssOptions,
   })
   const computedRefreshClassNames = classnames(classes.pullToRefresh, className)
-  const computedLoadingClassNames = classnames(classes['refresh-loading'], className)
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setStartY(e.touches[0].pageY)
@@ -102,6 +110,22 @@ const PullToRefresh = ({
     }
   }
 
+  const handleChildrenRender = () => {
+    return React.Children.map(children, (child: any, i) => {
+      if (child.type.name == 'RefreshLoading') {
+        return React.cloneElement(child as React.DetailedReactHTMLElement<any, HTMLElement>)
+      }
+      return React.cloneElement(child as React.DetailedReactHTMLElement<any, HTMLElement>, {
+        style:
+          translateY > 0
+            ? {
+                overflow: 'hidden',
+              }
+            : {},
+      })
+    })
+  }
+
   useEffect(() => {
     if (!isRefresh) {
       handleReset()
@@ -110,24 +134,31 @@ const PullToRefresh = ({
 
   return (
     <div
+      aria-label="pull-to-refresh"
       className={computedRefreshClassNames}
-      onScroll={() => {}}
       onTouchStart={(e) => handleTouchStart(e)}
       onTouchMove={(e) => handleTouchMove(e)}
       onTouchEnd={(e) => handleTouchEnd()}
       {...props}
     >
-      <div className={computedLoadingClassNames}>{refreshLoading}</div>
-      {React.cloneElement(children as React.DetailedReactHTMLElement<any, HTMLElement>, {
-        style:
-          translateY > 0
-            ? {
-                overflow: 'hidden',
-              }
-            : {},
-      })}
+      <div aria-label="pull-to-refresh container" className="refresh-container">
+        {handleChildrenRender()}
+      </div>
     </div>
   )
 }
 
+const RefreshLoading = ({ children, className, cssOptions }: RefreshLoadingProps) => {
+  const classes = useRefreshLoadingStyles({
+    cssOptions,
+  })
+  const computedLoadingClassNames = classnames(classes['refresh-loading'], className)
+  return (
+    <div aria-label="pull-to-refresh loading" className={computedLoadingClassNames}>
+      {children}
+    </div>
+  )
+}
+
+PullToRefresh.Loading = RefreshLoading
 export default PullToRefresh

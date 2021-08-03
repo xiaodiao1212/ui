@@ -86,7 +86,6 @@ const Container = ({
       [`${className}`]: true,
     },
   )
-  console.log(computedClassNames)
 
   return (
     <div className={computedClassNames} {...props}>

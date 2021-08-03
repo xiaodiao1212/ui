@@ -11,6 +11,7 @@ const theme: Theme = {
   zIndex: {
     appBar: 700,
     bottomNavigation: 700,
+    floatingWindow: 1000,
     modal: 1100,
     overlay: 1000,
     snackbar: 1400,
@@ -20,6 +21,7 @@ const theme: Theme = {
 type Theme = {
   mode: 'dark' | 'light'
   zIndex: {
+    floatingWindow: number
     appBar: number
     bottomNavigation: number
     modal: number

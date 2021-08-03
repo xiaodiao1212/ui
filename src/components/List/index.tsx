@@ -80,4 +80,6 @@ const List = ({
   )
 }
 
+const ListItem = () => <div>s</div>
+List.Item = ListItem
 export default List

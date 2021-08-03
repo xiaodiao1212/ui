@@ -66,16 +66,13 @@ const Snackbar = ({
   ...props
 }: SnackbarProps & React.ComponentPropsWithoutRef<'aside'>) => {
   const classes = useStyles({ show, color })
-
   const computedClassNames = classnames(classes.snackbar, className)
-
   useEffect(() => {
     if (show == true)
       setTimeout(() => {
         onClose()
       }, delay * 900)
   }, [show])
-
   return (
     <aside className={computedClassNames} {...props}>
       {children}
