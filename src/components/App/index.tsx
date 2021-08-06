@@ -11,7 +11,7 @@ const App = ({ children, customTheme }: AppProps) => {
   useDefaultStyle()
 
   return (
-    <JssProvider>
+    <JssProvider id={{ minify: true }}>
       <ThemeProvider theme={customTheme || theme}>
         <div
           style={{

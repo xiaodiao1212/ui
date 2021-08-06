@@ -13,7 +13,7 @@ import {
   useCustomTheme,
   List,
 } from '../src'
-
+const renderRightContent = () => {}
 const Main = () => {
   const [on, setOn] = React.useState(false)
   const data = [1, 2, 3, 4, 5, 9, 6, 7, 8]
@@ -22,7 +22,7 @@ const Main = () => {
       <Container fullScreen relative noPadding>
         <List>
           {data.map((v) => (
-            <List.Item swipe>{v}</List.Item>
+            <List.Item swipe rightContent={<Button>4444444444444</Button>} cssOptions={(theme) => ({})}></List.Item>
           ))}
         </List>
       </Container>

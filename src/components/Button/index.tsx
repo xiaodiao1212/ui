@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classnames from 'classnames'
 import Text from './'
-import { createUseStyles, useTheme } from 'react-jss'
+import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ButtonProps = {
   padding?: string
@@ -58,9 +58,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.Component
     },
     ref,
   ) => {
-    const theme = useTheme<Theme>()
     const classes = useStyles({
-      theme,
       color,
       block,
       tile,
