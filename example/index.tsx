@@ -1,23 +1,30 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Container, Text, Switch, Popover, Card, AppBar, Button, BottomNavigation, useCustomTheme } from '../src'
+import {
+  App,
+  Container,
+  Upload,
+  Switch,
+  Popover,
+  Card,
+  AppBar,
+  Button,
+  BottomNavigation,
+  useCustomTheme,
+  List,
+} from '../src'
 
 const Main = () => {
   const [on, setOn] = React.useState(false)
+  const data = [1, 2, 3, 4, 5, 9, 6, 7, 8]
   return (
     <App>
-      <Container scroll fullScreen relative noPadding>
-        <AppBar>124</AppBar>
-        <Switch on={on} onChange={() => setOn((v) => !v)} />
-        <Popover>
-          <Popover.Content>
-            <Card>133</Card>
-          </Popover.Content>
-          <Button>
-            <Text dark>242424</Text>
-          </Button>
-        </Popover>
-        <BottomNavigation absolute></BottomNavigation>
+      <Container fullScreen relative noPadding>
+        <List>
+          {data.map((v) => (
+            <List.Item swipe>{v}</List.Item>
+          ))}
+        </List>
       </Container>
     </App>
   )

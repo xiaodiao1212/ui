@@ -29,6 +29,7 @@ export function deepmerge(target: any, source: any, options = { clone: true }) {
       }
     })
   }
+  console.log(output)
 
   return output
 }

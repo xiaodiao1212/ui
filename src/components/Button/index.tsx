@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
 import * as React from 'react'
 import classnames from 'classnames'
+import Text from './'
 import { createUseStyles, useTheme } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ButtonProps = {
@@ -75,7 +75,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps & React.Component
     const computedClassNames = classnames(classes.button, className)
     return (
       <button ref={ref} className={computedClassNames} disabled={disabled} {...props}>
-        {children}
+        {typeof children == 'string' ? <Text>{children}</Text> : children}
       </button>
     )
   },

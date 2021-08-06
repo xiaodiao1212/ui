@@ -27,20 +27,20 @@ import Textarea from './components/Textarea'
 import Tabs from './components/Tabs'
 import BottomNavigation from './components/BottomNavigation'
 import { useCustomTheme } from './hooks'
-import * as helper from './constants/style'
 import palette from './constants/palette'
 import List from './components/List'
 import Upload from './components/Upload'
 import Switch from './components/Switch'
 import Popover from './components/Popover'
+import ScrollView from './components/ScrollView'
 import FloatingWindow from './components/FloatingWindow'
 import Carousel from './components/Carousel'
 import PullToRefresh from './components/PullToRefresh'
 export {
+  ScrollView,
   Popover,
   FloatingWindow,
   List,
-  helper,
   Upload,
   Carousel,
   Switch,

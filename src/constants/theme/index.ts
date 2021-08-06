@@ -45,7 +45,7 @@ type Theme = {
     snackbar: number
     drawer: number
   }
-  color: {
+  color: Partial<{
     primary: string
     black: string
     grey: string
@@ -55,7 +55,7 @@ type Theme = {
     lighten: typeof lighten
     fade: typeof fade
     emphasize: typeof emphasize
-  }
+  }>
 }
 
 export { theme, Theme }
