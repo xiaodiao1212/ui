@@ -12,7 +12,7 @@ type ButtonProps = {
   icon?: boolean
   tile?: boolean
   color?: string
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'button'
 
@@ -23,7 +23,7 @@ const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>(
       width: block ? '100%' : 'auto',
       border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
       borderRadius: tile ? '0px' : '4px',
-      color: theme.mode == 'light' ? theme.color.white || '#fff' : theme.color.black || '#111827',
+      color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827',
       backgroundColor:
         disabled == false
           ? text || outlined || icon
@@ -34,7 +34,7 @@ const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>(
           : theme
           ? theme.color.greyLight
           : '#F3F4F5',
-      ...cssOptions,
+      ...cssOptions?.(theme),
     }),
   }),
   { name: 'Button', classNamePrefix: 'Button' },

@@ -5,27 +5,28 @@ import { createUseStyles } from 'react-jss'
 import Button from '../Button'
 
 interface TabsProps {
+  noIndicator?: boolean
   onClickTab: (key: React.Key) => void
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
   tab: React.Key
 }
 type TabItemProps = Partial<{
+  noIndicator: boolean
   tab: Readonly<React.Key>
   tabKey: React.Key
   children: React.ReactNode
   className: string
   onClick: (key: React.Key) => void
-  cssOptions: React.CSSProperties
+  cssOptions: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties
 }>
 type TabsIndicatorProps = Partial<{
   children: React.ReactNode
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
 const useTabsStyles = createUseStyles<'tabs', Pick<TabsProps, 'cssOptions'>, Theme>((theme) => ({
   tabs: ({ cssOptions }) => ({
     display: 'flex',
-
     ...cssOptions,
   }),
 }))
@@ -52,6 +53,7 @@ const useTabsIndicatorStyles = createUseStyles<'tabsIndicator', Pick<TabsIndicat
 )
 const Tabs = ({
   onClickTab,
+  noIndicator = false,
   tab,
   cssOptions,
   children,
@@ -70,6 +72,7 @@ const Tabs = ({
           },
           tab: tab,
           tabKey: element.key,
+          noIndicator: noIndicator,
           ...{ ...element.props, key: element.key },
         })
       }
@@ -85,20 +88,20 @@ const Tabs = ({
   )
 }
 
-const TabItem = ({ tab, tabKey, onClick, cssOptions, children, className }: TabItemProps) => {
+const TabItem = ({ tab, tabKey, onClick, noIndicator, cssOptions, children, className }: TabItemProps) => {
   const classes = useTabItemStyles({ cssOptions })
   const computedClassNames = classnames(classes.tabItem, className)
   const handleClickTab = () => {
     onClick?.(tabKey as React.Key)
   }
-  const tabCssOptions = {
+  const tabCssOptions = (theme: Theme) => ({
     borderRadius: '',
-    ...cssOptions,
-  }
+    ...cssOptions?.(theme, tab == tabKey),
+  })
   return (
     <Button aria-label="tab item" className={computedClassNames} onClick={handleClickTab} cssOptions={tabCssOptions}>
       {children}
-      {tab == tabKey && <TabsIndicator />}
+      {tab == tabKey && !noIndicator && <TabsIndicator />}
     </Button>
   )
 }

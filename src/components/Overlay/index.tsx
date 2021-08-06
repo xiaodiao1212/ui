@@ -9,7 +9,7 @@ interface OverlayProps {
   blur?: boolean
   opacity?: string | number
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
   className?: string
 }
 
@@ -28,7 +28,7 @@ const useStyles = createUseStyles<RuleNames, Omit<OverlayProps, 'onClick'>, Them
     opacity: 0,
     transition: 'all .4s',
     ...(show ? { opacity: opacity } : { display: 'none' }),
-    ...cssOptions,
+    ...cssOptions?.(theme),
   }),
 }))
 

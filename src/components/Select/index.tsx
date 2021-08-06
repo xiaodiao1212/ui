@@ -27,7 +27,7 @@ interface SelectProps {
       value: string | number
     }[],
   ) => any
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'cssOptions'>, Theme>((theme) => ({
@@ -57,9 +57,9 @@ const Select = ({ value, onSelectChange, data, open, onClose, children, classNam
         }}
       >
         <Picker
-          cssOptions={{
+          cssOptions={() => ({
             background: 'white',
-          }}
+          })}
           value={value}
           onPickerChange={handleSelectedChange}
           data={data}

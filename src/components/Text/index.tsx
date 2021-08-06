@@ -7,7 +7,7 @@ type TextProps = Partial<{
   fontSize: string
   maxLength: number
   dark: boolean
-  cssOptions: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'text'
@@ -30,7 +30,7 @@ const useStyles = createUseStyles<RuleNames, TextProps, Theme>((theme) => ({
           ? theme.color.black
           : theme.color.white
         : '#111827'),
-    ...cssOptions,
+    ...cssOptions?.(theme),
   }),
 }))
 

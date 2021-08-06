@@ -12,7 +12,7 @@ interface RowProps {
   gap?: string
   wrap?: boolean
   fullHeight?: boolean
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, RowProps, Theme>((theme) => ({
@@ -22,8 +22,9 @@ const useStyles = createUseStyles<RuleNames, RowProps, Theme>((theme) => ({
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
     gridGap: gap,
-    ...cssOptions,
+
     ...(vertical ? {} : { alignItems, flexWrap: wrap ? 'wrap' : 'nowrap' }),
+    ...cssOptions?.(theme),
   }),
 }))
 

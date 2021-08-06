@@ -3,83 +3,49 @@ import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ListProps = {
-  triggerValue?: number
-  onScrollToBottom?: (handleScrollToBottomOver: () => any) => any
-  fetchNode?: React.ReactNode
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
+}
+type ListItemProps = {
+  className?: string
+  children?: React.ReactNode
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
-type RuleNames = 'list'
-
-const useStyles = createUseStyles<RuleNames, Pick<ListProps, 'cssOptions'>, Theme>((theme) => ({
+const useListStyles = createUseStyles<'list', Pick<ListProps, 'cssOptions'>, Theme>((theme) => ({
   list: ({ cssOptions }) => {
     return {
-      height: '100%',
-      overflow: 'auto',
-      ...cssOptions,
+      ...cssOptions?.(theme),
     }
   },
 }))
-const List = ({
-  fetchNode,
-  triggerValue = 40,
-  onScrollToBottom,
-  cssOptions,
-  className,
-  children,
-  ...props
-}: ListProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({
+
+const useListItemStyles = createUseStyles<'list-item', Pick<ListProps, 'cssOptions'>, Theme>((theme) => ({
+  'list-item': ({ cssOptions }) => {
+    return {
+      ...cssOptions?.(theme),
+    }
+  },
+}))
+const List = ({ cssOptions, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'div'>) => {
+  const classes = useListStyles({
     cssOptions,
   })
 
-  const clsns = classnames(classes.list, className)
-  const [scrollTop, setScrollTop] = useState(0)
-  const [isTouch, setIsTouch] = useState(false)
-  const [isFetching, setIsFetching] = useState(false)
-  const handleScrollToBottomOver = () => {
-    setIsFetching(false)
-  }
-
-  const handleScrollToBottom = () => {
-    onScrollToBottom?.(handleScrollToBottomOver)
-  }
-
-  const handleScroll = (e: any) => {
-    const element = e.target
-    setScrollTop(element.scrollTop)
-    if (element.scrollTop + element.clientHeight + triggerValue < element.scrollHeight || isFetching) return
-    setIsFetching(true)
-  }
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsTouch(true)
-  }
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (scrollTop > 0 && isTouch) e.stopPropagation()
-  }
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsTouch(false)
-  }
-  useEffect(() => {
-    if (!isFetching) return
-    handleScrollToBottom()
-  }, [isFetching])
+  const computedListClassnames = classnames(classes.list, className)
 
   return (
-    <div
-      onScroll={handleScroll}
-      onTouchStart={(e) => handleTouchStart(e)}
-      onTouchMove={(e) => handleTouchMove(e)}
-      onTouchEnd={(e) => handleTouchEnd(e)}
-      className={clsns}
-      {...props}
-    >
+    <div className={computedListClassnames} {...props}>
       {children}
-      {isFetching && fetchNode}
     </div>
   )
 }
 
-const ListItem = () => <div>s</div>
+const ListItem = ({ children, className, cssOptions }: ListItemProps) => {
+  const classes = useListItemStyles({
+    cssOptions,
+  })
+  const computedListClassnames = classnames(classes['list-item'], className)
+  return <div className={computedListClassnames}>{children}</div>
+}
 List.Item = ListItem
 export default List

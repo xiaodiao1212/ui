@@ -6,7 +6,7 @@ type SwitchProps = Partial<{
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any
   on: boolean
   color?: string
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'switch'
@@ -40,7 +40,7 @@ const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>((theme) => ({
       // transform: on ? 'translateX(60%)' : '',
     },
     '&:active > .switch-button': {
-      width: '2em',
+      // width: '2em',
     },
   }),
 }))

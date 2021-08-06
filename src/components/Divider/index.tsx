@@ -8,7 +8,7 @@ type DividerProps = {
   vertical?: boolean
   color?: string
   dashed?: boolean
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'divider'
@@ -33,7 +33,7 @@ const useStyles = createUseStyles<RuleNames, DividerProps, Theme>((theme) => ({
             color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
           borderTopWidth: `${width}px`,
         }),
-    ...cssOptions,
+    ...cssOptions?.(theme),
   }),
 }))
 

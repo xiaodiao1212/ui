@@ -3,7 +3,7 @@ import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
 type CardProps = {
-  cssOptions?: React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'card'
@@ -11,7 +11,7 @@ type RuleNames = 'card'
 const useStyles = createUseStyles<RuleNames, CardProps, Theme>((theme) => ({
   card: ({ cssOptions }) => ({
     background: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
-    ...cssOptions,
+    ...cssOptions?.(theme),
   }),
 }))
 const Card = ({ cssOptions, className, children, ...props }: CardProps & React.ComponentPropsWithoutRef<'div'>) => {

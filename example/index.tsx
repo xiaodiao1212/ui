@@ -1,42 +1,23 @@
-import { useState, useEffect } from 'react'
+import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Container, Textarea, Loading, Card, Carousel, Collapse, PullToRefresh, AppBar } from '../src'
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+import { App, Container, Text, Switch, Popover, Card, AppBar, Button, BottomNavigation, useCustomTheme } from '../src'
+
 const Main = () => {
-  const [show, setShow] = useState(true)
-  const [show2, setShow2] = useState(0)
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setShow2((v) => v + 0.1)
-  //   }, 10)
-  // }, [])
+  const [on, setOn] = React.useState(false)
   return (
     <App>
-      <Container scroll fullScreen>
+      <Container scroll fullScreen relative noPadding>
         <AppBar>124</AppBar>
-        <Container
-          cssOptions={{
-            overflow: 'hidden',
-            height: '70%',
-          }}
-        >
-          <PullToRefresh
-            onRefresh={(o) => {
-              setTimeout(() => {
-                o()
-              }, 2000)
-            }}
-          >
-            <div
-              style={{
-                height: '100px',
-                background: 'red',
-              }}
-            >
-              12112
-            </div>
-          </PullToRefresh>
-        </Container>
+        <Switch on={on} onChange={() => setOn((v) => !v)} />
+        <Popover>
+          <Popover.Content>
+            <Card>133</Card>
+          </Popover.Content>
+          <Button>
+            <Text dark>242424</Text>
+          </Button>
+        </Popover>
+        <BottomNavigation absolute></BottomNavigation>
       </Container>
     </App>
   )
