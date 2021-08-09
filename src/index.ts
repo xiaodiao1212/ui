@@ -34,10 +34,12 @@ import Switch from './components/Switch'
 import Popover from './components/Popover'
 import ScrollView from './components/ScrollView'
 import FloatingWindow from './components/FloatingWindow'
+import Badge from './components/Badge'
 import Carousel from './components/Carousel'
 import PullToRefresh from './components/PullToRefresh'
 export {
   ScrollView,
+  Badge,
   Popover,
   FloatingWindow,
   List,

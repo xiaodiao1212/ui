@@ -3,6 +3,7 @@ import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
 type CardProps = {
+  title?: string
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
