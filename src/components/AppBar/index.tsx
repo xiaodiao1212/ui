@@ -6,6 +6,7 @@ import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
 type AppBarProps = {
+  shy?: boolean
   fixed?: boolean
   cssOptions?: (theme: Theme) => React.CSSProperties
 } & React.ComponentPropsWithoutRef<'div'>
@@ -28,7 +29,7 @@ const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>((theme) => ({
     ...cssOptions?.(theme),
   }),
 }))
-const AppBar = ({ fixed, cssOptions, className, children, ...props }: AppBarProps) => {
+const AppBar = ({ fixed = true, cssOptions, className, children, ...props }: AppBarProps) => {
   const classes = useStyles({ fixed, cssOptions })
   const computedClassNames = classnames(classes.AppBar, className)
   return (

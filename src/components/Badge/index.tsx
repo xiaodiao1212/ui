@@ -4,6 +4,7 @@ import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
 type BadgeProps = Partial<{
+  size: string
   show: boolean
   color: string
   offsetX: string
@@ -13,16 +14,16 @@ type BadgeProps = Partial<{
 }>
 
 const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>((theme) => ({
-  badge: ({ cssOptions, offsetX, show, offsetY, color }) => ({
+  badge: ({ cssOptions, size, offsetX, show, offsetY, color }) => ({
     position: 'relative',
     '& > *:first-child': {
       borderRadius: '50%',
       visibility: show && 'visible',
-      background: color || theme ? theme.color.primary : '#231F9C',
+      background: color || theme ? theme.color.red : '#e32b3a',
       color: theme ? theme.color.white : '#fff',
-      lineHeight: '20px',
-      minWidth: '20px',
-      height: '20px',
+      lineHeight: `${size}px`,
+      minWidth: `${size}px`,
+      height: `${size}px`,
       textAlign: 'center',
       position: 'absolute',
       right: offsetX || 0,
@@ -34,6 +35,7 @@ const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>((theme) => ({
   }),
 }))
 const Badge = ({
+  size = '10',
   show = true,
   cssOptions,
   offsetX,
@@ -44,10 +46,10 @@ const Badge = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & BadgeProps) => {
-  const classes = useBadgeStyles({ cssOptions, show, offsetX, offsetY })
+  const classes = useBadgeStyles({ cssOptions, size, show, offsetX, offsetY })
   const computedClassNames = classnames(classes.badge, className)
   const renderBadgeContent = () => {
-    if (typeof badgeContent == 'string') {
+    if (typeof badgeContent == 'string' || !badgeContent) {
       return <sup>{badgeContent}</sup>
     }
     return badgeContent

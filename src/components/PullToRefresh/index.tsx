@@ -3,6 +3,7 @@ import * as React from 'react'
 import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
+import { debounce } from '../../utils'
 
 type PullToRefreshProps = {
   triggerValue?: number
@@ -85,11 +86,13 @@ const PullToRefresh = ({
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (startY != 0) {
       e.stopPropagation()
-      length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)))
-      const pl = Math.min(triggerValue + delay, length)
-      setTranslateY(pl > (delay as number) ? pl - (delay as number) : 0)
-      setPullLength(length)
-      onPull?.(length)
+      debounce(() => {
+        length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)))
+        const pl = Math.min(triggerValue + delay, length)
+        setTranslateY(pl > (delay as number) ? pl - (delay as number) : 0)
+        setPullLength(length)
+        onPull?.(length)
+      }, 2)
     }
   }
 
