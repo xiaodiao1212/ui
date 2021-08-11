@@ -19,13 +19,12 @@ import Image from './components/Image'
 import Timeline from './components/Timeline/Timeline'
 import Collapse from './components/Collapse'
 import Chip from './components/Chip'
-import Snackbar from './components/Snackbar'
+import Notification from './components/Notification'
 import Input from './components/Input'
 import Text from './components/Text'
 import Grid from './components/Grid'
 import Textarea from './components/Textarea'
 import Tabs from './components/Tabs'
-import BottomNavigation from './components/BottomNavigation'
 import { useCustomTheme } from './hooks'
 import palette from './constants/palette'
 import List from './components/List'
@@ -36,9 +35,18 @@ import ScrollView from './components/ScrollView'
 import FloatingWindow from './components/FloatingWindow'
 import Badge from './components/Badge'
 import Carousel from './components/Carousel'
+import Slider from './components/Slider'
+import Footer from './components/Footer'
+import Backscrumbs from './components/Backscrumbs'
+
+import Segment from './components/Segment'
 import PullToRefresh from './components/PullToRefresh'
 export {
+  Footer,
+  Backscrumbs,
+  Segment,
   ScrollView,
+  Slider,
   Badge,
   Popover,
   FloatingWindow,
@@ -48,12 +56,11 @@ export {
   Switch,
   PullToRefresh,
   Tabs,
-  BottomNavigation,
   Image,
   Chip,
   Textarea,
   Input,
-  Snackbar,
+  Notification,
   AppBar,
   Grid,
   Button,

@@ -1,11 +1,14 @@
 import { createUseStyles } from 'react-jss'
 import classnames from 'classnames'
 import { Theme } from '../../constants/theme'
+
 type TextProps = Partial<{
+  thin: boolean
   blod: boolean
   color: string | string
   fontSize: string
   maxLength: number
+
   dark: boolean
   cssOptions?: (theme: Theme) => React.CSSProperties
 }>
@@ -13,28 +16,35 @@ type TextProps = Partial<{
 type RuleNames = 'text'
 
 const useStyles = createUseStyles<RuleNames, TextProps, Theme>((theme) => ({
-  text: ({ color, dark, blod, maxLength, cssOptions, ...props }) => ({
-    ...props,
-    fontWeight: blod ? '700' : '500',
-    display: 'inline-block',
-    textOverflow: maxLength ? 'ellipsis' : '',
-    whiteSpace: maxLength ? 'nowrap' : '',
-    width: maxLength || '',
-    overflow: maxLength ? 'hidden' : '',
-    color:
+  text: ({ color, dark, blod, maxLength, thin, cssOptions }) => {
+    const computedColor =
       color ||
-      (dark
-        ? theme?.color?.white || '#fff'
+      ((dark
+        ? theme
+          ? theme.color.white
+          : '#fff'
         : theme
         ? theme.mode == 'light'
           ? theme.color.black
           : theme.color.white
-        : '#111827'),
-    ...cssOptions?.(theme),
-  }),
+        : '#111827') as string)
+    return {
+      fontWeight: blod ? 700 : thin ? 200 : 500,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textOverflow: maxLength ? 'ellipsis' : '',
+      whiteSpace: maxLength ? 'nowrap' : '',
+      width: maxLength || '',
+      overflow: maxLength ? 'hidden' : '',
+      color: computedColor,
+      ...cssOptions?.(theme),
+    }
+  },
 }))
 
 const Text = ({
+  thin = false,
   dark = false,
   maxLength,
   fontSize,
@@ -46,6 +56,7 @@ const Text = ({
   ...props
 }: TextProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
+    thin,
     color,
     blod,
     fontSize,

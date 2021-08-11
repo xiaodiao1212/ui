@@ -12,6 +12,16 @@ export function getBase64(img: Blob, callback: (arg0: string | ArrayBuffer | nul
   reader.readAsDataURL(img)
 }
 
+export function debounce(callback: () => void, delay: number) {
+  let timer
+  if (timer) {
+    clearTimeout(timer)
+  }
+  timer = setTimeout(() => {
+    callback()
+  }, delay)
+}
+
 export function deepmerge(target: any, source: any, options = { clone: true }) {
   const output = options.clone ? { ...target } : target
 
