@@ -87,7 +87,7 @@ const PullToRefresh = ({
     if (startY != 0) {
       e.stopPropagation()
       debounce(() => {
-        length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)))
+        const length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)))
         const pl = Math.min(triggerValue + delay, length)
         setTranslateY(pl > (delay as number) ? pl - (delay as number) : 0)
         setPullLength(length)
