@@ -2,11 +2,11 @@ import * as React from 'react'
 import classnames from 'classnames'
 import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
-// 也可也直接用宽高的背景色来实现divider组件
 type DividerProps = {
   width?: number
   vertical?: boolean
   color?: string
+  doubleLine?: boolean
   dashed?: boolean
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
@@ -14,24 +14,19 @@ type DividerProps = {
 type RuleNames = 'divider'
 
 const useStyles = createUseStyles<RuleNames, DividerProps, Theme>((theme) => ({
-  divider: ({ color, width, vertical, cssOptions, dashed }) => ({
+  divider: ({ color, width, vertical, cssOptions, doubleLine, dashed }) => ({
+    border: 'none',
     ...(vertical
       ? {
           display: 'inline',
-          borderLeft: '1px ' + (dashed ? 'dashed' : 'solid'),
-          width: 0,
-          maxWidth: 0,
-          borderLeftColor:
-            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
-          borderLeftWidth: `${width}px`,
+          borderLeft: `${width}px ${dashed ? 'dashed' : 'solid'}  ${
+            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'
+          }`,
         }
       : {
-          borderTop: '1px ' + (dashed ? 'dashed' : 'solid'),
-          height: 0,
-          maxHeight: 0,
-          borderTopColor:
-            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
-          borderTopWidth: `${width}px`,
+          borderTop: `${width}px ${dashed ? 'dashed' : 'solid'}  ${
+            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'
+          }`,
         }),
     ...cssOptions?.(theme),
   }),
@@ -41,22 +36,24 @@ const Divider = ({
   width = 1,
   vertical = false,
   dashed = false,
+  doubleLine = false,
   color,
   cssOptions,
   className,
   children,
   ...props
-}: DividerProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: DividerProps & React.ComponentPropsWithoutRef<'hr'>) => {
   const classes = useStyles({
     vertical,
     dashed,
     color,
     width,
+    doubleLine,
     cssOptions,
   })
 
   const computedClassNames = classnames(classes.divider, className)
-  return <div className={computedClassNames} {...props} />
+  return <hr aria-label="hr divider" className={computedClassNames} {...props} />
 }
 
 export default Divider
