@@ -44,7 +44,7 @@ const useListItemStyles = createUseStyles<'list-item', Pick<ListProps, 'cssOptio
     },
   }),
 )
-const List = ({ cssOptions, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'div'>) => {
+const List = ({ cssOptions, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'section'>) => {
   const classes = useListStyles({
     cssOptions,
   })
@@ -52,9 +52,9 @@ const List = ({ cssOptions, className, children, ...props }: ListProps & React.C
   const computedClassNames = classnames(classes.list, className)
 
   return (
-    <div className={computedClassNames} {...props}>
+    <section className={computedClassNames} {...props}>
       {children}
-    </div>
+    </section>
   )
 }
 

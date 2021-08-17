@@ -13,6 +13,7 @@ type FloatingWindowProps = Partial<{
     top: number | string
   }
 }>
+
 const useStyles = createUseStyles<'floating-window', FloatingWindowProps, Theme>((theme) => ({
   'floating-window': ({ position, cssOptions }) => ({
     position: 'fixed',

@@ -33,9 +33,9 @@ const AppBar = ({ fixed = true, cssOptions, className, children, ...props }: App
   const classes = useStyles({ fixed, cssOptions })
   const computedClassNames = classnames(classes.AppBar, className)
   return (
-    <div className={computedClassNames} {...props}>
+    <header className={computedClassNames} {...props}>
       {children}
-    </div>
+    </header>
   )
 }
 

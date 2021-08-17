@@ -19,6 +19,7 @@ export function debounce(callback: () => void, delay: number) {
   }
   timer = setTimeout(() => {
     callback()
+    timer = null
   }, delay)
 }
 
