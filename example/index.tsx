@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Container, Segment, List, Button, Card, Notification } from '../src'
+import { App, Container, Segment, List, Button, Card, NumberInput } from '../src'
 
 const Main = () => {
   const [on, setOn] = React.useState(true)
@@ -15,12 +15,11 @@ const Main = () => {
             height: '200px',
           })}
         >
-          <Segment>
-            <Segment.Item>off</Segment.Item>
-            <Segment.Item>off</Segment.Item>
-            <Segment.Item>off</Segment.Item>
-            <Segment.Item>on</Segment.Item>
-          </Segment>
+          <NumberInput
+            onChange={(v) => {
+              console.log(v)
+            }}
+          />
         </Card>
       </Container>
     </App>

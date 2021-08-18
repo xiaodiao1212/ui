@@ -76,11 +76,23 @@ export const defaultStyle = {
       borderColor: 'inherit',
       textIndent: '0',
     },
-    input: {},
+    'input::-webkit-outer-spin-button': {
+      webkitAppearance: 'none !important',
+      margin: 0,
+    },
+    'input::-webkit-inner-spin-button': {
+      webkitAppearance: 'none !important',
+      margin: 0,
+    },
     '[disabled]': {
       cursor: 'default',
     },
-    "[type='number']::-webkit-inner-spin-button, [type='number']::-webkit-outer-spin-button": {
+    "[type='number']::-webkit-outer-spin-button": {
+      webkitAppearance: 'none',
+      height: 'auto',
+    },
+    "[type='number']::-webkit-inner-spin-button": {
+      webkitAppearance: 'textfield',
       height: 'auto',
     },
     "[type='search']": {

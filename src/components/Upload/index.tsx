@@ -14,9 +14,6 @@ const useStyles = createUseStyles<RuleNames, Omit<UploadProps, 'onFileChange'>, 
     ...props,
     cursor: ' pointer',
     ...cssOptions?.(theme),
-    '& > input': {
-      display: 'none',
-    },
   }),
 }))
 
@@ -37,7 +34,7 @@ const Upload = ({
   const computedClassNames = classnames(classes.upload, className)
   return (
     <label className={computedClassNames} {...props}>
-      <input type="file" onChange={handleFileChange} />
+      <input hidden type="file" onChange={handleFileChange} />
       {children || 'Upload'}
     </label>
   )

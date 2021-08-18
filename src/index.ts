@@ -39,9 +39,11 @@ import Slider from './components/Slider'
 import Footer from './components/Footer'
 import Backscrumbs from './components/Backscrumbs'
 import Banner from './components/Banner'
+import NumberInput from './components/NumberInput'
 import Segment from './components/Segment'
 import PullToRefresh from './components/PullToRefresh'
 export {
+  NumberInput,
   Footer,
   Banner,
   Backscrumbs,
