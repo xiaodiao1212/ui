@@ -52,7 +52,7 @@ const List = ({ cssOptions, className, children, ...props }: ListProps & React.C
   const computedClassNames = classnames(classes.list, className)
 
   return (
-    <section className={computedClassNames} {...props}>
+    <section aria-label="list" role="list" className={computedClassNames} {...props}>
       {children}
     </section>
   )
@@ -117,7 +117,7 @@ const ListItem = ({
     onTouchEnd: handleTouchEnd,
   }
   return (
-    <div {...(swipe ? props : {})} className={computedClassNames}>
+    <div aria-label="list item" role="listitem" {...(swipe ? props : {})} className={computedClassNames}>
       {children}
       {rightContent && renderRightContent()}
     </div>

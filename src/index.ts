@@ -36,16 +36,22 @@ import FloatingWindow from './components/FloatingWindow'
 import Badge from './components/Badge'
 import Carousel from './components/Carousel'
 import Slider from './components/Slider'
+import TimePicker from './components/TimePicker'
 import Footer from './components/Footer'
 import Backscrumbs from './components/Backscrumbs'
 import Banner from './components/Banner'
 import NumberInput from './components/NumberInput'
 import Segment from './components/Segment'
+import DatePicker from './components/DatePicker'
+import MonthPicker from './components/MonthPicker'
 import PullToRefresh from './components/PullToRefresh'
 export {
   NumberInput,
+  MonthPicker,
   Footer,
+  DatePicker,
   Banner,
+  TimePicker,
   Backscrumbs,
   Segment,
   ScrollView,

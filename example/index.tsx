@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Container, Segment, List, Button, Card, NumberInput } from '../src'
+import { App, Container, MonthPicker, Upload, TimePicker, Card, NumberInput } from '../src'
 
 const Main = () => {
   const [on, setOn] = React.useState(true)
@@ -15,11 +15,12 @@ const Main = () => {
             height: '200px',
           })}
         >
-          <NumberInput
+          <MonthPicker
             onChange={(v) => {
               console.log(v)
             }}
           />
+          <Upload />
         </Card>
       </Container>
     </App>

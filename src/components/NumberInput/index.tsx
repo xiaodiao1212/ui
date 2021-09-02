@@ -31,7 +31,7 @@ const NumberInput = ({ onChange, children, cssOptions, className, ...props }: Nu
   })
   const computedClassNames = classnames(classes['number-input'], className)
   return (
-    <label className={computedClassNames} {...props}>
+    <label aria-label="number input" className={computedClassNames} {...props}>
       <input hidden={!!children} type={'number'} onChange={handleChange} />
       {children}
     </label>

@@ -33,7 +33,7 @@ const Upload = ({
   })
   const computedClassNames = classnames(classes.upload, className)
   return (
-    <label className={computedClassNames} {...props}>
+    <label aria-label="file upload input" className={computedClassNames} {...props}>
       <input hidden type="file" onChange={handleFileChange} />
       {children || 'Upload'}
     </label>
