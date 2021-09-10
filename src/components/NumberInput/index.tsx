@@ -24,7 +24,13 @@ const useStyles = createUseStyles<RuleNames, Omit<NumberInputProps, 'onFileChang
 
 const NumberInput = ({ onChange, children, cssOptions, className, ...props }: NumberInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e.target.value)
+    onChange?.(
+      e.target.value.length > 1
+        ? e.target.value[0] == '0'
+          ? e.target.value.substring(1)
+          : e.target.value
+        : e.target.value,
+    )
   }
   const classes = useStyles({
     cssOptions,

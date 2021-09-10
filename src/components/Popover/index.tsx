@@ -67,6 +67,8 @@ const Popover = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
+  const a: Array<string> = new Array<string>()
+  const b: string[] = []
   const [isContentShow, setIsContentShow] = React.useState(false)
   const classes = usePopoverStyles({ cssOptions })
   const computedClassNames = classnames(classes.popover, className)
