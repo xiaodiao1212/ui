@@ -15,7 +15,7 @@ interface RowProps {
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
-const useStyles = createUseStyles<RuleNames, RowProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, RowProps, Theme>(theme => ({
   row: ({ vertical, wrap, cssOptions, fullHeight, alignItems, gap }) => ({
     display: 'flex',
     width: '100%',

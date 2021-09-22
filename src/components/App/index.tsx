@@ -16,8 +16,7 @@ const App = ({ children, customTheme }: AppProps) => {
         <div
           style={{
             background: theme.color.greyLight,
-          }}
-        >
+          }}>
           {children}
         </div>
       </ThemeProvider>

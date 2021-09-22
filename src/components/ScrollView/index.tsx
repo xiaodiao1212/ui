@@ -11,7 +11,7 @@ type ScrollViewProps = {
 
 type RuleNames = 'scroll-view'
 
-const useStyles = createUseStyles<RuleNames, Pick<ScrollViewProps, 'cssOptions'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Pick<ScrollViewProps, 'cssOptions'>, Theme>(theme => ({
   'scroll-view': ({ cssOptions }) => {
     return {
       height: '100%',
@@ -68,12 +68,11 @@ const ScrollView = ({
   return (
     <div
       onScroll={handleScroll}
-      onTouchStart={(e) => handleTouchStart(e)}
-      onTouchMove={(e) => handleTouchMove(e)}
-      onTouchEnd={(e) => handleTouchEnd(e)}
+      onTouchStart={e => handleTouchStart(e)}
+      onTouchMove={e => handleTouchMove(e)}
+      onTouchEnd={e => handleTouchEnd(e)}
       className={clsns}
-      {...props}
-    >
+      {...props}>
       {children}
       {isFetching && fetchNode}
     </div>

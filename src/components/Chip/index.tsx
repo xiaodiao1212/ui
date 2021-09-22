@@ -10,14 +10,14 @@ type ChipProps = {
 
 type RuleNames = 'chip'
 
-const useStyles = createUseStyles<RuleNames, ChipProps, Theme>((theme) => {
+const useStyles = createUseStyles<RuleNames, ChipProps, Theme>(theme => {
   const getComputedColor = (color?: string) =>
     color || theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827'
   return {
     chip: ({ outline, color, cssOptions }) => ({
       display: 'inline-block',
       padding: '0.1em 0.5em 0.2em 0.5em',
-      color: getComputedColor(color),
+
       borderRadius: '16px',
       ...(!outline
         ? {
@@ -26,6 +26,7 @@ const useStyles = createUseStyles<RuleNames, ChipProps, Theme>((theme) => {
           }
         : {
             border: '1px solid ' + getComputedColor(color),
+            color: getComputedColor(color),
           }),
       ...cssOptions?.(theme),
     }),

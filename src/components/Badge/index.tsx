@@ -13,7 +13,7 @@ type BadgeProps = Partial<{
   cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
-const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>((theme) => ({
+const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>(theme => ({
   badge: ({ cssOptions, size, offsetX, show, offsetY, color }) => ({
     position: 'relative',
     '& > *:first-child': {
@@ -55,7 +55,7 @@ const Badge = ({
     return badgeContent
   }
   return (
-    <div aria-label="badge" className={computedClassNames} {...props}>
+    <div aria-label='badge' className={computedClassNames} {...props}>
       {renderBadgeContent()}
       {children}
     </div>

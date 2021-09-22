@@ -10,7 +10,7 @@ type ProgressProps = {
   barCssOptions?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'progress'
-const useStyles = createUseStyles<RuleNames, ProgressProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, ProgressProps, Theme>(theme => ({
   progress: ({ backgroundColor, color, percent, backgroundCssOptions, barCssOptions }) => ({
     height: '100%',
     backgroundColor:
@@ -42,8 +42,8 @@ const Progress = ({
   })
   const computedClassNames = classnames(classes.progress, className)
   return (
-    <div aria-label="progress" role="progressbar" className={computedClassNames} {...props}>
-      <div className="progress-bar" />
+    <div aria-label='progress' role='progressbar' className={computedClassNames} {...props}>
+      <div className='progress-bar' />
     </div>
   )
 }

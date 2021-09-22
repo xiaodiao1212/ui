@@ -11,7 +11,7 @@ type SkeletonProps = {
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'skeleton' | '@keyframes loading'
-const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>(theme => ({
   skeleton: ({ cssOptions, circle, height, width, delay, duration }) => ({
     width: width,
     height: height,
@@ -54,7 +54,7 @@ const Skeleton = ({
     cssOptions,
   })
   const computedClassNames = classnames(classes.skeleton, className)
-  return <div aria-label="skeleton" className={computedClassNames} {...props} />
+  return <div aria-label='skeleton' className={computedClassNames} {...props} />
 }
 
 export default Skeleton

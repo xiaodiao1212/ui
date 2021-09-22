@@ -24,7 +24,7 @@ export interface ModalProps {
 
 const prefixCls = 'modal'
 
-const useStyles = createUseStyles<typeof prefixCls | '@keyframes spin', ModalProps, Theme>((theme) => ({
+const useStyles = createUseStyles<typeof prefixCls | '@keyframes spin', ModalProps, Theme>(theme => ({
   '@keyframes spin': {
     '0%': 'transform: rotate(0deg)',
     '100%': 'transform: rotate(360deg)',
@@ -114,7 +114,7 @@ const Modal = (props: ModalProps & React.ComponentPropsWithoutRef<'div'>) => {
     if (onOk) {
       setLoading(true)
       onOk()
-        .then((res) => {
+        .then(res => {
           if (res) {
             setLoading(false)
           }

@@ -193,7 +193,7 @@ export function hexToRgb(color: string) {
   let colors = color.match(re)
 
   if (colors && colors[0].length === 1) {
-    colors = colors.map((n) => n + n)
+    colors = colors.map(n => n + n)
   }
 
   return colors
@@ -217,7 +217,7 @@ export function rgbToHex(color: string) {
   }
 
   const { values } = decomposeColor(color)
-  return `#${values.map((n) => intToHex(n)).join('')}`
+  return `#${values.map(n => intToHex(n)).join('')}`
 }
 
 export function hslToRgb(color: string) {
@@ -256,7 +256,7 @@ export function decomposeColor(color: string): ColorObject {
 
   const values = color.substring(marker + 1, color.length - 1).split(',')
 
-  return { type, values: values.map((value) => parseFloat(value)) }
+  return { type, values: values.map(value => parseFloat(value)) }
 }
 
 export function recomposeColor(color: ColorObject) {
@@ -284,7 +284,7 @@ export function getLuminance(color: string) {
   const decomposedColor = decomposeColor(color)
 
   let rgb = decomposedColor.type === 'hsl' ? decomposeColor(hslToRgb(color)).values : decomposedColor.values
-  rgb = rgb.map((val) => {
+  rgb = rgb.map(val => {
     val /= 255 // normalized
     return val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4
   })

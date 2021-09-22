@@ -1,6 +1,6 @@
 import * as React from 'react'
 import classnames from 'classnames'
-import Text from './'
+import Text from '../Text'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ButtonProps = {
@@ -17,7 +17,7 @@ type ButtonProps = {
 type RuleNames = 'button'
 
 const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>(
-  (theme) => ({
+  theme => ({
     button: ({ block, color, tile, cssOptions, icon, disabled, text, outlined }) => ({
       padding: icon ? '' : '0.6em 1.2em',
       width: block ? '100%' : 'auto',

@@ -17,7 +17,7 @@ type InputProps = {
 }
 type RuleNames = 'input' | 'input-container'
 
-const useStyles = createUseStyles<RuleNames, InputProps & { disabled?: boolean }, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, InputProps & { disabled?: boolean }, Theme>(theme => ({
   input: ({ cssOptions, disabled, outline, contain }) => ({
     width: '100%',
     padding: '.6em',

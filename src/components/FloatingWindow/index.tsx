@@ -14,7 +14,7 @@ type FloatingWindowProps = Partial<{
   }
 }>
 
-const useStyles = createUseStyles<'floating-window', FloatingWindowProps, Theme>((theme) => ({
+const useStyles = createUseStyles<'floating-window', FloatingWindowProps, Theme>(theme => ({
   'floating-window': ({ position, cssOptions }) => ({
     position: 'fixed',
     left: 0,

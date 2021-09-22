@@ -13,7 +13,7 @@ type DividerProps = {
 
 type RuleNames = 'divider'
 
-const useStyles = createUseStyles<RuleNames, DividerProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, DividerProps, Theme>(theme => ({
   divider: ({ color, width, vertical, cssOptions, doubleLine, dashed }) => ({
     border: 'none',
     ...(vertical
@@ -53,7 +53,7 @@ const Divider = ({
   })
 
   const computedClassNames = classnames(classes.divider, className)
-  return <hr aria-label="hr divider" className={computedClassNames} {...props} />
+  return <hr aria-label='hr divider' className={computedClassNames} {...props} />
 }
 
 export default Divider

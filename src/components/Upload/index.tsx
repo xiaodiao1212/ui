@@ -9,7 +9,7 @@ type UploadProps = Partial<{
 
 type RuleNames = 'upload'
 
-const useStyles = createUseStyles<RuleNames, Omit<UploadProps, 'onFileChange'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Omit<UploadProps, 'onFileChange'>, Theme>(theme => ({
   upload: ({ cssOptions, ...props }) => ({
     ...props,
     cursor: ' pointer',
@@ -33,8 +33,8 @@ const Upload = ({
   })
   const computedClassNames = classnames(classes.upload, className)
   return (
-    <label aria-label="file upload input" className={computedClassNames} {...props}>
-      <input hidden type="file" onChange={handleFileChange} />
+    <label aria-label='file upload input' className={computedClassNames} {...props}>
+      <input hidden type='file' onChange={handleFileChange} />
       {children || 'Upload'}
     </label>
   )

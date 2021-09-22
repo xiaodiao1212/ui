@@ -24,13 +24,13 @@ type TabsIndicatorProps = Partial<{
   cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
-const useTabsStyles = createUseStyles<'tabs', Pick<TabsProps, 'cssOptions'>, Theme>((theme) => ({
+const useTabsStyles = createUseStyles<'tabs', Pick<TabsProps, 'cssOptions'>, Theme>(theme => ({
   tabs: ({ cssOptions }) => ({
     display: 'flex',
     ...cssOptions,
   }),
 }))
-const useTabItemStyles = createUseStyles<'tabItem', Pick<TabItemProps, 'cssOptions'>, Theme>((theme) => ({
+const useTabItemStyles = createUseStyles<'tabItem', Pick<TabItemProps, 'cssOptions'>, Theme>(theme => ({
   tabItem: ({ cssOptions }) => ({
     position: 'relative',
     flex: 1,
@@ -39,7 +39,7 @@ const useTabItemStyles = createUseStyles<'tabItem', Pick<TabItemProps, 'cssOptio
   }),
 }))
 const useTabsIndicatorStyles = createUseStyles<'tabsIndicator', Pick<TabsIndicatorProps, 'cssOptions'>, Theme>(
-  (theme) => ({
+  theme => ({
     tabsIndicator: ({ cssOptions }) => ({
       position: 'absolute',
       height: '1px',
@@ -81,7 +81,7 @@ const Tabs = ({
   }
   const renderTab = (tab: React.ReactNode) => tab
   return (
-    <nav aria-label="tabs" className={computedClassNames} {...props}>
+    <nav aria-label='tabs' className={computedClassNames} {...props}>
       {typeof children === 'function' && children(renderTab)}
       {children instanceof Array && handleChildrenRender()}
     </nav>
@@ -99,7 +99,7 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, cssOptions, children, clas
     ...cssOptions?.(theme, tab == tabKey),
   })
   return (
-    <Button aria-label="tab item" className={computedClassNames} onClick={handleClickTab} cssOptions={tabCssOptions}>
+    <Button aria-label='tab item' className={computedClassNames} onClick={handleClickTab} cssOptions={tabCssOptions}>
       {children}
       {tab == tabKey && !noIndicator && <TabsIndicator />}
     </Button>
@@ -112,7 +112,7 @@ const TabsIndicator = ({
 }: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
   const classes = useTabsIndicatorStyles({ cssOptions })
   const computedClassNames = classnames(classes.tabsIndicator, className)
-  return <span aria-label="tabs indicator" className={computedClassNames} {...props} />
+  return <span aria-label='tabs indicator' className={computedClassNames} {...props} />
 }
 
 Tabs.Item = TabItem

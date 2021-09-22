@@ -27,7 +27,7 @@ const usePullToRefreshStyles = createUseStyles<
     translateY: number
   },
   Theme
->((theme) => ({
+>(theme => ({
   pullToRefresh: ({ translateY, cssOptions }) => ({
     height: '100%',
     overflow: 'hidden',
@@ -41,7 +41,7 @@ const usePullToRefreshStyles = createUseStyles<
 }))
 
 const useRefreshLoadingStyles = createUseStyles<'refresh-loading', Pick<RefreshLoadingProps, 'cssOptions'>, Theme>(
-  (theme) => ({
+  theme => ({
     'refresh-loading': ({ cssOptions }) => {
       const pullToRefreshStyle: React.CSSProperties = {
         position: 'absolute',
@@ -138,14 +138,13 @@ const PullToRefresh = ({
 
   return (
     <div
-      aria-label="pull-to-refresh"
+      aria-label='pull-to-refresh'
       className={computedRefreshClassNames}
-      onTouchStart={(e) => handleTouchStart(e)}
-      onTouchMove={(e) => handleTouchMove(e)}
-      onTouchEnd={(e) => handleTouchEnd()}
-      {...props}
-    >
-      <div aria-label="pull-to-refresh container" className="refresh-container">
+      onTouchStart={e => handleTouchStart(e)}
+      onTouchMove={e => handleTouchMove(e)}
+      onTouchEnd={e => handleTouchEnd()}
+      {...props}>
+      <div aria-label='pull-to-refresh container' className='refresh-container'>
         {handleChildrenRender()}
       </div>
     </div>
@@ -158,7 +157,7 @@ const RefreshLoading = ({ children, className, cssOptions }: RefreshLoadingProps
   })
   const computedLoadingClassNames = classnames(classes['refresh-loading'], className)
   return (
-    <div aria-label="pull-to-refresh loading" className={computedLoadingClassNames}>
+    <div aria-label='pull-to-refresh loading' className={computedLoadingClassNames}>
       {children}
     </div>
   )

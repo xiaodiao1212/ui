@@ -11,7 +11,7 @@ type DatePickerProps = Partial<{
 
 type RuleNames = 'date-picker'
 
-const useStyles = createUseStyles<RuleNames, Omit<DatePickerProps, 'onFileChange'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Omit<DatePickerProps, 'onFileChange'>, Theme>(theme => ({
   'date-picker': ({ cssOptions, ...props }) => ({
     ...props,
     ...cssOptions?.(theme),
@@ -35,9 +35,9 @@ const DatePicker = ({
   })
   const computedClassNames = classnames(classes['date-picker'], className)
   return (
-    <label aria-label="date input" className={computedClassNames} {...props}>
-      <input min={min} max={max} hidden={!!children} type="date" onChange={handleChange} />
-      {children || <span id="value">n/a</span>}
+    <label aria-label='date input' className={computedClassNames} {...props}>
+      <input min={min} max={max} hidden={!!children} type='date' onChange={handleChange} />
+      {children || <span id='value'>n/a</span>}
     </label>
   )
 }

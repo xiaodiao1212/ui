@@ -16,7 +16,7 @@ interface DrawerProps {
   onClose: (e: any) => any
 }
 
-const useStyles = createUseStyles<RuleNames, Omit<DrawerProps, 'onClose' | 'shy'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Omit<DrawerProps, 'onClose' | 'shy'>, Theme>(theme => ({
   '@keyframes drawerIn': ({ position, width, height }) => {
     let from: any = {
       left: '-' + width,
@@ -101,8 +101,8 @@ const useStyles = createUseStyles<RuleNames, Omit<DrawerProps, 'onClose' | 'shy'
     }
   },
   'drawer-content': ({ open, position, width, height }) => {
-    let contentStyle = {},
-      closeStyle = {},
+    const closeStyle = {}
+    let contentStyle,
       openStyle = {}
     const baseYOffset = height != 'auto' ? height : '-100vh'
     const baseXOffset = '-' + width

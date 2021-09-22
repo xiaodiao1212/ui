@@ -15,7 +15,7 @@ type LoadingProps = {
 
 type RuleNames = 'loading' | '@keyframes spin'
 
-const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>(theme => ({
   '@keyframes spin': {
     '0%': {
       transform: 'rotate(0deg)',

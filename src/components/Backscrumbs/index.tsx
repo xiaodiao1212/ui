@@ -12,7 +12,7 @@ type BackscrumbsProps = Partial<{
   cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
-const useStyles = createUseStyles<'backscrumbs', BackscrumbsProps, Theme>((theme) => ({
+const useStyles = createUseStyles<'backscrumbs', BackscrumbsProps, Theme>(theme => ({
   backscrumbs: ({ cssOptions }) => ({
     display: 'inline-flex',
     alignItems: 'center',
@@ -47,8 +47,7 @@ const Backscrumbs = ({
                 <div
                   style={{
                     margin: '0em .4em',
-                  }}
-                >
+                  }}>
                   {divider}
                 </div>
               ) : (

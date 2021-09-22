@@ -10,7 +10,7 @@ type NotificationProps = {
   onClose: () => void
 }
 type RuleNames = 'notification' | '@keyframes in'
-const useStyles = createUseStyles<RuleNames, Omit<NotificationProps, 'onClose'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Omit<NotificationProps, 'onClose'>, Theme>(theme => ({
   notification: ({ show }) => ({
     position: 'fixed',
     zIndex: theme.zIndex.notification,

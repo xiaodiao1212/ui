@@ -11,7 +11,7 @@ type TimePickerProps = Partial<{
 
 type RuleNames = 'time-picker'
 
-const useStyles = createUseStyles<RuleNames, Omit<TimePickerProps, 'onFileChange'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Omit<TimePickerProps, 'onFileChange'>, Theme>(theme => ({
   'time-picker': ({ cssOptions, ...props }) => ({
     ...props,
     ...cssOptions?.(theme),
@@ -35,8 +35,8 @@ const TimePicker = ({
   })
   const computedClassNames = classnames(classes['time-picker'], className)
   return (
-    <label aria-label="time input" className={computedClassNames} {...props}>
-      <input min={min} max={max} hidden={!!children} type="time" onChange={handleChange} />
+    <label aria-label='time input' className={computedClassNames} {...props}>
+      <input min={min} max={max} hidden={!!children} type='time' onChange={handleChange} />
       {children || 'Time'}
     </label>
   )

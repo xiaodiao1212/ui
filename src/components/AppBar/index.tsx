@@ -13,7 +13,7 @@ type AppBarProps = {
 
 type RuleNames = 'AppBar'
 
-const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>(theme => ({
   AppBar: ({ cssOptions, fixed }) => ({
     height: theme?.appBar?.height || '3em',
     backgroundColor: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',

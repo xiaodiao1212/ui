@@ -17,7 +17,7 @@ type PickerProps = {
 }
 type RuleNames = 'picker'
 const useStyles = createUseStyles<RuleNames, Pick<PickerProps, 'cssOptions'> & { translateYlength: number[] }, Theme>(
-  (theme) => ({
+  theme => ({
     picker: ({ translateYlength, cssOptions }) => {
       const pickerStyle: any = {
         position: 'relative',
@@ -93,18 +93,18 @@ const Picker = ({
   cssOptions,
   ...props
 }: PickerProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const [currentKey, setCurrentKey] = useState(value || data.map((v) => v[0].key))
-  const [max, setMax] = useState(data.map((v) => v.length - 1))
-  const [min, setMin] = useState(data.map((v) => v.length - 1 - v.length * 2))
+  const [currentKey, setCurrentKey] = useState(value || data.map(v => v[0].key))
+  const [max, setMax] = useState(data.map(v => v.length - 1))
+  const [min, setMin] = useState(data.map(v => v.length - 1 - v.length * 2))
   const [computedData, setComputedData] = useState(data)
-  const [moveLength, setMoveLength] = useState(data.map((v) => 4))
-  const [translateYlength, setTranslateYlength] = useState<number[]>(data.map((v) => 4))
-  const [offsetY, setOffsetY] = useState<number[]>(data.map((v) => 0))
-  const [startPageY, setStartPageY] = useState<number[]>(data.map((v) => 0))
+  const [moveLength, setMoveLength] = useState(data.map(v => 4))
+  const [translateYlength, setTranslateYlength] = useState<number[]>(data.map(v => 4))
+  const [offsetY, setOffsetY] = useState<number[]>(data.map(v => 0))
+  const [startPageY, setStartPageY] = useState<number[]>(data.map(v => 0))
   const classes = useStyles({ translateYlength, cssOptions })
   const computedClassNames = classnames(classes.picker, className)
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>, index: number) => {
-    setStartPageY((v) =>
+    setStartPageY(v =>
       v.map((v, i) => {
         if (i == index) {
           return e.touches[0].pageY
@@ -116,7 +116,7 @@ const Picker = ({
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>, index: number) => {
     const offsetY = parseFloat(((e.touches[0].pageY - startPageY[index]) / 16).toFixed(1))
-    setOffsetY((v) =>
+    setOffsetY(v =>
       v.map((v, i) => {
         if (i == index) {
           return offsetY
@@ -125,7 +125,7 @@ const Picker = ({
       }),
     )
 
-    setTranslateYlength((l) =>
+    setTranslateYlength(l =>
       l.map((v, i) => {
         if (i == index) return moveLength[index] + offsetY
         return v
@@ -150,7 +150,7 @@ const Picker = ({
       } else {
         translateY = ml + integerPart
       }
-      setMoveLength((l) =>
+      setMoveLength(l =>
         l.map((v, i) => {
           if (i == index) return translateY
           return v
@@ -172,10 +172,10 @@ const Picker = ({
         console.log('onPickerChange', v)
 
         if (i == index) return v[(max[index] - translateY) / 2]
-        return v.filter((v) => v.key == value[i])[0]
+        return v.filter(v => v.key == value[i])[0]
       }),
     )
-    setTranslateYlength((l) =>
+    setTranslateYlength(l =>
       l.map((v, i) => {
         if (i == index) return translateY
         return v
@@ -198,13 +198,13 @@ const Picker = ({
       const current = getCurrentItem(index)
       console.log(index, current)
 
-      setTranslateYlength((l) =>
+      setTranslateYlength(l =>
         l.map((v, i) => {
           if (i == index) return current
           return v
         }),
       )
-      setMoveLength((l) =>
+      setMoveLength(l =>
         l.map((v, i) => {
           if (i == index) return current
           return v
@@ -215,18 +215,17 @@ const Picker = ({
 
   return (
     <div className={computedClassNames} {...props}>
-      <div className="container">
+      <div className='container'>
         {computedData.map((columnData, i) => (
           <div
             key={i + (columnData[0].value as any)}
             className={'content' + i}
-            onTouchStart={(e) => handleTouchStart(e, i)}
-            onTouchMove={(e) => handleTouchMove(e, i)}
-            onTouchEnd={(e) => handleTouchEnd(i)}
-          >
-            {columnData?.map((v) => {
+            onTouchStart={e => handleTouchStart(e, i)}
+            onTouchMove={e => handleTouchMove(e, i)}
+            onTouchEnd={e => handleTouchEnd(i)}>
+            {columnData?.map(v => {
               return (
-                <div className="item" key={v.key}>
+                <div className='item' key={v.key}>
                   {v.value}
                 </div>
               )
@@ -234,8 +233,8 @@ const Picker = ({
           </div>
         ))}
       </div>
-      <div className="mask"></div>
-      <div className="indicator"></div>
+      <div className='mask'></div>
+      <div className='indicator'></div>
     </div>
   )
 }

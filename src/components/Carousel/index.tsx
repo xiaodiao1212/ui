@@ -12,7 +12,7 @@ type CarouselProps = Partial<{
 
 type RuleNames = 'carousel'
 
-const useStyles = createUseStyles<RuleNames, CarouselProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, CarouselProps, Theme>(theme => ({
   carousel: ({ cssOptions, vertical }) => ({
     overflowX: 'scroll',
     display: 'flex',

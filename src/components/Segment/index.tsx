@@ -18,7 +18,7 @@ const useSegmentStyles = createUseStyles<
   'segment',
   Pick<SegmentProps, 'cssOptions'> & { left: number; key: number; fragmentLength: number; offsetX: number },
   Theme
->((theme) => ({
+>(theme => ({
   segment: ({ cssOptions, key, left, offsetX, fragmentLength }) => ({
     height: '2em',
     display: 'flex',
@@ -53,7 +53,7 @@ const useSegmentItemStyles = createUseStyles<
   'segment-item',
   Pick<SegmentItemProps, 'cssOptions'> & { isCurrent: boolean },
   Theme
->((theme) => ({
+>(theme => ({
   'segment-item': ({ cssOptions, isCurrent }) => ({
     padding: '0 .4em',
     flex: 1,
@@ -112,7 +112,7 @@ const Segment = ({
     }
   }, [current])
   return (
-    <div aria-label="segment button" role="button" className={computedClassNames} {...props}>
+    <div aria-label='segment button' role='button' className={computedClassNames} {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
     </div>
@@ -133,7 +133,7 @@ const SegmentItem = ({
     onClickItem?.(itemkey)
   }
   return (
-    <div aria-label="segment item" className={computedClassNames} onClick={handleClickSegmentItem}>
+    <div aria-label='segment item' className={computedClassNames} onClick={handleClickSegmentItem}>
       {children}
     </div>
   )

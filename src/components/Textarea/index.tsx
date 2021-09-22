@@ -8,7 +8,7 @@ type TextareaProps = {
 }
 type RuleNames = 'textarea'
 
-const useStyles = createUseStyles<RuleNames, TextareaProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, TextareaProps, Theme>(theme => ({
   textarea: ({ cssOptions }) => ({
     width: '100%',
     padding: '12px',

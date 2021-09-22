@@ -11,7 +11,7 @@ type SwitchProps = Partial<{
 
 type RuleNames = 'switch'
 
-const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
   switch: ({ cssOptions, color, on }) => ({
     display: 'inline-flex',
     alignItems: 'center',
@@ -66,7 +66,7 @@ const Switch = ({
 
   return (
     <label className={computedClassNames}>
-      <input checked={on} onChange={handleSwitchChange} type="checkbox" />
+      <input checked={on} onChange={handleSwitchChange} type='checkbox' />
       <span className={`switch-button`} />
     </label>
   )

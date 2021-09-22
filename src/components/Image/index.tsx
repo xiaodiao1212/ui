@@ -14,7 +14,7 @@ type ImageProps = {
   height?: string
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
-const useStyles = createUseStyles<RuleNames, ImageProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, ImageProps, Theme>(theme => ({
   image: ({ cssOptions, center, fit, circle }) => ({
     borderRadius: (circle as boolean) && '50%',
     '& > img': {

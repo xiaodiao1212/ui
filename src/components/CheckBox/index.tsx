@@ -17,7 +17,7 @@ type CheckBoxProps = {
 }
 type RuleNames = 'checkBox'
 
-const useStyles = createUseStyles<RuleNames, CheckBoxProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, CheckBoxProps, Theme>(theme => ({
   checkBox: ({ cssOptions }) => ({
     display: 'flex',
     alignItems: 'center',

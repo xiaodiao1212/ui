@@ -30,7 +30,7 @@ interface SelectProps {
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
-const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'cssOptions'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'cssOptions'>, Theme>(theme => ({
   select: ({ cssOptions }) => {
     return { ...cssOptions }
   },
@@ -49,13 +49,12 @@ const Select = ({ value, onSelectChange, data, open, onClose, children, classNam
     onClose()
   }
   return (
-    <Drawer position="bottom" open={open} onClose={handleClickDrawer} className={computedClassNames}>
+    <Drawer position='bottom' open={open} onClose={handleClickDrawer} className={computedClassNames}>
       <div
         style={{
           borderTopRightRadius: '8px',
           borderTopLeftRadius: '8px',
-        }}
-      >
+        }}>
         <Picker
           cssOptions={() => ({
             background: 'white',

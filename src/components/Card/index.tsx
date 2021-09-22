@@ -9,7 +9,7 @@ type CardProps = Partial<{
   cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
-const useCardStyles = createUseStyles<'card', CardProps, Theme>((theme) => ({
+const useCardStyles = createUseStyles<'card', CardProps, Theme>(theme => ({
   card: ({ cssOptions }) => ({
     background: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
     '& > header': {
@@ -26,7 +26,7 @@ const useCardStyles = createUseStyles<'card', CardProps, Theme>((theme) => ({
   }),
 }))
 
-const useCardHeaderStyles = createUseStyles<'card-header', CardProps, Theme>((theme) => ({
+const useCardHeaderStyles = createUseStyles<'card-header', CardProps, Theme>(theme => ({
   'card-header': ({ cssOptions }) => ({
     ...cssOptions?.(theme),
   }),

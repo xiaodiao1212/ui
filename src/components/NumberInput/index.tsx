@@ -12,7 +12,7 @@ type NumberInputProps = Partial<{
 }>
 
 type RuleNames = 'number-input'
-const useStyles = createUseStyles<RuleNames, Omit<NumberInputProps, 'onFileChange'>, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Omit<NumberInputProps, 'onFileChange'>, Theme>(theme => ({
   'number-input': ({ cssOptions, ...props }) => ({
     '& > input::-webkit-outer-spin-button': {
       WebkitAppearance: 'none',
@@ -37,7 +37,7 @@ const NumberInput = ({ onChange, children, cssOptions, className, ...props }: Nu
   })
   const computedClassNames = classnames(classes['number-input'], className)
   return (
-    <label aria-label="number input" className={computedClassNames} {...props}>
+    <label aria-label='number input' className={computedClassNames} {...props}>
       <input hidden={!!children} type={'number'} onChange={handleChange} />
       {children}
     </label>

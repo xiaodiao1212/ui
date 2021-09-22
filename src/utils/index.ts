@@ -1,34 +1,36 @@
-export function isBrowerDarkMode() {
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+const copy = (text: string) => {
+  let transfer = document.createElement('input')
+  document.body.appendChild(transfer)
+  transfer.value = text
+  transfer.select()
+  if (document.execCommand('copy')) {
+    document.execCommand('copy')
+  }
+  document.body.removeChild(transfer)
 }
-export function isObject(item: any) {
-  return item && typeof item === 'object' && item.constructor === Object
+const clamp = (target: number, min: number, max: number) => {
+  if (target < min) {
+    return min
+  } else if (target > max) {
+    return max
+  }
+  return target
 }
-export function getBase64(img: Blob, callback: (arg0: string | ArrayBuffer | null) => void) {
-  const reader = new FileReader()
-  reader.addEventListener('load', () => {
-    callback(reader.result)
-  })
-  reader.readAsDataURL(img)
-}
-export function isWX() {
+const isWX = () => {
   const wx = navigator.userAgent.toLowerCase()
   if ((wx as any).match(/MicroMessenger/i) == 'micromessenger') {
     return true
   }
   return false
 }
-export function isAndroid() {
+const isAndroid = () => {
   const android = navigator.userAgent
   if (android.indexOf('Android') > -1 || android.indexOf('Adr') > -1) {
     return true
   }
   return false
 }
-export function isPC() {
-  return !(isAndroid() && isWX() && isIos())
-}
-export function isIos() {
+const isIos = () => {
   const ios = navigator.userAgent
   if (!!ios.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
     return true
@@ -36,11 +38,11 @@ export function isIos() {
   return false
 }
 
-export function callPhoneNumber(phoneNumber: string) {
+const callPhoneNumber = (phoneNumber: string) => {
   window.location.href = 'tel:' + phoneNumber
 }
 
-export function transformFetchParamsInGet(params: { [key: string]: any }) {
+const transformFetchParamsInGet = (params: { [key: string]: any }) => {
   let result = '?'
   for (const key in params) {
     if ((params.prototype || params).hasOwnProperty.call(params, key)) {
@@ -50,14 +52,14 @@ export function transformFetchParamsInGet(params: { [key: string]: any }) {
   }
   return result
 }
-export function getUrlParam(name: string) {
+const getUrlParam = (name: string) => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
   const r = window.location.search.substr(1).match(reg)
   if (r != null) return unescape(r[2])
   return null
 }
 
-export function getUUID() {
+const getUUID = () => {
   const url = URL.createObjectURL(new Blob([]))
   // const uuid = url.split("/").pop();
   const uuid = url.substring(url.lastIndexOf('/') + 1)
@@ -65,10 +67,10 @@ export function getUUID() {
   return uuid
 }
 
-export function humpToUnderline(str: string) {
+const humpToUnderline = (str: string) => {
   return str.replace(/([A-Z])/g, '_$1').toLowerCase()
 }
-export function underlineToHump(str: string) {
+const underlineToHump = (str: string) => {
   const a = str.split('_')
   let result = a[0]
   for (var i = 1; i < a.length; i++) {
@@ -76,7 +78,18 @@ export function underlineToHump(str: string) {
   }
   return result
 }
-export function debounce(callback: () => void, delay: number) {
+const back = () => {
+  ;(window as any).Android.backApp()
+}
+
+function utf8ToB64(str: string) {
+  return window.btoa(unescape(encodeURIComponent(str)))
+}
+
+function b64ToUtf8(str: string) {
+  return decodeURIComponent(escape(window.atob(str)))
+}
+function debounce(callback: () => void, delay: number) {
   let timer
   if (timer) {
     clearTimeout(timer)
@@ -86,25 +99,32 @@ export function debounce(callback: () => void, delay: number) {
     timer = null
   }, delay)
 }
-
-export function deepmerge(target: any, source: any, options = { clone: true }) {
-  const output = options.clone ? { ...target } : target
-
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
-      // Avoid prototype pollution
-      if (key === '__proto__') {
-        return
-      }
-
-      if (isObject(source[key]) && key in target) {
-        output[key] = deepmerge(target[key], source[key], options)
-      } else {
-        output[key] = source[key]
-      }
-    })
-  }
-  console.log(output)
-
-  return output
+function isPC() {
+  return !(isAndroid() && isWX() && isIos())
+}
+function isBrowerDarkMode() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+function isObject(item: any) {
+  return item && typeof item === 'object' && item.constructor === Object
+}
+export {
+  isBrowerDarkMode,
+  isObject,
+  debounce,
+  utf8ToB64,
+  b64ToUtf8,
+  underlineToHump,
+  humpToUnderline,
+  getUrlParam,
+  back,
+  transformFetchParamsInGet,
+  callPhoneNumber,
+  isPC,
+  isWX,
+  isAndroid,
+  isIos,
+  copy,
+  clamp,
+  getUUID,
 }

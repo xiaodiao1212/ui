@@ -7,7 +7,7 @@ type BottomNavigationProps = Partial<{
   cssOptions: (theme: Theme) => React.CSSProperties
 }>
 type RuleNames = 'BottomNavigation'
-const useStyles = createUseStyles<RuleNames, BottomNavigationProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, BottomNavigationProps, Theme>(theme => ({
   BottomNavigation: ({ cssOptions }) => ({
     ...cssOptions?.(theme),
   }),

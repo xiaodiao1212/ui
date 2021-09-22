@@ -15,7 +15,7 @@ type TextProps = Partial<{
 
 type RuleNames = 'text'
 
-const useStyles = createUseStyles<RuleNames, TextProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, TextProps, Theme>(theme => ({
   text: ({ color, dark, blod, maxLength, thin, cssOptions }) => {
     const computedColor =
       color ||

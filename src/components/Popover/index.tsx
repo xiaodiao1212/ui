@@ -12,7 +12,7 @@ interface PopoverContentProps {
   show?: boolean
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
-const usePopoverStyles = createUseStyles<'popover', PopoverProps, Theme>((theme) => ({
+const usePopoverStyles = createUseStyles<'popover', PopoverProps, Theme>(theme => ({
   popover: ({ cssOptions }) => ({
     position: 'relative',
     display: 'inline-flex',
@@ -21,7 +21,7 @@ const usePopoverStyles = createUseStyles<'popover', PopoverProps, Theme>((theme)
     ...cssOptions?.(theme),
   }),
 }))
-const usePopoverContentStyles = createUseStyles<'popover-content', PopoverContentProps, Theme>((theme) => ({
+const usePopoverContentStyles = createUseStyles<'popover-content', PopoverContentProps, Theme>(theme => ({
   'popover-content': ({ show, position, cssOptions }) => {
     let computedPosition = {}
     switch (position) {
@@ -99,7 +99,7 @@ const Popover = ({
     })
   }
   return (
-    <div aria-label="popover" className={computedClassNames} {...props}>
+    <div aria-label='popover' className={computedClassNames} {...props}>
       {handleChildrenRender()}
     </div>
   )
@@ -125,10 +125,9 @@ const PopoverContent = ({
     <div
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      aria-label="popover-content"
+      aria-label='popover-content'
       className={computedClassNames}
-      {...props}
-    >
+      {...props}>
       {children}
     </div>
   )

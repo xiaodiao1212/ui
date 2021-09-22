@@ -14,7 +14,7 @@ type ColProps = {
 
 type RuleNames = 'col'
 
-const useStyles = createUseStyles<RuleNames, ColProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, ColProps, Theme>(theme => ({
   col: ({ flex, autoMargin, noFlex, cssOptions, ...props }) => ({
     ...props,
     ...(autoMargin ? { marginLeft: 'auto' } : { flex: noFlex ? '' : flex }),

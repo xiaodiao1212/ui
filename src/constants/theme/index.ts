@@ -2,7 +2,7 @@ import { darken, lighten, fade, emphasize } from '../style'
 const theme: Theme = {
   mode: 'light',
   color: {
-    primary: '#231F9C',
+    primary: '#003CBE',
     black: '#111827',
     grey: '#6b7280',
     red: '#e32b3a',

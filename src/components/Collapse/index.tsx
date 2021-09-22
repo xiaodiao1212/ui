@@ -2,15 +2,16 @@ import classnames from 'classnames'
 import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
-export type CollapseProps = {
-  title?: string
-  expand?: boolean
+type CollapseProps = {
+  header: React.ReactNode
+  extra?: React.ReactNode
+  expand: boolean
   onClickExpand?: () => void
 }
 
-type RuleNames = 'collapse' | 'title' | 'icon' | 'arrow'
+type RuleNames = 'collapse' | 'arrow'
 
-const useStyles = createUseStyles<RuleNames, CollapseProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, Pick<CollapseProps, 'expand'>, Theme>(theme => ({
   collapse: {
     padding: '1em 0',
     '& > .flex': {
@@ -18,12 +19,6 @@ const useStyles = createUseStyles<RuleNames, CollapseProps, Theme>((theme) => ({
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-  },
-  title: {
-    flex: '8',
-  },
-  icon: {
-    flex: '1',
   },
   arrow: ({ expand }) => ({
     marginLeft: 'auto',
@@ -37,27 +32,27 @@ const useStyles = createUseStyles<RuleNames, CollapseProps, Theme>((theme) => ({
 }))
 const Collapse = ({
   title,
+  extra,
   expand = false,
   children,
   className,
+  onClickExpand,
   ...props
 }: CollapseProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     expand,
   })
   const handleClickExpand = () => {
-    props?.onClickExpand?.()
+    onClickExpand?.()
   }
   const computedClassNames = classnames(classes.collapse, className)
-  const cnsIcon = classnames(classes.icon, className)
+
   const cnsArrow = classnames(classes.arrow)
   return (
     <div className={computedClassNames}>
-      <div className="flex">
-        <div className="title">{title}</div>
-        <div className={cnsIcon}>
-          <div className={cnsArrow} onClick={handleClickExpand} />
-        </div>
+      <div className='flex'>
+        <div className='title'>{title}</div>
+        {extra || <div className={cnsArrow} onClick={handleClickExpand} />}
       </div>
       {expand && children}
     </div>

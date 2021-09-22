@@ -17,7 +17,7 @@ type ContainerProps = {
 
 type RuleNames = 'container'
 
-const useStyles = createUseStyles<RuleNames, ContainerProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, ContainerProps, Theme>(theme => ({
   container: ({
     noPadding,
     fullScreen,

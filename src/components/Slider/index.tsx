@@ -19,7 +19,7 @@ type SliderProps = Partial<{
 }>
 
 type RuleNames = 'slider'
-const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, Theme>(theme => ({
   slider: ({ backgroundColor, percent, color, backgroundCssOptions, barCssOptions }) => ({
     height: '1em',
     position: 'relative',
@@ -145,10 +145,10 @@ const Slider = ({
   const computedClassNames = classnames(classes.slider, className)
 
   return (
-    <div ref={ref} aria-label="slider" role="sliderbar" className={computedClassNames} {...props}>
-      <div className="slider-bar" />
+    <div ref={ref} aria-label='slider' role='sliderbar' className={computedClassNames} {...props}>
+      <div className='slider-bar' />
       <div
-        className="slider-circle"
+        className='slider-circle'
         onTouchStart={handleSlideStart}
         onTouchMove={handleSlide}
         onTouchEnd={handleSlideEnd}

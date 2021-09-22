@@ -11,7 +11,7 @@ type BannerProps = Partial<{
 
 type RuleNames = 'banner'
 
-const useStyles = createUseStyles<RuleNames, BannerProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, BannerProps, Theme>(theme => ({
   banner: ({ cssOptions }) => ({
     background: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
     color: theme ? theme.color.primary : '#231F9C',

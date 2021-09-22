@@ -14,7 +14,7 @@ interface GridProps {
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
-const useStyles = createUseStyles<RuleNames, GridProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, GridProps, Theme>(theme => ({
   grid: ({ row, col, rowGap, colGap, cssOptions, ...props }) => ({
     display: 'grid',
     gridTemplateColumns: `repeat(${col}, 1fr)`,

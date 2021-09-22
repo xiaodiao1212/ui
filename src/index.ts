@@ -16,7 +16,6 @@ import Progress from './components/Progress'
 import Loading from './components/Loading'
 import Select from './components/Select'
 import Image from './components/Image'
-import Timeline from './components/Timeline/Timeline'
 import Collapse from './components/Collapse'
 import Chip from './components/Chip'
 import Notification from './components/Notification'
@@ -43,11 +42,9 @@ import Banner from './components/Banner'
 import NumberInput from './components/NumberInput'
 import Segment from './components/Segment'
 import DatePicker from './components/DatePicker'
-import MonthPicker from './components/MonthPicker'
 import PullToRefresh from './components/PullToRefresh'
 export {
   NumberInput,
-  MonthPicker,
   Footer,
   DatePicker,
   Banner,
@@ -90,7 +87,6 @@ export {
   Progress,
   Loading,
   Collapse,
-  Timeline,
   useCustomTheme,
   palette,
 }

@@ -10,7 +10,7 @@ type FooterProps = Partial<{
   cssOptions: (theme: Theme) => React.CSSProperties
 }>
 type RuleNames = 'footer'
-const useStyles = createUseStyles<RuleNames, FooterProps, Theme>((theme) => ({
+const useStyles = createUseStyles<RuleNames, FooterProps, Theme>(theme => ({
   footer: ({ absolute, relative, fixed, cssOptions }) => ({
     ...(absolute && { position: 'absolute', left: 0, right: 0, bottom: 0 }),
     ...(relative && { position: 'relative' }),
