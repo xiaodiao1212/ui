@@ -25,7 +25,6 @@ const useStyles = createUseStyles<RuleNames, ColProps, Theme>(theme => ({
 const Col = ({
   alignSelf,
   textAlign = 'center',
-  flex = '1',
   noFlex = false,
   autoMargin = false,
   cssOptions,
@@ -35,7 +34,6 @@ const Col = ({
 }: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     alignSelf,
-    flex,
     noFlex,
     autoMargin,
     textAlign,

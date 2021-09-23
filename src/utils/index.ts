@@ -1,11 +1,9 @@
 const copy = (text: string) => {
-  let transfer = document.createElement('input')
+  const transfer = document.createElement('input')
   document.body.appendChild(transfer)
   transfer.value = text
   transfer.select()
-  if (document.execCommand('copy')) {
-    document.execCommand('copy')
-  }
+  document?.execCommand('copy')
   document.body.removeChild(transfer)
 }
 const clamp = (target: number, min: number, max: number) => {

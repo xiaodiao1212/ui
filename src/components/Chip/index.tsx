@@ -41,9 +41,7 @@ const Chip = ({
   ...props
 }: ChipProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({ outline, color, cssOptions })
-
   const computedClassNames = classnames(classes.chip, className)
-
   return (
     <div className={computedClassNames} {...props}>
       {children}

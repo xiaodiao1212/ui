@@ -26,6 +26,7 @@ const useStyles = createUseStyles<RuleNames, Pick<CollapseProps, 'expand'>, Them
     height: '0.6em',
     borderTop: `1px solid ${theme.color.black || '#111827'}`,
     borderRight: `1px solid ${theme.color.black || '#111827'}`,
+    // transformOrigin: '50%',
     transform: `rotate(${expand ? '-45deg' : '135deg'})`,
     transition: 'transform 0.1s ease-in',
   }),

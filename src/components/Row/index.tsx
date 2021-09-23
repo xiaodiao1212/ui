@@ -11,16 +11,14 @@ interface RowProps {
   justifyContent?: RowJustify
   gap?: string
   wrap?: boolean
-  fullHeight?: boolean
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, RowProps, Theme>(theme => ({
-  row: ({ vertical, wrap, cssOptions, fullHeight, alignItems, gap }) => ({
+  row: ({ vertical, wrap, cssOptions, alignItems, gap }) => ({
     display: 'flex',
-    width: '100%',
+
     flexDirection: vertical ? 'column' : 'row',
-    height: fullHeight ? '100%' : 'initial',
     gridGap: gap,
 
     ...(vertical ? {} : { alignItems, flexWrap: wrap ? 'wrap' : 'nowrap' }),
@@ -33,7 +31,6 @@ const Row = ({
   alignItems = 'center',
   wrap = false,
   justifyContent,
-  fullHeight,
   gap,
   cssOptions,
   children,
@@ -41,7 +38,6 @@ const Row = ({
   ...props
 }: RowProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
-    fullHeight,
     alignItems,
     justifyContent,
     gap,
