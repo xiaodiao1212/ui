@@ -9,23 +9,21 @@ type ImageProps = {
   fit?: CSS.Property.ObjectFit
   width?: string
   height?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
-const useStyles = createUseStyles<
-  'image',
-  Pick<ImageProps, 'cssOptions' | 'height' | 'width' | 'fit' | 'circle'>,
-  Theme
->(theme => ({
-  image: ({ cssOptions, width, height, fit, circle }) => ({
-    verticalAlign: 'middle',
-    background: 'transparent',
-    borderRadius: ((circle as boolean) && '50%') || '',
-    objectFit: fit || '',
-    width: width || '',
-    height: height || '100%',
-    ...cssOptions?.(theme),
+const useStyles = createUseStyles<'image', Pick<ImageProps, 'css' | 'height' | 'width' | 'fit' | 'circle'>, Theme>(
+  theme => ({
+    image: ({ css, width, height, fit, circle }) => ({
+      verticalAlign: 'middle',
+      background: 'transparent',
+      borderRadius: ((circle as boolean) && '50%') || '',
+      objectFit: fit || '',
+      width: width || '',
+      height: height || '100%',
+      ...css?.(theme),
+    }),
   }),
-}))
+)
 const Image = ({
   circle = false,
   src,
@@ -33,11 +31,11 @@ const Image = ({
   fit,
   width = '100%',
   height = 'auto',
-  cssOptions,
+  css,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'img'> & ImageProps) => {
-  const classes = useStyles({ circle, cssOptions, width, height })
+  const classes = useStyles({ circle, css, width, height })
 
   const computedClassNames = classnames(classes.image, className)
   return <img src={src} alt={alt} width={width} {...props} className={computedClassNames} />

@@ -1,21 +1,32 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Upload, Slider, Col, Row, Collapse, Card, Container } from '../src'
+import { App, Container, Slider, Col, Row, Collapse, Card } from '../src'
 
 const Main = () => {
-  const [on, setOn] = React.useState(false)
-
-  const data = [1, 2, 3, 4, 5, 9, 6, 7, 8]
   return (
     <App>
-      <Row>
-        <Col>
-          <Upload>1</Upload>
-        </Col>
-        <Col autoMargin>
-          <Upload>1</Upload>
-        </Col>
-      </Row>
+      <Container>
+        <Slider
+          min={10}
+          step={1}
+          max={20}
+          onSlide={value => {
+            console.log('onSlide', value)
+          }}
+        />
+      </Container>
+      <Container>
+        <label>
+          <input
+            onChange={e => {
+              console.log(e)
+            }}
+            type='range'
+            min='0'
+            max='11'
+          />
+        </label>
+      </Container>
     </App>
   )
 }

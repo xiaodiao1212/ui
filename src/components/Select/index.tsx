@@ -27,17 +27,17 @@ interface SelectProps {
       value: string | number
     }[],
   ) => any
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 
-const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'cssOptions'>, Theme>(theme => ({
-  select: ({ cssOptions }) => {
-    return { ...cssOptions }
+const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'css'>, Theme>(theme => ({
+  select: ({ css }) => {
+    return { ...css }
   },
 }))
 
-const Select = ({ value, onSelectChange, data, open, onClose, children, className, cssOptions }: SelectProps) => {
-  const classes = useStyles({ cssOptions })
+const Select = ({ value, onSelectChange, data, open, onClose, children, className, css }: SelectProps) => {
+  const classes = useStyles({ css })
   const computedClassNames = classnames(classes.select, className)
 
   const handleSelectedChange = (item: DataItem[]) => {
@@ -56,7 +56,7 @@ const Select = ({ value, onSelectChange, data, open, onClose, children, classNam
           borderTopLeftRadius: '8px',
         }}>
         <Picker
-          cssOptions={() => ({
+          css={() => ({
             background: 'white',
           })}
           value={value}

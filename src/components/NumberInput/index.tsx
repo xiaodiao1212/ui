@@ -8,21 +8,21 @@ type NumberInputProps = Partial<{
   onChange: (value: string) => void
   children: React.ReactNode
   className: string
-  cssOptions: (theme: Theme) => React.CSSProperties
+  css: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'number-input'
 const useStyles = createUseStyles<RuleNames, Omit<NumberInputProps, 'onFileChange'>, Theme>(theme => ({
-  'number-input': ({ cssOptions, ...props }) => ({
+  'number-input': ({ css, ...props }) => ({
     '& > input::-webkit-outer-spin-button': {
       WebkitAppearance: 'none',
     },
     ...props,
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 
-const NumberInput = ({ onChange, children, cssOptions, className, ...props }: NumberInputProps) => {
+const NumberInput = ({ onChange, children, css, className, ...props }: NumberInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(
       e.target.value.length > 1
@@ -33,7 +33,7 @@ const NumberInput = ({ onChange, children, cssOptions, className, ...props }: Nu
     )
   }
   const classes = useStyles({
-    cssOptions,
+    css,
   })
   const computedClassNames = classnames(classes['number-input'], className)
   return (

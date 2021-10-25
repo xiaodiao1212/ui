@@ -8,13 +8,13 @@ import { createUseStyles } from 'react-jss'
 type AppBarProps = {
   shy?: boolean
   fixed?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 } & React.ComponentPropsWithoutRef<'div'>
 
 type RuleNames = 'app-bar'
 
 const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>(theme => ({
-  'app-bar': ({ cssOptions, fixed }) => ({
+  'app-bar': ({ css, fixed }) => ({
     height: theme?.appBar?.height || '3em',
     backgroundColor: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
     ...(fixed
@@ -26,11 +26,11 @@ const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>(theme => ({
           zIndex: theme?.zIndex?.appBar || 700,
         }
       : {}),
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
-const AppBar = ({ fixed = false, cssOptions, className, children, ...props }: AppBarProps) => {
-  const classes = useStyles({ fixed, cssOptions })
+const AppBar = ({ fixed = false, css, className, children, ...props }: AppBarProps) => {
+  const classes = useStyles({ fixed, css })
   const computedClassNames = classnames(classes['app-bar'], className)
   return (
     <header className={computedClassNames} {...props}>

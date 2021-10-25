@@ -6,11 +6,11 @@ import { createUseStyles } from 'react-jss'
 type CardProps = Partial<{
   title: string
   extra: React.ReactNode
-  cssOptions: (theme: Theme) => React.CSSProperties
+  css: (theme: Theme) => React.CSSProperties
 }>
 
 const useCardStyles = createUseStyles<'card', CardProps, Theme>(theme => ({
-  card: ({ cssOptions }) => ({
+  card: ({ css }) => ({
     background: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
     '& > header': {
       display: 'flex',
@@ -22,24 +22,24 @@ const useCardStyles = createUseStyles<'card', CardProps, Theme>(theme => ({
         marginLeft: '',
       },
     },
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 
 const useCardHeaderStyles = createUseStyles<'card-header', CardProps, Theme>(theme => ({
-  'card-header': ({ cssOptions }) => ({
-    ...cssOptions?.(theme),
+  'card-header': ({ css }) => ({
+    ...css?.(theme),
   }),
 }))
 const Card = ({
   title,
   extra,
-  cssOptions,
+  css,
   className,
   children,
   ...props
 }: CardProps & React.ComponentPropsWithoutRef<'article'>) => {
-  const classes = useCardStyles({ cssOptions })
+  const classes = useCardStyles({ css })
   const computedClassNames = classnames(classes.card, className)
   const handleHeaderRender = () => {
     return React.Children.map(children, (child: any, i) => {
@@ -72,12 +72,12 @@ const Card = ({
 const CardHeader = ({
   title,
   extra,
-  cssOptions,
+  css,
   className,
   children,
   ...props
 }: CardProps & React.ComponentPropsWithoutRef<'article'>) => {
-  const classes = useCardHeaderStyles({ cssOptions })
+  const classes = useCardHeaderStyles({ css })
   const computedClassNames = classnames(classes['card-header'], className)
 
   return (

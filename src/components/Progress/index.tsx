@@ -6,21 +6,21 @@ type ProgressProps = {
   percent?: number
   backgroundColor?: string
   color?: string
-  backgroundCssOptions?: (theme: Theme) => React.CSSProperties
-  barCssOptions?: (theme: Theme) => React.CSSProperties
+  backgroundcss?: (theme: Theme) => React.CSSProperties
+  barcss?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'progress'
 const useStyles = createUseStyles<RuleNames, ProgressProps, Theme>(theme => ({
-  progress: ({ backgroundColor, color, percent, backgroundCssOptions, barCssOptions }) => ({
+  progress: ({ backgroundColor, color, percent, backgroundcss, barcss }) => ({
     height: '100%',
     backgroundColor:
       backgroundColor || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
-    ...backgroundCssOptions?.(theme),
+    ...backgroundcss?.(theme),
     '& > .progress-bar': {
       height: '100%',
       width: percent + '%',
       backgroundColor: color || theme?.color?.primary || '#231F9C',
-      ...barCssOptions?.(theme),
+      ...barcss?.(theme),
     },
   }),
 }))
@@ -29,16 +29,16 @@ const Progress = ({
   backgroundColor,
   color,
   className,
-  backgroundCssOptions,
-  barCssOptions,
+  backgroundcss,
+  barcss,
   ...props
 }: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     backgroundColor,
     color,
     percent,
-    backgroundCssOptions,
-    barCssOptions,
+    backgroundcss,
+    barcss,
   })
   const computedClassNames = classnames(classes.progress, className)
   return (

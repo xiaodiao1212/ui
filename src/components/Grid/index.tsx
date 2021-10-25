@@ -11,18 +11,18 @@ interface GridProps {
   col?: number
   rowGap?: string
   colGap?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, GridProps, Theme>(theme => ({
-  grid: ({ row, col, rowGap, colGap, cssOptions, ...props }) => ({
+  grid: ({ row, col, rowGap, colGap, css, ...props }) => ({
     display: 'grid',
     gridTemplateColumns: `repeat(${col}, 1fr)`,
     gridAutoRows: '1fr',
     gridColumnGap: colGap,
     gridRowGap: rowGap,
     ...props,
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 
@@ -31,7 +31,7 @@ const Grid = ({
   col,
   rowGap,
   colGap,
-  cssOptions,
+  css,
   children,
   className,
   ...restProps
@@ -41,7 +41,7 @@ const Grid = ({
     col,
     rowGap,
     colGap,
-    cssOptions,
+    css,
   })
   const computedClassNames = classnames(classes.grid, className)
   const childClasses = classnames('')

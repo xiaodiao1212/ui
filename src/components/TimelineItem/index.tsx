@@ -11,11 +11,11 @@ interface TimelineItemProps {
   subtitle?: string
   title?: string
   type?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 const useStyles = createUseStyles<RuleNames, TimelineItemProps, Theme>(theme => ({
-  timelineItem: ({ interval, type, cssOptions }) => ({
-    ...cssOptions?.(theme),
+  timelineItem: ({ interval, type, css }) => ({
+    ...css?.(theme),
     '& > .event': {
       position: 'relative',
     },
@@ -85,7 +85,7 @@ const useStyles = createUseStyles<RuleNames, TimelineItemProps, Theme>(theme => 
   }),
 }))
 const TimelineItem = ({
-  cssOptions,
+  css,
   children,
   className,
   order,
@@ -104,7 +104,7 @@ const TimelineItem = ({
     type,
     // linecolor,
     line,
-    cssOptions,
+    css,
   })
   const computedClassNames = classnames(classes.timelineItem, className)
   return (

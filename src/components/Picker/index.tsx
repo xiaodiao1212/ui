@@ -13,19 +13,19 @@ type PickerProps = {
   data: PickerItem[][]
   onPickerChange: (item: PickerItem[]) => any
   value: string[]
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'picker'
-const useStyles = createUseStyles<RuleNames, Pick<PickerProps, 'cssOptions'> & { translateYlength: number[] }, Theme>(
+const useStyles = createUseStyles<RuleNames, Pick<PickerProps, 'css'> & { translateYlength: number[] }, Theme>(
   theme => ({
-    picker: ({ translateYlength, cssOptions }) => {
+    picker: ({ translateYlength, css }) => {
       const pickerStyle: any = {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         minHeight: '10em',
         cursor: 'grab',
-        ...cssOptions?.(theme),
+        ...css?.(theme),
         '& > .container': {
           display: 'flex',
           justifyContent: 'center',
@@ -90,7 +90,7 @@ const Picker = ({
   value,
   className,
   children,
-  cssOptions,
+  css,
   ...props
 }: PickerProps & React.ComponentPropsWithoutRef<'div'>) => {
   const [currentKey, setCurrentKey] = useState(value || data.map(v => v[0].key))
@@ -101,7 +101,7 @@ const Picker = ({
   const [translateYlength, setTranslateYlength] = useState<number[]>(data.map(v => 4))
   const [offsetY, setOffsetY] = useState<number[]>(data.map(v => 0))
   const [startPageY, setStartPageY] = useState<number[]>(data.map(v => 0))
-  const classes = useStyles({ translateYlength, cssOptions })
+  const classes = useStyles({ translateYlength, css })
   const computedClassNames = classnames(classes.picker, className)
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>, index: number) => {
     setStartPageY(v =>

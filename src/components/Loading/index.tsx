@@ -10,7 +10,7 @@ type LoadingProps = {
   backgroudColor?: ((theme: Theme) => string) | string
   color?: ((theme: Theme) => string) | string
   borderWidth?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'loading' | '@keyframes spin'
@@ -24,14 +24,14 @@ const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>(theme => ({
       transform: 'rotate(360deg)',
     },
   },
-  loading: ({ borderWidth, width, duration, color, backgroudColor, cssOptions }) => ({
+  loading: ({ borderWidth, width, duration, color, backgroudColor, css }) => ({
     border: `${borderWidth} solid ${typeof backgroudColor == 'string' ? backgroudColor : backgroudColor?.(theme)}`,
     borderTop: `${borderWidth} solid ${typeof color == 'string' ? color : color?.(theme)}`,
     borderRadius: '50%',
     width: width,
     height: width,
     animation: `$spin ${duration} linear infinite`,
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 const Loading = ({
@@ -40,7 +40,7 @@ const Loading = ({
   borderWidth = '2px',
   color = '#555',
   backgroudColor = '#f3f3f3',
-  cssOptions,
+  css,
   className,
 }: LoadingProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
@@ -48,7 +48,7 @@ const Loading = ({
     color,
     borderWidth,
     width,
-    cssOptions,
+    css,
     duration,
   })
   const computedClassNames = classnames(classes.loading, className)

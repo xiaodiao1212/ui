@@ -6,13 +6,13 @@ type SwitchProps = Partial<{
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any
   on: boolean
   color?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'switch'
 
 const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
-  switch: ({ cssOptions, color, on }) => ({
+  switch: ({ css, color, on }) => ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -23,7 +23,7 @@ const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
     borderRadius: 100,
     position: 'relative',
     transition: 'background 0.4s ease-out',
-    ...cssOptions,
+    ...css,
     '& > input': {
       display: 'none',
     },
@@ -50,7 +50,7 @@ const Switch = ({
   onChange,
   color,
   children,
-  cssOptions,
+  css,
   className,
   ...props
 }: SwitchProps & React.ComponentPropsWithoutRef<'input'>) => {
@@ -58,7 +58,7 @@ const Switch = ({
     onChange?.(e)
   }
   const classes = useStyles({
-    cssOptions,
+    css,
     on,
     color,
   })

@@ -13,12 +13,12 @@ type InputProps = {
   suffix?: { node: React.ReactNode; flex: number }
   outline?: boolean
   contain?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'input' | 'input-container'
 
 const useStyles = createUseStyles<RuleNames, InputProps & { disabled?: boolean }, Theme>(theme => ({
-  input: ({ cssOptions, disabled, outline, contain }) => ({
+  input: ({ css, disabled, outline, contain }) => ({
     width: '100%',
     padding: '.6em',
     backgroundColor: contain
@@ -29,15 +29,15 @@ const useStyles = createUseStyles<RuleNames, InputProps & { disabled?: boolean }
     color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
     outline: outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
     borderRadius: '4px',
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
-  'input-container': ({ cssOptions, disabled, contain }) => ({
+  'input-container': ({ css, disabled, contain }) => ({
     backgroundColor: contain
       ? theme?.color?.greyLight || '#F3F4F6'
       : disabled
       ? theme?.color?.greyLight || '#F3F4F6'
       : 'transparent',
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 
@@ -55,12 +55,12 @@ const Input = ({
   format,
   disabled,
   onChange,
-  cssOptions,
+  css,
   children,
   className,
   ...props
 }: Omit<React.ComponentPropsWithoutRef<'input'>, 'suffix' | 'prefix'> & InputProps) => {
-  const classes = useStyles({ cssOptions, disabled, outline, contain })
+  const classes = useStyles({ css, disabled, outline, contain })
   const computedClassNames = classnames(classes.input, className)
   const clsnsContainer = classnames(classes['input-container'], className)
   const handleInputChange = (e: { target: { value: string } }) => {

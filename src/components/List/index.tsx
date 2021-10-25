@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ListProps = {
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 
 type ListItemProps = {
@@ -14,26 +14,26 @@ type ListItemProps = {
   rightContent?: React.ReactNode
   className?: string
   children?: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 
-const useListStyles = createUseStyles<'list', Pick<ListProps, 'cssOptions'>, Theme>(theme => ({
-  list: ({ cssOptions }) => {
+const useListStyles = createUseStyles<'list', Pick<ListProps, 'css'>, Theme>(theme => ({
+  list: ({ css }) => {
     return {
       overflow: 'hidden',
-      ...cssOptions?.(theme),
+      ...css?.(theme),
     }
   },
 }))
 
-const useListItemStyles = createUseStyles<'list-item', Pick<ListProps, 'cssOptions'> & { translateX: number }, Theme>(
+const useListItemStyles = createUseStyles<'list-item', Pick<ListProps, 'css'> & { translateX: number }, Theme>(
   theme => ({
-    'list-item': ({ cssOptions, translateX }) => {
+    'list-item': ({ css, translateX }) => {
       return {
         position: 'relative',
         transform: `translate3d(-${translateX}px,0,0)`,
         transition: 'transform 0.1s cubic-bezier(0.4, 0, 1, 1) 0s',
-        ...cssOptions?.(theme),
+        ...css?.(theme),
         '& > :nth-child(2)': {
           position: 'absolute',
           top: 0,
@@ -44,9 +44,9 @@ const useListItemStyles = createUseStyles<'list-item', Pick<ListProps, 'cssOptio
     },
   }),
 )
-const List = ({ cssOptions, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'section'>) => {
+const List = ({ css, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'section'>) => {
   const classes = useListStyles({
-    cssOptions,
+    css,
   })
 
   const computedClassNames = classnames(classes.list, className)
@@ -66,14 +66,14 @@ const ListItem = ({
   onSwipeEnd,
   children,
   className,
-  cssOptions,
+  css,
 }: ListItemProps) => {
   const [swipeLength, setSwipeLength] = useState(0)
   const [translateX, setTranslateX] = useState(0)
   const [startX, setStartX] = useState(0)
   const classes = useListItemStyles({
     translateX,
-    cssOptions,
+    css,
   })
   const rightContentRef = React.useRef<any>({})
   const computedClassNames = classnames(classes['list-item'], className)

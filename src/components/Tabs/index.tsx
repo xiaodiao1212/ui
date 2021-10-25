@@ -7,7 +7,7 @@ import Button from '../Button'
 interface TabsProps {
   noIndicator?: boolean
   onClickTab: (key: React.Key) => void
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
   tab: React.Key
 }
 type TabItemProps = Partial<{
@@ -17,50 +17,48 @@ type TabItemProps = Partial<{
   children: React.ReactNode
   className: string
   onClick: (key: React.Key) => void
-  cssOptions: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties
+  css: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties
 }>
 type TabsIndicatorProps = Partial<{
   children: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }>
 
-const useTabsStyles = createUseStyles<'tabs', Pick<TabsProps, 'cssOptions'>, Theme>(theme => ({
-  tabs: ({ cssOptions }) => ({
+const useTabsStyles = createUseStyles<'tabs', Pick<TabsProps, 'css'>, Theme>(theme => ({
+  tabs: ({ css }) => ({
     display: 'flex',
-    ...cssOptions,
+    ...css,
   }),
 }))
-const useTabItemStyles = createUseStyles<'tabItem', Pick<TabItemProps, 'cssOptions'>, Theme>(theme => ({
-  tabItem: ({ cssOptions }) => ({
+const useTabItemStyles = createUseStyles<'tabItem', Pick<TabItemProps, 'css'>, Theme>(theme => ({
+  tabItem: ({ css }) => ({
     position: 'relative',
     flex: 1,
     textAlign: 'center',
-    ...cssOptions,
+    ...css,
   }),
 }))
-const useTabsIndicatorStyles = createUseStyles<'tabsIndicator', Pick<TabsIndicatorProps, 'cssOptions'>, Theme>(
-  theme => ({
-    tabsIndicator: ({ cssOptions }) => ({
-      position: 'absolute',
-      height: '1px',
-      background: 'white',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      ...cssOptions,
-    }),
+const useTabsIndicatorStyles = createUseStyles<'tabsIndicator', Pick<TabsIndicatorProps, 'css'>, Theme>(theme => ({
+  tabsIndicator: ({ css }) => ({
+    position: 'absolute',
+    height: '1px',
+    background: 'white',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    ...css,
   }),
-)
+}))
 const Tabs = ({
   onClickTab,
   noIndicator = false,
   tab,
-  cssOptions,
+  css,
   children,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'nav'> & TabsProps) => {
-  const classes = useTabsStyles({ cssOptions })
+  const classes = useTabsStyles({ css })
   const computedClassNames = classnames(classes.tabs, className)
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
@@ -88,29 +86,25 @@ const Tabs = ({
   )
 }
 
-const TabItem = ({ tab, tabKey, onClick, noIndicator, cssOptions, children, className }: TabItemProps) => {
-  const classes = useTabItemStyles({ cssOptions })
+const TabItem = ({ tab, tabKey, onClick, noIndicator, css, children, className }: TabItemProps) => {
+  const classes = useTabItemStyles({ css })
   const computedClassNames = classnames(classes.tabItem, className)
   const handleClickTab = () => {
     onClick?.(tabKey as React.Key)
   }
-  const tabCssOptions = (theme: Theme) => ({
+  const tabcss = (theme: Theme) => ({
     borderRadius: '',
-    ...cssOptions?.(theme, tab == tabKey),
+    ...css?.(theme, tab == tabKey),
   })
   return (
-    <Button aria-label='tab item' className={computedClassNames} onClick={handleClickTab} cssOptions={tabCssOptions}>
+    <Button aria-label='tab item' className={computedClassNames} onClick={handleClickTab} css={tabcss}>
       {children}
       {tab == tabKey && !noIndicator && <TabsIndicator />}
     </Button>
   )
 }
-const TabsIndicator = ({
-  cssOptions,
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
-  const classes = useTabsIndicatorStyles({ cssOptions })
+const TabsIndicator = ({ css, className, ...props }: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
+  const classes = useTabsIndicatorStyles({ css })
   const computedClassNames = classnames(classes.tabsIndicator, className)
   return <span aria-label='tabs indicator' className={computedClassNames} {...props} />
 }

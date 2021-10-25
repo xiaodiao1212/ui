@@ -9,30 +9,30 @@ type BackscrumbsItem = Partial<{
 type BackscrumbsProps = Partial<{
   divider: React.ReactNode
   items: BackscrumbsItem[]
-  cssOptions: (theme: Theme) => React.CSSProperties
+  css: (theme: Theme) => React.CSSProperties
 }>
 
 const useStyles = createUseStyles<'backscrumbs', BackscrumbsProps, Theme>(theme => ({
-  backscrumbs: ({ cssOptions }) => ({
+  backscrumbs: ({ css }) => ({
     display: 'inline-flex',
     alignItems: 'center',
     '& > *': {
       display: 'inline-flex',
     },
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 
 const Backscrumbs = ({
   divider = '/',
   items = [],
-  cssOptions,
+  css,
   children,
   className,
   ...props
 }: BackscrumbsProps & React.ComponentPropsWithoutRef<'nav'>) => {
   const classes = useStyles({
-    cssOptions,
+    css,
   })
   const computedClassNames = classnames(classes.backscrumbs, className)
 

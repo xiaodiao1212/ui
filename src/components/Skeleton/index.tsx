@@ -8,11 +8,11 @@ type SkeletonProps = {
   circle?: boolean
   width?: string
   height?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'skeleton' | '@keyframes loading'
 const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>(theme => ({
-  skeleton: ({ cssOptions, circle, height, width, delay, duration }) => ({
+  skeleton: ({ css, circle, height, width, delay, duration }) => ({
     width: width,
     height: height,
     borderRadius: circle ? '50%' : '4px',
@@ -26,7 +26,7 @@ const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>(theme => ({
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: `${duration}s $loading  ${delay}s ease-in-out infinite`,
-    ...cssOptions,
+    ...css,
   }),
 
   '@keyframes loading': {
@@ -39,7 +39,7 @@ const Skeleton = ({
   duration = 1,
   delay = 0,
   circle = false,
-  cssOptions,
+  css,
   width,
   height = '100%',
   className,
@@ -51,7 +51,7 @@ const Skeleton = ({
     height,
     circle,
     width,
-    cssOptions,
+    css,
   })
   const computedClassNames = classnames(classes.skeleton, className)
   return <div aria-label='skeleton' className={computedClassNames} {...props} />

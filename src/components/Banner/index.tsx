@@ -6,21 +6,21 @@ type BannerProps = Partial<{
   closable: boolean
   className: string
   children: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'banner'
 
 const useStyles = createUseStyles<RuleNames, BannerProps, Theme>(theme => ({
-  banner: ({ cssOptions }) => ({
+  banner: ({ css }) => ({
     background: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
     color: theme ? theme.color.primary : '#231F9C',
     padding: '.5em',
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
-const Banner = ({ closable = false, cssOptions, className, children }: BannerProps) => {
-  const classes = useStyles({ cssOptions })
+const Banner = ({ closable = false, css, className, children }: BannerProps) => {
+  const classes = useStyles({ css })
   const computedClassNames = classnames(classes.banner, className)
   return <div className={computedClassNames}>children</div>
 }

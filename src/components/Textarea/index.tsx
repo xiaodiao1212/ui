@@ -4,17 +4,17 @@ import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
 type TextareaProps = {
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  css?: (theme: Theme) => React.CSSProperties
 }
 type RuleNames = 'textarea'
 
 const useStyles = createUseStyles<RuleNames, TextareaProps, Theme>(theme => ({
-  textarea: ({ cssOptions }) => ({
+  textarea: ({ css }) => ({
     width: '100%',
     padding: '12px',
     backgroundColor: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.white) : 'transparent',
     color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827',
-    ...cssOptions?.(theme),
+    ...css?.(theme),
   }),
 }))
 
@@ -22,8 +22,8 @@ const useStyles = createUseStyles<RuleNames, TextareaProps, Theme>(theme => ({
  * Textarea:
  * if has prefix or suffix, the property flex is required.
  */
-const Textarea = ({ cssOptions, className, ...props }: TextareaProps & React.ComponentPropsWithoutRef<'textarea'>) => {
-  const classes = useStyles({ cssOptions })
+const Textarea = ({ css, className, ...props }: TextareaProps & React.ComponentPropsWithoutRef<'textarea'>) => {
+  const classes = useStyles({ css })
   const computedClassNames = classnames(classes.textarea, className)
   return <textarea className={computedClassNames} {...props} />
 }

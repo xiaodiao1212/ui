@@ -4,22 +4,22 @@ import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
 type BottomNavigationProps = Partial<{
-  cssOptions: (theme: Theme) => React.CSSProperties
+  css: (theme: Theme) => React.CSSProperties
 }>
 type RuleNames = 'BottomNavigation'
 const useStyles = createUseStyles<RuleNames, BottomNavigationProps, Theme>(theme => ({
-  BottomNavigation: ({ cssOptions }) => ({
-    ...cssOptions?.(theme),
+  BottomNavigation: ({ css }) => ({
+    ...css?.(theme),
   }),
 }))
 
 const BottomNavigation = ({
   children,
-  cssOptions,
+  css,
   className,
   ...props
 }: BottomNavigationProps & React.ComponentPropsWithoutRef<'aside'>) => {
-  const classes = useStyles({ cssOptions })
+  const classes = useStyles({ css })
   const computedClassNames = classnames(classes.BottomNavigation, className)
   return (
     <aside className={computedClassNames} {...props}>
