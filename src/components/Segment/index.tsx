@@ -72,7 +72,7 @@ const Segment = ({
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
   const fragmentLength = React.useRef(100 / (children as any).length)
-  console.log(fragmentLength)
+
   const [offsetX, setOffsetX] = React.useState(0)
   const [left, setLeft] = React.useState(0)
   const [current, setCurrent] = React.useState(0)

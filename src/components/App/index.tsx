@@ -10,18 +10,7 @@ const useDefaultStyle = createUseStyles(defaultStyle)
 const App = ({ children, customTheme }: AppProps) => {
   useDefaultStyle()
 
-  return (
-    <JssProvider id={{ minify: true }}>
-      <ThemeProvider theme={customTheme || theme}>
-        <div
-          style={{
-            background: theme.color.greyLight,
-          }}>
-          {children}
-        </div>
-      </ThemeProvider>
-    </JssProvider>
-  )
+  return <ThemeProvider theme={customTheme || theme}>{children}</ThemeProvider>
 }
 
 export default App

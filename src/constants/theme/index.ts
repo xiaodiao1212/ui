@@ -3,11 +3,15 @@ const theme: Theme = {
   mode: 'light',
   color: {
     primary: '#003CBE',
+    secondary: 'rgba(196,108,85,1)',
     black: '#111827',
     grey: '#6b7280',
     red: '#e32b3a',
+    accent: '#fff',
     greyLight: '#F3F4F6',
     white: '#fff',
+  },
+  utils: {
     darken,
     lighten,
     fade,
@@ -54,16 +58,15 @@ type Theme = {
   }
   color: Partial<{
     primary: string
+    secondary: string
     black: string
     grey: string
     greyLight: string
     white: string
     red: string
-    darken: typeof darken
-    lighten: typeof lighten
-    fade: typeof fade
-    emphasize: typeof emphasize
+    accent: string
   }>
+  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize }
 }
 
 export { theme, Theme }

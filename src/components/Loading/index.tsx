@@ -7,8 +7,8 @@ type LoadingProps = {
   duration?: string
   className?: string
   width?: string
-  backgroudColor?: string
-  color?: string
+  backgroudColor?: ((theme: Theme) => string) | string
+  color?: ((theme: Theme) => string) | string
   borderWidth?: string
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
@@ -25,8 +25,8 @@ const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>(theme => ({
     },
   },
   loading: ({ borderWidth, width, duration, color, backgroudColor, cssOptions }) => ({
-    border: `${borderWidth} solid ${backgroudColor}`,
-    borderTop: `${borderWidth} solid ${color}`,
+    border: `${borderWidth} solid ${typeof backgroudColor == 'string' ? backgroudColor : backgroudColor?.(theme)}`,
+    borderTop: `${borderWidth} solid ${typeof color == 'string' ? color : color?.(theme)}`,
     borderRadius: '50%',
     width: width,
     height: width,

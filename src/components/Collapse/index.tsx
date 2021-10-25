@@ -2,58 +2,62 @@ import classnames from 'classnames'
 import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
-type CollapseProps = {
-  header: React.ReactNode
-  extra?: React.ReactNode
-  expand: boolean
+export type CollapseProps = {
+  title?: string
+  expand?: boolean
   onClickExpand?: () => void
 }
 
-type RuleNames = 'collapse' | 'arrow'
+type RuleNames = 'collapse' | 'icon' | 'arrow'
 
-const useStyles = createUseStyles<RuleNames, Pick<CollapseProps, 'expand'>, Theme>(theme => ({
+const useStyles = createUseStyles<RuleNames, CollapseProps, Theme>(theme => ({
   collapse: {
     padding: '1em 0',
     '& > .flex': {
+      marginBottom: '.4em',
       display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      '& > .title': {
+        fontWeight: 700,
+        flex: 7,
+      },
     },
   },
+  icon: ({ expand }) => ({
+    marginTop: expand ? '.5em' : '',
+    flex: 1,
+  }),
   arrow: ({ expand }) => ({
     marginLeft: 'auto',
     width: '0.6em',
     height: '0.6em',
     borderTop: `1px solid ${theme.color.black || '#111827'}`,
     borderRight: `1px solid ${theme.color.black || '#111827'}`,
-    // transformOrigin: '50%',
     transform: `rotate(${expand ? '-45deg' : '135deg'})`,
-    transition: 'transform 0.1s ease-in',
   }),
 }))
 const Collapse = ({
   title,
-  extra,
   expand = false,
   children,
   className,
-  onClickExpand,
   ...props
 }: CollapseProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
     expand,
   })
   const handleClickExpand = () => {
-    onClickExpand?.()
+    props?.onClickExpand?.()
   }
   const computedClassNames = classnames(classes.collapse, className)
-
+  const cnsIcon = classnames(classes.icon, className)
   const cnsArrow = classnames(classes.arrow)
   return (
     <div className={computedClassNames}>
       <div className='flex'>
         <div className='title'>{title}</div>
-        {extra || <div className={cnsArrow} onClick={handleClickExpand} />}
+        <div className={cnsIcon}>
+          <div className={cnsArrow} onClick={handleClickExpand} />
+        </div>
       </div>
       {expand && children}
     </div>

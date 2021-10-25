@@ -1,9 +1,8 @@
-import * as React from 'react'
 import classnames from 'classnames'
 import Text from '../Text'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
-type ButtonProps = {
+interface ButtonProps {
   padding?: string
   block?: boolean
   disabled?: boolean
@@ -14,17 +13,15 @@ type ButtonProps = {
   color?: string
   cssOptions?: (theme: Theme) => React.CSSProperties
 }
-type RuleNames = 'button'
 
-const useStyles = createUseStyles<RuleNames, ButtonProps, Theme>(
+const useStyles = createUseStyles<'button', ButtonProps, Theme>(
   theme => ({
     button: ({ block, color, tile, cssOptions, icon, disabled, text, outlined }) => ({
       padding: icon ? '' : '0.6em 1.2em',
       width: block ? '100%' : 'auto',
       border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
       borderRadius: tile ? '0px' : '4px',
-      color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827',
-      backgroundColor:
+      background:
         disabled == false
           ? text || outlined || icon
             ? 'transparent'
@@ -55,7 +52,6 @@ const Button = ({
   ...props
 }: ButtonProps & React.ComponentProps<'button'>) => {
   const classes = useStyles({
-    color,
     block,
     tile,
     icon,
@@ -69,7 +65,7 @@ const Button = ({
   const computedClassNames = classnames(classes.button, className)
   return (
     <button className={computedClassNames} disabled={disabled} {...props}>
-      {typeof children == 'string' ? <Text>{children}</Text> : children}
+      {typeof children == 'string' ? <Text color={color}>{children}</Text> : children}
     </button>
   )
 }

@@ -1,3 +1,9 @@
+/**
+ * A slider or track bar is a graphical control element with which a user may set a value by moving an indicator, usually horizontally.
+ * In some cases user may also click on a point on the slider to change the setting.
+ * It is different from a scrollbar in that it is not continuous but used to adjust a value without changing the format of the display or the other information on the screen.
+ */
+
 import * as React from 'react'
 import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
@@ -23,17 +29,16 @@ const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, 
   slider: ({ backgroundColor, percent, color, backgroundCssOptions, barCssOptions }) => ({
     height: '1em',
     position: 'relative',
-    borderRadius: '10px',
-    backgroundColor:
-      backgroundColor || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
+    borderRadius: '16px',
+    background:
+      backgroundColor || (theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'),
     ...backgroundCssOptions?.(theme),
     '& > .slider-bar': {
       position: 'absolute',
       height: '1em',
       width: percent + '%',
-      borderRadius: '10px',
-      backgroundColor: color || theme ? theme.color.primary : '#231F9C',
-
+      borderRadius: '16px',
+      background: color || (theme ? theme.color.primary : '#231F9C'),
       willChange: 'width',
       ...barCssOptions?.(theme),
     },
@@ -44,10 +49,9 @@ const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, 
       borderRadius: '50%',
       left: percent + '%',
       top: 0,
-      backgroundColor: color || theme?.color?.white || '#fff',
+      background: color || theme?.color?.white || '#fff',
       transform: 'translate3d(-50%,-25%,0)',
       cursor: 'pointer',
-      border: `1px solid ${theme ? theme.color.primary : '#231F9C'}`,
 
       willChange: 'left',
       ...barCssOptions?.(theme),
@@ -91,11 +95,19 @@ const Slider = ({
     setStartX(e.pageX)
     onSlideStart?.()
   }
+
   const handleSlide = (e: React.TouchEvent<HTMLDivElement>) => {
     debounce(() => {
+      console.log('e.touches[0].clientX', e.touches[0].clientX)
+      console.log('startX', startX)
+
       const dis = parseFloat((e.touches[0].clientX - startX).toFixed(2))
+      console.log('dis', dis)
+
       setStartX(e.touches[0].clientX)
       const xfragment = parseFloat((dis / (ref.current as any)?.clientWidth).toFixed(2))
+      console.log('xfragment', xfragment)
+
       if (dis >= 0) {
         const fragment = parseFloat((step / max).toFixed(2))
         if (xfragment >= fragment) {

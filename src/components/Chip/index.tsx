@@ -12,12 +12,11 @@ type RuleNames = 'chip'
 
 const useStyles = createUseStyles<RuleNames, ChipProps, Theme>(theme => {
   const getComputedColor = (color?: string) =>
-    color || theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827'
+    color || (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827')
   return {
     chip: ({ outline, color, cssOptions }) => ({
       display: 'inline-block',
       padding: '0.1em 0.5em 0.2em 0.5em',
-
       borderRadius: '16px',
       ...(!outline
         ? {
@@ -41,7 +40,9 @@ const Chip = ({
   ...props
 }: ChipProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({ outline, color, cssOptions })
+
   const computedClassNames = classnames(classes.chip, className)
+
   return (
     <div className={computedClassNames} {...props}>
       {children}

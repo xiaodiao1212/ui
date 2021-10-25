@@ -33,6 +33,7 @@ import Popover from './components/Popover'
 import ScrollView from './components/ScrollView'
 import FloatingWindow from './components/FloatingWindow'
 import Badge from './components/Badge'
+import Item from './components/Item'
 import Carousel from './components/Carousel'
 import Slider from './components/Slider'
 import TimePicker from './components/TimePicker'
@@ -43,6 +44,9 @@ import NumberInput from './components/NumberInput'
 import Segment from './components/Segment'
 import DatePicker from './components/DatePicker'
 import PullToRefresh from './components/PullToRefresh'
+import CountDown from './components/CountDown'
+import Timeline  from './components/Timeline'
+import TimelineItem  from './components/TimelineItem'
 export {
   NumberInput,
   Footer,
@@ -88,5 +92,9 @@ export {
   Loading,
   Collapse,
   useCustomTheme,
+  Item,
   palette,
+  CountDown,
+  Timeline,
+  TimelineItem,
 }

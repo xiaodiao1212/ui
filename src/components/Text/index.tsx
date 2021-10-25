@@ -5,10 +5,9 @@ import { Theme } from '../../constants/theme'
 type TextProps = Partial<{
   thin: boolean
   blod: boolean
-  color: string | string
-  fontSize: string
+  color: string
+  size: string
   maxLength: number
-
   dark: boolean
   cssOptions?: (theme: Theme) => React.CSSProperties
 }>
@@ -16,7 +15,7 @@ type TextProps = Partial<{
 type RuleNames = 'text'
 
 const useStyles = createUseStyles<RuleNames, TextProps, Theme>(theme => ({
-  text: ({ color, dark, blod, maxLength, thin, cssOptions }) => {
+  text: ({ color, dark, blod, maxLength, size, thin, cssOptions }) => {
     const computedColor =
       color ||
       ((dark
@@ -29,13 +28,13 @@ const useStyles = createUseStyles<RuleNames, TextProps, Theme>(theme => ({
           : theme.color.white
         : '#111827') as string)
     return {
+      fontSize: size as string,
       fontWeight: blod ? 700 : thin ? 200 : 500,
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
       textOverflow: maxLength ? 'ellipsis' : '',
       whiteSpace: maxLength ? 'nowrap' : '',
-      width: maxLength || '',
       overflow: maxLength ? 'hidden' : '',
       color: computedColor,
       ...cssOptions?.(theme),
@@ -47,7 +46,7 @@ const Text = ({
   thin = false,
   dark = false,
   maxLength,
-  fontSize,
+  size = '1em',
   blod,
   color,
   children,
@@ -59,7 +58,7 @@ const Text = ({
     thin,
     color,
     blod,
-    fontSize,
+    size,
     maxLength,
     dark,
     cssOptions,
@@ -67,7 +66,7 @@ const Text = ({
   const computedClassNames = classnames(classes.text, className)
   return (
     <div className={computedClassNames} {...props}>
-      {children}
+      {maxLength ? (children as string).substring(0, maxLength) + '...' : children}
     </div>
   )
 }

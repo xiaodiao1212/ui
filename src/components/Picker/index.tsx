@@ -196,7 +196,7 @@ const Picker = ({
   useEffect(() => {
     data.map((d, index) => {
       const current = getCurrentItem(index)
-      console.log(index, current)
+      // console.log(index, current)
 
       setTranslateYlength(l =>
         l.map((v, i) => {

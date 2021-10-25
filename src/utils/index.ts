@@ -1,9 +1,11 @@
 const copy = (text: string) => {
-  const transfer = document.createElement('input')
+  let transfer = document.createElement('input')
   document.body.appendChild(transfer)
   transfer.value = text
   transfer.select()
-  document?.execCommand('copy')
+  if (document.execCommand('copy')) {
+    document.execCommand('copy')
+  }
   document.body.removeChild(transfer)
 }
 const clamp = (target: number, min: number, max: number) => {
@@ -54,7 +56,7 @@ const getUrlParam = (name: string) => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
   const r = window.location.search.substr(1).match(reg)
   if (r != null) return unescape(r[2])
-  return null
+  return ''
 }
 
 const getUUID = () => {
@@ -106,6 +108,20 @@ function isBrowerDarkMode() {
 function isObject(item: any) {
   return item && typeof item === 'object' && item.constructor === Object
 }
+
+function deepMerge(target: any, source: any) {
+  // console.log(target)
+  // console.log(source)
+  // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
+  for (const key of Object.keys(source)) {
+    if (source[key] instanceof Object) Object.assign(source[key], deepMerge(target[key], source[key]))
+  }
+
+  // Join `target` and modified `source`
+  Object.assign(target || {}, source)
+  return target
+}
+
 export {
   isBrowerDarkMode,
   isObject,
@@ -125,4 +141,5 @@ export {
   copy,
   clamp,
   getUUID,
+  deepMerge,
 }

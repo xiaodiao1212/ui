@@ -4,7 +4,7 @@ import { Theme } from '../../constants/theme'
 import { createUseStyles } from 'react-jss'
 
 type ColProps = {
-  alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal'
+  flexSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal'
   textAlign?: 'center' | 'left' | 'right'
   flex?: number | string
   noFlex?: boolean
@@ -23,8 +23,9 @@ const useStyles = createUseStyles<RuleNames, ColProps, Theme>(theme => ({
 }))
 
 const Col = ({
-  alignSelf,
+  flexSelf,
   textAlign = 'center',
+  flex = '1',
   noFlex = false,
   autoMargin = false,
   cssOptions,
@@ -33,7 +34,8 @@ const Col = ({
   ...props
 }: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
-    alignSelf,
+    flexSelf,
+    flex,
     noFlex,
     autoMargin,
     textAlign,
