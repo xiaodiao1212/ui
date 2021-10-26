@@ -89,7 +89,7 @@ function utf8ToB64(str: string) {
 function b64ToUtf8(str: string) {
   return decodeURIComponent(escape(window.atob(str)))
 }
-function debounce(callback: () => void, delay: number) {
+function debounce(callback: () => any, delay: number) {
   let timer
   if (timer) {
     clearTimeout(timer)
