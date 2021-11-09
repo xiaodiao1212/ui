@@ -8,13 +8,13 @@ type DividerProps = {
   color?: string
   doubleLine?: boolean
   dashed?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'divider'
 
 const useStyles = createUseStyles<RuleNames, DividerProps, Theme>(theme => ({
-  divider: ({ color, width, vertical, css, doubleLine, dashed }) => ({
+  divider: ({ color, width, vertical, cssOptions, doubleLine, dashed }) => ({
     border: 'none',
     ...(vertical
       ? {
@@ -28,7 +28,7 @@ const useStyles = createUseStyles<RuleNames, DividerProps, Theme>(theme => ({
             color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'
           }`,
         }),
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -38,7 +38,7 @@ const Divider = ({
   dashed = false,
   doubleLine = false,
   color,
-  css,
+  cssOptions,
   className,
   children,
   ...props
@@ -49,7 +49,7 @@ const Divider = ({
     color,
     width,
     doubleLine,
-    css,
+    cssOptions,
   })
 
   const computedClassNames = classnames(classes.divider, className)

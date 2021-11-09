@@ -6,7 +6,7 @@ import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
 type CheckBoxProps = {
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
   checkedNode?: React.ReactNode
   uncheckedNode?: React.ReactNode
   contentNode?: React.ReactNode
@@ -18,10 +18,10 @@ type CheckBoxProps = {
 type RuleNames = 'checkBox'
 
 const useStyles = createUseStyles<RuleNames, CheckBoxProps, Theme>(theme => ({
-  checkBox: ({ css }) => ({
+  checkBox: ({ cssOptions }) => ({
     display: 'flex',
     alignItems: 'center',
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -36,11 +36,11 @@ const CheckBox = ({
   disabled = false,
   checked = false,
   onCheckedChange,
-  css,
+  cssOptions,
   className,
   ...props
 }: CheckBoxProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({ css })
+  const classes = useStyles({ cssOptions })
   const computedClassNames = classnames(classes.checkBox, className)
   const handleClickCheckNode = () => {
     onCheckedChange?.()

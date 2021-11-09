@@ -5,24 +5,24 @@ import { createUseStyles } from 'react-jss'
 
 interface PopoverProps {
   hover?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 interface PopoverContentProps {
   position?: 'top' | 'left' | 'right' | 'bottom'
   show?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 const usePopoverStyles = createUseStyles<'popover', PopoverProps, Theme>(theme => ({
-  popover: ({ css }) => ({
+  popover: ({ cssOptions }) => ({
     position: 'relative',
     display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 const usePopoverContentStyles = createUseStyles<'popover-content', PopoverContentProps, Theme>(theme => ({
-  'popover-content': ({ show, position, css }) => {
+  'popover-content': ({ show, position, cssOptions }) => {
     let computedPosition = {}
     switch (position) {
       case 'top':
@@ -56,13 +56,13 @@ const usePopoverContentStyles = createUseStyles<'popover-content', PopoverConten
       position: 'absolute',
       ...computedPosition,
       display: show ? 'block' : 'none',
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     }
   },
 }))
 const Popover = ({
   hover = false,
-  css,
+  cssOptions,
   children,
   className,
   ...props
@@ -70,7 +70,7 @@ const Popover = ({
   const a: Array<string> = new Array<string>()
   const b: string[] = []
   const [isContentShow, setIsContentShow] = React.useState(false)
-  const classes = usePopoverStyles({ css })
+  const classes = usePopoverStyles({ cssOptions })
   const computedClassNames = classnames(classes.popover, className)
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
@@ -107,7 +107,7 @@ const Popover = ({
 const PopoverContent = ({
   show = false,
   position = 'bottom',
-  css,
+  cssOptions,
   children,
   className,
   ...props
@@ -119,7 +119,7 @@ const PopoverContent = ({
   const handleMouseOut = (e: any) => {
     setUsePropsShow(true)
   }
-  const classes = usePopoverContentStyles({ show: usePropsShow ? show : true, position, css })
+  const classes = usePopoverContentStyles({ show: usePropsShow ? show : true, position, cssOptions })
   const computedClassNames = classnames(classes['popover-content'], className)
   return (
     <div

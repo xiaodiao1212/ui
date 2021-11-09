@@ -9,13 +9,13 @@ type TextProps = Partial<{
   size: string
   maxLength: number
   dark: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'text'
 
 const useStyles = createUseStyles<RuleNames, TextProps, Theme>(theme => ({
-  text: ({ color, dark, blod, maxLength, size, thin, css }) => {
+  text: ({ color, dark, blod, maxLength, size, thin, cssOptions }) => {
     const computedColor =
       color ||
       ((dark
@@ -37,7 +37,7 @@ const useStyles = createUseStyles<RuleNames, TextProps, Theme>(theme => ({
       whiteSpace: maxLength ? 'nowrap' : '',
       overflow: maxLength ? 'hidden' : '',
       color: computedColor,
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     }
   },
 }))
@@ -50,7 +50,7 @@ const Text = ({
   blod,
   color,
   children,
-  css,
+  cssOptions,
   className,
   ...props
 }: TextProps & React.ComponentPropsWithoutRef<'div'>) => {
@@ -61,7 +61,7 @@ const Text = ({
     size,
     maxLength,
     dark,
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes.text, className)
   return (

@@ -6,15 +6,15 @@ type DatePickerProps = Partial<{
   onChange: (date: any) => any
   min: string
   max: string
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'date-picker'
 
 const useStyles = createUseStyles<RuleNames, Omit<DatePickerProps, 'onFileChange'>, Theme>(theme => ({
-  'date-picker': ({ css, ...props }) => ({
+  'date-picker': ({ cssOptions, ...props }) => ({
     ...props,
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -23,7 +23,7 @@ const DatePicker = ({
   min,
   max,
   children,
-  css,
+  cssOptions,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'label'> & DatePickerProps) => {
@@ -31,7 +31,7 @@ const DatePicker = ({
     onChange?.(e.target.value)
   }
   const classes = useStyles({
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes['date-picker'], className)
   return (

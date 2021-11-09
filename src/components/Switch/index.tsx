@@ -6,13 +6,14 @@ type SwitchProps = Partial<{
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any
   on: boolean
   color?: string
-  css?: (theme: Theme) => React.CSSProperties
+  className?: string
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'switch'
 
 const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
-  switch: ({ css, color, on }) => ({
+  switch: ({ cssOptions, color, on }) => ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -23,7 +24,7 @@ const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
     borderRadius: 100,
     position: 'relative',
     transition: 'background 0.4s ease-out',
-    ...css,
+    ...cssOptions,
     '& > input': {
       display: 'none',
     },
@@ -45,20 +46,12 @@ const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
   }),
 }))
 
-const Switch = ({
-  on = false,
-  onChange,
-  color,
-  children,
-  css,
-  className,
-  ...props
-}: SwitchProps & React.ComponentPropsWithoutRef<'input'>) => {
+const Switch = ({ on = false, onChange, color, cssOptions, className }: SwitchProps) => {
   const handleSwitchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e)
   }
   const classes = useStyles({
-    css,
+    cssOptions,
     on,
     color,
   })
@@ -66,8 +59,8 @@ const Switch = ({
 
   return (
     <label className={computedClassNames}>
-      <input checked={on} onChange={handleSwitchChange} type='checkbox' />
-      <span className={`switch-button`} />
+      <input checked={on} onChange={handleSwitchChange} type='checkbox' role='switch' />
+      <span className='switch-button' />
     </label>
   )
 }

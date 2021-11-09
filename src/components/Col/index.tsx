@@ -9,16 +9,16 @@ type ColProps = {
   flex?: number | string
   noFlex?: boolean
   autoMargin?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'col'
 
 const useStyles = createUseStyles<RuleNames, ColProps, Theme>(theme => ({
-  col: ({ flex, autoMargin, noFlex, css, ...props }) => ({
+  col: ({ flex, autoMargin, noFlex, cssOptions, ...props }) => ({
     ...props,
     ...(autoMargin ? { marginLeft: 'auto' } : { flex: noFlex ? '' : flex }),
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -28,7 +28,7 @@ const Col = ({
   flex = '1',
   noFlex = false,
   autoMargin = false,
-  css,
+  cssOptions,
   className,
   children,
   ...props
@@ -39,7 +39,7 @@ const Col = ({
     noFlex,
     autoMargin,
     textAlign,
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes.col, className)
   return (

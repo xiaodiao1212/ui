@@ -11,12 +11,12 @@ interface ButtonProps {
   icon?: boolean
   tile?: boolean
   color?: string
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 const useStyles = createUseStyles<'button', ButtonProps, Theme>(
   theme => ({
-    button: ({ block, color, tile, css, icon, disabled, text, outlined }) => ({
+    button: ({ block, color, tile, cssOptions, icon, disabled, text, outlined }) => ({
       padding: icon ? '' : '0.6em 1.2em',
       width: block ? '100%' : 'auto',
       border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
@@ -31,7 +31,7 @@ const useStyles = createUseStyles<'button', ButtonProps, Theme>(
           : theme
           ? theme.color.greyLight
           : '#F3F4F5',
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     }),
   }),
   { name: 'Button', classNamePrefix: 'Button' },
@@ -42,7 +42,7 @@ const Button = ({
   disabled = false,
   text = false,
   outlined = false,
-  css,
+  cssOptions,
   icon = false,
   tile = false,
   color,
@@ -57,7 +57,7 @@ const Button = ({
     icon,
     disabled,
     text,
-    css,
+    cssOptions,
     outlined,
     padding,
   })

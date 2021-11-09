@@ -4,23 +4,23 @@ import { Theme } from '../../constants/theme'
 
 type UploadProps = Partial<{
   onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'upload'
 
 const useStyles = createUseStyles<RuleNames, Omit<UploadProps, 'onFileChange'>, Theme>(theme => ({
-  upload: ({ css, ...props }) => ({
+  upload: ({ cssOptions, ...props }) => ({
     ...props,
     cursor: ' pointer',
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
 const Upload = ({
   onFileChange,
   children,
-  css,
+  cssOptions,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'label'> & UploadProps) => {
@@ -29,7 +29,7 @@ const Upload = ({
     onFileChange?.(file, URL.createObjectURL(file), e)
   }
   const classes = useStyles({
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes.upload, className)
   return (

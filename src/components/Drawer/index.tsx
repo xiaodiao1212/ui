@@ -192,7 +192,7 @@ const Drawer = ({
       <Overlay
         show={open}
         onClick={handleClickOverlay}
-        css={() => ({
+        cssOptions={() => ({
           display: showOverlay ? 'flex' : 'none',
         })}
       />

@@ -7,7 +7,7 @@ import { debounce } from '../../utils'
 type FloatingWindowProps = Partial<{
   adsorption?: boolean
   draggable?: boolean
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
   position?: {
     left: number | string
     top: number | string
@@ -15,14 +15,14 @@ type FloatingWindowProps = Partial<{
 }>
 
 const useStyles = createUseStyles<'floating-window', FloatingWindowProps, Theme>(theme => ({
-  'floating-window': ({ position, css }) => ({
+  'floating-window': ({ position, cssOptions }) => ({
     position: 'fixed',
     left: 0,
     top: 0,
     ...position,
     zIndex: theme ? theme.zIndex.floatingWindow : 700,
     transition: '.1s all',
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -34,7 +34,7 @@ const FloatingWindow = ({
     top: 0,
   },
   children,
-  css,
+  cssOptions,
   className,
   ...props
 }: FloatingWindowProps & React.ComponentPropsWithoutRef<'aside'>) => {
@@ -44,7 +44,7 @@ const FloatingWindow = ({
   const [maxLeft, setMaxLeft] = React.useState(0)
   const [maxTop, setMaxTop] = React.useState(0)
   const [clientProperty, setClientProperty] = React.useState<any>(0)
-  const classes = useStyles({ position: computedPosition, css })
+  const classes = useStyles({ position: computedPosition, cssOptions })
   const computedClassNames = classnames(classes['floating-window'], className)
   const handleTouchStart = (e: any) => {
     if (!clientProperty) {

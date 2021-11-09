@@ -6,17 +6,17 @@ type ScrollViewProps = {
   triggerValue?: number
   onScrollToBottom?: (handleScrollToBottomOver: () => any) => any
   fetchNode?: React.ReactNode
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'scroll-view'
 
-const useStyles = createUseStyles<RuleNames, Pick<ScrollViewProps, 'css'>, Theme>(theme => ({
-  'scroll-view': ({ css }) => {
+const useStyles = createUseStyles<RuleNames, Pick<ScrollViewProps, 'cssOptions'>, Theme>(theme => ({
+  'scroll-view': ({ cssOptions }) => {
     return {
       height: '100%',
       overflow: 'auto',
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     }
   },
 }))
@@ -24,13 +24,13 @@ const ScrollView = ({
   fetchNode,
   triggerValue = 40,
   onScrollToBottom,
-  css,
+  cssOptions,
   className,
   children,
   ...props
 }: ScrollViewProps & React.ComponentPropsWithoutRef<'div'>) => {
   const classes = useStyles({
-    css,
+    cssOptions,
   })
 
   const clsns = classnames(classes['scroll-view'], className)

@@ -11,14 +11,14 @@ type OverlayProps = Partial<{
   children: React.ReactNode
   noAnimation: boolean
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
   className: string
 }>
 
 type RuleNames = 'overlay'
 
 const useStyles = createUseStyles<RuleNames, Omit<OverlayProps, 'onClick'>, Theme>(theme => ({
-  overlay: ({ css, noAnimation, color, blur, opacity, show }) => ({
+  overlay: ({ cssOptions, noAnimation, color, blur, opacity, show }) => ({
     position: 'fixed',
     top: 0,
     left: 0,
@@ -30,7 +30,7 @@ const useStyles = createUseStyles<RuleNames, Omit<OverlayProps, 'onClick'>, Them
 
     transition: noAnimation ? 'all .4s' : '',
     ...(show ? { opacity: opacity } : { display: 'none', opacity: 0 }),
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -42,10 +42,10 @@ const Overlay = ({
   show = false,
   children,
   onClick,
-  css,
+  cssOptions,
   className,
 }: OverlayProps) => {
-  const classes = useStyles({ noAnimation, show, blur, color, opacity, css })
+  const classes = useStyles({ noAnimation, show, blur, color, opacity, cssOptions })
   const computedOverlayClassNames = classnames(classes.overlay, className)
   const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     onClick?.(e)

@@ -2,7 +2,7 @@ import * as React from 'react'
 import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
-import { debounce } from '../../utils'
+import { debounce, clamp } from '../../utils'
 type SliderProps = Partial<{
   disable: boolean
   defaultValue: number
@@ -16,11 +16,12 @@ type SliderProps = Partial<{
   color: string
   backgroundCssOptions: (theme: Theme) => React.CSSProperties
   barCssOptions: (theme: Theme) => React.CSSProperties
+  circleCssOptions: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'slider'
 const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, Theme>(theme => ({
-  slider: ({ backgroundColor, percent, color, backgroundCssOptions, barCssOptions }) => ({
+  slider: ({ backgroundColor, percent, color, backgroundCssOptions, barCssOptions, circleCssOptions }) => ({
     height: '1em',
     position: 'relative',
     borderRadius: '16px',
@@ -46,9 +47,8 @@ const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, 
       background: color || theme?.color?.white || '#fff',
       transform: 'translate3d(-50%,-25%,0)',
       cursor: 'pointer',
-
       willChange: 'left',
-      ...barCssOptions?.(theme),
+      ...circleCssOptions?.(theme),
     },
   }),
 }))
@@ -65,91 +65,92 @@ const Slider = ({
   color,
   className,
   backgroundCssOptions,
+  circleCssOptions,
   barCssOptions,
   ...props
 }: SliderProps & React.ComponentPropsWithoutRef<'div'>) => {
+  console.log('defaultValue', defaultValue)
+
   const ref = React.useRef(null)
-  const [direction, setDirection] = React.useState('left')
   const [startX, setStartX] = React.useState(0)
-  const [currentValue, setCurrentValue] = React.useState(defaultValue)
-  const [displacement, setDisplacement] = React.useState(0)
-  const [percent, setPercent] = React.useState((defaultValue / max) * 100)
+  const [currentValue, setCurrentValue] = React.useState(defaultValue * 1)
+  const [stepLength, setStepLength] = React.useState(0)
+  const [disStack, setDisStack] = React.useState(0)
+  const [offset, setOffset] = React.useState(0)
+  const [useOffset, setUseOffset] = React.useState(false)
+  const [stepPercent, setStepPercent] = React.useState(0)
+  const [percent, setPercent] = React.useState(((defaultValue - min) / (max - min)) * 100)
   const classes = useStyles({
     backgroundColor,
     percent,
     color,
     backgroundCssOptions,
+    circleCssOptions,
     barCssOptions,
   })
   const handleSlideStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setStartX(e.touches[0].pageX)
+    setStartX(e.touches[0].clientX)
     onSlideStart?.()
   }
-  const handleSlideStartByDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    setStartX(e.pageX)
-    onSlideStart?.()
-  }
-
   const handleSlide = (e: React.TouchEvent<HTMLDivElement>) => {
-    debounce(() => {
-      console.log('e.touches[0].clientX', e.touches[0].clientX)
-      console.log('startX', startX)
+    const disFrag = parseFloat((e.touches[0].clientX - startX).toFixed(2))
+    let ds = disStack
 
-      const dis = parseFloat((e.touches[0].clientX - startX).toFixed(2))
-      console.log('dis', dis)
+    if (disFrag >= 0) {
+      ds = disStack + disFrag
+      if (ds >= stepLength) {
+        setDisStack(0)
+        setDisStack(0)
+        setPercent(v => clamp(v + stepPercent, 0, 100))
+        // if (!useOffset) {
+        //   setUseOffset(true)
+        //   setOffset(-stepLength / 2)
+        // } else {
+        //   setUseOffset(false)
+        //   setOffset(0)
+        // }
+        console.log(currentValue)
+        console.log(step)
+        console.log(currentValue + step)
 
-      setStartX(e.touches[0].clientX)
-      const xfragment = parseFloat((dis / (ref.current as any)?.clientWidth).toFixed(2))
-      console.log('xfragment', xfragment)
-
-      if (dis >= 0) {
-        const fragment = parseFloat((step / max).toFixed(2))
-        if (xfragment >= fragment) {
-          setPercent(Math.min(100, parseFloat(((currentValue + step * (xfragment / fragment)) / max).toFixed(2)) * 100))
-          const cv = parseFloat((currentValue + step).toFixed(2))
-          setCurrentValue(cv)
-          onSlide?.(cv)
-        }
+        const cv = clamp(parseFloat((currentValue + step).toFixed(2)), min, max)
+        setCurrentValue(cv)
+        onSlide?.(cv)
       } else {
-        const fragment = -parseFloat((step / max).toFixed(2))
-        if (xfragment <= fragment) {
-          setPercent(Math.max(0, parseFloat(((currentValue - step * (xfragment / fragment)) / max).toFixed(2)) * 100))
-          const cv = parseFloat((currentValue - step).toFixed(2))
-          setCurrentValue(cv)
-          onSlide?.(cv)
-        }
+        setDisStack(ds)
       }
-    }, step)
-  }
-  const handleSlideByDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    debounce(() => {
-      const dis = parseFloat((e.clientX - startX).toFixed(2))
-      setStartX(e.clientX)
-      const xfragment = parseFloat((dis / (ref.current as any)?.clientWidth).toFixed(2))
-      if (dis >= 0) {
-        const fragment = parseFloat((step / max).toFixed(2))
-        if (xfragment >= fragment) {
-          setPercent(Math.min(100, parseFloat(((currentValue + step * (xfragment / fragment)) / max).toFixed(2)) * 100))
-          const cv = parseFloat((currentValue + step).toFixed(2))
-          setCurrentValue(cv)
-          onSlide?.(cv)
-        }
+    } else {
+      ds = disStack + Math.abs(disFrag)
+      if (ds > stepLength) {
+        setPercent(v => clamp(v - stepPercent, 0, 100))
+        setDisStack(0)
+        // if (!useOffset) {
+        //   setUseOffset(true)
+        //   setOffset(-50)
+        // } else {
+        //   setUseOffset(false)
+        //   setOffset(0)
+        // }
+        const cv = clamp(parseFloat((currentValue - step).toFixed(2)), min, max)
+        setCurrentValue(cv)
+        onSlide?.(cv)
       } else {
-        const fragment = -parseFloat((step / max).toFixed(2))
-        if (xfragment <= fragment) {
-          setPercent(Math.max(0, parseFloat(((currentValue - step * (xfragment / fragment)) / max).toFixed(2)) * 100))
-          const cv = parseFloat((currentValue - step).toFixed(2))
-          setCurrentValue(cv)
-          onSlide?.(cv)
-        }
+        setDisStack(ds)
       }
-    }, step)
+    }
+    setStartX(e.touches[0].clientX)
   }
+
   const handleSlideEnd = () => {
+    setDisStack(0)
     onSlideEnd?.()
   }
   const computedClassNames = classnames(classes.slider, className)
 
+  React.useEffect(() => {
+    setStepLength((step / max) * (ref.current as any)?.clientWidth)
+    setStepPercent((step / (max - min)) * 100)
+  }, [])
   return (
     <div ref={ref} aria-label='slider' role='sliderbar' className={computedClassNames} {...props}>
       <div className='slider-bar' />
@@ -158,9 +159,6 @@ const Slider = ({
         onTouchStart={handleSlideStart}
         onTouchMove={handleSlide}
         onTouchEnd={handleSlideEnd}
-        onDragStart={handleSlideStartByDrag}
-        onDragOver={handleSlideByDrag}
-        onDragEnd={handleSlideEnd}
       />
     </div>
   )

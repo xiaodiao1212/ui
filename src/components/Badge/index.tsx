@@ -10,11 +10,11 @@ type BadgeProps = Partial<{
   offsetX: string
   offsetY: string
   badgeContent: React.ReactNode
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
 const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>(theme => ({
-  badge: ({ css, size, offsetX, show, offsetY, color }) => ({
+  badge: ({ cssOptions, size, offsetX, show, offsetY, color }) => ({
     position: 'relative',
     '& > *:first-child': {
       borderRadius: '50%',
@@ -30,14 +30,14 @@ const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>(theme => ({
       top: offsetY || 0,
       transform: 'translate3d(50%,-50%,0)',
       transition: 'all .2s',
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     },
   }),
 }))
 const Badge = ({
   size = '10',
   show = true,
-  css,
+  cssOptions,
   offsetX,
   offsetY,
   color,
@@ -46,7 +46,7 @@ const Badge = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & BadgeProps) => {
-  const classes = useBadgeStyles({ css, size, show, offsetX, offsetY })
+  const classes = useBadgeStyles({ cssOptions, size, show, offsetX, offsetY })
   const computedClassNames = classnames(classes.badge, className)
   const renderBadgeContent = () => {
     if (typeof badgeContent == 'string' || !badgeContent) {

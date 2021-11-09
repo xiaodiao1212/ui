@@ -5,21 +5,21 @@ import { createUseStyles } from 'react-jss'
 
 type SegmentProps = Partial<{
   vertical: boolean
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
 }>
 type SegmentItemProps = Partial<{
   itemkey: React.Key | null | undefined
   currentKey: React.Key | null | undefined
   onClickItem: (key: React.Key | null | undefined) => void
-  css: (theme: Theme, isCurrent: boolean) => React.CSSProperties
+  cssOptions: (theme: Theme, isCurrent: boolean) => React.CSSProperties
 }>
 
 const useSegmentStyles = createUseStyles<
   'segment',
-  Pick<SegmentProps, 'css'> & { left: number; key: number; fragmentLength: number; offsetX: number },
+  Pick<SegmentProps, 'cssOptions'> & { left: number; key: number; fragmentLength: number; offsetX: number },
   Theme
 >(theme => ({
-  segment: ({ css, key, left, offsetX, fragmentLength }) => ({
+  segment: ({ cssOptions, key, left, offsetX, fragmentLength }) => ({
     height: '2em',
     display: 'flex',
     alignItems: 'center',
@@ -45,27 +45,32 @@ const useSegmentStyles = createUseStyles<
       background: theme ? theme.color.white : '#fff',
       transition: '.3s all',
     },
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
 const useSegmentItemStyles = createUseStyles<
   'segment-item',
-  Pick<SegmentItemProps, 'css'> & { isCurrent: boolean },
+  Pick<SegmentItemProps, 'cssOptions'> & { isCurrent: boolean },
   Theme
 >(theme => ({
-  'segment-item': ({ css, isCurrent }) => ({
+  'segment-item': ({ cssOptions, isCurrent }) => ({
     padding: '0 .4em',
     flex: 1,
     textAlign: 'center',
     color: isCurrent ? (theme ? theme.color.primary : '#231F9C') : theme ? theme.color.grey : '#6b7280',
     transition: '.3s all',
     fontWeight: isCurrent ? 700 : 500,
-    ...css?.(theme, isCurrent),
+    ...cssOptions?.(theme, isCurrent),
   }),
 }))
 
-const Segment = ({ css, children, className, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
+const Segment = ({
+  cssOptions,
+  children,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
   const fragmentLength = React.useRef(100 / (children as any).length)
 
   const [offsetX, setOffsetX] = React.useState(0)
@@ -76,7 +81,7 @@ const Segment = ({ css, children, className, ...props }: React.ComponentPropsWit
     key: current,
     fragmentLength: fragmentLength.current,
     offsetX,
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes.segment, className)
   const handleChildrenRender = () => {
@@ -118,11 +123,11 @@ const SegmentItem = ({
   itemkey,
   currentKey,
   onClickItem,
-  css,
+  cssOptions,
   children,
   className,
 }: React.ComponentPropsWithoutRef<'div'> & SegmentItemProps) => {
-  const classes = useSegmentItemStyles({ isCurrent: itemkey == currentKey, ...css })
+  const classes = useSegmentItemStyles({ isCurrent: itemkey == currentKey, ...cssOptions })
   const computedClassNames = classnames(classes['segment-item'], className)
   const handleClickSegmentItem = () => {
     onClickItem?.(itemkey)

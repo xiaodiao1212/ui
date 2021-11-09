@@ -6,15 +6,15 @@ type TimePickerProps = Partial<{
   min: string
   max: string
   onChange: (time: any) => any
-  css: (theme: Theme) => React.CSSProperties
+  cssOptions: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'time-picker'
 
 const useStyles = createUseStyles<RuleNames, Omit<TimePickerProps, 'onFileChange'>, Theme>(theme => ({
-  'time-picker': ({ css, ...props }) => ({
+  'time-picker': ({ cssOptions, ...props }) => ({
     ...props,
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -23,7 +23,7 @@ const TimePicker = ({
   max,
   onChange,
   children,
-  css,
+  cssOptions,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'label'> & TimePickerProps) => {
@@ -31,7 +31,7 @@ const TimePicker = ({
     onChange?.(e.target.value)
   }
   const classes = useStyles({
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes['time-picker'], className)
   return (

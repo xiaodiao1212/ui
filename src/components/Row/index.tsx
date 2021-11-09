@@ -9,11 +9,11 @@ interface RowProps {
   gap?: string
   wrap?: boolean
   fullHeight?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 const useStyles = createUseStyles<'row', RowProps, Theme>(theme => ({
-  row: ({ vertical, wrap, css, fullHeight, alignItems, gap }) => ({
+  row: ({ vertical, wrap, cssOptions, fullHeight, alignItems, gap }) => ({
     display: 'flex',
     width: '100%',
     flexDirection: vertical ? 'column' : 'row',
@@ -21,7 +21,7 @@ const useStyles = createUseStyles<'row', RowProps, Theme>(theme => ({
     gridGap: gap,
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
-    ...css?.(theme),
+    ...cssOptions?.(theme),
   }),
 }))
 
@@ -32,7 +32,7 @@ const Row = ({
   justifyContent,
   fullHeight,
   gap,
-  css,
+  cssOptions,
   children,
   className,
   ...props
@@ -44,7 +44,7 @@ const Row = ({
     gap,
     wrap,
     vertical,
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(classes.row, className)
   return (

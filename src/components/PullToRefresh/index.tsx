@@ -12,47 +12,49 @@ type PullToRefreshProps = {
   onPull?: (pullLength: number) => any
   onPullEnd?: () => any
   onRefresh?: (refreshOver: () => any) => any
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RefreshLoadingProps = {
   children?: React.ReactNode
   className?: string
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 const usePullToRefreshStyles = createUseStyles<
   'pullToRefresh',
-  Pick<PullToRefreshProps, 'css' | 'triggerValue'> & {
+  Pick<PullToRefreshProps, 'cssOptions' | 'triggerValue'> & {
     translateY: number
   },
   Theme
 >(theme => ({
-  pullToRefresh: ({ translateY, css }) => ({
+  pullToRefresh: ({ translateY, cssOptions }) => ({
     height: '100%',
     overflow: 'hidden',
     '& > .refresh-container': {
       transform: `translate3d(0px, ${translateY}px, 0px)`,
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
       height: '100%',
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     },
   }),
 }))
 
-const useRefreshLoadingStyles = createUseStyles<'refresh-loading', Pick<RefreshLoadingProps, 'css'>, Theme>(theme => ({
-  'refresh-loading': ({ css }) => {
-    const pullToRefreshStyle: React.CSSProperties = {
-      position: 'absolute',
-      width: '100%',
-      left: 0,
-      textAlign: 'center',
-      transform: 'translateY(-100%)',
-      ...css?.(theme),
-    }
-    return pullToRefreshStyle
-  },
-}))
+const useRefreshLoadingStyles = createUseStyles<'refresh-loading', Pick<RefreshLoadingProps, 'cssOptions'>, Theme>(
+  theme => ({
+    'refresh-loading': ({ cssOptions }) => {
+      const pullToRefreshStyle: React.CSSProperties = {
+        position: 'absolute',
+        width: '100%',
+        left: 0,
+        textAlign: 'center',
+        transform: 'translateY(-100%)',
+        ...cssOptions?.(theme),
+      }
+      return pullToRefreshStyle
+    },
+  }),
+)
 const PullToRefresh = ({
   triggerValue = 80,
   delay = 30,
@@ -62,7 +64,7 @@ const PullToRefresh = ({
   onRefresh,
   className,
   children,
-  css,
+  cssOptions,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & PullToRefreshProps) => {
   const [pullLength, setPullLength] = useState(0)
@@ -72,7 +74,7 @@ const PullToRefresh = ({
   const classes = usePullToRefreshStyles({
     translateY,
     triggerValue,
-    css,
+    cssOptions,
   })
   const computedRefreshClassNames = classnames(classes.pullToRefresh, className)
 
@@ -149,9 +151,9 @@ const PullToRefresh = ({
   )
 }
 
-const RefreshLoading = ({ children, className, css }: RefreshLoadingProps) => {
+const RefreshLoading = ({ children, className, cssOptions }: RefreshLoadingProps) => {
   const classes = useRefreshLoadingStyles({
-    css,
+    cssOptions,
   })
   const computedLoadingClassNames = classnames(classes['refresh-loading'], className)
   return (

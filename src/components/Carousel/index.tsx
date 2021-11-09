@@ -7,18 +7,18 @@ type CarouselProps = Partial<{
   onChange?: (index: number) => any
   auto?: boolean
   vertical?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }>
 
 type RuleNames = 'carousel'
 
 const useStyles = createUseStyles<RuleNames, CarouselProps, Theme>(theme => ({
-  carousel: ({ css, vertical }) => ({
+  carousel: ({ cssOptions, vertical }) => ({
     overflowX: 'scroll',
     display: 'flex',
     scrollSnapType: `${vertical ? 'y' : 'x'} mandatory`,
     webkitOverflowScrolling: 'touch',
-    ...css?.(theme),
+    ...cssOptions?.(theme),
     '& > *': {
       minWidth: '100%',
       scrollSnapAlign: 'start',
@@ -32,7 +32,7 @@ const Carousel = ({
   vertical = false,
   onChange,
   children,
-  css,
+  cssOptions,
   className,
   ...props
 }: CarouselProps & React.ComponentPropsWithoutRef<'div'>) => {
@@ -40,7 +40,7 @@ const Carousel = ({
     onChange?.(index)
   }
   const classes = useStyles({
-    css,
+    cssOptions,
     vertical,
   })
   const computedClassNames = classnames(classes.carousel, className)

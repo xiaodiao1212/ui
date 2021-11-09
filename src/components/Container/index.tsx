@@ -12,7 +12,7 @@ type ContainerProps = {
   fullHeight?: boolean
   sticky?: boolean
   fullScreen?: boolean
-  css?: (theme: Theme) => React.CSSProperties
+  cssOptions?: (theme: Theme) => React.CSSProperties
 }
 
 type RuleNames = 'container'
@@ -27,7 +27,7 @@ const useStyles = createUseStyles<RuleNames, ContainerProps, Theme>(theme => ({
     absolute,
     noXPadding,
     fullHeight,
-    css,
+    cssOptions,
     sticky,
   }) => {
     let paddingComputed
@@ -44,7 +44,7 @@ const useStyles = createUseStyles<RuleNames, ContainerProps, Theme>(theme => ({
       }),
       ...(relative && { position: 'relative' }),
       ...(absolute && { position: 'absolute' }),
-      ...css?.(theme),
+      ...cssOptions?.(theme),
     }
   },
 }))
@@ -59,7 +59,7 @@ const Container = ({
   fullScreen = false,
   sticky = false,
 
-  css,
+  cssOptions,
   className,
   children,
   ...props
@@ -74,7 +74,7 @@ const Container = ({
     sticky,
     relative,
     fullScreen,
-    css,
+    cssOptions,
   })
   const computedClassNames = classnames(
     classes.container,
