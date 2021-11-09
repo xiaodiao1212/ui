@@ -45,8 +45,9 @@ import Segment from './components/Segment'
 import DatePicker from './components/DatePicker'
 import PullToRefresh from './components/PullToRefresh'
 import CountDown from './components/CountDown'
-import Timeline  from './components/Timeline'
-import TimelineItem  from './components/TimelineItem'
+import Timeline from './components/Timeline'
+import Tooltip from './components/Tooltip'
+import Toast from './components/Toast'
 export {
   NumberInput,
   Footer,
@@ -96,5 +97,6 @@ export {
   palette,
   CountDown,
   Timeline,
-  TimelineItem,
+  Tooltip,
+  Toast,
 }
