@@ -16,7 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
 
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', '@emotion'],
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/prop-types': 0,

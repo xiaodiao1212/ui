@@ -1,4 +1,37 @@
 import { darken, lighten, fade, emphasize } from '../style'
+
+type Theme = {
+  mode: 'dark' | 'light'
+  footer: {
+    height: string
+  }
+  appBar: {
+    height: string
+  }
+  zIndex: {
+    floatingWindow: number
+    appBar: number
+    footer: number
+    modal: number
+    overlay: number
+    notification: number
+    drawer: number
+  }
+  shadow: {
+    color: string
+  }
+  color: Partial<{
+    primary: string
+    secondary: string
+    black: string
+    grey: string
+    greyLight: string
+    white: string
+    red: string
+    accent: string
+  }>
+  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize }
+}
 const theme: Theme = {
   mode: 'light',
   color: {
@@ -36,37 +69,4 @@ const theme: Theme = {
     height: '3em',
   },
 }
-type Theme = {
-  mode: 'dark' | 'light'
-  footer: {
-    height: string
-  }
-  appBar: {
-    height: string
-  }
-  zIndex: {
-    floatingWindow: number
-    appBar: number
-    footer: number
-    modal: number
-    overlay: number
-    notification: number
-    drawer: number
-  }
-  shadow: {
-    color: string
-  }
-  color: Partial<{
-    primary: string
-    secondary: string
-    black: string
-    grey: string
-    greyLight: string
-    white: string
-    red: string
-    accent: string
-  }>
-  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize }
-}
-
 export { theme, Theme }

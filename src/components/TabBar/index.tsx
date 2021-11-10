@@ -3,24 +3,24 @@ import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
-type BottomNavigationProps = Partial<{
+type TabBarProps = Partial<{
   cssOptions: (theme: Theme) => React.CSSProperties
 }>
-type RuleNames = 'BottomNavigation'
-const useStyles = createUseStyles<RuleNames, BottomNavigationProps, Theme>(theme => ({
-  BottomNavigation: ({ cssOptions }) => ({
+type RuleNames = 'TabBar'
+const useStyles = createUseStyles<RuleNames, TabBarProps, Theme>(theme => ({
+  TabBar: ({ cssOptions }) => ({
     ...cssOptions?.(theme),
   }),
 }))
 
-const BottomNavigation = ({
+const TabBar = ({
   children,
   cssOptions,
   className,
   ...props
-}: BottomNavigationProps & React.ComponentPropsWithoutRef<'aside'>) => {
+}: TabBarProps & React.ComponentPropsWithoutRef<'aside'>) => {
   const classes = useStyles({ cssOptions })
-  const computedClassNames = classnames(classes.BottomNavigation, className)
+  const computedClassNames = classnames(classes.TabBar, className)
   return (
     <aside className={computedClassNames} {...props}>
       {children}
@@ -28,4 +28,4 @@ const BottomNavigation = ({
   )
 }
 
-export default BottomNavigation
+export default TabBar
