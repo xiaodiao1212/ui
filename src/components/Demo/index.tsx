@@ -29,6 +29,7 @@ const Demo = ({
   thumbColor,
   trackHeight = 10,
   thumbHeight = 15,
+  className,
 }: SliderProps) => {
   const theme = useTheme()
   console.log(theme)
@@ -88,7 +89,7 @@ const Demo = ({
     }
   `
   return (
-    <div css={sliderStyles}>
+    <div css={sliderStyles} className={clsx(className)}>
       <input min={min} max={max} step={step} defaultValue={defaultValue} type='range' onChange={handleOnChange} />
     </div>
   )
