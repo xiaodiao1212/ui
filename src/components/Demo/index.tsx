@@ -6,6 +6,7 @@ import { css, useTheme } from '@emotion/react'
 import clsx from 'clsx'
 
 type SliderProps = Partial<{
+  style: string | React.CSSProperties
   disable: boolean
   defaultValue: string
   step: string
@@ -32,7 +33,6 @@ const Demo = ({
   className,
 }: SliderProps) => {
   const theme = useTheme()
-  console.log(theme)
 
   const handleOnChange = (e: { target: { value: string } }) => {
     onChange?.(e.target.value)
@@ -45,12 +45,14 @@ const Demo = ({
       outline: none;
       border: none;
     }
+
     input[type='range']::-webkit-slider-runnable-track {
       width: 100%;
       height: ${trackHeight}px;
       background: ${trackColor};
       border-radius: 16px;
     }
+
     input[type='range']::-moz-range-track {
       width: 100%;
       height: ${trackHeight}px;
@@ -66,6 +68,7 @@ const Demo = ({
       height: ${thumbHeight}px;
       margin-top: -${(thumbHeight - trackHeight) / 2}px;
     }
+
     input[type='range']::-moz-range-thumb {
       -moz-appearance: none;
       outline: none;
@@ -84,13 +87,23 @@ const Demo = ({
     input[type='range']:focus::-moz-range-track {
       background: ${trackColor};
     }
+
     input[type='range']:focus::-webkit-slider-runnable-track {
       background: ${trackColor};
     }
   `
+
   return (
-    <div css={sliderStyles} className={clsx(className)}>
-      <input min={min} max={max} step={step} defaultValue={defaultValue} type='range' onChange={handleOnChange} />
+    <div css={sliderStyles}>
+      <input
+        min={min}
+        max={max}
+        step={step}
+        defaultValue={defaultValue}
+        type='range'
+        onChange={handleOnChange}
+        className={clsx(className)}
+      />
     </div>
   )
 }

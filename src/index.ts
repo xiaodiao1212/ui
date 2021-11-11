@@ -37,8 +37,7 @@
 // import Carousel from './components/Carousel'
 // import Slider from './components/Slider'
 // import TimePicker from './components/TimePicker'
-// import Footer from './components/Footer'
-// import Backscrumbs from './components/Backscrumbs'
+import Breadcrumbs from './components/Breadcrumbs'
 // import Banner from './components/Banner'
 // import NumberInput from './components/NumberInput'
 // import Segment from './components/Segment'
@@ -51,11 +50,10 @@
 // import Toast from './components/Toast'
 // export {
 //   NumberInput,
-//   Footer,
 //   DatePicker,
 //   Banner,
 //   TimePicker,
-//   Backscrumbs,
+//   Breadcrumbs,
 //   Segment,
 //   ScrollView,
 //   Slider,
@@ -104,4 +102,4 @@
 // }
 import App from './components/App'
 import Demo from './components/Demo'
-export { Demo, App }
+export { Demo, App, Breadcrumbs }
