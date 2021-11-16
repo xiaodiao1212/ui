@@ -102,4 +102,6 @@ import Breadcrumbs from './components/Breadcrumbs'
 // }
 import App from './components/App'
 import Demo from './components/Demo'
-export { Demo, App, Breadcrumbs }
+import Row from './components/Row'
+import Col from './components/Col'
+export { Demo, App, Breadcrumbs, Row, Col }

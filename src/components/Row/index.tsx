@@ -16,7 +16,7 @@ interface RowProps {
 }
 
 const Row = ({ children, vertical, wrap, fullHeight, alignItems, gap, co }: RowProps) => {
-  const Container = styled.div(TimelineProps => ({
+  const Container = styled.div({
     display: 'flex',
     width: '100%',
     flexDirection: vertical ? 'column' : 'row',
@@ -25,7 +25,7 @@ const Row = ({ children, vertical, wrap, fullHeight, alignItems, gap, co }: RowP
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
     ...co?.(theme as Theme),
-  }))
+  })
   return <Container>{children}</Container>
 }
 

@@ -15,13 +15,13 @@ interface ColProps {
 }
 
 const Col = ({ children, textAlign, noFlex, flex, autoMargin, co }: ColProps) => {
-  const Container = styled.div(ColProps => ({
+  const Container = styled.div({
     textAlign: textAlign ? textAlign : 'center',
     flex: flex ? flex : '1',
     noFlex: noFlex ? noFlex : false,
     ...(autoMargin ? { marginLeft: 'auto' } : { flex: noFlex ? '' : flex }),
     ...co?.(theme as Theme),
-  }))
+  })
   return <Container>{children}</Container>
 }
 
