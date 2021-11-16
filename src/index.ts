@@ -101,7 +101,9 @@ import Breadcrumbs from './components/Breadcrumbs'
 //   Demo,
 // }
 import App from './components/App'
-import Demo from './components/Demo'
+import Badge from './components/Badge'
 import Row from './components/Row'
 import Col from './components/Col'
-export { Demo, App, Breadcrumbs, Row, Col }
+import Textarea from './components/Textarea'
+import Divider from './components/Divider'
+export { Badge, App, Breadcrumbs, Row, Col, Textarea, Divider }

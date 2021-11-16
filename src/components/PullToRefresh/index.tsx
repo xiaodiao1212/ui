@@ -12,13 +12,13 @@ type PullToRefreshProps = {
   onPull?: (pullLength: number) => any
   onPullEnd?: () => any
   onRefresh?: (refreshOver: () => any) => any
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 type RefreshLoadingProps = {
   children?: React.ReactNode
   className?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 const usePullToRefreshStyles = createUseStyles<

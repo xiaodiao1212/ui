@@ -27,7 +27,7 @@ interface SelectProps {
       value: string | number
     }[],
   ) => any
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'cssOptions'>, Theme>(theme => ({

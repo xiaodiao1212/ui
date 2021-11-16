@@ -10,7 +10,7 @@ interface CountDownProps {
   time?: number
   label?: React.ReactNode
   animation?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 type RuleNames = 'countdown' | '@keyframes spin'
 const useStyles = createUseStyles<RuleNames, CountDownProps, Theme>(theme => ({
@@ -88,7 +88,7 @@ const CountDown = ({
         setNum(n => {
           let hours =
             Math.floor((n / 60 / 60) % 24) < 10 ? `0${Math.floor((n / 60 / 60) % 24)}` : Math.floor((n / 60 / 60) % 24)
-            let minutes = Math.floor((n / 60))
+          let minutes = Math.floor(n / 60)
           // let minutes = Math.floor((n / 60) % 60) < 10 ? `0${Math.floor((n / 60) % 60)}` : Math.floor((n / 60) % 60)
           let seconds = Math.floor(n % 60) < 10 ? `0${Math.floor(n % 60)}` : Math.floor(n % 60)
           setHours(() => hours)

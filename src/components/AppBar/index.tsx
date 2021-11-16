@@ -1,20 +1,18 @@
-import { useState } from 'react'
-import * as React from 'react'
-import classnames from 'classnames'
-
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+import * as React from 'react'
 
 type AppBarProps = {
   shy?: boolean
   fixed?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 } & React.ComponentPropsWithoutRef<'div'>
 
-type RuleNames = 'app-bar'
-
-const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>(theme => ({
-  'app-bar': ({ cssOptions, fixed }) => ({
+const AppBar = ({ fixed = false, co, className, children, ...props }: AppBarProps) => {
+  const theme = useTheme() as Theme
+  const styles = css({
     height: theme?.appBar?.height || '3em',
     backgroundColor: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
     ...(fixed
@@ -26,14 +24,11 @@ const useStyles = createUseStyles<RuleNames, AppBarProps, Theme>(theme => ({
           zIndex: theme?.zIndex?.appBar || 700,
         }
       : {}),
-    ...cssOptions?.(theme),
-  }),
-}))
-const AppBar = ({ fixed = false, cssOptions, className, children, ...props }: AppBarProps) => {
-  const classes = useStyles({ fixed, cssOptions })
-  const computedClassNames = classnames(classes['app-bar'], className)
+    ...(typeof co == 'function' && co(theme)),
+  })
+
   return (
-    <header className={computedClassNames} {...props}>
+    <header css={styles} className={clsx(className)} {...props}>
       {children}
     </header>
   )

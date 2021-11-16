@@ -11,7 +11,7 @@ type LoadingProps = {
   backgroudColor?: ((theme: Theme) => string) | string
   color?: ((theme: Theme) => string) | string
   borderWidth?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 type RuleNames = 'loading' | '@keyframes spin'
@@ -141,26 +141,26 @@ const Loading = ({
   const computedClassNames = classnames(classes.loading, className)
   return (
     <div className={computedClassNames}>
-      {!bit ?
-      <div className={`nomal`} />
-      :
-      <div className={`bit`}>
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
+      {!bit ? (
+        <div className={`nomal`} />
+      ) : (
+        <div className={`bit`}>
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
         </div>
-}
+      )}
     </div>
-   )
+  )
 }
 
 export default Loading

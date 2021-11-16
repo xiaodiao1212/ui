@@ -7,7 +7,7 @@ import { debounce } from '../../utils'
 type FloatingWindowProps = Partial<{
   adsorption?: boolean
   draggable?: boolean
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   position?: {
     left: number | string
     top: number | string

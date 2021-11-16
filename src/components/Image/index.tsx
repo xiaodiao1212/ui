@@ -9,7 +9,7 @@ type ImageProps = {
   fit?: CSS.Property.ObjectFit
   width?: string
   height?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 const useStyles = createUseStyles<
   'image',

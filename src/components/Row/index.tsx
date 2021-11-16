@@ -3,6 +3,7 @@
 import { theme, Theme } from '../../constants/theme'
 import React from 'react'
 import styled from '@emotion/styled'
+import clsx from 'clsx'
 
 interface RowProps {
   vertical?: boolean
@@ -12,10 +13,19 @@ interface RowProps {
   wrap?: boolean
   fullHeight?: boolean
   children: React.ReactNode
-  co?: (theme: Theme) => React.CSSProperties
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
-const Row = ({ children, vertical, wrap, fullHeight, alignItems, gap, co }: RowProps) => {
+const Row = ({
+  children,
+  vertical,
+  wrap,
+  fullHeight,
+  alignItems,
+  gap,
+  co,
+  className,
+}: RowProps & React.ComponentPropsWithoutRef<'div'>) => {
   const Container = styled.div({
     display: 'flex',
     width: '100%',
@@ -24,9 +34,9 @@ const Row = ({ children, vertical, wrap, fullHeight, alignItems, gap, co }: RowP
     gridGap: gap,
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
-    ...co?.(theme as Theme),
+    ...(typeof co == 'function' && co(theme)),
   })
-  return <Container>{children}</Container>
+  return <Container className={clsx(className)}>{children}</Container>
 }
 
 export default Row

@@ -8,7 +8,7 @@ type SkeletonProps = {
   circle?: boolean
   width?: string
   height?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 type RuleNames = 'skeleton' | '@keyframes loading'
 const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>(theme => ({

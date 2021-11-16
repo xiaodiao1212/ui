@@ -9,13 +9,7 @@ type AppProps = {
 const App = ({ children, customTheme }: AppProps) => {
   return (
     <ThemeProvider theme={customTheme || theme}>
-      {/* <Global
-        styles={css`
-          .some-class {
-            color: hotpink !important;
-          }
-        `}
-      /> */}
+      <Global styles={defaultStyle as any} />
       {children}
     </ThemeProvider>
   )

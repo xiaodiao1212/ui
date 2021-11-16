@@ -20,7 +20,7 @@ type SliderProps = Partial<{
   className: string
 }>
 
-const Demo = ({
+const Slider = ({
   max,
   min,
   step,
@@ -108,4 +108,4 @@ const Demo = ({
   )
 }
 
-export default Demo
+export default Slider

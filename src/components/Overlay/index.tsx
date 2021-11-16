@@ -11,7 +11,7 @@ type OverlayProps = Partial<{
   children: React.ReactNode
   noAnimation: boolean
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   className: string
 }>
 

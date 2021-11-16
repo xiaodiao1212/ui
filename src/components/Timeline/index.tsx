@@ -6,7 +6,7 @@ import styled from '@emotion/styled'
 
 interface TimelineProps {
   children: React.ReactNode
-  co?: (theme: Theme) => React.CSSProperties
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 const Timeline = ({ children, co }: TimelineProps) => {
@@ -15,7 +15,6 @@ const Timeline = ({ children, co }: TimelineProps) => {
     fontWeight: 300,
     lineHeight: 1.5,
     letterSpacing: '0.05em',
-    ...co?.(theme as Theme),
     margin: 0,
     padding: 0,
     border: 0,
@@ -26,6 +25,7 @@ const Timeline = ({ children, co }: TimelineProps) => {
       maxWidth: '95%',
       listStyle: 'none',
     },
+    ...(typeof co == 'function' && co(theme)),
   }))
   return (
     <Container>

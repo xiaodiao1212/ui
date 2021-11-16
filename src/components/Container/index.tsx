@@ -12,7 +12,7 @@ type ContainerProps = {
   fullHeight?: boolean
   sticky?: boolean
   fullScreen?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 type RuleNames = 'container'

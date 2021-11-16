@@ -10,7 +10,7 @@ interface ToastProps {
   show?: boolean
   duration?: number
   children?: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, Pick<ToastProps, 'cssOptions' | 'show'>, Theme>(theme => ({

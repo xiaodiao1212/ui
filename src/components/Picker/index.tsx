@@ -13,7 +13,7 @@ type PickerProps = {
   data: PickerItem[][]
   onPickerChange: (item: PickerItem[]) => any
   value: string[]
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 type RuleNames = 'picker'
 const useStyles = createUseStyles<RuleNames, Pick<PickerProps, 'cssOptions'> & { translateYlength: number[] }, Theme>(

@@ -6,7 +6,7 @@ type DatePickerProps = Partial<{
   onChange: (date: any) => any
   min: string
   max: string
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'date-picker'

@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss'
 type ChipProps = {
   outline?: boolean
   color?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 type RuleNames = 'chip'

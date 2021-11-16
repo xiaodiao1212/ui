@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 type ListProps = {
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 type ListItemProps = {
@@ -14,7 +14,7 @@ type ListItemProps = {
   rightContent?: React.ReactNode
   className?: string
   children?: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 const useListStyles = createUseStyles<'list', Pick<ListProps, 'cssOptions'>, Theme>(theme => ({

@@ -5,12 +5,12 @@ import { createUseStyles } from 'react-jss'
 
 interface PopoverProps {
   hover?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 interface PopoverContentProps {
   position?: 'top' | 'left' | 'right' | 'bottom'
   show?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 const usePopoverStyles = createUseStyles<'popover', PopoverProps, Theme>(theme => ({
   popover: ({ cssOptions }) => ({

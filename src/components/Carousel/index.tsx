@@ -7,7 +7,7 @@ type CarouselProps = Partial<{
   onChange?: (index: number) => any
   auto?: boolean
   vertical?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'carousel'

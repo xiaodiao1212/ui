@@ -1,16 +1,13 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Row, Col } from '../dist'
+import { App, Divider } from '../dist'
 
 const Main = () => {
-  const [a, b] = React.useState()
+  const [a, b] = React.useState(1)
   return (
     <>
       <App>
-        <Row>
-          <Col>1</Col>
-          <Col>2</Col>
-        </Row>
+        <Divider dashed />
       </App>
     </>
   )

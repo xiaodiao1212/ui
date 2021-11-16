@@ -7,7 +7,7 @@ import Button from '../Button'
 interface TabsProps {
   noIndicator?: boolean
   onClickTab: (key: React.Key) => void
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   tab: React.Key
 }
 type TabItemProps = Partial<{
@@ -21,7 +21,7 @@ type TabItemProps = Partial<{
 }>
 type TabsIndicatorProps = Partial<{
   children: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 const useTabsStyles = createUseStyles<'tabs', Pick<TabsProps, 'cssOptions'>, Theme>(theme => ({

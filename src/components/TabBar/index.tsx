@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
 type TabBarProps = Partial<{
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 type RuleNames = 'TabBar'
 const useStyles = createUseStyles<RuleNames, TabBarProps, Theme>(theme => ({

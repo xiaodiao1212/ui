@@ -6,7 +6,7 @@ import { createUseStyles } from 'react-jss'
 type CardProps = Partial<{
   title: string
   extra: React.ReactNode
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 const useCardStyles = createUseStyles<'card', CardProps, Theme>(theme => ({

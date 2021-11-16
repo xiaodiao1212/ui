@@ -11,7 +11,7 @@ interface TooltipProps {
   width?: string
   show?: boolean
   position?: 'top' | 'left' | 'right' | 'bottom'
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 const useStyles = createUseStyles<RuleNames, TooltipProps, Theme>(theme => ({
   tooltip: ({ backgroundColor, color, width, show, position, cssOptions }) => {
@@ -27,7 +27,7 @@ const useStyles = createUseStyles<RuleNames, TooltipProps, Theme>(theme => ({
           top: '2.8em',
           right: '6.5em',
           marginTop: '-7.5px',
-          transform: 'rotate(270deg)'
+          transform: 'rotate(270deg)',
         }
         break
       case 'left':
@@ -39,7 +39,7 @@ const useStyles = createUseStyles<RuleNames, TooltipProps, Theme>(theme => ({
           top: '50%',
           right: '-0.86em',
           marginTop: '-5px',
-          transform: 'rotate(180deg)'
+          transform: 'rotate(180deg)',
         }
         break
       case 'bottom':
@@ -51,7 +51,7 @@ const useStyles = createUseStyles<RuleNames, TooltipProps, Theme>(theme => ({
           top: '-0.2em',
           right: '6.5em',
           marginTop: '-7.5px',
-          transform: 'rotate(90deg)'
+          transform: 'rotate(90deg)',
         }
         break
       case 'right':

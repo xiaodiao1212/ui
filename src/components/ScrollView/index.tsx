@@ -6,7 +6,7 @@ type ScrollViewProps = {
   triggerValue?: number
   onScrollToBottom?: (handleScrollToBottomOver: () => any) => any
   fetchNode?: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 type RuleNames = 'scroll-view'

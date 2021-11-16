@@ -13,7 +13,7 @@ type InputProps = {
   suffix?: { node: React.ReactNode; flex: number }
   outline?: boolean
   contain?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 type RuleNames = 'input' | 'input-container'
 

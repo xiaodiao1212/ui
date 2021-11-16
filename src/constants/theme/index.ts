@@ -30,6 +30,9 @@ type Theme = {
     red: string
     accent: string
   }>
+  common: {
+    circularEdge: string
+  }
   utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize }
 }
 const theme: Theme = {
@@ -58,6 +61,9 @@ const theme: Theme = {
     overlay: 1000,
     notification: 1400,
     drawer: 1200,
+  },
+  common: {
+    circularEdge: '9999em',
   },
   shadow: {
     color: 'rgba(0,0,0,.1)',

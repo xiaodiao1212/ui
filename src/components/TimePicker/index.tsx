@@ -6,7 +6,7 @@ type TimePickerProps = Partial<{
   min: string
   max: string
   onChange: (time: any) => any
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'time-picker'

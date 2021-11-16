@@ -6,8 +6,8 @@ type ProgressProps = {
   percent?: number
   backgroundColor?: string
   color?: string
-  backgroundCssOptions?: (theme: Theme) => React.CSSProperties
-  barCssOptions?: (theme: Theme) => React.CSSProperties
+  backgroundCssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+  barCssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 type RuleNames = 'progress'
 const useStyles = createUseStyles<RuleNames, ProgressProps, Theme>(theme => ({

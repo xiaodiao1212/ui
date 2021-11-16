@@ -6,7 +6,7 @@ type BannerProps = Partial<{
   closable: boolean
   className: string
   children: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'banner'

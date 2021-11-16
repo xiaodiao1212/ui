@@ -4,7 +4,7 @@ import { Theme } from '../../constants/theme'
 
 type UploadProps = Partial<{
   onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'upload'

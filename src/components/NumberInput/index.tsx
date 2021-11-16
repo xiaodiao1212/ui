@@ -8,7 +8,7 @@ type NumberInputProps = Partial<{
   onChange: (value: string) => void
   children: React.ReactNode
   className: string
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'number-input'

@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss'
 
 type SegmentProps = Partial<{
   vertical: boolean
-  cssOptions: (theme: Theme) => React.CSSProperties
+  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 type SegmentItemProps = Partial<{
   itemkey: React.Key | null | undefined
