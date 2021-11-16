@@ -1,6 +1,8 @@
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+
+import { theme, Theme } from '../../constants/theme'
+import React from 'react'
+import styled from '@emotion/styled'
 
 interface RowProps {
   vertical?: boolean
@@ -9,11 +11,12 @@ interface RowProps {
   gap?: string
   wrap?: boolean
   fullHeight?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  children: React.ReactNode
+  co?: (theme: Theme) => React.CSSProperties
 }
 
-const useStyles = createUseStyles<'row', RowProps, Theme>(theme => ({
-  row: ({ vertical, wrap, cssOptions, fullHeight, alignItems, gap }) => ({
+const Row = ({ children, vertical, wrap, fullHeight, alignItems, gap, co }: RowProps) => {
+  const Container = styled.div(TimelineProps => ({
     display: 'flex',
     width: '100%',
     flexDirection: vertical ? 'column' : 'row',
@@ -21,36 +24,9 @@ const useStyles = createUseStyles<'row', RowProps, Theme>(theme => ({
     gridGap: gap,
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
-    ...cssOptions?.(theme),
-  }),
-}))
-
-const Row = ({
-  vertical = false,
-  alignItems = 'center',
-  wrap = false,
-  justifyContent,
-  fullHeight,
-  gap,
-  cssOptions,
-  children,
-  className,
-  ...props
-}: RowProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({
-    fullHeight,
-    alignItems,
-    justifyContent,
-    gap,
-    wrap,
-    vertical,
-    cssOptions,
-  })
-  const computedClassNames = classnames(classes.row, className)
-  return (
-    <div className={computedClassNames} {...props}>
-      {children}
-    </div>
-  )
+    ...co?.(theme as Theme),
+  }))
+  return <Container>{children}</Container>
 }
+
 export default Row
