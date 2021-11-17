@@ -1,12 +1,12 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Banner } from '../dist'
+import { App, Chip } from '../dist'
 
 const Main = () => {
   const [a, b] = React.useState(false)
   return (
     <App>
-      <Banner>1</Banner>
+      <Chip>12323</Chip>
     </App>
   )
 }

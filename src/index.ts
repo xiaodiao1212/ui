@@ -17,8 +17,9 @@ import Banner from './components/Banner'
 import Modal from './components/Modal'
 import Fab from './components/Fab'
 import Notification from './components/Notification'
-
+import Chip from './components/Chip'
 export {
+  Chip,
   Fab,
   Notification,
   Modal,

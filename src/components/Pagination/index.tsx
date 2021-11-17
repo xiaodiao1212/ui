@@ -5,25 +5,25 @@ import React from 'react'
 import clsx from 'clsx'
 import { useTheme, css } from '@emotion/react'
 
-type ChipProps = {
+type PaginationProps = {
   outline?: boolean
   color?: string
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 /**
- * Chips are compact elements that represent an input, attribute, or action.
+ * Paginations are compact elements that represent an input, attribute, or action.
  * @param boolean outline
  * @param string color
  */
-const Chip = ({
+const Pagination = ({
   outline = false,
   color,
   co,
   children,
   className,
   ...props
-}: ChipProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: PaginationProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme
   const getComputedColor = (color?: string) =>
     color || (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827')
@@ -49,4 +49,4 @@ const Chip = ({
   )
 }
 
-export default Chip
+export default Pagination
