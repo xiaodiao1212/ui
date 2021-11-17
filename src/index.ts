@@ -23,8 +23,16 @@ import Skeleton from './components/Skeleton';
 import Pagination from './components/Pagination';
 import Card from './components/Card';
 import Container from './components/Container';
+import NumberInput from './components/NumberInput';
+import CountDown from './components/CountDown';
+import ScrollView from './components/ScrollView';
+import Image from './components/Image';
 export {
+  Image,
   Chip,
+  ScrollView,
+  CountDown,
+  NumberInput,
   Container,
   Card,
   Pagination,

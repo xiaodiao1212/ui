@@ -1,14 +1,10 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { App, Chip } from '../dist'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { App } from '../dist';
 
 const Main = () => {
-  const [a, b] = React.useState(false)
-  return (
-    <App>
-      <Chip>12323</Chip>
-    </App>
-  )
-}
+  const [a, b] = React.useState('');
+  return <App></App>;
+};
 
-ReactDOM.render(<Main />, document.getElementById('root'))
+ReactDOM.render(<Main />, document.getElementById('root'));

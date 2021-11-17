@@ -1,28 +1,16 @@
-import { createUseStyles } from 'react-jss'
-import classnames from 'classnames'
-import { Theme } from '../../constants/theme'
-
-import * as React from 'react'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx';
+import { css, useTheme, keyframes } from '@emotion/react';
+import { Theme } from '../../constants/theme';
 
 type NumberInputProps = Partial<{
-  onChange: (value: string) => void
-  children: React.ReactNode
-  className: string
-  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}>
+  onChange: (value: string) => void;
+  children: React.ReactNode;
+  className: string;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
-type RuleNames = 'number-input'
-const useStyles = createUseStyles<RuleNames, Omit<NumberInputProps, 'onFileChange'>, Theme>(theme => ({
-  'number-input': ({ cssOptions, ...props }) => ({
-    '& > input::-webkit-outer-spin-button': {
-      WebkitAppearance: 'none',
-    },
-    ...props,
-    ...cssOptions?.(theme),
-  }),
-}))
-
-const NumberInput = ({ onChange, children, cssOptions, className, ...props }: NumberInputProps) => {
+const NumberInput = ({ onChange, children, co, className, ...props }: NumberInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(
       e.target.value.length > 1
@@ -30,18 +18,19 @@ const NumberInput = ({ onChange, children, cssOptions, className, ...props }: Nu
           ? e.target.value.substring(1)
           : e.target.value
         : e.target.value,
-    )
-  }
-  const classes = useStyles({
-    cssOptions,
-  })
-  const computedClassNames = classnames(classes['number-input'], className)
+    );
+  };
+  const theme = useTheme() as Theme;
+  const styles = css({
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
   return (
     <label aria-label='number input' className={computedClassNames} {...props}>
-      <input hidden={!!children} type={'number'} onChange={handleChange} />
+      <input css={styles} hidden={!!children} type='number' onChange={handleChange} />
       {children}
     </label>
-  )
-}
+  );
+};
 
-export default NumberInput
+export default NumberInput;
