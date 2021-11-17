@@ -14,10 +14,9 @@ type BreadcrumbsProps = Partial<{
   items: BreadcrumbsItem[]
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   className: string
-  children: React.ReactNode
 }>
 
-const Breadcrumbs = ({ divider = '/', items = [], children, className, co }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsProps) => {
   const theme = useTheme() as Theme
   const sliderStyles = css({
     display: 'inline-flex',
@@ -25,7 +24,7 @@ const Breadcrumbs = ({ divider = '/', items = [], children, className, co }: Bre
     '& > *': {
       display: 'inline-flex',
     },
-    ...co?.(theme),
+    ...(typeof co == 'function' && co(theme)),
   })
 
   const computedClassNames = clsx('breadcrumbs', className)

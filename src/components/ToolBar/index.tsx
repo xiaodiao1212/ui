@@ -4,13 +4,13 @@ import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
 import * as React from 'react'
 
-type AppBarProps = {
+type ToolBarProps = {
   shy?: boolean
   fixed?: boolean
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 } & React.ComponentPropsWithoutRef<'div'>
 
-const AppBar = ({ fixed = false, co, className, children, ...props }: AppBarProps) => {
+const ToolBar = ({ fixed = false, co, className, children, ...props }: ToolBarProps) => {
   const theme = useTheme() as Theme
   const styles = css({
     height: theme?.appBar?.height || '3em',
@@ -34,4 +34,4 @@ const AppBar = ({ fixed = false, co, className, children, ...props }: AppBarProp
   )
 }
 
-export default AppBar
+export default ToolBar

@@ -1,77 +1,41 @@
-import * as React from 'react'
-import classnames from 'classnames'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+import * as React from 'react'
 
 interface PopoverProps {
   hover?: boolean
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 interface PopoverContentProps {
   position?: 'top' | 'left' | 'right' | 'bottom'
   show?: boolean
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
-const usePopoverStyles = createUseStyles<'popover', PopoverProps, Theme>(theme => ({
-  popover: ({ cssOptions }) => ({
-    position: 'relative',
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    ...cssOptions?.(theme),
-  }),
-}))
-const usePopoverContentStyles = createUseStyles<'popover-content', PopoverContentProps, Theme>(theme => ({
-  'popover-content': ({ show, position, cssOptions }) => {
-    let computedPosition = {}
-    switch (position) {
-      case 'top':
-        computedPosition = {
-          top: 0,
-          transform: 'translate3d(0,-105%,0)',
-        }
-        break
-      case 'left':
-        computedPosition = {
-          left: 0,
-          transform: 'translate3d(-105%,0,0)',
-        }
-        break
-      case 'bottom':
-        computedPosition = {
-          bottom: 0,
-          transform: 'translate3d(0,105%,0)',
-        }
-        break
-      case 'right':
-        computedPosition = {
-          right: 0,
-          transform: 'translate3d(105%,0,0)',
-        }
-        break
-      default:
-        break
-    }
-    return {
-      position: 'absolute',
-      ...computedPosition,
-      display: show ? 'block' : 'none',
-      ...cssOptions?.(theme),
-    }
-  },
-}))
+
+/**
+ * A Popover can be used to display some content on top of another.
+ * @param boolean hover
+ * @returns Popover
+ */
 const Popover = ({
   hover = false,
-  cssOptions,
+  co,
   children,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
-  const a: Array<string> = new Array<string>()
-  const b: string[] = []
+  const theme = useTheme() as Theme
   const [isContentShow, setIsContentShow] = React.useState(false)
-  const classes = usePopoverStyles({ cssOptions })
-  const computedClassNames = classnames(classes.popover, className)
+  const styles = css({
+    position: 'relative',
+    display: 'inline-flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...(typeof co == 'function' && co(theme)),
+  })
+  const computedClassNames = clsx(className)
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
       const element = child as React.DetailedReactHTMLElement<any, HTMLElement>
@@ -99,7 +63,7 @@ const Popover = ({
     })
   }
   return (
-    <div aria-label='popover' className={computedClassNames} {...props}>
+    <div css={styles} aria-label='popover' className={computedClassNames} {...props}>
       {handleChildrenRender()}
     </div>
   )
@@ -107,11 +71,20 @@ const Popover = ({
 const PopoverContent = ({
   show = false,
   position = 'bottom',
-  cssOptions,
+  co,
   children,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & PopoverContentProps) => {
+  const theme = useTheme() as Theme
+  const [cp, setCp] = React.useState({})
+  const styles = css({
+    position: 'absolute',
+    ...cp,
+    display: show ? 'block' : 'none',
+
+    ...(typeof co == 'function' && co(theme)),
+  })
   const [usePropsShow, setUsePropsShow] = React.useState(true)
   const handleMouseOver = (e: any) => {
     if (usePropsShow) setUsePropsShow(false)
@@ -119,10 +92,40 @@ const PopoverContent = ({
   const handleMouseOut = (e: any) => {
     setUsePropsShow(true)
   }
-  const classes = usePopoverContentStyles({ show: usePropsShow ? show : true, position, cssOptions })
-  const computedClassNames = classnames(classes['popover-content'], className)
+  const computedClassNames = clsx('popover-content', className)
+  React.useEffect(() => {
+    switch (position) {
+      case 'top':
+        setCp({
+          top: 0,
+          transform: 'translate3d(0,-105%,0)',
+        })
+        break
+      case 'left':
+        setCp({
+          left: 0,
+          transform: 'translate3d(-105%,0,0)',
+        })
+        break
+      case 'bottom':
+        setCp({
+          bottom: 0,
+          transform: 'translate3d(0,105%,0)',
+        })
+        break
+      case 'right':
+        setCp({
+          right: 0,
+          transform: 'translate3d(105%,0,0)',
+        })
+        break
+      default:
+        break
+    }
+  }, [position])
   return (
     <div
+      css={styles}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       aria-label='popover-content'
