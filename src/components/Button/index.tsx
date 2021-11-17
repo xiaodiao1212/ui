@@ -2,7 +2,9 @@
 import clsx from 'clsx'
 import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
+
 import * as React from 'react'
+import { getLuminance } from '../../constants/style'
 
 type ButtonProps = {
   padding?: string
@@ -31,21 +33,33 @@ const Button = ({
   ...props
 }: ButtonProps & React.ComponentProps<'button'>) => {
   const theme = useTheme() as Theme
+  const bgColor =
+    disabled == false
+      ? text || outlined || icon
+        ? 'transparent'
+        : theme
+        ? theme.color.primary
+        : '#231F9C'
+      : theme
+      ? theme.color.greyLight
+      : '#F3F4F5'
+  const textColor =
+    disabled == false
+      ? text || outlined || icon
+        ? color || theme?.color?.primary || '#231F9C'
+        : getLuminance(bgColor || '') <= 0.5
+        ? '#fff'
+        : '#000'
+      : theme
+      ? theme.color.grey
+      : '#6b7280'
   const styles = css({
     padding: icon ? '' : '0.6em 1.2em',
-    width: block ? '100%' : 'auto',
+    width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
     borderRadius: tile ? '0px' : '4px',
-    background:
-      disabled == false
-        ? text || outlined || icon
-          ? 'transparent'
-          : theme
-          ? theme.color.primary
-          : '#231F9C'
-        : theme
-        ? theme.color.greyLight
-        : '#F3F4F5',
+    color: textColor,
+    background: bgColor,
     ...(typeof co == 'function' && co(theme)),
   })
 

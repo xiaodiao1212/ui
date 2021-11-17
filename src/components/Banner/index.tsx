@@ -1,27 +1,29 @@
-import classnames from 'classnames'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+import * as React from 'react'
 
 type BannerProps = Partial<{
   closable: boolean
   className: string
   children: React.ReactNode
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
-type RuleNames = 'banner'
-
-const useStyles = createUseStyles<RuleNames, BannerProps, Theme>(theme => ({
-  banner: ({ cssOptions }) => ({
+const Banner = ({ closable = false, co, className, children }: BannerProps) => {
+  const theme = useTheme() as Theme
+  const styles = css({
     background: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6',
     color: theme ? theme.color.primary : '#231F9C',
     padding: '.5em',
-    ...cssOptions?.(theme),
-  }),
-}))
-const Banner = ({ closable = false, cssOptions, className, children }: BannerProps) => {
-  const classes = useStyles({ cssOptions })
-  const computedClassNames = classnames(classes.banner, className)
-  return <div className={computedClassNames}>children</div>
+    ...(typeof co == 'function' && co(theme)),
+  })
+  const computedClassNames = clsx(className)
+  return (
+    <div css={styles} className={computedClassNames}>
+      children
+    </div>
+  )
 }
 export default Banner

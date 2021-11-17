@@ -1,45 +1,29 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
+import * as React from 'react'
+import Overlay from '../Overlay'
 
-type RuleNames = 'toast'
-
-interface ToastProps {
+type ToastProps = Partial<{
+  show: boolean
+  children: React.ReactNode
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   className: string
-  show?: boolean
-  duration?: number
-  children?: React.ReactNode
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+}>
+
+const Toast = ({ show = false, children, co, className }: ToastProps) => {
+  const theme = useTheme() as Theme
+  const styles = css({
+    ...(typeof co == 'function' && co(theme)),
+  })
+  const computedToastClassNames = clsx(className)
+
+  return (
+    <Overlay css={styles} opacity={0} show={show} className={computedToastClassNames}>
+      {children}
+    </Overlay>
+  )
 }
 
-const useStyles = createUseStyles<RuleNames, Pick<ToastProps, 'cssOptions' | 'show'>, Theme>(theme => ({
-  toast: ({ show, cssOptions }) => {
-    return {
-      position: 'fixed',
-      display: show ? 'flex' : 'none',
-      inset: 0,
-      maxWidth: '60vw',
-      maxHeight: '7vh',
-      textAlign: 'center',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: '0.5em 1em',
-      margin: 'auto',
-      background: '#333',
-      color: 'white',
-      opacity: '60%',
-      borderRadius: '4px',
-      ...cssOptions?.(theme),
-    }
-  },
-}))
-const Toast = ({ cssOptions, children, className, show, ...props }: ToastProps) => {
-  const classes = useStyles({
-    show,
-    cssOptions,
-  })
-  const computedClassNames = classnames(classes.toast, className)
-  return <div className={computedClassNames}>{children}</div>
-}
 export default Toast

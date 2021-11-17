@@ -1,15 +1,13 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { App, Divider } from '../dist'
+import { App, Banner } from '../dist'
 
 const Main = () => {
-  const [a, b] = React.useState(1)
+  const [a, b] = React.useState(false)
   return (
-    <>
-      <App>
-        <Divider dashed />
-      </App>
-    </>
+    <App>
+      <Banner>1</Banner>
+    </App>
   )
 }
 
