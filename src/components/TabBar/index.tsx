@@ -21,7 +21,9 @@ type TabBarProps = {
 
 const TabBar = ({ items, co, className, ...props }: TabBarProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({});
+  const styles = css({
+    ...(typeof co == 'function' && co(theme)),
+  });
   const computedClassNames = clsx(className);
   const renderDefaultTabBarItem = (item: TabBarItem) => {
     <Row

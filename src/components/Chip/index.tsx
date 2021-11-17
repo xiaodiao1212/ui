@@ -41,6 +41,7 @@ const Chip = ({
           border: '1px solid ' + getComputedColor(color),
           color: getComputedColor(color),
         }),
+    ...(typeof co == 'function' && co(theme)),
   })
   return (
     <span css={styles} className={computedClassNames} {...props}>

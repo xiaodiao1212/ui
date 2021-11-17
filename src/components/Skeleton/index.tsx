@@ -1,18 +1,36 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from '../../constants/theme';
+import React from 'react';
+import clsx from 'clsx';
+import { useTheme, css, keyframes } from '@emotion/react';
 type SkeletonProps = {
-  duration?: number
-  delay?: number
-  circle?: boolean
-  width?: string
-  height?: string
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
-type RuleNames = 'skeleton' | '@keyframes loading'
-const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>(theme => ({
-  skeleton: ({ cssOptions, circle, height, width, delay, duration }) => ({
+  duration?: number;
+  delay?: number;
+  circle?: boolean;
+  width?: string;
+  height?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
+
+const anim = keyframes`
+  to: {
+    backgroundPositionX: '-20%',
+  }
+`;
+const Skeleton = ({
+  duration = 1,
+  delay = 0,
+  circle = false,
+  co,
+  width,
+  height = '100%',
+  className,
+  ...props
+}: SkeletonProps & React.ComponentPropsWithoutRef<'div'>) => {
+  const theme = useTheme() as Theme;
+  const computedClassNames = clsx(className);
+  const styles = css({
     width: width,
     height: height,
     borderRadius: circle ? '50%' : '4px',
@@ -25,36 +43,10 @@ const useStyles = createUseStyles<RuleNames, SkeletonProps, Theme>(theme => ({
         : '#F3F4F6',
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
-    animation: `${duration}s $loading  ${delay}s ease-in-out infinite`,
-    ...cssOptions,
-  }),
+    animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
+    ...(typeof co == 'function' && co(theme)),
+  });
+  return <div css={styles} aria-label='skeleton' className={computedClassNames} {...props} />;
+};
 
-  '@keyframes loading': {
-    to: {
-      backgroundPositionX: '-20%',
-    },
-  },
-}))
-const Skeleton = ({
-  duration = 1,
-  delay = 0,
-  circle = false,
-  cssOptions,
-  width,
-  height = '100%',
-  className,
-  ...props
-}: SkeletonProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({
-    duration,
-    delay,
-    height,
-    circle,
-    width,
-    cssOptions,
-  })
-  const computedClassNames = classnames(classes.skeleton, className)
-  return <div aria-label='skeleton' className={computedClassNames} {...props} />
-}
-
-export default Skeleton
+export default Skeleton;
