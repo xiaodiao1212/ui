@@ -20,13 +20,13 @@ import Notification from './components/Notification';
 import Chip from './components/Chip';
 import TabBar from './components/TabBar';
 import Skeleton from './components/Skeleton';
-import Pagination from './components/Pagination';
 import Card from './components/Card';
 import Container from './components/Container';
 import NumberInput from './components/NumberInput';
 import CountDown from './components/CountDown';
 import ScrollView from './components/ScrollView';
 import Image from './components/Image';
+import Swiper from './components/Swiper';
 export {
   Image,
   Chip,
@@ -35,7 +35,7 @@ export {
   NumberInput,
   Container,
   Card,
-  Pagination,
+  Swiper,
   Skeleton,
   TabBar,
   Fab,
