@@ -19,7 +19,7 @@ type SwiperProps = {
   delay?: number;
   vertical?: boolean;
   indicator?: (total: number, current: number) => React.ReactNode;
-  className: string;
+  className?: string;
 };
 
 const Swiper = ({
@@ -100,7 +100,7 @@ const Swiper = ({
     } else if (isLastItem) {
       const diffClamped = clamp(diff, 0, currentNeededLength);
       setTranslateXByDiff(diffClamped);
-    } else setTranslateX(setTranslateXByDiff(diff));
+    } else setTranslateXByDiff(diff);
     onSwipe?.(currentIndex, diff);
   };
 

@@ -28,8 +28,8 @@ const Skeleton = ({
   className,
   ...props
 }: SkeletonProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
   const computedClassNames = clsx(className);
+  const theme = useTheme() as Theme;
   const styles = css({
     width: width,
     height: height,

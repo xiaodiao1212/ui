@@ -27,8 +27,17 @@ import CountDown from './components/CountDown';
 import ScrollView from './components/ScrollView';
 import Image from './components/Image';
 import Swiper from './components/Swiper';
+import Grid from './components/Grid';
+import Dropdown from './components/Dropdown';
+import Progress from './components/Progress';
+import Segment from './components/Segment';
+
 export {
+  Segment,
+  Progress,
+  Dropdown,
   Image,
+  Grid,
   Chip,
   ScrollView,
   CountDown,

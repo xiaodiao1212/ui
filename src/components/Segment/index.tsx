@@ -1,25 +1,29 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { theme, Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from '../../constants/theme';
+import React from 'react';
+import clsx from 'clsx';
+import { useTheme, css } from '@emotion/react';
 
 type SegmentProps = Partial<{
-  vertical: boolean
-  cssOptions: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}>
+  vertical: boolean;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 type SegmentItemProps = Partial<{
-  itemkey: React.Key | null | undefined
-  currentKey: React.Key | null | undefined
-  onClickItem: (key: React.Key | null | undefined) => void
-  cssOptions: (theme: Theme, isCurrent: boolean) => React.CSSProperties
-}>
+  itemkey: React.Key | null | undefined;
+  currentKey: React.Key | null | undefined;
+  onClickItem: (key: React.Key | null | undefined) => void;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
-const useSegmentStyles = createUseStyles<
-  'segment',
-  Pick<SegmentProps, 'cssOptions'> & { left: number; key: number; fragmentLength: number; offsetX: number },
-  Theme
->(theme => ({
-  segment: ({ cssOptions, key, left, offsetX, fragmentLength }) => ({
+const Segment = ({ co, children, className, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
+  const fragmentLength = React.useRef(100 / (children as any).length);
+
+  const [offsetX, setOffsetX] = React.useState(0);
+  const [left, setLeft] = React.useState(0);
+  const [current, setCurrent] = React.useState(0);
+  const theme = useTheme() as Theme;
+  const styles = css({
     height: '2em',
     display: 'flex',
     alignItems: 'center',
@@ -41,104 +45,78 @@ const useSegmentStyles = createUseStyles<
       width: `calc(${fragmentLength}% - ${offsetX}px)`,
       top: '4px',
       bottom: '4px',
-      transform: `translateX(calc(${key == 0 ? offsetX : 100 * key}% + ${offsetX * key}px))`,
+      transform: `translateX(calc(${current == 0 ? offsetX : 100 * current}% + ${offsetX * current}px))`,
       background: theme ? theme.color.white : '#fff',
       transition: '.3s all',
     },
-    ...cssOptions?.(theme),
-  }),
-}))
-
-const useSegmentItemStyles = createUseStyles<
-  'segment-item',
-  Pick<SegmentItemProps, 'cssOptions'> & { isCurrent: boolean },
-  Theme
->(theme => ({
-  'segment-item': ({ cssOptions, isCurrent }) => ({
-    padding: '0 .4em',
-    flex: 1,
-    textAlign: 'center',
-    color: isCurrent ? (theme ? theme.color.primary : '#231F9C') : theme ? theme.color.grey : '#6b7280',
-    transition: '.3s all',
-    fontWeight: isCurrent ? 700 : 500,
-    ...cssOptions?.(theme, isCurrent),
-  }),
-}))
-
-const Segment = ({
-  cssOptions,
-  children,
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
-  const fragmentLength = React.useRef(100 / (children as any).length)
-
-  const [offsetX, setOffsetX] = React.useState(0)
-  const [left, setLeft] = React.useState(0)
-  const [current, setCurrent] = React.useState(0)
-  const classes = useSegmentStyles({
-    left,
-    key: current,
-    fragmentLength: fragmentLength.current,
-    offsetX,
-    cssOptions,
-  })
-  const computedClassNames = classnames(classes.segment, className)
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
-      const element = child as React.DetailedReactHTMLElement<any, HTMLElement>
+      const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
       if (child.type.name == 'SegmentItem') {
         return React.cloneElement(element, {
           onClickItem: (key: any) => {
-            setCurrent(key)
+            setCurrent(key);
           },
           itemkey: i,
           currentKey: current,
-        })
+        });
       }
-      return undefined
-    })
-  }
+      return undefined;
+    });
+  };
   React.useEffect(() => {
     if (current == 0) {
-      setOffsetX(4)
-      setLeft(4)
+      setOffsetX(4);
+      setLeft(4);
     } else if (current == (children as any).length - 1) {
-      setOffsetX(4)
-      setLeft(0)
+      setOffsetX(4);
+      setLeft(0);
     } else {
-      setOffsetX(0)
-      setLeft(0)
+      setOffsetX(0);
+      setLeft(0);
     }
-  }, [current])
+  }, [current]);
   return (
-    <div aria-label='segment button' role='button' className={computedClassNames} {...props}>
+    <div css={styles} aria-label='segment button' role='button' className={computedClassNames} {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
     </div>
-  )
-}
+  );
+};
 
 const SegmentItem = ({
   itemkey,
   currentKey,
   onClickItem,
-  cssOptions,
+  co,
   children,
   className,
 }: React.ComponentPropsWithoutRef<'div'> & SegmentItemProps) => {
-  const classes = useSegmentItemStyles({ isCurrent: itemkey == currentKey, ...cssOptions })
-  const computedClassNames = classnames(classes['segment-item'], className)
+  const theme = useTheme() as Theme;
+  const styles = css({
+    padding: '0 .4em',
+    flex: 1,
+    textAlign: 'center',
+    color: itemkey == currentKey ? (theme ? theme.color.primary : '#231F9C') : theme ? theme.color.grey : '#6b7280',
+    transition: '.3s all',
+    fontWeight: itemkey == currentKey ? 700 : 500,
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
   const handleClickSegmentItem = () => {
-    onClickItem?.(itemkey)
-  }
+    onClickItem?.(itemkey);
+  };
+
   return (
-    <div aria-label='segment item' className={computedClassNames} onClick={handleClickSegmentItem}>
+    <div css={styles} aria-label='segment item' className={computedClassNames} onClick={handleClickSegmentItem}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-Segment.Item = SegmentItem
+Segment.Item = SegmentItem;
 
-export default Segment
+export default Segment;
