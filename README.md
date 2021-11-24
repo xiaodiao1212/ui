@@ -7,7 +7,8 @@
   <a href="">Plugins</a> |
   <a href="">FAQ</a>
 </p>
-## Why?
+
+## what?
 
 The component design that a good react application should have
 
