@@ -1,16 +1,18 @@
-import { ThemeProvider, createUseStyles, JssProvider } from 'react-jss'
-import { defaultStyle } from '../../constants/style'
-import { theme, Theme } from '../../constants/theme'
+import { ThemeProvider, Global, css } from '@emotion/react';
+import { defaultStyle } from '../../constants/style';
+import { theme, Theme } from '../../constants/theme';
+
 type AppProps = {
-  children: React.ReactNode
-  customTheme?: Theme
-}
-const useDefaultStyle = createUseStyles(defaultStyle)
-
+  children?: React.ReactNode;
+  customTheme?: Theme;
+};
 const App = ({ children, customTheme }: AppProps) => {
-  useDefaultStyle()
+  return (
+    <ThemeProvider theme={customTheme || theme}>
+      <Global styles={defaultStyle as any} />
+      {children}
+    </ThemeProvider>
+  );
+};
 
-  return <ThemeProvider theme={customTheme || theme}>{children}</ThemeProvider>
-}
-
-export default App
+export default App;

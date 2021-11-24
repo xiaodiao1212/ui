@@ -27,7 +27,7 @@ interface SelectProps {
       value: string | number
     }[],
   ) => any
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
 const useStyles = createUseStyles<RuleNames, Pick<SelectProps, 'cssOptions'>, Theme>(theme => ({
@@ -48,24 +48,7 @@ const Select = ({ value, onSelectChange, data, open, onClose, children, classNam
     e.nativeEvent.stopImmediatePropagation()
     onClose()
   }
-  return (
-    <Drawer position='bottom' open={open} onClose={handleClickDrawer} className={computedClassNames}>
-      <div
-        style={{
-          borderTopRightRadius: '8px',
-          borderTopLeftRadius: '8px',
-        }}>
-        <Picker
-          cssOptions={() => ({
-            background: 'white',
-          })}
-          value={value}
-          onPickerChange={handleSelectedChange}
-          data={data}
-        />
-      </div>
-    </Drawer>
-  )
+  return <div className={computedClassNames}></div>
 }
 
 export default Select

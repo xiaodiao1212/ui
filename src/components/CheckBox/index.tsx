@@ -6,7 +6,7 @@ import { createUseStyles } from 'react-jss'
 import { Theme } from '../../constants/theme'
 
 type CheckBoxProps = {
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   checkedNode?: React.ReactNode
   uncheckedNode?: React.ReactNode
   contentNode?: React.ReactNode

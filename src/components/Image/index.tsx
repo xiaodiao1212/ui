@@ -1,31 +1,17 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import * as CSS from 'csstype'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from '../../constants/theme';
+import clsx from 'clsx';
+import { useTheme, css } from '@emotion/react';
+import * as ReactCSS from 'csstype';
 
 type ImageProps = {
-  circle?: boolean
-  fit?: CSS.Property.ObjectFit
-  width?: string
-  height?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
-}
-const useStyles = createUseStyles<
-  'image',
-  Pick<ImageProps, 'cssOptions' | 'height' | 'width' | 'fit' | 'circle'>,
-  Theme
->(theme => ({
-  image: ({ cssOptions, width, height, fit, circle }) => ({
-    verticalAlign: 'middle',
-    background: 'transparent',
-    borderRadius: ((circle as boolean) && '50%') || '',
-    objectFit: fit || '',
-    width: width || '',
-    height: height || '100%',
-    ...cssOptions?.(theme),
-  }),
-}))
+  circle?: boolean;
+  fit?: ReactCSS.Property.ObjectFit;
+  width?: string;
+  height?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 const Image = ({
   circle = false,
   src,
@@ -33,14 +19,22 @@ const Image = ({
   fit,
   width = '100%',
   height = 'auto',
-  cssOptions,
+  co,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'img'> & ImageProps) => {
-  const classes = useStyles({ circle, cssOptions, width, height })
+  const theme = useTheme() as Theme;
+  const styles = css({
+    verticalAlign: 'middle',
+    background: 'transparent',
+    borderRadius: ((circle as boolean) && '50%') || undefined,
+    objectFit: fit || undefined,
+    width: width || undefined,
+    height: height || '100%',
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
+  return <img src={src} alt={alt} css={styles} className={computedClassNames} />;
+};
 
-  const computedClassNames = classnames(classes.image, className)
-  return <img src={src} alt={alt} {...props} className={computedClassNames} />
-}
-
-export default Image
+export default Image;

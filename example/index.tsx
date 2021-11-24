@@ -1,34 +1,19 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { App, Container, Slider, Col, Row, Collapse, Card } from '../src'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { App, Swiper } from '../dist';
 
 const Main = () => {
+  const [a, b] = React.useState('');
   return (
     <App>
-      <Container>
-        <Slider
-          min={10}
-          step={1}
-          max={20}
-          onSlide={value => {
-            console.log('onSlide', value)
-          }}
-        />
-      </Container>
-      <Container>
-        <label>
-          <input
-            onChange={e => {
-              console.log(e)
-            }}
-            type='range'
-            min='0'
-            max='11'
-          />
-        </label>
-      </Container>
+      <Swiper
+        onClick={i => {
+          console.log(i);
+        }}
+        items={[0, 1, 2, 3, 4, 5].map(v => ({ index: v, content: <div style={{ background: `${v}00` }}>{v}</div> }))}
+      />
     </App>
-  )
-}
+  );
+};
 
-ReactDOM.render(<Main />, document.getElementById('root'))
+ReactDOM.render(<Main />, document.getElementById('root'));

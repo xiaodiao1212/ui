@@ -1,56 +1,60 @@
-import { useEffect, useState } from 'react'
-import * as React from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx';
+import { css, useTheme, keyframes } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import { useEffect } from 'react';
 
 type NotificationProps = {
-  show?: boolean
-  delay?: number
-  onClose: () => void
-}
-type RuleNames = 'notification' | '@keyframes in'
-const useStyles = createUseStyles<RuleNames, Omit<NotificationProps, 'onClose'>, Theme>(theme => ({
-  notification: ({ show }) => ({
+  show?: boolean;
+  delay?: number;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  onClose: () => void;
+  className: string;
+  children: React.ReactNode;
+};
+
+const Notification = ({ show = false, onClose, delay = 3, co, children, className, ...props }: NotificationProps) => {
+  const theme = useTheme() as Theme;
+  const anim = keyframes`
+    from, 20%, 53%, 80%, to {
+      transform: translate3d(0,0,0);
+    }
+
+    40%, 43% {
+      transform: translate3d(0, -30px, 0);
+    }
+
+    70% {
+      transform: translate3d(0, -15px, 0);
+    }
+
+    90% {
+      transform: translate3d(0,-4px,0);
+    }
+  `;
+
+  const styles = css({
     position: 'fixed',
     zIndex: theme.zIndex.notification,
     top: 0,
     transform: `translateY(${show ? '0%' : '-100%'})`,
     transition: '.3s all',
-    animation: '$in .3s',
-  }),
-  '@keyframes in': {
-    '0%': {
-      transform: 'translateY(-100%)',
-    },
-    '100%': {
-      transform: 'translateY(0%)',
-    },
-  },
-}))
+    animation: `${anim} .3s`,
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
 
-const Notification = ({
-  show = false,
-  onClose,
-  delay = 3,
-  color,
-  children,
-  className,
-  ...props
-}: NotificationProps & React.ComponentPropsWithoutRef<'aside'>) => {
-  const classes = useStyles({ show })
-  const computedClassNames = classnames(classes.notification, className)
   useEffect(() => {
     if (show == true)
       setTimeout(() => {
-        onClose()
-      }, delay * 1000)
-  }, [show])
+        onClose();
+      }, delay * 1000);
+  }, [show]);
   return (
-    <aside className={computedClassNames} {...props}>
+    <aside css={styles} className={computedClassNames} {...props}>
       {children}
     </aside>
-  )
-}
+  );
+};
 
-export default Notification
+export default Notification;

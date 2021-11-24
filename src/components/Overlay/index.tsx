@@ -1,57 +1,54 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
+import * as React from 'react'
+import { fade } from '../../constants/style'
 
 type OverlayProps = Partial<{
   color: string
   show: boolean
   blur: boolean
-  opacity: string | number
+  opacity: number
   children: React.ReactNode
-  noAnimation: boolean
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  cssOptions: (theme: Theme) => React.CSSProperties
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
   className: string
 }>
 
-type RuleNames = 'overlay'
-
-const useStyles = createUseStyles<RuleNames, Omit<OverlayProps, 'onClick'>, Theme>(theme => ({
-  overlay: ({ cssOptions, noAnimation, color, blur, opacity, show }) => ({
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    background: color || theme?.color?.greyLight || '#F3F4F6',
-    backdropFilter: blur ? 'blur(4px)' : '',
-    zIndex: theme.zIndex.overlay,
-
-    transition: noAnimation ? 'all .4s' : '',
-    ...(show ? { opacity: opacity } : { display: 'none', opacity: 0 }),
-    ...cssOptions?.(theme),
-  }),
-}))
-
 const Overlay = ({
-  opacity = 1,
-  noAnimation = false,
+  opacity = 0.4,
   blur = false,
   color,
   show = false,
   children,
   onClick,
-  cssOptions,
+  co,
   className,
 }: OverlayProps) => {
-  const classes = useStyles({ noAnimation, show, blur, color, opacity, cssOptions })
-  const computedOverlayClassNames = classnames(classes.overlay, className)
+  const theme = useTheme() as Theme
+  const styles = css({
+    display: show ? 'flex' : 'none',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    background: fade(color || theme?.color?.greyLight || '#F3F4F6', opacity),
+    backdropFilter: blur ? 'blur(4px)' : '',
+    transform: show ? 'scale(1)' : '',
+    '& > *': {
+      margin: 'auto',
+    },
+
+    ...(typeof co == 'function' && co(theme)),
+  })
+  const computedOverlayClassNames = clsx(className)
   const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     onClick?.(e)
   }
   return (
-    <aside className={computedOverlayClassNames} onClick={handleClickOverlay}>
+    <aside css={styles} className={computedOverlayClassNames} onClick={handleClickOverlay}>
       {children}
     </aside>
   )

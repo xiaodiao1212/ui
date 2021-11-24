@@ -1,62 +1,91 @@
-import * as React from 'react'
-import classnames from 'classnames'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+import * as React from 'react'
 
 type BadgeProps = Partial<{
-  size: string
+  size: string | number
   show: boolean
   color: string
-  offsetX: string
-  offsetY: string
-  badgeContent: React.ReactNode
-  cssOptions: (theme: Theme) => React.CSSProperties
+  offsetX: string | number
+  offsetY: string | number
+  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  content: React.ReactNode
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
-const useBadgeStyles = createUseStyles<'badge', BadgeProps, Theme>(theme => ({
-  badge: ({ cssOptions, size, offsetX, show, offsetY, color }) => ({
-    position: 'relative',
-    '& > *:first-child': {
-      borderRadius: '50%',
-      visibility: show && 'visible',
-      background: color || theme ? theme.color.red : '#e32b3a',
-      color: theme ? theme.color.white : '#fff',
-      lineHeight: `${size}px`,
-      minWidth: `${size}px`,
-      height: `${size}px`,
-      textAlign: 'center',
-      position: 'absolute',
-      right: offsetX || 0,
-      top: offsetY || 0,
-      transform: 'translate3d(50%,-50%,0)',
-      transition: 'all .2s',
-      ...cssOptions?.(theme),
-    },
-  }),
-}))
 const Badge = ({
-  size = '10',
+  size = '20',
   show = true,
-  cssOptions,
+  co,
   offsetX,
   offsetY,
   color,
-  badgeContent,
+  position = 'top-right',
+  content,
   children,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & BadgeProps) => {
-  const classes = useBadgeStyles({ cssOptions, size, show, offsetX, offsetY })
-  const computedClassNames = classnames(classes.badge, className)
-  const renderBadgeContent = () => {
-    if (typeof badgeContent == 'string' || !badgeContent) {
-      return <sup>{badgeContent}</sup>
+}: BadgeProps & React.ComponentPropsWithoutRef<'div'>) => {
+  const theme = useTheme() as Theme
+  const getInset = () => {
+    switch (position) {
+      case 'top-left':
+        return {
+          left: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(-50%,-50%,0)',
+        }
+      case 'top-right':
+        return {
+          right: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(50%,-50%,0)',
+        }
+      case 'bottom-left':
+        return {
+          left: offsetX || 0,
+          bottom: offsetY || 0,
+          transform: 'translate3d(-50%,50%,0)',
+        }
+      case 'bottom-right':
+        return {
+          right: offsetX || 0,
+          bottom: offsetY || 0,
+          transform: 'translate3d(50%,50%,0)',
+        }
+      default:
+        return {
+          right: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(50%,-50%,0)',
+        }
     }
-    return badgeContent
   }
+  const badgeStyles = css({
+    position: 'relative',
+    '> *:first-child': {
+      borderRadius: theme ? theme.common.circularEdge : '9999em',
+      visibility: show ? 'visible' : 'hidden',
+      background: color || theme ? theme.color.red : '#e32b3a',
+      color: theme ? theme.color.white : '#fff',
+      lineHeight: `${size as number}px`,
+      minWidth: `${size as number}px`,
+      fontSize: '12px',
+      height: `${size as number}px`,
+      textAlign: 'center',
+      position: 'absolute',
+      padding: '0 6px',
+      ...getInset(),
+      boxShadow: '0 0 0 1px #fff',
+      transition: 'all .3s',
+      ...(typeof co == 'function' && co(theme)),
+    },
+  })
   return (
-    <div aria-label='badge' className={computedClassNames} {...props}>
-      {renderBadgeContent()}
+    <div css={badgeStyles} aria-label='badge' className={clsx(className)} {...props}>
+      {['string', 'number'].includes(typeof content) || !content ? <span>{content}</span> : content}
       {children}
     </div>
   )

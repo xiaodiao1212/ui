@@ -1,40 +1,29 @@
-import { createUseStyles } from 'react-jss'
-import classnames from 'classnames'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
-
+import * as React from 'react'
 type UploadProps = Partial<{
+  className: string
+  children: React.ReactNode
   onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any
-  cssOptions: (theme: Theme) => React.CSSProperties
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
-type RuleNames = 'upload'
-
-const useStyles = createUseStyles<RuleNames, Omit<UploadProps, 'onFileChange'>, Theme>(theme => ({
-  upload: ({ cssOptions, ...props }) => ({
-    ...props,
-    cursor: ' pointer',
-    ...cssOptions?.(theme),
-  }),
-}))
-
-const Upload = ({
-  onFileChange,
-  children,
-  cssOptions,
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'label'> & UploadProps) => {
+const Upload = ({ onFileChange, children, co, className, ...props }: UploadProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = (e.target.files as FileList)[0]
     onFileChange?.(file, URL.createObjectURL(file), e)
   }
-  const classes = useStyles({
-    cssOptions,
+  const theme = useTheme() as Theme
+  const styles = css({
+    cursor: ' pointer',
+    ...(typeof co == 'function' && co(theme)),
   })
-  const computedClassNames = classnames(classes.upload, className)
+  const computedClassNames = clsx(className)
   return (
-    <label aria-label='file upload input' className={computedClassNames} {...props}>
-      <input hidden type='file' onChange={handleFileChange} />
+    <label css={styles} aria-label='file upload input' className={computedClassNames}>
+      <input hidden type='file' onChange={handleFileChange} {...props} />
       {children || 'Upload'}
     </label>
   )

@@ -1,54 +1,41 @@
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
-type RuleNames = 'grid'
-
-type GridAlign = 'start' | 'center' | 'end' | 'baseline' | 'stretch'
-type GridJustify = 'start' | 'center' | 'end' | 'space-around' | 'space-between'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
 
 interface GridProps {
-  row?: number
-  col?: number
-  rowGap?: string
-  colGap?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  row?: number;
+  col?: number;
+  rowGap?: string;
+  colGap?: string;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }
-
-const useStyles = createUseStyles<RuleNames, GridProps, Theme>(theme => ({
-  grid: ({ row, col, rowGap, colGap, cssOptions, ...props }) => ({
-    display: 'grid',
-    gridTemplateColumns: `repeat(${col}, 1fr)`,
-    gridAutoRows: '1fr',
-    gridColumnGap: colGap,
-    gridRowGap: rowGap,
-    ...props,
-    ...cssOptions?.(theme),
-  }),
-}))
 
 const Grid = ({
   row,
   col,
   rowGap,
   colGap,
-  cssOptions,
+  co,
   children,
   className,
   ...restProps
 }: GridProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({
-    row,
-    col,
-    rowGap,
-    colGap,
-    cssOptions,
-  })
-  const computedClassNames = classnames(classes.grid, className)
-  const childClasses = classnames('')
+  const theme = useTheme() as Theme;
+  const styles = css({
+    display: 'grid',
+    gridTemplateColumns: `repeat(${col}, 1fr)`,
+    gridAutoRows: '1fr',
+    gridColumnGap: colGap,
+    gridRowGap: rowGap,
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
   return (
-    <div className={computedClassNames} {...restProps}>
+    <div css={styles} className={computedClassNames} {...restProps}>
       {children}
     </div>
-  )
-}
-export default Grid
+  );
+};
+export default Grid;

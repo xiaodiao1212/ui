@@ -1,82 +1,76 @@
-import React, { useEffect, useState, useRef } from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from '../../constants/theme';
+import React, { useEffect, useState } from 'react';
+import clsx from 'clsx';
+import { useTheme, css } from '@emotion/react';
 type ScrollViewProps = {
-  triggerValue?: number
-  onScrollToBottom?: (handleScrollToBottomOver: () => any) => any
-  fetchNode?: React.ReactNode
-  cssOptions?: (theme: Theme) => React.CSSProperties
-}
+  triggerValue?: number;
+  onScrollToBottom?: (handleScrollToBottomOver: () => any) => any;
+  fetchNode?: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
-type RuleNames = 'scroll-view'
-
-const useStyles = createUseStyles<RuleNames, Pick<ScrollViewProps, 'cssOptions'>, Theme>(theme => ({
-  'scroll-view': ({ cssOptions }) => {
-    return {
-      height: '100%',
-      overflow: 'auto',
-      ...cssOptions?.(theme),
-    }
-  },
-}))
 const ScrollView = ({
   fetchNode,
   triggerValue = 40,
   onScrollToBottom,
-  cssOptions,
+  co,
   className,
   children,
   ...props
 }: ScrollViewProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({
-    cssOptions,
-  })
-
-  const clsns = classnames(classes['scroll-view'], className)
-  const [scrollTop, setScrollTop] = useState(0)
-  const [isTouch, setIsTouch] = useState(false)
-  const [isFetching, setIsFetching] = useState(false)
+  const theme = useTheme() as Theme;
+  const styles = css({
+    height: '100%',
+    overflow: 'auto',
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [isTouch, setIsTouch] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const handleScrollToBottomOver = () => {
-    setIsFetching(false)
-  }
+    setIsFetching(false);
+  };
 
   const handleScrollToBottom = () => {
-    onScrollToBottom?.(handleScrollToBottomOver)
-  }
+    onScrollToBottom?.(handleScrollToBottomOver);
+  };
 
   const handleScroll = (e: any) => {
-    const element = e.target
-    setScrollTop(element.scrollTop)
-    if (element.scrollTop + element.clientHeight + triggerValue < element.scrollHeight || isFetching) return
-    setIsFetching(true)
-  }
+    const element = e.target;
+    setScrollTop(element.scrollTop);
+    if (element.scrollTop + element.clientHeight + triggerValue < element.scrollHeight || isFetching) return;
+    setIsFetching(true);
+  };
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsTouch(true)
-  }
+    setIsTouch(true);
+  };
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (scrollTop > 0 && isTouch) e.stopPropagation()
-  }
+    if (scrollTop > 0 && isTouch) e.stopPropagation();
+  };
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsTouch(false)
-  }
+    setIsTouch(false);
+  };
   useEffect(() => {
-    if (!isFetching) return
-    handleScrollToBottom()
-  }, [isFetching])
+    if (!isFetching) return;
+    handleScrollToBottom();
+  }, [isFetching]);
 
   return (
     <div
+      css={styles}
       onScroll={handleScroll}
       onTouchStart={e => handleTouchStart(e)}
       onTouchMove={e => handleTouchMove(e)}
       onTouchEnd={e => handleTouchEnd(e)}
-      className={clsns}
+      className={computedClassNames}
       {...props}>
       {children}
       {isFetching && fetchNode}
     </div>
-  )
-}
+  );
+};
 
-export default ScrollView
+export default ScrollView;

@@ -1,164 +1,108 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
-import { debounce, clamp } from '../../utils'
+/** @jsxImportSource @emotion/react */
+/**
+ * In webkit based browsers, the track is styled with a special pseudo selector ::-webkit-slider-runnable-track, and the thumb with ::webkit-slider-thumb.
+ */
+import { css, useTheme } from '@emotion/react'
+import clsx from 'clsx'
+
 type SliderProps = Partial<{
+  style: string | React.CSSProperties
   disable: boolean
-  defaultValue: number
-  step: number
-  onSlide: (value: number) => any
-  onSlideEnd: () => any
-  onSlideStart: () => any
-  max: number
-  min: number
-  backgroundColor: string
-  color: string
-  backgroundCssOptions: (theme: Theme) => React.CSSProperties
-  barCssOptions: (theme: Theme) => React.CSSProperties
-  circleCssOptions: (theme: Theme) => React.CSSProperties
+  defaultValue: string
+  step: string
+  onChange: (value: any) => any
+  max: string
+  min: string
+  trackColor: string
+  thumbColor: string
+  trackHeight: number
+  thumbHeight: number
+  className: string
 }>
 
-type RuleNames = 'slider'
-const useStyles = createUseStyles<RuleNames, SliderProps & { percent: number }, Theme>(theme => ({
-  slider: ({ backgroundColor, percent, color, backgroundCssOptions, barCssOptions, circleCssOptions }) => ({
-    height: '1em',
-    position: 'relative',
-    borderRadius: '16px',
-    background:
-      backgroundColor || (theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'),
-    ...backgroundCssOptions?.(theme),
-    '& > .slider-bar': {
-      position: 'absolute',
-      height: '1em',
-      width: percent + '%',
-      borderRadius: '16px',
-      background: color || (theme ? theme.color.primary : '#231F9C'),
-      willChange: 'width',
-      ...barCssOptions?.(theme),
-    },
-    '& > .slider-circle': {
-      height: '2em',
-      width: '2em',
-      position: 'absolute',
-      borderRadius: '50%',
-      left: percent + '%',
-      top: 0,
-      background: color || theme?.color?.white || '#fff',
-      transform: 'translate3d(-50%,-25%,0)',
-      cursor: 'pointer',
-      willChange: 'left',
-      ...circleCssOptions?.(theme),
-    },
-  }),
-}))
-
 const Slider = ({
-  defaultValue = 0.3,
-  min = 0,
-  max = 1,
-  step = 0.01,
-  onSlide,
-  onSlideEnd,
-  onSlideStart,
-  backgroundColor,
-  color,
+  max,
+  min,
+  step,
+  defaultValue,
+  onChange,
+  trackColor,
+  thumbColor,
+  trackHeight = 10,
+  thumbHeight = 15,
   className,
-  backgroundCssOptions,
-  circleCssOptions,
-  barCssOptions,
-  ...props
-}: SliderProps & React.ComponentPropsWithoutRef<'div'>) => {
-  console.log('defaultValue', defaultValue)
+}: SliderProps) => {
+  const theme = useTheme()
 
-  const ref = React.useRef(null)
-  const [startX, setStartX] = React.useState(0)
-  const [currentValue, setCurrentValue] = React.useState(defaultValue * 1)
-  const [stepLength, setStepLength] = React.useState(0)
-  const [disStack, setDisStack] = React.useState(0)
-  const [offset, setOffset] = React.useState(0)
-  const [useOffset, setUseOffset] = React.useState(false)
-  const [stepPercent, setStepPercent] = React.useState(0)
-  const [percent, setPercent] = React.useState(((defaultValue - min) / (max - min)) * 100)
-  const classes = useStyles({
-    backgroundColor,
-    percent,
-    color,
-    backgroundCssOptions,
-    circleCssOptions,
-    barCssOptions,
-  })
-  const handleSlideStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setStartX(e.touches[0].clientX)
-    onSlideStart?.()
+  const handleOnChange = (e: { target: { value: string } }) => {
+    onChange?.(e.target.value)
   }
-  const handleSlide = (e: React.TouchEvent<HTMLDivElement>) => {
-    const disFrag = parseFloat((e.touches[0].clientX - startX).toFixed(2))
-    let ds = disStack
 
-    if (disFrag >= 0) {
-      ds = disStack + disFrag
-      if (ds >= stepLength) {
-        setDisStack(0)
-        setDisStack(0)
-        setPercent(v => clamp(v + stepPercent, 0, 100))
-        // if (!useOffset) {
-        //   setUseOffset(true)
-        //   setOffset(-stepLength / 2)
-        // } else {
-        //   setUseOffset(false)
-        //   setOffset(0)
-        // }
-        console.log(currentValue)
-        console.log(step)
-        console.log(currentValue + step)
-
-        const cv = clamp(parseFloat((currentValue + step).toFixed(2)), min, max)
-        setCurrentValue(cv)
-        onSlide?.(cv)
-      } else {
-        setDisStack(ds)
-      }
-    } else {
-      ds = disStack + Math.abs(disFrag)
-      if (ds > stepLength) {
-        setPercent(v => clamp(v - stepPercent, 0, 100))
-        setDisStack(0)
-        // if (!useOffset) {
-        //   setUseOffset(true)
-        //   setOffset(-50)
-        // } else {
-        //   setUseOffset(false)
-        //   setOffset(0)
-        // }
-        const cv = clamp(parseFloat((currentValue - step).toFixed(2)), min, max)
-        setCurrentValue(cv)
-        onSlide?.(cv)
-      } else {
-        setDisStack(ds)
-      }
+  const sliderStyles = css`
+    input[type='range'] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      outline: none;
+      border: none;
     }
-    setStartX(e.touches[0].clientX)
-  }
 
-  const handleSlideEnd = () => {
-    setDisStack(0)
-    onSlideEnd?.()
-  }
-  const computedClassNames = classnames(classes.slider, className)
+    input[type='range']::-webkit-slider-runnable-track {
+      width: 100%;
+      height: ${trackHeight}px;
+      background: ${trackColor};
+      border-radius: 16px;
+    }
 
-  React.useEffect(() => {
-    setStepLength((step / max) * (ref.current as any)?.clientWidth)
-    setStepPercent((step / (max - min)) * 100)
-  }, [])
+    input[type='range']::-moz-range-track {
+      width: 100%;
+      height: ${trackHeight}px;
+      background: ${trackColor};
+      border-radius: 16px;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: ${thumbHeight}px;
+      border-radius: 50%;
+      background: ${thumbColor};
+      height: ${thumbHeight}px;
+      margin-top: -${(thumbHeight - trackHeight) / 2}px;
+    }
+
+    input[type='range']::-moz-range-thumb {
+      -moz-appearance: none;
+      outline: none;
+      border: none;
+      width: ${thumbHeight}px;
+      border-radius: 50%;
+      background: ${thumbColor};
+      height: ${thumbHeight}px;
+      margin-top: -${(thumbHeight - trackHeight) / 2}px;
+    }
+
+    input[type='range']:focus {
+      outline: none;
+    }
+
+    input[type='range']:focus::-moz-range-track {
+      background: ${trackColor};
+    }
+
+    input[type='range']:focus::-webkit-slider-runnable-track {
+      background: ${trackColor};
+    }
+  `
+
   return (
-    <div ref={ref} aria-label='slider' role='sliderbar' className={computedClassNames} {...props}>
-      <div className='slider-bar' />
-      <div
-        className='slider-circle'
-        onTouchStart={handleSlideStart}
-        onTouchMove={handleSlide}
-        onTouchEnd={handleSlideEnd}
+    <div css={sliderStyles}>
+      <input
+        min={min}
+        max={max}
+        step={step}
+        defaultValue={defaultValue}
+        type='range'
+        onChange={handleOnChange}
+        className={clsx(className)}
       />
     </div>
   )

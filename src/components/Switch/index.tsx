@@ -7,7 +7,7 @@ type SwitchProps = Partial<{
   on: boolean
   color?: string
   className?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
 
 type RuleNames = 'switch'

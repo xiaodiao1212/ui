@@ -1,91 +1,46 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from '../../constants/theme';
+import React from 'react';
+import clsx from 'clsx';
+import { useTheme, css } from '@emotion/react';
+import Col from '../Col';
+import Row from '../Row';
 
 type CardProps = Partial<{
-  title: string
-  extra: React.ReactNode
-  cssOptions: (theme: Theme) => React.CSSProperties
-}>
+  title: React.ReactNode;
+  extra: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
-const useCardStyles = createUseStyles<'card', CardProps, Theme>(theme => ({
-  card: ({ cssOptions }) => ({
-    background: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
-    '& > header': {
-      display: 'flex',
-      alignItems: 'center',
-      '& > div': {
-        marginLeft: 'auto',
-      },
-      '& > div:first-child': {
-        marginLeft: '',
-      },
-    },
-    ...cssOptions?.(theme),
-  }),
-}))
-
-const useCardHeaderStyles = createUseStyles<'card-header', CardProps, Theme>(theme => ({
-  'card-header': ({ cssOptions }) => ({
-    ...cssOptions?.(theme),
-  }),
-}))
 const Card = ({
   title,
   extra,
-  cssOptions,
+  co,
   className,
   children,
   ...props
 }: CardProps & React.ComponentPropsWithoutRef<'article'>) => {
-  const classes = useCardStyles({ cssOptions })
-  const computedClassNames = classnames(classes.card, className)
-  const handleHeaderRender = () => {
-    return React.Children.map(children, (child: any, i) => {
-      const element = child as React.DetailedReactHTMLElement<any, HTMLElement>
-      if (title || extra) {
-        if (child.type.name == 'CardHeader') {
-          return React.cloneElement(element, {
-            ...element.props,
-          })
-        } else {
-          return (
-            <header>
-              <div>{title}</div>
-              <div>{extra}</div>
-            </header>
-          )
-        }
-      }
-      return null
-    })
-  }
+  const theme = useTheme() as Theme;
+  const computedClassNames = clsx(className);
+  const styles = css({
+    '& > header': title && {
+      display: 'flex',
+    },
+    ...(typeof co == 'function' && co(theme)),
+  });
+
   return (
-    <article className={computedClassNames} {...props}>
-      {handleHeaderRender()}
+    <article css={styles} className={computedClassNames} {...props}>
+      <header>
+        <Row>
+          <Col>{title}</Col>
+          <Col autoMargin>{extra}</Col>
+        </Row>
+      </header>
       {children}
     </article>
-  )
-}
+  );
+};
 
-const CardHeader = ({
-  title,
-  extra,
-  cssOptions,
-  className,
-  children,
-  ...props
-}: CardProps & React.ComponentPropsWithoutRef<'article'>) => {
-  const classes = useCardHeaderStyles({ cssOptions })
-  const computedClassNames = classnames(classes['card-header'], className)
-
-  return (
-    <header className={computedClassNames} {...props}>
-      {children}
-    </header>
-  )
-}
-
-Card.Header = CardHeader
-export default Card
+export default Card;

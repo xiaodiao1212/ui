@@ -1,41 +1,37 @@
-import { createUseStyles } from 'react-jss'
-import classnames from 'classnames'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
+import * as React from 'react'
 
 type DatePickerProps = Partial<{
   onChange: (date: any) => any
   min: string
   max: string
-  cssOptions: (theme: Theme) => React.CSSProperties
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }>
-
-type RuleNames = 'date-picker'
-
-const useStyles = createUseStyles<RuleNames, Omit<DatePickerProps, 'onFileChange'>, Theme>(theme => ({
-  'date-picker': ({ cssOptions, ...props }) => ({
-    ...props,
-    ...cssOptions?.(theme),
-  }),
-}))
 
 const DatePicker = ({
   onChange,
   min,
   max,
   children,
-  cssOptions,
+  co,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'label'> & DatePickerProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value)
   }
-  const classes = useStyles({
-    cssOptions,
+  const theme = useTheme() as Theme
+  const styles = css({
+    cursor: ' pointer',
+    ...(typeof co == 'function' && co(theme)),
   })
-  const computedClassNames = classnames(classes['date-picker'], className)
+  const computedClassNames = clsx(className)
+
   return (
-    <label aria-label='date input' className={computedClassNames} {...props}>
+    <label css={styles} aria-label='date input' className={computedClassNames} {...props}>
       <input min={min} max={max} hidden={!!children} type='date' onChange={handleChange} />
       {children || <span id='value'>n/a</span>}
     </label>

@@ -1,47 +1,55 @@
-import * as React from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx';
+import { css, keyframes, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
 
 type LoadingProps = {
-  bit?: boolean
-  duration?: string
-  className?: string
-  width?: string
-  backgroudColor?: ((theme: Theme) => string) | string
-  color?: ((theme: Theme) => string) | string
-  borderWidth?: string
-  cssOptions?: (theme: Theme) => React.CSSProperties
-}
+  bit?: boolean;
+  duration?: string;
+  className?: string;
+  width?: string;
+  backgroudColor?: ((theme: Theme) => string) | string;
+  color?: ((theme: Theme) => string) | string;
+  borderWidth?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
-type RuleNames = 'loading' | '@keyframes spin'
-
-const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>(theme => ({
-  '@keyframes spin': {
+const Loading = ({
+  duration = '1.2s',
+  width = '4em',
+  borderWidth = '2px',
+  color = '#555',
+  backgroudColor = '#f3f3f3',
+  bit = false,
+  co,
+  className,
+}: LoadingProps & React.ComponentPropsWithoutRef<'div'>) => {
+  const theme = useTheme() as Theme;
+  const kfSpin = keyframes({
     '0%': {
       transform: 'rotate(0deg)',
     },
     '100%': {
       transform: 'rotate(360deg)',
     },
-  },
-  '@keyframes bit': {
+  });
+  const kfBit = keyframes({
     '0%, 20%, 80%, 100%': {
       transform: 'scale(1)',
     },
     '50%': {
       transform: 'scale(1.5)',
     },
-  },
-  loading: ({ borderWidth, width, duration, color, backgroudColor, cssOptions }) => ({
-    ...cssOptions?.(theme),
+  });
+  const styles = css({
     '& .nomal': {
       border: `${borderWidth} solid ${typeof backgroudColor == 'string' ? backgroudColor : backgroudColor?.(theme)}`,
-      borderTop: `${borderWidth} solid ${typeof color == 'string' ? color : color?.(theme)}`,
+      borderTop: `${borderWidth} solid ${typeof color == 'function' ? (color as Function)(theme) : color}`,
       borderRadius: '50%',
       width: width,
       height: width,
-      animation: `$spin ${duration} linear infinite`,
+      animation: `${kfSpin} ${duration} linear infinite`,
     },
     '& .bit': {
       display: 'inline-block',
@@ -54,7 +62,7 @@ const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>(theme => ({
         height: '6px',
         background: color,
         borderRadius: '50%',
-        animation: `$bit ${duration} linear infinite`,
+        animation: `${kfBit} ${duration} linear infinite`,
         '&:nth-child(1)': {
           animationDelay: '0s',
           top: '37px',
@@ -117,50 +125,32 @@ const useStyles = createUseStyles<RuleNames, LoadingProps, Theme>(theme => ({
         },
       },
     },
-  }),
-}))
-const Loading = ({
-  duration = '1.2s',
-  width = '4em',
-  borderWidth = '2px',
-  color = '#555',
-  backgroudColor = '#f3f3f3',
-  bit = false,
-  cssOptions,
-  className,
-}: LoadingProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const classes = useStyles({
-    backgroudColor,
-    color,
-    borderWidth,
-    width,
-    cssOptions,
-    duration,
-    bit,
-  })
-  const computedClassNames = classnames(classes.loading, className)
-  return (
-    <div className={computedClassNames}>
-      {!bit ?
-      <div className={`nomal`} />
-      :
-      <div className={`bit`}>
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        </div>
-}
-    </div>
-   )
-}
 
-export default Loading
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
+  return (
+    <div css={styles} className={computedClassNames}>
+      {!bit ? (
+        <div className={`nomal`} />
+      ) : (
+        <div className={`bit`}>
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Loading;

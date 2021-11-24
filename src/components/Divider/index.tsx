@@ -1,20 +1,30 @@
-import * as React from 'react'
-import classnames from 'classnames'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react'
 import { Theme } from '../../constants/theme'
-import { createUseStyles } from 'react-jss'
+import * as React from 'react'
 type DividerProps = {
   width?: number
   vertical?: boolean
   color?: string
   doubleLine?: boolean
   dashed?: boolean
-  cssOptions?: (theme: Theme) => React.CSSProperties
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
 }
 
-type RuleNames = 'divider'
-
-const useStyles = createUseStyles<RuleNames, DividerProps, Theme>(theme => ({
-  divider: ({ color, width, vertical, cssOptions, doubleLine, dashed }) => ({
+const Divider = ({
+  width = 1,
+  vertical = false,
+  dashed = false,
+  doubleLine = false,
+  color,
+  co,
+  className,
+  children,
+  ...props
+}: DividerProps & React.ComponentPropsWithoutRef<'hr'>) => {
+  const theme = useTheme() as Theme
+  const styles = css({
     border: 'none',
     ...(vertical
       ? {
@@ -28,32 +38,9 @@ const useStyles = createUseStyles<RuleNames, DividerProps, Theme>(theme => ({
             color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'
           }`,
         }),
-    ...cssOptions?.(theme),
-  }),
-}))
-
-const Divider = ({
-  width = 1,
-  vertical = false,
-  dashed = false,
-  doubleLine = false,
-  color,
-  cssOptions,
-  className,
-  children,
-  ...props
-}: DividerProps & React.ComponentPropsWithoutRef<'hr'>) => {
-  const classes = useStyles({
-    vertical,
-    dashed,
-    color,
-    width,
-    doubleLine,
-    cssOptions,
+    ...(typeof co == 'function' && co(theme)),
   })
-
-  const computedClassNames = classnames(classes.divider, className)
-  return <hr aria-label='hr divider' className={computedClassNames} {...props} />
+  return <hr css={styles} aria-label='hr divider' className={clsx(className)} {...props} />
 }
 
 export default Divider
