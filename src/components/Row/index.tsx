@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme } from '../../constants/theme'
-import React from 'react'
-import styled from '@emotion/styled'
-import clsx from 'clsx'
+import { theme, Theme } from '../../constants/theme';
+import React from 'react';
+import styled from '@emotion/styled';
+import clsx from 'clsx';
 
-interface RowProps {
-  vertical?: boolean
-  alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch'
-  justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between'
-  gap?: string
-  wrap?: boolean
-  fullHeight?: boolean
-  children: React.ReactNode
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
+type RowProps = {
+  vertical?: boolean;
+  alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
+  justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
+  gap?: string;
+  wrap?: boolean;
+  fullHeight?: boolean;
+  children: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
 const Row = ({
   children,
@@ -35,8 +35,8 @@ const Row = ({
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
     ...(typeof co == 'function' && co(theme)),
-  })
-  return <Container className={clsx(className)}>{children}</Container>
-}
+  });
+  return <Container className={clsx(className)}>{children}</Container>;
+};
 
-export default Row
+export default Row;

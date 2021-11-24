@@ -1,19 +1,21 @@
-import * as React from 'react'
-import { createUseStyles, useTheme } from 'react-jss'
-import classnames from 'classnames'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from '../../constants/theme';
+import { useTheme, css } from '@emotion/react';
 type SwitchProps = Partial<{
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any
-  on: boolean
-  color?: string
-  className?: string
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}>
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
+  on: boolean;
+  color?: string;
+  className?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
-type RuleNames = 'switch'
-
-const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
-  switch: ({ cssOptions, color, on }) => ({
+const Switch = ({ on = false, onChange, color, co }: SwitchProps) => {
+  const handleSwitchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e);
+  };
+  const theme = useTheme() as Theme;
+  const styles = css({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -24,7 +26,7 @@ const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
     borderRadius: 100,
     position: 'relative',
     transition: 'background 0.4s ease-out',
-    ...cssOptions,
+    ...(typeof co == 'function' && co(theme)),
     '& > input': {
       display: 'none',
     },
@@ -43,26 +45,14 @@ const useStyles = createUseStyles<RuleNames, SwitchProps, Theme>(theme => ({
     '&:active > .switch-button': {
       // width: '2em',
     },
-  }),
-}))
-
-const Switch = ({ on = false, onChange, color, cssOptions, className }: SwitchProps) => {
-  const handleSwitchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e)
-  }
-  const classes = useStyles({
-    cssOptions,
-    on,
-    color,
-  })
-  const computedClassNames = classnames(classes.switch, className)
+  });
 
   return (
-    <label className={computedClassNames}>
+    <label css={styles}>
       <input checked={on} onChange={handleSwitchChange} type='checkbox' role='switch' />
       <span className='switch-button' />
     </label>
-  )
-}
+  );
+};
 
-export default Switch
+export default Switch;

@@ -37,6 +37,8 @@ import Drawer from './components/Drawer';
 import Input from './components/Input';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
+import CheckBox from './components/CheckBox';
+import Radio from './components/Radio';
 export {
   List,
   Collapse,
@@ -75,4 +77,6 @@ export {
   Upload,
   Textarea,
   Divider,
+  CheckBox,
+  Radio,
 };
