@@ -1,62 +1,39 @@
-import React, { useEffect, useState, useRef } from 'react'
-import classnames from 'classnames'
-import { createUseStyles } from 'react-jss'
-import { Theme } from '../../constants/theme'
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx';
+import { css, keyframes, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
+import { useState } from 'react';
+
 type ListProps = {
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
 type ListItemProps = {
-  swipe?: boolean
-  onSwipe?: () => any
-  onSwipeStart?: () => any
-  onSwipeEnd?: () => any
-  rightContent?: React.ReactNode
-  className?: string
-  children?: React.ReactNode
-  cssOptions?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
+  swipe?: boolean;
+  onSwipe?: () => any;
+  onSwipeStart?: () => any;
+  onSwipeEnd?: () => any;
+  rightContent?: React.ReactNode;
+  className?: string;
+  children?: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
-const useListStyles = createUseStyles<'list', Pick<ListProps, 'cssOptions'>, Theme>(theme => ({
-  list: ({ cssOptions }) => {
-    return {
-      overflow: 'hidden',
-      ...cssOptions?.(theme),
-    }
-  },
-}))
-
-const useListItemStyles = createUseStyles<'list-item', Pick<ListProps, 'cssOptions'> & { translateX: number }, Theme>(
-  theme => ({
-    'list-item': ({ cssOptions, translateX }) => {
-      return {
-        position: 'relative',
-        transform: `translate3d(-${translateX}px,0,0)`,
-        transition: 'transform 0.1s cubic-bezier(0.4, 0, 1, 1) 0s',
-        ...cssOptions?.(theme),
-        '& > :nth-child(2)': {
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          transform: 'translate3d(100%,0,0)',
-        },
-      }
-    },
-  }),
-)
-const List = ({ cssOptions, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'section'>) => {
-  const classes = useListStyles({
-    cssOptions,
-  })
-
-  const computedClassNames = classnames(classes.list, className)
+const List = ({ co, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'section'>) => {
+  const theme = useTheme() as Theme;
+  const styles = css({
+    overflow: 'hidden',
+    ...(typeof co == 'function' && co(theme)),
+  });
+  const computedClassNames = clsx(className);
 
   return (
-    <section aria-label='list' role='list' className={computedClassNames} {...props}>
+    <section css={styles} aria-label='list' role='list' className={computedClassNames} {...props}>
       {children}
     </section>
-  )
-}
+  );
+};
 
 const ListItem = ({
   swipe,
@@ -66,62 +43,67 @@ const ListItem = ({
   onSwipeEnd,
   children,
   className,
-  cssOptions,
+  co,
 }: ListItemProps) => {
-  const [swipeLength, setSwipeLength] = useState(0)
-  const [translateX, setTranslateX] = useState(0)
-  const [startX, setStartX] = useState(0)
-  const classes = useListItemStyles({
-    translateX,
-    cssOptions,
-  })
-  const rightContentRef = React.useRef<any>({})
-  const computedClassNames = classnames(classes['list-item'], className)
+  const [swipeLength, setSwipeLength] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [startX, setStartX] = useState(0);
+  const theme = useTheme() as Theme;
+  const styles = css({
+    position: 'relative',
+    transform: `translate3d(-${translateX}px,0,0)`,
+    transition: 'transform 0.1s cubic-bezier(0.4, 0, 1, 1) 0s',
+    ...(typeof co == 'function' && co(theme)),
+    '& > :nth-child(2)': {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      transform: 'translate3d(100%,0,0)',
+    },
+  });
+  const rightContentRef = React.useRef<any>({});
+  const computedClassNames = clsx(className);
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setStartX(e.touches[0].pageX)
-    onSwipeStart?.()
-  }
+    setStartX(e.touches[0].pageX);
+    onSwipeStart?.();
+  };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    length = Math.max(0, parseFloat((startX - e.touches[0].clientX).toFixed(2)))
-    const sl = Math.min(length, rightContentRef.current.clientWidth)
-    setSwipeLength(sl)
-    setTranslateX(sl)
-    onSwipe?.()
-  }
+    length = Math.max(0, parseFloat((startX - e.touches[0].clientX).toFixed(2)));
+    const sl = Math.min(length, rightContentRef.current.clientWidth);
+    setSwipeLength(sl);
+    setTranslateX(sl);
+    onSwipe?.();
+  };
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     if (swipeLength > rightContentRef.current.clientWidth / 2) {
-      setTranslateX(rightContentRef.current.clientWidth)
+      setTranslateX(rightContentRef.current.clientWidth);
     } else {
-      setTranslateX(0)
+      setTranslateX(0);
     }
-    setSwipeLength(0)
-    onSwipeEnd?.()
-  }
+    setSwipeLength(0);
+    onSwipeEnd?.();
+  };
 
   const renderRightContent = () => {
     console.log(
       React.cloneElement(rightContent as React.DetailedReactHTMLElement<any, HTMLElement>, {
         ref: rightContentRef,
       }),
-    )
-
-    // return React.cloneElement(rightContent as React.DetailedReactHTMLElement<any, HTMLElement>, {
-    //   ref: rightContentRef,
-    // })
-  }
+    );
+  };
 
   const props = {
     onTouchStart: handleTouchStart,
     onTouchMove: handleTouchMove,
     onTouchEnd: handleTouchEnd,
-  }
+  };
   return (
-    <div aria-label='list item' role='listitem' {...(swipe ? props : {})} className={computedClassNames}>
+    <div css={styles} aria-label='list item' role='listitem' {...(swipe ? props : {})} className={computedClassNames}>
       {children}
       {rightContent && renderRightContent()}
     </div>
-  )
-}
-List.Item = ListItem
-export default List
+  );
+};
+List.Item = ListItem;
+export default List;

@@ -4,6 +4,7 @@ import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
+
 type ProgressProps = {
   percent?: number;
   backgroundColor?: string;
@@ -34,7 +35,7 @@ const Progress = ({
   });
   const computedClassNames = clsx(className);
   return (
-    <div aria-label='progress' role='progressbar' className={computedClassNames} {...props}>
+    <div css={styles} aria-label='progress' role='progressbar' className={computedClassNames} {...props}>
       <div className='progress-bar' />
     </div>
   );
