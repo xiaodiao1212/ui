@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { useContext, createContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Theme } from '../../constants/theme';
 import { useTheme, css } from '@emotion/react';
+import RadioGroup from './RadioGroup';
+import { RadioGroupContext } from './group-context';
 
 type RadioValue = string | number;
 
@@ -11,7 +13,7 @@ type RadioProps = {
   checked?: boolean;
   children?: React.ReactNode;
   value?: RadioValue;
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => any;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
 };
 
 const Radio = ({
@@ -24,8 +26,27 @@ const Radio = ({
   co,
   ...props
 }: RadioProps & React.ComponentPropsWithoutRef<'label'>) => {
-  let [ischecked, setIschecked] = useState(checked);
   let content: any = children;
+  const [ischecked, setIschecked] = useState(checked);
+  const groupContext = useContext(RadioGroupContext);
+  if (groupContext !== null && groupContext.value && value) {
+    checked = groupContext.value.includes(value);
+  }
+  if (groupContext !== null && groupContext.disabled) {
+    disabled = disabled || groupContext.disabled;
+  }
+  const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (groupContext !== null && value !== undefined) {
+      if (e.target.value) {
+        groupContext.check(value);
+      } else {
+        groupContext.uncheck(value);
+      }
+    } else {
+      setIschecked(e.target.checked);
+      onChange?.(e);
+    }
+  };
   const theme = useTheme() as Theme;
   const inputStyle = css({
     width: '18px',
@@ -41,28 +62,25 @@ const Radio = ({
     cursor: disabled ? 'not-allowed' : 'pointer',
     color: disabled ? '#00000040' : '#000000',
   });
-  console.log('ischecked:', ischecked);
 
   return (
     <label css={labelStyle} {...props}>
       <input
         css={inputStyle}
         type='radio'
+        name='radio'
         value={value ? value : content}
-        onChange={e => {
-          setIschecked(e.target.checked);
-          onChange?.(e);
-        }}
+        onChange={handleClick}
         onClick={e => {
           e.stopPropagation();
           e.nativeEvent.stopImmediatePropagation();
         }}
-        checked={ischecked}
+        checked={groupContext !== null ? checked : ischecked}
         disabled={disabled}
       />
       {children}
     </label>
   );
 };
-
+Radio.Group = RadioGroup;
 export default Radio;

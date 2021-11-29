@@ -7,6 +7,8 @@ import Divider from './components/Divider';
 import Upload from './components/Upload';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
+import CheckBox from './components/CheckBox';
+import Radio from './components/Radio';
 import TimePicker from './components/TimePicker';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
@@ -37,8 +39,6 @@ import Drawer from './components/Drawer';
 import Input from './components/Input';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
-import CheckBox from './components/CheckBox';
-import Radio from './components/Radio';
 export {
   List,
   Collapse,
@@ -54,6 +54,8 @@ export {
   CountDown,
   NumberInput,
   Container,
+  Radio,
+  CheckBox,
   Card,
   Swiper,
   Skeleton,
@@ -77,6 +79,4 @@ export {
   Upload,
   Textarea,
   Divider,
-  CheckBox,
-  Radio,
 };

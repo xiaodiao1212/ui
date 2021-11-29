@@ -1,16 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { useContext, createContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Theme } from '../../constants/theme';
 import { useTheme, css } from '@emotion/react';
+import CheckBoxGroup from './CheckBoxGroup';
+import { CheckboxGroupContext } from './group-context';
 
 type CheckboxValue = string | number;
-
-const CheckboxGroupContext = createContext<{
-  value: CheckboxValue[];
-  disabled: boolean;
-  check: (val: CheckboxValue) => void;
-  uncheck: (val: CheckboxValue) => void;
-} | null>(null);
 
 type CheckBoxProps = {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
@@ -21,67 +16,36 @@ type CheckBoxProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
 };
 
-type CheckBoxGroupProps = {
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  disabled?: boolean;
-  value?: string[];
-  defaultValue?: string[];
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => any;
-};
-
-const CheckBoxGroup = ({
-  disabled = false,
-  onChange,
-  children,
-  value = [],
-  co,
-  ...props
-}: CheckBoxGroupProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
-  const [isValue, setValue] = useState(value);
-  const style = css({
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    ...(typeof co == 'function' && co(theme)),
-  });
-  return (
-    // <CheckboxGroupContext.Provider
-    //   value={{
-    //     value: value,
-    //     disabled: disabled,
-    //     check: v => {
-    //       setValue([...isValue, v]);
-    //     },
-    //     uncheck: v => {
-    //       setValue(value.filter(item => item !== v));
-    //     },
-    //   }}>
-    //   {children}
-    // </CheckboxGroupContext.Provider>
-    <div css={style}>{children}</div>
-  );
-};
-
 const CheckBox = ({
   disabled = false,
   checked = false,
-  defaultChecked = false,
+  // defaultChecked = false,
   onChange,
   children,
   value,
   co,
   ...props
 }: CheckBoxProps & React.ComponentPropsWithoutRef<'label'>) => {
-  let [ischecked, setIschecked] = useState(checked);
   const groupContext = useContext(CheckboxGroupContext);
   let content: any = children;
-  // const handleClickCheckNode = () => {
-  //   setIsChecked(!isChecked);
-  // };
-  // const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   onChange?.(e);
-  // };
+  if (groupContext !== null && groupContext.value.length > 0 && value) {
+    checked = groupContext.value.includes(value);
+  }
+  if (groupContext !== null && groupContext.disabled) {
+    disabled = disabled || groupContext.disabled;
+  }
+  let [ischecked, setIschecked] = useState(checked);
+  const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIschecked(e.target.checked);
+    onChange?.(e);
+    if (groupContext !== null && value !== undefined) {
+      if (e.target.checked) {
+        groupContext.check(value);
+      } else {
+        groupContext.uncheck(value);
+      }
+    }
+  };
   const theme = useTheme() as Theme;
   const inputStyle = css({
     width: '18px',
@@ -97,29 +61,23 @@ const CheckBox = ({
     cursor: disabled ? 'not-allowed' : 'pointer',
     color: disabled ? '#00000040' : '#000000',
   });
-  console.log('ischecked:', ischecked);
 
   return (
-    <CheckBoxGroup>
-      <label css={labelStyle} {...props}>
-        <input
-          css={inputStyle}
-          type='checkbox'
-          value={value ? value : content}
-          onChange={e => {
-            setIschecked(e.target.checked);
-            onChange?.(e);
-          }}
-          onClick={e => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-          }}
-          checked={ischecked}
-          disabled={disabled}
-        />
-        {children}
-      </label>
-    </CheckBoxGroup>
+    <label css={labelStyle} {...props}>
+      <input
+        css={inputStyle}
+        type='checkbox'
+        value={value ? value : content}
+        onChange={handleClick}
+        onClick={e => {
+          e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
+        }}
+        checked={ischecked}
+        disabled={disabled}
+      />
+      {children}
+    </label>
   );
 };
 
