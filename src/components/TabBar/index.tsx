@@ -15,6 +15,7 @@ type TabBarItem = {
 };
 type TabBarProps = {
   items: TabBarItem[];
+  vertical?: boolean;
   className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
@@ -22,7 +23,7 @@ type TabBarProps = {
 const TabBar = ({ items, co, className, ...props }: TabBarProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   const renderDefaultTabBarItem = (item: TabBarItem) => {

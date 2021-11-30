@@ -31,7 +31,7 @@ const Progress = ({
       width: percent + '%',
       backgroundColor: color || theme?.color?.primary || '#231F9C',
     },
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   return (

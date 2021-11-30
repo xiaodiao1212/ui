@@ -49,7 +49,7 @@ const Input = ({
     color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
     outline: outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
     borderRadius: '4px',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const styleRow = css({
     backgroundColor: contain
@@ -57,7 +57,7 @@ const Input = ({
       : disabled
       ? theme?.color?.greyLight || '#F3F4F6'
       : 'transparent',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   const handleInputChange = (e: { target: { value: string } }) => {

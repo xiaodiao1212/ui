@@ -31,7 +31,7 @@ const Image = ({
     objectFit: fit || undefined,
     width: width || undefined,
     height: height || '100%',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   return <img src={src} alt={alt} css={styles} className={computedClassNames} />;

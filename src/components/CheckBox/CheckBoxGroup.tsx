@@ -22,7 +22,7 @@ const CheckBoxGroup = ({ disabled = false, onChange, children, value = [], co }:
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   if (isValue.length > 0) {
     onChange?.(isValue);

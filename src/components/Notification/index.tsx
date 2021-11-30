@@ -40,7 +40,7 @@ const Notification = ({ show = false, onClose, delay = 3, co, children, classNam
     transform: `translateY(${show ? '0%' : '-100%'})`,
     transition: '.3s all',
     animation: `${anim} .3s`,
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
 

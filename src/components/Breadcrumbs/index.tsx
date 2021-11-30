@@ -24,7 +24,7 @@ const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsPr
     '& > *': {
       display: 'inline-flex',
     },
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme):co),
   })
 
   const computedClassNames = clsx('breadcrumbs', className)

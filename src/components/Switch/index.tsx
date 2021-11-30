@@ -26,7 +26,7 @@ const Switch = ({ on = false, onChange, color, co }: SwitchProps) => {
     borderRadius: 100,
     position: 'relative',
     transition: 'background 0.4s ease-out',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
     '& > input': {
       display: 'none',
     },

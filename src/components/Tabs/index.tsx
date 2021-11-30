@@ -15,6 +15,7 @@ interface TabsProps {
 
 type TabItemProps = Partial<{
   noIndicator: boolean;
+  indicator: React.ReactNode;
   tab: Readonly<React.Key>;
   tabKey: React.Key;
   children: React.ReactNode;
@@ -50,6 +51,9 @@ const Tabs = ({
           tab: tab,
           tabKey: element.key,
           noIndicator: noIndicator,
+          indicator: React.Children.map(children, (c: any, i) => {
+            if (c.type.name == 'TabsIndicator') return c;
+          })[0],
           ...{ ...element.props, key: element.key },
         });
       }
@@ -61,7 +65,7 @@ const Tabs = ({
     <nav
       css={css({
         display: 'flex',
-        ...(typeof co == 'function' && co(theme)),
+        ...(typeof co == 'function' ? co(theme) : co),
       })}
       aria-label='tabs'
       className={computedClassNames}
@@ -72,7 +76,7 @@ const Tabs = ({
   );
 };
 
-const TabItem = ({ tab, tabKey, onClick, noIndicator, co, children, className }: TabItemProps) => {
+const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, className }: TabItemProps) => {
   const theme = useTheme() as Theme;
   const tabsIndicatorStyles = css({
     position: 'relative',
@@ -96,7 +100,7 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, co, children, className }:
       onClick={handleClickTab}
       co={tabCssOptions}>
       {children}
-      {tab == tabKey && !noIndicator && <TabsIndicator />}
+      {tab == tabKey && !noIndicator && (indicator || <TabsIndicator />)}
     </Button>
   );
 };
@@ -110,7 +114,7 @@ const TabsIndicator = ({ co, className, ...props }: React.ComponentPropsWithoutR
     bottom: 0,
     left: 0,
     right: 0,
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   return <span css={tabsIndicatorStyles} aria-label='tabs indicator' className={computedClassNames} {...props} />;

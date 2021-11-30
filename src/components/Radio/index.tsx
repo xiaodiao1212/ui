@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { Theme } from '../../constants/theme';
 import { useTheme, css } from '@emotion/react';
 import RadioGroup from './RadioGroup';
-import { RadioGroupContext } from './group-context';
+import { RadioGroupContext } from './RadioGroup';
 
 type RadioValue = string | number;
 
@@ -57,7 +57,7 @@ const Radio = ({
     cursor: disabled ? 'not-allowed' : 'pointer',
   });
   const labelStyle = css({
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
     padding: 9,
     cursor: disabled ? 'not-allowed' : 'pointer',
     color: disabled ? '#00000040' : '#000000',

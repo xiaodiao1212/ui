@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
-import * as React from 'react'
-import { fade } from '../../constants/style'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
+import { fade } from '../../constants/style';
 
 type OverlayProps = Partial<{
-  color: string
-  show: boolean
-  blur: boolean
-  opacity: number
-  children: React.ReactNode
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-  className: string
-}>
+  color: string;
+  show: boolean;
+  blur: boolean;
+  opacity: number;
+  children: React.ReactNode;
+  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  className: string;
+}>;
 
 const Overlay = ({
   opacity = 0.4,
@@ -26,7 +26,7 @@ const Overlay = ({
   co,
   className,
 }: OverlayProps) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const styles = css({
     display: show ? 'flex' : 'none',
     position: 'fixed',
@@ -41,17 +41,17 @@ const Overlay = ({
       margin: 'auto',
     },
 
-    ...(typeof co == 'function' && co(theme)),
-  })
-  const computedOverlayClassNames = clsx(className)
+    ...(typeof co == 'function' ? co(theme) : co),
+  });
+  const computedOverlayClassNames = clsx(className);
   const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    onClick?.(e)
-  }
+    onClick?.(e);
+  };
   return (
     <aside css={styles} className={computedOverlayClassNames} onClick={handleClickOverlay}>
       {children}
     </aside>
-  )
-}
+  );
+};
 
-export default Overlay
+export default Overlay;

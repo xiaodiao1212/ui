@@ -96,7 +96,7 @@ const CountDown = ({
   });
   const styles = css({
     display: 'flex',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
     '.text': {
       marginLeft: '5px',
       marginTop: '-1px',

@@ -8,12 +8,15 @@ import { debounce } from '../../utils';
 
 type PullToRefreshProps = {
   triggerValue?: number;
-  delay?: number;
+  pullDelay?: number;
+  refreshDelay?: number;
   onPullStart?: () => any;
   onPull?: (pullLength: number) => any;
   onPullEnd?: () => any;
   onRefresh?: (refreshOver: () => any) => any;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  className?: string;
+  children?: React.ReactNode;
 };
 type RefreshLoadingProps = {
   children?: React.ReactNode;
@@ -23,7 +26,8 @@ type RefreshLoadingProps = {
 
 const PullToRefresh = ({
   triggerValue = 80,
-  delay = 30,
+  pullDelay = 30,
+  refreshDelay = 1000,
   onPull,
   onPullStart,
   onPullEnd,
@@ -32,7 +36,7 @@ const PullToRefresh = ({
   children,
   co,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & PullToRefreshProps) => {
+}: PullToRefreshProps) => {
   const [pullLength, setPullLength] = useState(0);
   const [isRefresh, setIsRefresh] = useState(false);
   const [translateY, setTranslateY] = useState(0);
@@ -44,8 +48,9 @@ const PullToRefresh = ({
     '& > .refresh-container': {
       transform: `translate3d(0px, ${translateY}px, 0px)`,
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
+      scrollBehavior: 'smooth',
       height: '100%',
-      ...(typeof co == 'function' && co(theme)),
+      ...(typeof co == 'function' ? co(theme) : co),
     },
   });
   const computedRefreshClassNames = clsx(className);
@@ -58,13 +63,11 @@ const PullToRefresh = ({
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (startY != 0) {
       e.stopPropagation();
-      debounce(() => {
-        const length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)));
-        const pl = Math.min(triggerValue + delay, length);
-        setTranslateY(pl > (delay as number) ? pl - (delay as number) : 0);
-        setPullLength(length);
-        onPull?.(length);
-      }, 2);
+      const length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)));
+      const pl = Math.min(triggerValue + pullDelay, length);
+      setTranslateY(pl > (pullDelay as number) ? pl - (pullDelay as number) : 0);
+      setPullLength(length);
+      onPull?.(length);
     }
   };
 
@@ -74,16 +77,21 @@ const PullToRefresh = ({
     setPullLength(0);
   };
 
-  const handleTouchEnd = () => {
-    onPullEnd?.();
-    if (pullLength >= triggerValue + delay) {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (pullLength >= triggerValue + pullDelay) {
       const ty = ((translateY / 1.2).toFixed(2) as any) * 1;
       setTranslateY(ty);
-      setIsRefresh(true);
-      onRefresh?.(() => setIsRefresh(false));
+      setIsRefresh(v => !v);
+      onRefresh?.(() => {
+        setTimeout(() => {
+          setIsRefresh(v => !v);
+          console.log('Refresh', isRefresh);
+        }, refreshDelay);
+      });
     } else {
       handleReset();
     }
+    onPullEnd?.();
   };
 
   const handleChildrenRender = () => {
@@ -115,7 +123,7 @@ const PullToRefresh = ({
       className={computedRefreshClassNames}
       onTouchStart={e => handleTouchStart(e)}
       onTouchMove={e => handleTouchMove(e)}
-      onTouchEnd={e => handleTouchEnd()}
+      onTouchEnd={e => handleTouchEnd(e)}
       {...props}>
       <div aria-label='pull-to-refresh container' className='refresh-container'>
         {handleChildrenRender()}
@@ -132,7 +140,7 @@ const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
     left: 0,
     textAlign: 'center',
     transform: 'translateY(-100%)',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedLoadingClassNames = clsx(className);
   return (

@@ -32,7 +32,7 @@ const Card = ({
         marginLeft: '',
       },
     },
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
 
   return (

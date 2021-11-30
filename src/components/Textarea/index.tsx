@@ -20,7 +20,7 @@ const Textarea = ({
     padding: '12px',
     backgroundColor: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.white) : 'transparent',
     color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
 
   const computedClassNames = clsx(className);

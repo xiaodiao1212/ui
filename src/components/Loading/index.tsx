@@ -126,7 +126,7 @@ const Loading = ({
       },
     },
 
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   return (

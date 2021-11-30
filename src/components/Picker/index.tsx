@@ -24,7 +24,7 @@ const useStyles = createUseStyles<'picker', Pick<PickerProps, 'co'> & { translat
       flexDirection: 'column',
       minHeight: '10em',
       cursor: 'grab',
-      ...(typeof co == 'function' && co(theme)),
+      ...(typeof co == 'function' ? co(theme) : co),
       '& > .container': {
         display: 'flex',
         justifyContent: 'center',
@@ -130,9 +130,8 @@ const Picker = ({
       }),
     );
   };
-  const handleTouchEnd = (index: number) => {
-    console.log('indexindexindex', index);
 
+  const handleTouchEnd = (index: number) => {
     const os = offsetY[index];
     const ml = moveLength[index];
     const remainderPart = (os % 2).toFixed(1);

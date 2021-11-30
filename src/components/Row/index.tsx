@@ -34,7 +34,7 @@ const Row = ({
     gridGap: gap,
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   return <Container className={clsx(className)}>{children}</Container>;
 };

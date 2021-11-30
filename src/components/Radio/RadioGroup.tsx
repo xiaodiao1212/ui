@@ -2,9 +2,16 @@
 import { useState } from 'react';
 import { Theme } from '../../constants/theme';
 import { useTheme, css } from '@emotion/react';
-import { RadioGroupContext } from './group-context';
+import { createContext } from 'react';
 
 type RadioValue = string | number;
+
+export const RadioGroupContext = createContext<{
+  value: RadioValue[];
+  disabled: boolean;
+  check: (val: RadioValue) => void;
+  uncheck: (val: RadioValue) => void;
+} | null>(null);
 
 type CheckBoxGroupProps = {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
@@ -22,11 +29,13 @@ const RadioGroup = ({ disabled = false, onChange, children, value, co }: CheckBo
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
+
   if (isValue) {
     onChange?.(isValue);
   }
+
   return (
     <RadioGroupContext.Provider
       value={{
