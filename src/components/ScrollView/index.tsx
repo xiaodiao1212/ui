@@ -24,6 +24,8 @@ const ScrollView = ({
   const styles = css({
     height: '100%',
     overflow: 'auto',
+    scrollBehavior: 'smooth',
+    overscrollBehavior: 'contain',
     ...(typeof co == 'function' && co(theme)),
   });
   const computedClassNames = clsx(className);

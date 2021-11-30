@@ -136,7 +136,7 @@ const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
   });
   const computedLoadingClassNames = clsx(className);
   return (
-    <div aria-label='pull-to-refresh loading' className={computedLoadingClassNames}>
+    <div css={style} aria-label='pull-to-refresh loading' className={computedLoadingClassNames}>
       {children}
     </div>
   );
