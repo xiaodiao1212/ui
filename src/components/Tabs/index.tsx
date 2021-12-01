@@ -112,8 +112,8 @@ const TabsIndicator = ({ co, className, ...props }: React.ComponentPropsWithoutR
     height: '1px',
     background: 'white',
     bottom: 0,
-    left: 0,
-    right: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
