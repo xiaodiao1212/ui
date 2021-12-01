@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, PullToRefresh, Radio } from '../dist';
+import { App, CheckBox, PullToRefresh, Radio } from '../dist';
 const oldData = [
   {
     id: 'sdwaa',
@@ -54,10 +54,16 @@ const oldData = [
   },
 ];
 const Main = () => {
+  const [value, setValue] = useState<string[]>([]);
+  const groupValue = (val: any) => {
+    setValue(val);
+  };
   return (
     <App>
-      <Radio>1</Radio>
-      <Radio>2</Radio>
+      <CheckBox.Group value={value} onChange={groupValue}>
+        <CheckBox value='apple'>apple</CheckBox>
+        <CheckBox value='apple'>orange</CheckBox>
+      </CheckBox.Group>
     </App>
   );
 };
