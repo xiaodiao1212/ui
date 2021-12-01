@@ -15,8 +15,8 @@ export const RadioGroupContext = createContext<{
 
 type CheckBoxGroupProps = {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  value?: RadioValue | null;
-  onChange?: (val: RadioValue) => void;
+  value: RadioValue | null;
+  onChange: (val: RadioValue) => void;
   defaultValue?: RadioValue | null;
   disabled?: boolean;
   children: any;
@@ -33,7 +33,7 @@ const RadioGroup = ({ disabled = false, onChange, children, value, co }: CheckBo
   });
 
   if (isValue) {
-    onChange?.(isValue);
+    onChange(isValue);
   }
 
   return (

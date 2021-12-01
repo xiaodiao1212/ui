@@ -62,13 +62,12 @@ const Radio = ({
     cursor: disabled ? 'not-allowed' : 'pointer',
     color: disabled ? '#00000040' : '#000000',
   });
-
   return (
     <label css={labelStyle} {...props}>
       <input
         css={inputStyle}
         type='radio'
-        name='radio'
+        name={groupContext !== null ? 'radio' : undefined}
         value={value ? value : content}
         onChange={handleClick}
         onClick={e => {
