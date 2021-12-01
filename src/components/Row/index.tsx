@@ -22,6 +22,7 @@ const Row = ({
   wrap,
   fullHeight,
   alignItems,
+  justifyContent,
   gap,
   co,
   className,
@@ -29,6 +30,7 @@ const Row = ({
   const Container = styled.div({
     display: 'flex',
     width: '100%',
+    justifyContent: justifyContent || 'space-between',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
     gridGap: gap,
