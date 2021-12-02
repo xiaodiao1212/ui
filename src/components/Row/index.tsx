@@ -26,11 +26,12 @@ const Row = ({
   gap,
   co,
   className,
+  ...props
 }: RowProps & React.ComponentPropsWithoutRef<'div'>) => {
   const Container = styled.div({
     display: 'flex',
     width: '100%',
-    justifyContent: justifyContent || 'space-between',
+    justifyContent: justifyContent || '',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
     gridGap: gap,
@@ -38,7 +39,11 @@ const Row = ({
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
     ...(typeof co == 'function' ? co(theme) : co),
   });
-  return <Container className={clsx(className)}>{children}</Container>;
+  return (
+    <Container className={clsx(className)} {...props}>
+      {children}
+    </Container>
+  );
 };
 
 export default Row;

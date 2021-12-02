@@ -16,7 +16,6 @@
     "test:watch": "jest --watch",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "convert": "jss convert target.css -f json > target.json",
     "lint": "eslint --fix --ext .ts,.tsx src"
   },
   "repository": {
@@ -46,6 +45,7 @@
   ],
   "homepage": "https://github.com/fogcity/ui#readme",
   "devDependencies": {
+    "@emotion/eslint-plugin": "^11.7.0",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -79,7 +79,6 @@
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "react-jss": ">=10.7.1",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2",
     "@emotion/react": ">=11.5.0",
@@ -87,6 +86,6 @@
   },
   "dependencies": {
     "clsx": "^1.1.1",
-    "react-jss": "^10.8.2"
+    "theming": "^3.3.0"
   }
 }

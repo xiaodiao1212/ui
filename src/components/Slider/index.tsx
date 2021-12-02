@@ -2,23 +2,23 @@
 /**
  * In webkit based browsers, the track is styled with a special pseudo selector ::-webkit-slider-runnable-track, and the thumb with ::webkit-slider-thumb.
  */
-import { css, useTheme } from '@emotion/react'
-import clsx from 'clsx'
+import { css, useTheme } from '@emotion/react';
+import clsx from 'clsx';
 
 type SliderProps = Partial<{
-  style: string | React.CSSProperties
-  disable: boolean
-  defaultValue: string
-  step: string
-  onChange: (value: any) => any
-  max: string
-  min: string
-  trackColor: string
-  thumbColor: string
-  trackHeight: number
-  thumbHeight: number
-  className: string
-}>
+  style: string | React.CSSProperties;
+  disable: boolean;
+  defaultValue: string;
+  step: string;
+  onChange: (value: any) => any;
+  max: string;
+  min: string;
+  trackColor: string;
+  thumbColor: string;
+  trackHeight: number;
+  thumbHeight: number;
+  className: string;
+}>;
 
 const Slider = ({
   max,
@@ -32,11 +32,11 @@ const Slider = ({
   thumbHeight = 15,
   className,
 }: SliderProps) => {
-  const theme = useTheme()
+  const theme = useTheme();
 
   const handleOnChange = (e: { target: { value: string } }) => {
-    onChange?.(e.target.value)
-  }
+    onChange?.(e.target.value);
+  };
 
   const sliderStyles = css`
     input[type='range'] {
@@ -91,7 +91,7 @@ const Slider = ({
     input[type='range']:focus::-webkit-slider-runnable-track {
       background: ${trackColor};
     }
-  `
+  `;
 
   return (
     <div css={sliderStyles}>
@@ -105,7 +105,7 @@ const Slider = ({
         className={clsx(className)}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Slider
+export default Slider;

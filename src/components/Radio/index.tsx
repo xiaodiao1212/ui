@@ -26,7 +26,7 @@ const Radio = ({
   co,
   ...props
 }: RadioProps & React.ComponentPropsWithoutRef<'label'>) => {
-  let content: any = children;
+  const content: any = children;
   const [ischecked, setIschecked] = useState(checked);
   const groupContext = useContext(RadioGroupContext);
   if (groupContext !== null && groupContext.value && value) {

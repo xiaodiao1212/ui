@@ -29,7 +29,7 @@ const Card = ({
         marginLeft: 'auto',
       },
       '& > div:first-child': {
-        marginLeft: '',
+        marginLeft: '0',
       },
     },
     ...(typeof co == 'function' ? co(theme) : co),

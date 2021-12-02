@@ -1,33 +1,33 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
-import React from 'react'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import React from 'react';
 
 type BreadcrumbsItem = Partial<{
-  link: boolean
-  title: string
-  onClick: () => any
-}>
+  link: boolean;
+  title: string;
+  onClick: () => any;
+}>;
 type BreadcrumbsProps = Partial<{
-  divider: React.ReactNode
-  items: BreadcrumbsItem[]
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-  className: string
-}>
+  divider: React.ReactNode;
+  items: BreadcrumbsItem[];
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  className: string;
+}>;
 
 const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsProps) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const sliderStyles = css({
     display: 'inline-flex',
     alignItems: 'center',
     '& > *': {
       display: 'inline-flex',
     },
-    ...(typeof co == 'function' ? co(theme):co),
-  })
+    ...(typeof co == 'function' ? co(theme) : co),
+  });
 
-  const computedClassNames = clsx('breadcrumbs', className)
+  const computedClassNames = clsx('breadcrumbs', className);
 
   return (
     <nav css={sliderStyles} className={computedClassNames}>
@@ -47,10 +47,10 @@ const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsPr
                 divider
               ))}
           </div>
-        )
+        );
       })}
     </nav>
-  )
-}
+  );
+};
 
-export default Breadcrumbs
+export default Breadcrumbs;

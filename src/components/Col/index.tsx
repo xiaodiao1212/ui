@@ -23,6 +23,7 @@ const Col = ({
   autoMargin,
   co,
   className,
+  ...props
 }: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
   const Container = styled.div({
     textAlign: textAlign ? textAlign : 'center',
@@ -31,7 +32,11 @@ const Col = ({
     ...(autoMargin ? { marginLeft: 'auto' } : { flex: noFlex ? '' : flex }),
     ...(typeof co == 'function' ? co(theme) : co),
   });
-  return <Container className={clsx(className)}>{children}</Container>;
+  return (
+    <Container className={clsx(className)} {...props}>
+      {children}
+    </Container>
+  );
 };
 
 export default Col;

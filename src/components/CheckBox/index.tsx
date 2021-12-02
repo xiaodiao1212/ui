@@ -27,14 +27,14 @@ const CheckBox = ({
   ...props
 }: CheckBoxProps & React.ComponentPropsWithoutRef<'label'>) => {
   const groupContext = useContext(CheckboxGroupContext);
-  let content: any = children;
+  const content: any = children;
   if (groupContext !== null && groupContext.value.length > 0 && value) {
     checked = groupContext.value.includes(value);
   }
   if (groupContext !== null && groupContext.disabled) {
     disabled = disabled || groupContext.disabled;
   }
-  let [ischecked, setIschecked] = useState(checked);
+  const [ischecked, setIschecked] = useState(checked);
   const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIschecked(e.target.checked);
     onChange?.(e);
