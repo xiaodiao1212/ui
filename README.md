@@ -14,10 +14,9 @@ The component design that a good react application should have
 
 Major features:
 
-- Extreme speed without needing a cache
 - ES6 and CommonJS modules
 - Tree shaking of ES6 modules
-- An [API](https://esbuild.github.io/api/) for JavaScript and Go
+- An [API](https://esbuild.github.io/api/) for JavaScript
 - [TypeScript](https://esbuild.github.io/content-types/#typescript) and [JSX](https://esbuild.github.io/content-types/#jsx) syntax
 - [Source maps](https://esbuild.github.io/api/#sourcemap)
 - [Minification](https://esbuild.github.io/api/#minify)
