@@ -59,7 +59,7 @@ const Alert = ({ icon, action, co, title, content, duration = 10, scroll, classN
                   transform: 'translateX(200%)',
                 },
                 '100%': {
-                  transform: 'translateX(-200%)',
+                  transform: 'translateX(-250%)',
                 },
               })} ${duration}s linear infinite`,
             })}>

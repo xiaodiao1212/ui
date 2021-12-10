@@ -1,17 +1,32 @@
 import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, CheckBox, Alert } from '../dist';
+import { App, Button, Card, Modal } from '../dist';
 
 const Main = () => {
-  const [value, setValue] = useState<string[]>([]);
-  const groupValue = (val: any) => {
-    setValue(val);
-  };
+  const [visible, setShow] = useState(false);
+
   return (
     <App>
-      <Alert scroll icon={'124'}>
-        yidhaldkakfhahfyidhaldkakfhahfyidhaldkakfhahfyidhaldkakfhahf
-      </Alert>
+      <Button onClick={() => setShow(!visible)}>toggle</Button>
+      {visible && (
+        <Modal
+          visible={visible}
+          handleModalVisibleChange={() => {
+            setShow(!visible);
+          }}>
+          <Card
+            title={'1'}
+            extra={'3'}
+            co={{
+              padding: '.5em',
+              boxShadow: '1px 1px 10px 1px #999',
+              borderRadius: '4px',
+              width: '4em',
+            }}>
+            2
+          </Card>
+        </Modal>
+      )}
     </App>
   );
 };

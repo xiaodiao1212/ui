@@ -97,7 +97,7 @@ function debounce(callback: () => any, delay: number) {
   }, delay);
 }
 function isPC() {
-  return !(isAndroid() && isWX() && isIos());
+  return !isAndroid() && !isWX() && !isIos();
 }
 function isBrowerDarkMode() {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;

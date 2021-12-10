@@ -34,7 +34,7 @@ const Image = ({
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
-  return <img src={src} alt={alt} css={styles} className={computedClassNames} />;
+  return <img src={src} alt={alt} css={styles} className={computedClassNames} {...props} />;
 };
 
 export default Image;

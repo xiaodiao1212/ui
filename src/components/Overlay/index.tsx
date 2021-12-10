@@ -7,7 +7,7 @@ import { fade } from '../../constants/style';
 
 type OverlayProps = Partial<{
   color: string;
-  show: boolean;
+  visible: boolean;
   blur: boolean;
   opacity: number;
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const Overlay = ({
   opacity = 0.4,
   blur = false,
   color,
-  show = false,
+  visible = false,
   children,
   onClick,
   co,
@@ -28,7 +28,7 @@ const Overlay = ({
 }: OverlayProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
-    display: show ? 'flex' : 'none',
+    display: visible ? 'flex' : 'none',
     position: 'fixed',
     top: 0,
     left: 0,
@@ -36,7 +36,7 @@ const Overlay = ({
     right: 0,
     background: fade(color || theme?.color?.greyLight || '#F3F4F6', opacity),
     backdropFilter: blur ? 'blur(4px)' : '',
-    transform: show ? 'scale(1)' : '',
+    transform: visible ? 'scale(1)' : '',
     '& > *': {
       margin: 'auto',
     },

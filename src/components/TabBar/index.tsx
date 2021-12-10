@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import Row from '../Row';
 import Col from '../Col';
+
 type TabBarItem = Partial<{
   icon: React.ReactNode;
   text: string;
@@ -13,6 +14,7 @@ type TabBarItem = Partial<{
   onClick?: (currItem: TabBarItem, items: TabBarItem[]) => any;
   render?: (item: TabBarItem) => React.ReactNode;
 }>;
+
 type TabBarProps = {
   items: TabBarItem[];
   vertical?: boolean;
