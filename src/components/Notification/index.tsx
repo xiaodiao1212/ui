@@ -5,15 +5,23 @@ import { Theme } from '../../constants/theme';
 import { useEffect } from 'react';
 
 type NotificationProps = {
-  show?: boolean;
+  visible: boolean;
   delay?: number;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  onClose: () => void;
-  className: string;
-  children: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  handleModalVisibleChange: () => void;
+  className?: string;
+  children?: React.ReactNode;
 };
 
-const Notification = ({ show = false, onClose, delay = 3, co, children, className, ...props }: NotificationProps) => {
+const Notification = ({
+  visible = false,
+  handleModalVisibleChange,
+  delay = 3,
+  co,
+  children,
+  className,
+  ...props
+}: NotificationProps) => {
   const theme = useTheme() as Theme;
   const anim = keyframes`
     from, 20%, 53%, 80%, to {
@@ -37,7 +45,10 @@ const Notification = ({ show = false, onClose, delay = 3, co, children, classNam
     position: 'fixed',
     zIndex: theme.zIndex.notification,
     top: 0,
-    transform: `translateY(${show ? '0%' : '-100%'})`,
+    left: 0,
+    right: 0,
+    background: 'white',
+    transform: `translateY(${visible ? '0%' : '-100%'})`,
     transition: '.3s all',
     animation: `${anim} .3s`,
     ...(typeof co == 'function' ? co(theme) : co),
@@ -45,11 +56,11 @@ const Notification = ({ show = false, onClose, delay = 3, co, children, classNam
   const computedClassNames = clsx(className);
 
   useEffect(() => {
-    if (show == true)
+    if (visible == true)
       setTimeout(() => {
-        onClose();
+        handleModalVisibleChange?.();
       }, delay * 1000);
-  }, [show]);
+  }, [visible]);
   return (
     <aside css={styles} className={computedClassNames} {...props}>
       {children}

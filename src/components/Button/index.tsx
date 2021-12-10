@@ -58,7 +58,7 @@ const Button = ({
       ? theme.color.grey
       : '#6b7280';
   const styles = css({
-    padding: icon ? '' : '0.6em 1.2em',
+    padding: icon ? '' : '0.4em 1em',
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
     borderRadius: tile ? '0px' : '4px',
@@ -68,9 +68,6 @@ const Button = ({
   });
 
   const handleClickButton = (e: any) => {
-    console.log(isIos());
-    console.log(isAndroid());
-    console.log(isPC());
     onClick?.(e);
   };
   return (

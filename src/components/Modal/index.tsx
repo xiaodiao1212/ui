@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import clsx from 'clsx';
-import { css, useTheme } from '@emotion/react';
+import { css, keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import * as React from 'react';
 import Overlay from '../Overlay';
@@ -21,12 +21,62 @@ const Modal = ({
   shy = true,
   opacity,
   handleModalVisibleChange,
+  animationType = 'slide',
   children,
   co,
   className,
 }: ModalProps) => {
   const theme = useTheme() as Theme;
+  const mountAnim = keyframes(
+    animationType == 'fade'
+      ? {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        }
+      : animationType == 'slide'
+      ? {
+          '0%': {
+            opacity: 0,
+            transform: 'translateY(10%)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateY(0%)',
+          },
+        }
+      : {},
+  );
+  const unmountAnim = keyframes(
+    animationType == 'fade'
+      ? {
+          '0%': {
+            opacity: 1,
+          },
+          '100%': {
+            opacity: 0,
+          },
+        }
+      : animationType == 'slide'
+      ? {
+          '100%': {
+            opacity: 0,
+            transform: 'translateY(10%)',
+          },
+          '0%': {
+            opacity: 1,
+            transform: 'translateY(0%)',
+          },
+        }
+      : {},
+  );
   const styles = css({
+    '& > *:first-child': {
+      animation: `${visible ? mountAnim : unmountAnim} .3s`,
+    },
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedModalClassNames = clsx(className);
