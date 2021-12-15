@@ -6,56 +6,69 @@ import clsx from 'clsx';
 import { css } from '@emotion/react';
 import { useTheme } from 'theming';
 
-export type CollapseProps = {
-  title?: string;
+type CollapseProps = {
+  title?: React.ReactNode | (() => React.ReactNode) | string;
   expand?: boolean;
-  onClickExpand?: () => void;
+  trigger?: React.ReactNode | (() => React.ReactNode);
+  onChange?: () => void;
+  className?: string;
+  children?: React.ReactNode;
 };
 
-const Collapse = ({
-  title,
-  expand = false,
-  children,
-  className,
-  ...props
-}: CollapseProps & React.ComponentPropsWithoutRef<'div'>) => {
+const Collapse = ({ title, expand = false, trigger, children, className, ...props }: CollapseProps) => {
   const theme = useTheme() as Theme;
-  const handleClickExpand = () => {
-    props?.onClickExpand?.();
+
+  const handleClickTrigger = () => {
+    props?.onChange?.();
   };
   const computedClassNames = clsx(className);
-
-  return (
-    <div
-      css={css({
-        padding: '1em 0',
-        '& > .flex': {
-          marginBottom: '.4em',
-          display: 'flex',
-          '& > .title': {
-            fontWeight: 700,
-            flex: 7,
-          },
-        },
-      })}
-      className={computedClassNames}>
-      <div className='flex'>
-        <div className='title'>{title}</div>
+  const renderTrigger = () => {
+    if (trigger)
+      return React.cloneElement(typeof trigger === 'function' ? trigger() : trigger, {
+        css: css({
+          marginLeft: 'auto',
+          transformOrigin: '50% 50%',
+          transform: `rotate(${expand ? '-45deg' : '135deg'})`,
+        }),
+      });
+    else
+      return (
         <div
           css={css({
             marginTop: expand ? '.5em' : '',
-            flex: 1,
             '& > div:first-child': {
               marginLeft: 'auto',
               width: '0.6em',
               height: '0.6em',
-              borderTop: `1px solid ${theme.color.black || '#111827'}`,
-              borderRight: `1px solid ${theme.color.black || '#111827'}`,
+              borderTop: `1px solid ${theme?.color?.black || '#111827'}`,
+              borderRight: `1px solid ${theme?.color?.black || '#111827'}`,
+
               transform: `rotate(${expand ? '-45deg' : '135deg'})`,
             },
           })}>
-          <div onClick={handleClickExpand} />
+          <div onClick={handleClickTrigger} />
         </div>
+      );
+  };
+
+  const renderTitle = () => {
+    return typeof title == 'function' ? (
+      title()
+    ) : typeof title == 'string' ? (
+      <div className='title'>{title}</div>
+    ) : (
+      title
+    );
+  };
+  return (
+    <div className={computedClassNames}>
+      <div
+        css={css({
+          display: 'flex',
+          '& > .title': {},
+        })}>
+        {renderTitle()}
+        {renderTrigger()}
       </div>
       {expand && children}
     </div>

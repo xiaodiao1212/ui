@@ -3,22 +3,27 @@
 import { Theme } from '../../constants/theme';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
-import * as ReactCSS from 'csstype';
+// import * as ReactCSS from 'csstype';
 
 type ImageProps = {
   circle?: boolean;
-  fit?: ReactCSS.Property.ObjectFit;
+  // fit?: ReactCSS.Property.ObjectFit;
+  lazy?: boolean;
+  cover?: boolean;
+  scale?: boolean;
+  contain?: boolean;
   width?: string;
   height?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 const Image = ({
   circle = false,
-  src,
-  alt,
-  fit,
+  lazy,
+  cover,
+  scale,
+  contain,
   width = '100%',
-  height = 'auto',
+  height,
   co,
   className,
   ...props
@@ -27,14 +32,16 @@ const Image = ({
   const styles = css({
     verticalAlign: 'middle',
     background: 'transparent',
-    borderRadius: ((circle as boolean) && '50%') || undefined,
-    objectFit: fit || undefined,
-    width: width || undefined,
+    borderRadius: ((circle as boolean) && '50%') || '',
+    objectFit: (cover && 'cover') || (scale && 'scale-down') || (contain && 'contain') || 'initial',
+    width: width,
+    imageRendering: 'initial',
+    imageOrientation: 'initial',
     height: height || '100%',
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
-  return <img src={src} alt={alt} css={styles} className={computedClassNames} {...props} />;
+  return <img css={styles} loading={(lazy && 'lazy') || 'eager'} className={computedClassNames} {...props} />;
 };
 
 export default Image;
