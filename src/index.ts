@@ -37,10 +37,14 @@ import Loading from './components/Loading';
 import List from './components/List';
 import Drawer from './components/Drawer';
 import Input from './components/Input';
+import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
 export {
+  Picker,
   List,
+  Drawer,
+  Input,
   Collapse,
   Segment,
   Loading,
