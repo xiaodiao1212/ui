@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { App, Button, Collapse, Container, Notification } from '../dist';
+import { App, StickyFooter, Collapse, Container, TabBar } from '../dist';
 
 const Main = () => {
   const [expand, setExpand] = useState(false);
@@ -10,11 +10,14 @@ const Main = () => {
   };
   return (
     <App>
-      <Container>
+      <Container fullScreen noPadding>
         <Collapse expand={expand} title={'333'} onChange={handleChangeExpand}>
           rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr
           rrrrrrrrrrrrrrrrrrrrr
         </Collapse>
+        <StickyFooter>
+          <TabBar items={[{ text: '1' }, { text: '2' }, { text: '3' }]} />
+        </StickyFooter>
       </Container>
     </App>
   );

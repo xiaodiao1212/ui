@@ -26,20 +26,24 @@ const TabBar = ({ items = [], vertical = false, co, className, ...props }: TabBa
   const [tabs, setTabs] = useState(items);
   const theme = useTheme() as Theme;
   const styles = css({
+    display: 'flex',
+
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   const defaultRenderer = (item: TabBarItem, index: number) => {
-    <Row
-      vertical
-      onClick={() => {
-        const currTabs = tabs.map((v, i) => ({ ...v, current: i == index }));
-        item.onClick?.(item, currTabs);
-        setTabs(currTabs);
-      }}>
-      {item.icon && <Col>{item.icon}</Col>}
-      <Col>{item.text}</Col>
-    </Row>;
+    return (
+      <Row
+        vertical
+        onClick={() => {
+          const currTabs = tabs.map((v, i) => ({ ...v, current: i == index }));
+          item.onClick?.(item, currTabs);
+          setTabs([...currTabs]);
+        }}>
+        {item.icon && <Col>{item.icon}</Col>}
+        <Col>{item.text}</Col>
+      </Row>
+    );
   };
 
   useEffect(() => {

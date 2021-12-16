@@ -40,8 +40,10 @@ import Input from './components/Input';
 import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
+import StickyFooter from './components/StickyFooter';
 export {
   Picker,
+  StickyFooter,
   List,
   Drawer,
   Input,

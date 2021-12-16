@@ -153,7 +153,7 @@ const Drawer = ({
       })}
       {...props}>
       <Overlay
-        show={open}
+        visible={open}
         onClick={handleClickOverlay}
         co={() => ({
           display: showOverlay ? 'flex' : 'none',

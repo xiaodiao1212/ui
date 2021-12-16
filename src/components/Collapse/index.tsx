@@ -35,19 +35,17 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
       return (
         <div
           css={css({
-            marginTop: expand ? '.5em' : '',
-            '& > div:first-child': {
-              marginLeft: 'auto',
-              width: '0.6em',
-              height: '0.6em',
-              borderTop: `1px solid ${theme?.color?.black || '#111827'}`,
-              borderRight: `1px solid ${theme?.color?.black || '#111827'}`,
-
-              transform: `rotate(${expand ? '-45deg' : '135deg'})`,
-            },
-          })}>
-          <div onClick={handleClickTrigger} />
-        </div>
+            marginRight: '.5em',
+            marginLeft: 'auto',
+            transition: 'transform .1s',
+            transform: `rotate(${expand ? '-45deg' : '135deg'}) translateY(${expand ? '' : '-'}50%)`,
+            width: '0.5em',
+            height: '0.5em',
+            borderTop: `1px solid ${theme?.color?.black || '#111827'}`,
+            borderRight: `1px solid ${theme?.color?.black || '#111827'}`,
+          })}
+          onClick={handleClickTrigger}
+        />
       );
   };
 
@@ -61,11 +59,13 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
     );
   };
   return (
-    <div className={computedClassNames}>
+    <div className={className && computedClassNames}>
       <div
         css={css({
           display: 'flex',
-          '& > .title': {},
+          '& > .title': {
+            flex: '1',
+          },
         })}>
         {renderTitle()}
         {renderTrigger()}

@@ -1,8 +1,10 @@
+/** @jsxImportSource @emotion/react */
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import classnames from 'classnames';
-import { createUseStyles } from 'react-jss';
-import { Theme } from '../../constants/theme';
+import { fade } from '../../constants/style';
 
 type PickerItem = {
   key: string;
@@ -16,72 +18,6 @@ type PickerProps = {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const useStyles = createUseStyles<'picker', Pick<PickerProps, 'co'> & { translateYlength: number[] }, Theme>(theme => ({
-  picker: ({ translateYlength, co }) => {
-    const pickerStyle: any = {
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '10em',
-      cursor: 'grab',
-      ...(typeof co == 'function' ? co(theme) : co),
-      '& > .container': {
-        display: 'flex',
-        justifyContent: 'center',
-        flex: 1,
-        overflow: 'hidden',
-      },
-      '& > .indicator': {
-        height: '2em',
-        position: 'absolute',
-        top: '50%',
-        right: '1em',
-        left: '1em',
-        zIndex: 1,
-        borderTop: '1px solid rgba(51, 51, 51,.1)',
-        borderBottom: '1px solid rgba(51, 51, 51,.1)',
-        ebkitTransform: 'translateY(-50%)',
-        transform: 'translateY(-50%)',
-        pointerEvents: 'none',
-      },
-
-      '& > .mask': {
-        backgroundSize: '100% 100px',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 1,
-        width: '100%',
-        height: '100%',
-        backgroundImage:
-          'linear-gradient(180deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4)), linear-gradient(0deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4))',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'top, bottom',
-        webkitTransform: 'translateZ(0)',
-        transform: ' translateZ(0)',
-        pointerEvents: 'none',
-      },
-      '& .item': {
-        color: 'black',
-        height: '2em',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0 4px',
-      },
-    };
-    translateYlength.map((v, i) => {
-      pickerStyle['& > .container']['& > .content' + i] = {
-        width: '5em',
-        transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.68, 1)',
-        transitionDuration: '0ms',
-        transitionProperty: 'none',
-        transform: `translate3d(0px, ${v}em, 0px)`,
-      };
-    });
-    return pickerStyle;
-  },
-}));
 const Picker = ({
   data = [],
   onPickerChange,
@@ -91,6 +27,59 @@ const Picker = ({
   co,
   ...props
 }: PickerProps & React.ComponentPropsWithoutRef<'div'>) => {
+  const theme = useTheme() as Theme;
+  const [pickerStyle, setPickerStyle] = useState<any>({
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '10em',
+    cursor: 'grab',
+    ...(typeof co == 'function' ? co(theme) : co),
+    '& > .container': {
+      display: 'flex',
+      justifyContent: 'center',
+      flex: 1,
+      overflow: 'hidden',
+    },
+    '& > .indicator': {
+      height: '2em',
+      position: 'absolute',
+      top: '50%',
+      right: '1em',
+      left: '1em',
+      zIndex: 1,
+      borderTop: '1px solid rgba(51, 51, 51,.1)',
+      borderBottom: '1px solid rgba(51, 51, 51,.1)',
+      ebkitTransform: 'translateY(-50%)',
+      transform: 'translateY(-50%)',
+      pointerEvents: 'none',
+    },
+
+    '& > .mask': {
+      backgroundSize: '100% 100px',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      zIndex: 1,
+      width: '100%',
+      height: '100%',
+      backgroundImage:
+        'linear-gradient(180deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4)), linear-gradient(0deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4))',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'top, bottom',
+      webkitTransform: 'translateZ(0)',
+      transform: ' translateZ(0)',
+      pointerEvents: 'none',
+    },
+    '& .item': {
+      color: 'black',
+      height: '2em',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0 4px',
+    },
+  });
   const [currentKey, setCurrentKey] = useState(value || data.map(v => v[0].key));
   const [max, setMax] = useState(data.map(v => v.length - 1));
   const [min, setMin] = useState(data.map(v => v.length - 1 - v.length * 2));
@@ -99,8 +88,7 @@ const Picker = ({
   const [translateYlength, setTranslateYlength] = useState<number[]>(data.map(v => 4));
   const [offsetY, setOffsetY] = useState<number[]>(data.map(v => 0));
   const [startPageY, setStartPageY] = useState<number[]>(data.map(v => 0));
-  const classes = useStyles({ translateYlength, co });
-  const computedClassNames = classnames(classes.picker, className);
+  const computedClassNames = clsx(className);
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>, index: number) => {
     setStartPageY(v =>
       v.map((v, i) => {
@@ -207,9 +195,21 @@ const Picker = ({
       );
     });
   }, []);
-
+  useEffect(() => {
+    const ps = pickerStyle;
+    translateYlength.map((v, i) => {
+      ps['& > .container']['& > .content' + i] = {
+        width: '5em',
+        transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.68, 1)',
+        transitionDuration: '0ms',
+        transitionProperty: 'none',
+        transform: `translate3d(0px, ${v}em, 0px)`,
+      };
+    });
+    setPickerStyle({ ...ps });
+  }, [translateYlength]);
   return (
-    <div className={computedClassNames} {...props}>
+    <div css={css(pickerStyle)} className={computedClassNames} {...props}>
       <div className='container'>
         {computedData.map((columnData, i) => (
           <div
