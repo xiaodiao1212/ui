@@ -11,3 +11,7 @@ export function useCustomTheme(customTheme: Partial<t>) {
 export function useCollapse(root: React.ReactNode) {
   const [expand, setExpand] = useState();
 }
+
+export function useModal(root: React.ReactNode) {
+  const [modal, setModal] = useState();
+}

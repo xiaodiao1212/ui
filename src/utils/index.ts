@@ -8,6 +8,10 @@ const copy = (text: string) => {
   }
   document.body.removeChild(transfer);
 };
+
+function isBrowerTabInView() {
+  return !document.hidden;
+}
 const clamp = (target: number, min: number, max: number) => {
   if (target < min) {
     return min;
@@ -86,16 +90,7 @@ function utf8ToB64(str: string) {
 function b64ToUtf8(str: string) {
   return decodeURIComponent(escape(window.atob(str)));
 }
-function debounce(callback: () => any, delay: number) {
-  let timer;
-  if (timer) {
-    clearTimeout(timer);
-  }
-  timer = setTimeout(() => {
-    callback();
-    timer = null;
-  }, delay);
-}
+
 function isPC() {
   return !isAndroid() && !isWX() && !isIos();
 }
@@ -119,6 +114,15 @@ function deepMerge(target: any, source: any) {
   return target;
 }
 
+function debounce(fn: Function, delay: number = 500): Function {
+  let timer: any;
+  return function (this: any, ...args: any) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
 export {
   isBrowerDarkMode,
   isObject,
@@ -134,6 +138,7 @@ export {
   isWX,
   isAndroid,
   isIos,
+  isBrowerTabInView,
   copy,
   clamp,
   getUUID,
