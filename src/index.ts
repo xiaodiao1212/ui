@@ -12,6 +12,7 @@ import Radio from './components/Radio';
 import TimePicker from './components/TimePicker';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
+import Icon from './components/Icon';
 import ToolBar from './components/ToolBar';
 import Popover from './components/Popover';
 import Button from './components/Button';
@@ -45,6 +46,7 @@ export {
   Picker,
   StickyFooter,
   List,
+  Icon,
   Drawer,
   Input,
   Collapse,
