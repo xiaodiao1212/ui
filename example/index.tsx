@@ -11,7 +11,7 @@ const Main = () => {
   return (
     <App>
       <Container fullScreen noPadding>
-        <Collapse expand={expand} title={'333'} onChange={handleChangeExpand}>
+        <Collapse expand={expand} title={'3313'} onChange={handleChangeExpand}>
           rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr
           rrrrrrrrrrrrrrrrrrrrr
         </Collapse>
