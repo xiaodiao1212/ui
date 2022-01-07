@@ -6,6 +6,7 @@ type AppProps = {
   children?: React.ReactNode;
   customTheme?: Theme;
 };
+
 const App = ({ children, customTheme }: AppProps) => {
   return (
     <ThemeProvider theme={customTheme || theme}>

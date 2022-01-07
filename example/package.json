@@ -9,12 +9,12 @@
   },
   "alias": {
     "react": "../node_modules/react",
-    "react-dom": "../node_modules/react-dom/profiling"
+    "@types/react": "../node_modules/@types/react",
+    "@types/react-dom": "../node_modules/@types/react-dom",
+    "react-dom": "../node_modules/react-dom/profiling",
+    "typescript": "../node_modules/typescript"
   },
   "devDependencies": {
-    "@types/react": ">=17.0.2",
-    "@types/react-dom": ">=17.0.2",
-    "parcel-bundler": "^1.12.5",
-    "typescript": "^4.3.5"
+    "parcel": "^2.0.1"
   }
 }

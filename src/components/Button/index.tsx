@@ -1,22 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
 
-import * as React from 'react'
-import { getLuminance } from '../../constants/style'
+import * as React from 'react';
+import { getLuminance } from '../../constants/style';
+import { isAndroid, isIos, isPC } from '../../utils';
 
 type ButtonProps = {
-  padding?: string
-  block?: boolean
-  disabled?: boolean
-  text?: boolean
-  outlined?: boolean
-  icon?: boolean
-  tile?: boolean
-  color?: string
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
+  padding?: string;
+  block?: boolean;
+  disabled?: boolean;
+  text?: boolean;
+  outlined?: boolean;
+  icon?: boolean;
+  tile?: boolean;
+  color?: string;
+  accessibilityLabel?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
 const Button = ({
   block = false,
@@ -26,13 +28,15 @@ const Button = ({
   co,
   icon = false,
   tile = false,
+  accessibilityLabel,
   color,
   padding,
   className,
   children,
+  onClick,
   ...props
 }: ButtonProps & React.ComponentProps<'button'>) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const bgColor =
     disabled == false
       ? text || outlined || icon
@@ -42,7 +46,7 @@ const Button = ({
         : '#231F9C'
       : theme
       ? theme.color.greyLight
-      : '#F3F4F5'
+      : '#F3F4F5';
   const textColor =
     disabled == false
       ? text || outlined || icon
@@ -52,22 +56,31 @@ const Button = ({
         : '#000'
       : theme
       ? theme.color.grey
-      : '#6b7280'
+      : '#6b7280';
   const styles = css({
-    padding: icon ? '' : '0.6em 1.2em',
+    padding: icon ? '' : '0.4em 1em',
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
     borderRadius: tile ? '0px' : '4px',
     color: textColor,
     background: bgColor,
-    ...(typeof co == 'function' && co(theme)),
-  })
+    ...(typeof co == 'function' ? co(theme) : co),
+  });
 
+  const handleClickButton = (e: any) => {
+    onClick?.(e);
+  };
   return (
-    <button css={styles} className={clsx(className)} disabled={disabled} {...props}>
+    <button
+      onClick={handleClickButton}
+      aria-label={accessibilityLabel}
+      css={styles}
+      className={clsx(className)}
+      disabled={disabled}
+      {...props}>
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

@@ -22,7 +22,7 @@ const NumberInput = ({ onChange, children, co, className, ...props }: NumberInpu
   };
   const theme = useTheme() as Theme;
   const styles = css({
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   return (

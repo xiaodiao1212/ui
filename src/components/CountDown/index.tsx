@@ -27,8 +27,8 @@ const CountDown = ({
   ...props
 }: CountDownProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
-  let end: number = h * 3600 + m * 60 + s;
-  let timeEnd: number = time;
+  const end: number = h * 3600 + m * 60 + s;
+  const timeEnd: number = time;
   const [loading, setLoading] = useState(false);
   const [start, setStart] = useState(false);
   const [num, setNum] = useState(end);
@@ -43,11 +43,11 @@ const CountDown = ({
     if (num !== 0) {
       timer = setInterval(() => {
         setNum(n => {
-          let hours =
+          const hours =
             Math.floor((n / 60 / 60) % 24) < 10 ? `0${Math.floor((n / 60 / 60) % 24)}` : Math.floor((n / 60 / 60) % 24);
-          let minutes = Math.floor(n / 60);
+          const minutes = Math.floor(n / 60);
           // let minutes = Math.floor((n / 60) % 60) < 10 ? `0${Math.floor((n / 60) % 60)}` : Math.floor((n / 60) % 60)
-          let seconds = Math.floor(n % 60) < 10 ? `0${Math.floor(n % 60)}` : Math.floor(n % 60);
+          const seconds = Math.floor(n % 60) < 10 ? `0${Math.floor(n % 60)}` : Math.floor(n % 60);
           setHours(() => hours);
           setMinutes(() => minutes);
           setSeconds(() => seconds); //函数写法保证值在setInterval里更新，避免useEffect的bug
@@ -65,10 +65,10 @@ const CountDown = ({
     if (timeNum !== 0) {
       timer = setInterval(() => {
         setTimeNum(n => {
-          let hours =
+          const hours =
             Math.floor((n / 60 / 60) % 24) < 10 ? `0${Math.floor((n / 60 / 60) % 24)}` : Math.floor((n / 60 / 60) % 24);
-          let minutes = Math.floor((n / 60) % 60) < 10 ? `0${Math.floor((n / 60) % 60)}` : Math.floor((n / 60) % 60);
-          let seconds = Math.floor(n % 60) < 10 ? `0${Math.floor(n % 60)}` : Math.floor(n % 60);
+          const minutes = Math.floor((n / 60) % 60) < 10 ? `0${Math.floor((n / 60) % 60)}` : Math.floor((n / 60) % 60);
+          const seconds = Math.floor(n % 60) < 10 ? `0${Math.floor(n % 60)}` : Math.floor(n % 60);
           setHours(() => hours);
           setMinutes(() => minutes);
           setSeconds(() => seconds); //函数写法保证值在setInterval里更新，避免useEffect的bug
@@ -96,7 +96,7 @@ const CountDown = ({
   });
   const styles = css({
     display: 'flex',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
     '.text': {
       marginLeft: '5px',
       marginTop: '-1px',

@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
 
-import { useTheme } from '@emotion/react'
-import React from 'react'
-import styled from '@emotion/styled'
-import Timeline from './index'
+import { useTheme } from '@emotion/react';
+import React from 'react';
+import styled from '@emotion/styled';
+import Timeline from './index';
 
 interface TimelineItemProps {
-  children: React.ReactNode
-  icon?: React.ReactNode
-  line?: Boolean
-  interval?: string
-  subtitle?: string
-  title?: string
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  line?: boolean;
+  interval?: string;
+  subtitle?: string;
+  title?: string;
 }
 
 const TimelineItem = ({ icon, children }: TimelineItemProps) => {
@@ -46,7 +46,7 @@ const TimelineItem = ({ icon, children }: TimelineItemProps) => {
       height: '3.5em',
       zIndex: -10,
     },
-  }))
+  }));
   const Body = styled.div(props => ({
     padding: '0.8em 0 1em 2em',
     marginBottom: '1.2em',
@@ -54,10 +54,10 @@ const TimelineItem = ({ icon, children }: TimelineItemProps) => {
     top: '-0.2em',
     left: '-1em',
     width: '95%',
-  }))
+  }));
   const Description = styled.div(props => ({
     fontSize: '.8em',
-  }))
+  }));
   const Line = styled.div(props => ({
     backgroundColor: 'gray',
     bottom: 0,
@@ -69,7 +69,7 @@ const TimelineItem = ({ icon, children }: TimelineItemProps) => {
     width: '2px',
     height: '80%',
     zIndex: -10,
-  }))
+  }));
   return (
     <Timeline>
       <Label>
@@ -83,6 +83,6 @@ const TimelineItem = ({ icon, children }: TimelineItemProps) => {
       </li>
       {/* <Line /> */}
     </Timeline>
-  )
-}
-export default TimelineItem
+  );
+};
+export default TimelineItem;

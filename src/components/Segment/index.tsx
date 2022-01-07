@@ -49,7 +49,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
       background: theme ? theme.color.white : '#fff',
       transition: '.3s all',
     },
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   const handleChildrenRender = () => {
@@ -103,7 +103,7 @@ const SegmentItem = ({
     color: itemkey == currentKey ? (theme ? theme.color.primary : '#231F9C') : theme ? theme.color.grey : '#6b7280',
     transition: '.3s all',
     fontWeight: itemkey == currentKey ? 700 : 500,
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   const handleClickSegmentItem = () => {

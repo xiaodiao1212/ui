@@ -1,19 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
-import * as React from 'react'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
 
 type BadgeProps = Partial<{
-  size: string | number
-  show: boolean
-  color: string
-  offsetX: string | number
-  offsetY: string | number
-  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
-  content: React.ReactNode
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}>
+  size: string | number;
+  show: boolean;
+  color: string;
+  offsetX: string | number;
+  offsetY: string | number;
+  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  content: React.ReactNode;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
 const Badge = ({
   size = '20',
@@ -28,7 +28,7 @@ const Badge = ({
   className,
   ...props
 }: BadgeProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const getInset = () => {
     switch (position) {
       case 'top-left':
@@ -36,33 +36,33 @@ const Badge = ({
           left: offsetX || 0,
           top: offsetY || 0,
           transform: 'translate3d(-50%,-50%,0)',
-        }
+        };
       case 'top-right':
         return {
           right: offsetX || 0,
           top: offsetY || 0,
           transform: 'translate3d(50%,-50%,0)',
-        }
+        };
       case 'bottom-left':
         return {
           left: offsetX || 0,
           bottom: offsetY || 0,
           transform: 'translate3d(-50%,50%,0)',
-        }
+        };
       case 'bottom-right':
         return {
           right: offsetX || 0,
           bottom: offsetY || 0,
           transform: 'translate3d(50%,50%,0)',
-        }
+        };
       default:
         return {
           right: offsetX || 0,
           top: offsetY || 0,
           transform: 'translate3d(50%,-50%,0)',
-        }
+        };
     }
-  }
+  };
   const badgeStyles = css({
     position: 'relative',
     '> *:first-child': {
@@ -80,15 +80,15 @@ const Badge = ({
       ...getInset(),
       boxShadow: '0 0 0 1px #fff',
       transition: 'all .3s',
-      ...(typeof co == 'function' && co(theme)),
+      ...(typeof co == 'function' ? co(theme) : co),
     },
-  })
+  });
   return (
     <div css={badgeStyles} aria-label='badge' className={clsx(className)} {...props}>
       {['string', 'number'].includes(typeof content) || !content ? <span>{content}</span> : content}
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default Badge
+export default Badge;

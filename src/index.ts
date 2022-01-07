@@ -7,9 +7,12 @@ import Divider from './components/Divider';
 import Upload from './components/Upload';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
+import CheckBox from './components/CheckBox';
+import Radio from './components/Radio';
 import TimePicker from './components/TimePicker';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
+import Icon from './components/Icon';
 import ToolBar from './components/ToolBar';
 import Popover from './components/Popover';
 import Button from './components/Button';
@@ -35,10 +38,19 @@ import Loading from './components/Loading';
 import List from './components/List';
 import Drawer from './components/Drawer';
 import Input from './components/Input';
+import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
+import StickyFooter from './components/StickyFooter';
+import { useCustomTheme } from './hooks';
 export {
+  useCustomTheme,
+  Picker,
+  StickyFooter,
   List,
+  Icon,
+  Drawer,
+  Input,
   Collapse,
   Segment,
   Loading,
@@ -52,6 +64,8 @@ export {
   CountDown,
   NumberInput,
   Container,
+  Radio,
+  CheckBox,
   Card,
   Swiper,
   Skeleton,

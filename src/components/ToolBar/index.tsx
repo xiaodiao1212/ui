@@ -1,37 +1,29 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
-import * as React from 'react'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
 
 type ToolBarProps = {
-  shy?: boolean
-  fixed?: boolean
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-} & React.ComponentPropsWithoutRef<'div'>
+  title?: React.ReactNode;
+  left?: React.ReactNode;
+  right?: React.ReactNode;
+  className?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  children?: React.ReactNode;
+};
 
-const ToolBar = ({ fixed = false, co, className, children, ...props }: ToolBarProps) => {
-  const theme = useTheme() as Theme
+const ToolBar = ({ title, left, right, co, className, children, ...props }: ToolBarProps) => {
+  const theme = useTheme() as Theme;
   const styles = css({
-    height: theme?.appBar?.height || '3em',
-    backgroundColor: theme ? (theme.mode == 'light' ? theme.color.white : theme.color.black) : '#fff',
-    ...(fixed
-      ? {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: theme?.zIndex?.appBar || 700,
-        }
-      : {}),
-    ...(typeof co == 'function' && co(theme)),
-  })
+    ...(typeof co == 'function' ? co(theme) : co),
+  });
 
   return (
-    <header css={styles} className={clsx(className)} {...props}>
+    <div css={styles} className={clsx(className)} {...props}>
       {children}
-    </header>
-  )
-}
+    </div>
+  );
+};
 
-export default ToolBar
+export default ToolBar;

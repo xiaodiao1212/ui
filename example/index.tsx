@@ -1,17 +1,22 @@
-import * as React from 'react';
+import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, Swiper } from '../dist';
+import { App, StickyFooter, Collapse, Container, TabBar } from './build';
 
 const Main = () => {
-  const [a, b] = React.useState('');
+  const [expand, setExpand] = useState(false);
+  const handleChangeExpand = () => {
+    setExpand(v => !v);
+  };
   return (
     <App>
-      <Swiper
-        onClick={i => {
-          console.log(i);
-        }}
-        items={[0, 1, 2, 3, 4, 5].map(v => ({ index: v, content: <div style={{ background: `${v}00` }}>{v}</div> }))}
-      />
+      <Container fullScreen noPadding>
+        <Collapse expand={expand} title={'3313'} onChange={handleChangeExpand}>
+          rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr
+        </Collapse>
+        <StickyFooter>
+          <TabBar items={[{ text: '1' }, { text: '2' }, { text: '3' }]} />
+        </StickyFooter>
+      </Container>
     </App>
   );
 };

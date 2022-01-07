@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
-import * as React from 'react'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
 type DividerProps = {
-  width?: number
-  vertical?: boolean
-  color?: string
-  doubleLine?: boolean
-  dashed?: boolean
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
+  width?: number;
+  vertical?: boolean;
+  color?: string;
+  doubleLine?: boolean;
+  dashed?: boolean;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
 const Divider = ({
   width = 1,
@@ -23,7 +23,7 @@ const Divider = ({
   children,
   ...props
 }: DividerProps & React.ComponentPropsWithoutRef<'hr'>) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const styles = css({
     border: 'none',
     ...(vertical
@@ -38,9 +38,9 @@ const Divider = ({
             color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#F3F4F6'
           }`,
         }),
-    ...(typeof co == 'function' && co(theme)),
-  })
-  return <hr css={styles} aria-label='hr divider' className={clsx(className)} {...props} />
-}
+    ...(typeof co == 'function' ? co(theme) : co),
+  });
+  return <hr css={styles} aria-label='hr divider' className={clsx(className)} {...props} />;
+};
 
-export default Divider
+export default Divider;

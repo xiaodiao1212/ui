@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme } from '../../constants/theme'
-import React from 'react'
-import styled from '@emotion/styled'
+import { theme, Theme } from '../../constants/theme';
+import React from 'react';
+import styled from '@emotion/styled';
 
 interface TimelineProps {
-  children: React.ReactNode
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+  children: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }
 
 const Timeline = ({ children, co }: TimelineProps) => {
@@ -25,13 +25,13 @@ const Timeline = ({ children, co }: TimelineProps) => {
       maxWidth: '95%',
       listStyle: 'none',
     },
-    ...(typeof co == 'function' && co(theme)),
-  }))
+    ...(typeof co == 'function' ? co(theme) : co),
+  }));
   return (
     <Container>
       <ul className='timeline'>{children}</ul>
     </Container>
-  )
-}
+  );
+};
 
-export default Timeline
+export default Timeline;

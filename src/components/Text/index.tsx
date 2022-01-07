@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
-import * as React from 'react'
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
+import * as React from 'react';
 type TextProps = Partial<{
-  thin: boolean
-  blod: boolean
-  color: string
-  size: string
-  maxLength: number
-  dark: boolean
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}>
+  thin: boolean;
+  blod: boolean;
+  color: string;
+  size: string;
+  maxLength: number;
+  dark: boolean;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
 const Text = ({
   thin = false,
@@ -25,7 +25,7 @@ const Text = ({
   className,
   ...props
 }: TextProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const computedColor =
     color ||
     ((dark
@@ -36,7 +36,7 @@ const Text = ({
       ? theme.mode == 'light'
         ? theme.color.black
         : theme.color.white
-      : '#111827') as string)
+      : '#111827') as string);
   const styles = css({
     fontSize: size as string,
     fontWeight: blod ? 700 : thin ? 200 : 500,
@@ -47,13 +47,13 @@ const Text = ({
     whiteSpace: maxLength ? 'nowrap' : undefined,
     overflow: maxLength ? 'hidden' : undefined,
     color: computedColor,
-    ...(typeof co == 'function' && co(theme)),
-  })
+    ...(typeof co == 'function' ? co(theme) : co),
+  });
   return (
     <div css={styles} className={clsx(className)} {...props}>
       {maxLength ? (children as string).substring(0, maxLength) + '...' : children}
     </div>
-  )
-}
+  );
+};
 
-export default Text
+export default Text;

@@ -1,5 +1,5 @@
 const copy = (text: string) => {
-  let transfer = document.createElement('input');
+  const transfer = document.createElement('input');
   document.body.appendChild(transfer);
   transfer.value = text;
   transfer.select();
@@ -8,6 +8,10 @@ const copy = (text: string) => {
   }
   document.body.removeChild(transfer);
 };
+
+function isBrowerTabInView() {
+  return !document.hidden;
+}
 const clamp = (target: number, min: number, max: number) => {
   if (target < min) {
     return min;
@@ -52,7 +56,7 @@ const transformFetchParamsInGet = (params: { [key: string]: any }) => {
   }
   return result;
 };
-const getUrlParam = (name: string) => {
+const useUrlParams = (name: string) => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
   const r = window.location.search.substr(1).match(reg);
   if (r != null) return unescape(r[2]);
@@ -73,7 +77,7 @@ const humpToUnderline = (str: string) => {
 const underlineToHump = (str: string) => {
   const a = str.split('_');
   let result = a[0];
-  for (var i = 1; i < a.length; i++) {
+  for (let i = 1; i < a.length; i++) {
     result = result + a[i].slice(0, 1).toUpperCase() + a[i].slice(1);
   }
   return result;
@@ -86,18 +90,9 @@ function utf8ToB64(str: string) {
 function b64ToUtf8(str: string) {
   return decodeURIComponent(escape(window.atob(str)));
 }
-function debounce(callback: () => any, delay: number) {
-  let timer;
-  if (timer) {
-    clearTimeout(timer);
-  }
-  timer = setTimeout(() => {
-    callback();
-    timer = null;
-  }, delay);
-}
+
 function isPC() {
-  return !(isAndroid() && isWX() && isIos());
+  return !isAndroid() && !isWX() && !isIos();
 }
 function isBrowerDarkMode() {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -119,6 +114,15 @@ function deepMerge(target: any, source: any) {
   return target;
 }
 
+function debounce(fn: Function, delay: number = 500): Function {
+  let timer: any;
+  return function (this: any, ...args: any) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
 export {
   isBrowerDarkMode,
   isObject,
@@ -127,13 +131,14 @@ export {
   b64ToUtf8,
   underlineToHump,
   humpToUnderline,
-  getUrlParam,
+  useUrlParams,
   transformFetchParamsInGet,
   callPhoneNumber,
   isPC,
   isWX,
   isAndroid,
   isIos,
+  isBrowerTabInView,
   copy,
   clamp,
   getUUID,

@@ -24,7 +24,12 @@ const ScrollView = ({
   const styles = css({
     height: '100%',
     overflow: 'auto',
-    ...(typeof co == 'function' && co(theme)),
+    scrollBehavior: 'smooth',
+    overscrollBehavior: 'contain',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
   const [scrollTop, setScrollTop] = useState(0);

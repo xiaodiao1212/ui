@@ -2,48 +2,49 @@
 import { useContext, useState } from 'react';
 import { Theme } from '../../constants/theme';
 import { useTheme, css } from '@emotion/react';
-import CheckBoxGroup from './CheckBoxGroup';
-import { CheckboxGroupContext } from './CheckBoxGroup';
+import RadioGroup from './RadioGroup';
+import { RadioGroupContext } from './RadioGroup';
 
-type CheckboxValue = string | number;
+type RadioValue = string | number;
 
-type CheckBoxProps = {
+type RadioProps = {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   disabled?: boolean;
   checked?: boolean;
   children?: React.ReactNode;
-  value?: CheckboxValue;
+  value?: RadioValue;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
 };
 
-const CheckBox = ({
+const Radio = ({
   disabled = false,
   checked = false,
-  // defaultChecked = false,
+  defaultChecked = false,
   onChange,
   children,
   value,
   co,
   ...props
-}: CheckBoxProps & React.ComponentPropsWithoutRef<'label'>) => {
-  const groupContext = useContext(CheckboxGroupContext);
+}: RadioProps & React.ComponentPropsWithoutRef<'label'>) => {
   const content: any = children;
-  if (groupContext !== null && groupContext.value.length > 0 && value) {
+  const [ischecked, setIschecked] = useState(checked);
+  const groupContext = useContext(RadioGroupContext);
+  if (groupContext !== null && groupContext.value && value) {
     checked = groupContext.value.includes(value);
   }
   if (groupContext !== null && groupContext.disabled) {
     disabled = disabled || groupContext.disabled;
   }
-  const [ischecked, setIschecked] = useState(checked);
   const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIschecked(e.target.checked);
-    onChange?.(e);
     if (groupContext !== null && value !== undefined) {
-      if (e.target.checked) {
+      if (e.target.value) {
         groupContext.check(value);
       } else {
         groupContext.uncheck(value);
       }
+    } else {
+      setIschecked(e.target.checked);
+      onChange?.(e);
     }
   };
   const theme = useTheme() as Theme;
@@ -51,6 +52,8 @@ const CheckBox = ({
     width: '18px',
     height: '18px',
     marginRight: '8px',
+    position: 'relative',
+    top: '4px',
     cursor: disabled ? 'not-allowed' : 'pointer',
   });
   const labelStyle = css({
@@ -58,28 +61,25 @@ const CheckBox = ({
     padding: 9,
     cursor: disabled ? 'not-allowed' : 'pointer',
     color: disabled ? '#00000040' : '#000000',
-    display: 'inline-flex',
-    alignItems: 'center',
   });
-
   return (
     <label css={labelStyle} {...props}>
       <input
         css={inputStyle}
-        type='checkbox'
+        type='radio'
+        name={groupContext !== null ? 'radio' : undefined}
         value={value ? value : content}
         onChange={handleClick}
         onClick={e => {
           e.stopPropagation();
           e.nativeEvent.stopImmediatePropagation();
         }}
-        checked={ischecked}
+        checked={groupContext !== null ? checked : ischecked}
         disabled={disabled}
       />
       {children}
     </label>
   );
 };
-
-CheckBox.Group = CheckBoxGroup;
-export default CheckBox;
+Radio.Group = RadioGroup;
+export default Radio;

@@ -1,50 +1,48 @@
-import { darken, lighten, fade, emphasize } from '../style'
+import { darken, lighten, fade, emphasize } from '../style';
 
 type Theme = {
-  mode: 'dark' | 'light'
-  footer: {
-    height: string
-  }
+  mode: 'dark' | 'light';
   appBar: {
-    height: string
-  }
+    height: string;
+  };
   zIndex: {
-    floatingWindow: number
-    appBar: number
-    footer: number
-    modal: number
-    overlay: number
-    notification: number
-    drawer: number
-  }
+    floatingWindow: number;
+    appBar: number;
+    footer: number;
+    modal: number;
+    overlay: number;
+    notification: number;
+    drawer: number;
+  };
   shadow: {
-    color: string
-  }
+    color: string;
+  };
+  system: {};
   color: Partial<{
-    primary: string
-    secondary: string
-    black: string
-    grey: string
-    greyLight: string
-    white: string
-    red: string
-    accent: string
-  }>
+    primary: string;
+    secondary: string;
+    black: string;
+    grey: string;
+    greyLight: string;
+    white: string;
+    red: string;
+    accent: string;
+  }>;
   common: {
-    circularEdge: string
-  }
-  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize }
-}
+    circularEdge: string;
+  };
+  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize };
+};
 const theme: Theme = {
   mode: 'light',
   color: {
-    primary: '#003CBE',
+    primary: '#3568E3',
     secondary: 'rgba(196,108,85,1)',
-    black: '#111827',
-    grey: '#6b7280',
+    black: '#1F2129',
+    grey: '#6C7288',
     red: '#e32b3a',
-    accent: '#fff',
-    greyLight: '#F3F4F6',
+    accent: '#EDF0F7',
+    greyLight: '#FAFBFF',
     white: '#fff',
   },
   utils: {
@@ -68,11 +66,9 @@ const theme: Theme = {
   shadow: {
     color: 'rgba(0,0,0,.1)',
   },
-  footer: {
-    height: '3em',
-  },
+  system: {},
   appBar: {
     height: '3em',
   },
-}
-export { theme, Theme }
+};
+export { theme, Theme };

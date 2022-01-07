@@ -43,7 +43,7 @@ const Container = ({
     }),
     ...(relative && { position: 'relative' }),
     ...(absolute && { position: 'absolute' }),
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
 
   useEffect(() => {

@@ -24,7 +24,7 @@ const List = ({ co, className, children, ...props }: ListProps & React.Component
   const theme = useTheme() as Theme;
   const styles = css({
     overflow: 'hidden',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
 
@@ -53,7 +53,7 @@ const ListItem = ({
     position: 'relative',
     transform: `translate3d(-${translateX}px,0,0)`,
     transition: 'transform 0.1s cubic-bezier(0.4, 0, 1, 1) 0s',
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
     '& > :nth-child(2)': {
       position: 'absolute',
       top: 0,

@@ -44,7 +44,7 @@ const Skeleton = ({
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
-    ...(typeof co == 'function' && co(theme)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
   return <div css={styles} aria-label='skeleton' className={computedClassNames} {...props} />;
 };
