@@ -56,7 +56,7 @@ const transformFetchParamsInGet = (params: { [key: string]: any }) => {
   }
   return result;
 };
-const getUrlParam = (name: string) => {
+const useUrlParams = (name: string) => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
   const r = window.location.search.substr(1).match(reg);
   if (r != null) return unescape(r[2]);
@@ -131,7 +131,7 @@ export {
   b64ToUtf8,
   underlineToHump,
   humpToUnderline,
-  getUrlParam,
+  useUrlParams,
   transformFetchParamsInGet,
   callPhoneNumber,
   isPC,

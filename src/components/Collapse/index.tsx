@@ -3,8 +3,7 @@
 import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
-import { css } from '@emotion/react';
-import { useTheme } from 'theming';
+import { css, useTheme } from '@emotion/react';
 
 type CollapseProps = {
   title?: React.ReactNode | (() => React.ReactNode) | string;
