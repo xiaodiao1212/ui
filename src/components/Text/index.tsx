@@ -6,6 +6,7 @@ import * as React from 'react';
 type TextProps = Partial<{
   thin: boolean;
   blod: boolean;
+  inline: boolean;
   color: string;
   size: string;
   maxLength: number;
@@ -40,8 +41,9 @@ const Text = ({
   const styles = css({
     fontSize: size as string,
     fontWeight: blod ? 700 : thin ? 200 : 500,
-    display: 'inline-flex',
+    display: 'inline',
     alignItems: 'center',
+
     justifyContent: 'center',
     textOverflow: maxLength ? 'ellipsis' : undefined,
     whiteSpace: maxLength ? 'nowrap' : undefined,

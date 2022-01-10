@@ -9,6 +9,7 @@ import Row from '../Row';
 type InputProps = {
   flex?: number;
   gap?: string;
+  borderRadius?: string;
   format?: (value: string) => string;
   onChange?: (value: string, e: any) => any;
   prefix?: { node: React.ReactNode; flex: number };
@@ -26,9 +27,10 @@ const Input = ({
   prefix,
   suffix,
   flex = 1,
+  borderRadius = '4px',
   gap,
   contain = false,
-  outline = false,
+  outline = true,
   format,
   disabled,
   onChange,
@@ -40,15 +42,15 @@ const Input = ({
   const theme = useTheme() as Theme;
   const styles = css({
     width: '100%',
-    padding: '.6em',
+    padding: '0.6em 1.1em',
     backgroundColor: contain
       ? theme?.color?.greyLight || '#F3F4F6'
       : disabled
       ? theme?.color?.greyLight || '#F3F4F6'
       : 'transparent',
     color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
-    outline: outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
-    borderRadius: '4px',
+    border: contain ? '' : outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
+    borderRadius: borderRadius,
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const styleRow = css({
@@ -71,7 +73,7 @@ const Input = ({
       {suffix && <Col flex={suffix.flex}>{suffix.node}</Col>}
     </Row>
   ) : (
-    { inputNode }
+    inputNode
   );
 };
 
