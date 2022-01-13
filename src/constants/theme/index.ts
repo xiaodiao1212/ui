@@ -18,7 +18,7 @@ type Theme = {
     color: string;
   };
   system: {};
-  color: Partial<{
+  color: {
     primary: string;
     secondary: string;
     black: string;
@@ -27,7 +27,7 @@ type Theme = {
     white: string;
     red: string;
     accent: string;
-  }>;
+  };
   common: {
     circularEdge: string;
   };
@@ -36,14 +36,14 @@ type Theme = {
 const theme: Theme = {
   mode: 'light',
   color: {
-    primary: '#3568E3',
-    secondary: 'rgba(196,108,85,1)',
-    black: '#1F2129',
-    grey: '#6C7288',
+    primary: '#5568FE',
+    secondary: '#FB7173',
+    black: '#232149',
+    grey: '#38366D',
     red: '#e32b3a',
-    accent: '#EDF0F7',
-    greyLight: '#FAFBFF',
-    white: '#fff',
+    accent: '#56538D',
+    greyLight: '#56538D',
+    white: '#FEFEFE',
   },
   utils: {
     darken,

@@ -9,6 +9,7 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
 import CheckBox from './components/CheckBox';
 import Radio from './components/Radio';
+import SortButton from './components/SortButton';
 import TimePicker from './components/TimePicker';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
@@ -36,6 +37,7 @@ import Progress from './components/Progress';
 import Segment from './components/Segment';
 import Loading from './components/Loading';
 import List from './components/List';
+import Link from './components/Link';
 import Drawer from './components/Drawer';
 import Input from './components/Input';
 import Picker from './components/Picker';
@@ -49,7 +51,9 @@ export {
   StickyFooter,
   List,
   Icon,
+  Link,
   Drawer,
+  SortButton,
   Input,
   Collapse,
   Segment,

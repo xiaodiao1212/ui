@@ -58,7 +58,7 @@ const Button = ({
       ? theme.color.grey
       : '#6b7280';
   const styles = css({
-    padding: icon ? '' : '0.4em 1em',
+    padding: icon || text ? '' : '0.4em 1em',
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
     borderRadius: tile ? '0px' : '4px',
