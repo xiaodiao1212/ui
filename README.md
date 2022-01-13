@@ -12,7 +12,7 @@
 
 This is a superset of the most commonly used front-end components based on Emotion CSS, guiding you to recognize, learn and use the right components to build your own pages, including PC and Mobile, shop around for experience, and very low-cost style copying , let the page get the same experience as the native APP
 
-Major features:
+## Major features
 
 - Emotion-based styling solutions
 - ES6 and CommonJS modules
@@ -20,5 +20,7 @@ Major features:
 - Almost the best API to use on the market
 - Zero-cost style overrides and theme configuration
 - An [API](https:///) for JavaScript and Typescript
+
+## And
 
 Check out the [getting started](https:///) instructions if you want to give your ui a newborn.
