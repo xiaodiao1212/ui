@@ -7,11 +7,13 @@ type TextProps = Partial<{
   thin: boolean;
   blod: boolean;
   inline: boolean;
-  color: string;
+  color: ((theme: Theme) => string) | string;
   size: string;
   maxLength: number;
   dark: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  className: string;
+  children: React.ReactNode;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
 const Text = ({
@@ -25,19 +27,21 @@ const Text = ({
   co,
   className,
   ...props
-}: TextProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: TextProps) => {
   const theme = useTheme() as Theme;
   const computedColor =
-    color ||
-    ((dark
-      ? theme
-        ? theme.color.white
-        : '#fff'
-      : theme
-      ? theme.mode == 'light'
-        ? theme.color.black
-        : theme.color.white
-      : '#111827') as string);
+    typeof color == 'function'
+      ? (color as (theme: Theme) => string)(theme)
+      : color ||
+        ((dark
+          ? theme
+            ? theme.color.white
+            : '#fff'
+          : theme
+          ? theme.mode == 'light'
+            ? theme.color.black
+            : theme.color.white
+          : '#111827') as string);
   const styles = css({
     fontSize: size as string,
     fontWeight: blod ? 700 : thin ? 200 : 500,

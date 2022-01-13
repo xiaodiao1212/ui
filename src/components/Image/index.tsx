@@ -37,7 +37,7 @@ const Image = ({
     width: width,
     imageRendering: 'initial',
     imageOrientation: 'initial',
-    height: height || '100%',
+    height: height,
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);

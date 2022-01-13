@@ -8,27 +8,23 @@ import { useTheme, css } from '@emotion/react';
 type CardProps = Partial<{
   title: React.ReactNode;
   extra: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  className: string;
+  children: React.ReactNode;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
-const Card = ({
-  title,
-  extra,
-  co,
-  className,
-  children,
-  ...props
-}: CardProps & React.ComponentPropsWithoutRef<'article'>) => {
+const Card = ({ title, extra, co, className, children, ...props }: CardProps) => {
   const theme = useTheme() as Theme;
   const computedClassNames = clsx(className);
   const styles = css({
+    background: 'white',
     '& > header': {
       display: 'flex',
       alignItems: 'center',
-      '& > div': {
+      '& > *': {
         marginLeft: 'auto',
       },
-      '& > div:first-child': {
+      '& > *:first-child': {
         marginLeft: '0',
       },
     },
