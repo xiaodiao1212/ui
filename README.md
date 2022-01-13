@@ -39,6 +39,7 @@ yarn add ui @emotion/react @emotion/styled
 ## Major features
 
 - Emotion-based styling solutions
+- **Out-of-the-box** common mobile development functions
 - ES6 and CommonJS modules
 - Tree shaking of ES6 modules
 - Almost the **best API** to use on the market
