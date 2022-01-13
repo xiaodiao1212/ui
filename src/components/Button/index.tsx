@@ -43,24 +43,24 @@ const Button = ({
         ? 'transparent'
         : theme
         ? theme.color.primary
-        : '#231F9C'
+        : '#5568FE'
       : theme
       ? theme.color.greyLight
-      : '#F3F4F5';
+      : '#56538D';
   const textColor =
     disabled == false
       ? text || outlined || icon
-        ? color || theme?.color?.primary || '#231F9C'
+        ? color || theme?.color?.primary || '#5568FE'
         : getLuminance(bgColor || '') <= 0.5
         ? '#fff'
         : '#000'
       : theme
       ? theme.color.grey
-      : '#6b7280';
+      : '#38366D';
   const styles = css({
     padding: icon || text ? '' : '0.4em 1em',
     width: block ? '100%' : '',
-    border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
+    border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
     borderRadius: tile ? '0px' : '4px',
     color: textColor,
     background: bgColor,

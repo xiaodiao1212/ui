@@ -44,20 +44,20 @@ const Input = ({
     width: '100%',
     padding: '0.6em 1.1em',
     backgroundColor: contain
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.greyLight || '#56538D'
       : disabled
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.greyLight || '#56538D'
       : 'transparent',
-    color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
+    color: disabled ? theme?.color?.grey || '#38366D' : theme?.color?.black || '#232149',
     border: contain ? '' : outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
     borderRadius: borderRadius,
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const styleRow = css({
     backgroundColor: contain
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.greyLight || '#56538D'
       : disabled
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.greyLight || '#56538D'
       : 'transparent',
     ...(typeof co == 'function' ? co(theme) : co),
   });

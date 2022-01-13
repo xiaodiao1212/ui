@@ -40,8 +40,8 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
             transform: `rotate(${expand ? '-45deg' : '135deg'}) translateY(${expand ? '' : '-'}50%)`,
             width: '0.5em',
             height: '0.5em',
-            borderTop: `1px solid ${theme?.color?.black || '#111827'}`,
-            borderRight: `1px solid ${theme?.color?.black || '#111827'}`,
+            borderTop: `1px solid ${theme?.color?.black || '#232149'}`,
+            borderRight: `1px solid ${theme?.color?.black || '#232149'}`,
           })}
           onClick={handleClickTrigger}
         />

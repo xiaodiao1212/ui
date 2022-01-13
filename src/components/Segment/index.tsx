@@ -29,7 +29,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     alignItems: 'center',
     position: 'relative',
     borderRadius: '4px',
-    background: theme ? theme.color.greyLight : '#F3F4F6',
+    background: theme ? theme.color.greyLight : '#56538D',
     '& > div': {
       display: 'flex',
       alignItems: 'center',
@@ -100,7 +100,7 @@ const SegmentItem = ({
     padding: '0 .4em',
     flex: 1,
     textAlign: 'center',
-    color: itemkey == currentKey ? (theme ? theme.color.primary : '#231F9C') : theme ? theme.color.grey : '#6b7280',
+    color: itemkey == currentKey ? (theme ? theme.color.primary : '#5568FE') : theme ? theme.color.grey : '#38366D',
     transition: '.3s all',
     fontWeight: itemkey == currentKey ? 700 : 500,
     ...(typeof co == 'function' ? co(theme) : co),

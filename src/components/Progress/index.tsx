@@ -29,11 +29,11 @@ const Progress = ({
   const theme = useTheme() as Theme;
   const styles = css({
     height: height,
-    backgroundColor: backgroundColor || theme ? theme.color.accent : '#F3F4F6',
+    backgroundColor: backgroundColor || theme ? theme.color.accent : '#56538D',
     '& > .progress-bar': {
       height: '100%',
       width: percent + '%',
-      backgroundColor: color || theme?.color?.primary || '#231F9C',
+      backgroundColor: color || theme?.color?.primary || '#5568FE',
     },
 
     '&,&>.progress-bar': {

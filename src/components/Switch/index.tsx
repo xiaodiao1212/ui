@@ -22,7 +22,7 @@ const Switch = ({ on = false, onChange, color, co }: SwitchProps) => {
     cursor: 'pointer',
     width: '4em',
     height: '1.6em',
-    background: on ? color || theme.color.primary || '#231F9C' : theme.color.greyLight || '#F3F4F6',
+    background: on ? color || theme.color.primary || '#5568FE' : theme.color.greyLight || '#56538D',
     borderRadius: 100,
     position: 'relative',
     transition: 'background 0.4s ease-out',
@@ -39,7 +39,7 @@ const Switch = ({ on = false, onChange, color, co }: SwitchProps) => {
       borderRadius: 45,
       transition: '.4s ease-out',
       background: '#fff',
-      boxShadow: '0 0 2px 0 ' + theme.color.grey || '#6b7280',
+      boxShadow: '0 0 2px 0 ' + theme.color.grey || '#38366D',
       // transform: on ? 'translateX(60%)' : '',
     },
     '&:active > .switch-button': {

@@ -40,7 +40,7 @@ const Skeleton = ({
         ? theme.mode == 'light'
           ? theme.color.greyLight
           : theme.color.grey
-        : '#F3F4F6',
+        : '#56538D',
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
