@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo.png" alt="ui: An ui component">
+  <img src="./images/logo.jpg" alt="ui: An ui component">
   <br>
   <a href="">Website</a> |
   <a href="">Getting started</a> |
@@ -8,19 +8,17 @@
   <a href="">FAQ</a>
 </p>
 
-## what?
+## what's this?
 
-The component design that a good react application should have
+This is a superset of the most commonly used front-end components based on Emotion CSS, guiding you to recognize, learn and use the right components to build your own pages, including PC and Mobile, shop around for experience, and very low-cost style copying , let the page get the same experience as the native APP
 
 Major features:
 
-- Extreme speed without needing a cache
+- Emotion-based styling solutions
 - ES6 and CommonJS modules
 - Tree shaking of ES6 modules
-- An [API](https://esbuild.github.io/api/) for JavaScript and Go
-- [TypeScript](https://esbuild.github.io/content-types/#typescript) and [JSX](https://esbuild.github.io/content-types/#jsx) syntax
-- [Source maps](https://esbuild.github.io/api/#sourcemap)
-- [Minification](https://esbuild.github.io/api/#minify)
-- [Plugins](https://esbuild.github.io/plugins/)
+- Almost the best API to use on the market
+- Zero-cost style overrides and theme configuration
+- An [API](https:///) for JavaScript and Typescript
 
-Check out the [getting started](https:///) instructions if you want to give ui a try.
+Check out the [getting started](https:///) instructions if you want to give your ui a newborn.
