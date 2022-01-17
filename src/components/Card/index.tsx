@@ -17,10 +17,11 @@ const Card = ({ title, extra, co, className, children, ...props }: CardProps) =>
   const theme = useTheme() as Theme;
   const computedClassNames = clsx(className);
   const styles = css({
-    background: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    background: theme ? theme.color.white : 'white',
     '& > header': {
       display: 'flex',
-      alignItems: 'center',
       '& > *': {
         marginLeft: 'auto',
       },

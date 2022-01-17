@@ -24,7 +24,7 @@ const Loading = ({
   bit = false,
   co,
   className,
-}: LoadingProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: LoadingProps & Omit<React.ComponentPropsWithoutRef<'div'>, 'color'>) => {
   const theme = useTheme() as Theme;
   const kfSpin = keyframes({
     '0%': {
@@ -44,8 +44,12 @@ const Loading = ({
   });
   const styles = css({
     '& .nomal': {
-      border: `${borderWidth} solid ${typeof backgroudColor == 'string' ? backgroudColor : backgroudColor?.(theme)}`,
-      borderTop: `${borderWidth} solid ${typeof color == 'function' ? (color as Function)(theme) : color}`,
+      border: `${borderWidth} solid ${
+        typeof backgroudColor == 'string' ? backgroudColor : (backgroudColor as (theme: Theme) => string)(theme)
+      }`,
+      borderTop: `${borderWidth} solid ${
+        typeof color == 'function' ? (color as (theme: Theme) => string)(theme) : color
+      }`,
       borderRadius: '50%',
       width: width,
       height: width,
@@ -60,7 +64,7 @@ const Loading = ({
         position: 'absolute',
         width: '6px',
         height: '6px',
-        background: color,
+        background: typeof color == 'function' ? (color as (theme: Theme) => string)(theme) : color,
         borderRadius: '50%',
         animation: `${kfBit} ${duration} linear infinite`,
         '&:nth-child(1)': {
