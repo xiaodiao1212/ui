@@ -3,18 +3,28 @@
 import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
-import { css, useTheme } from '@emotion/react';
-
+import arrowSVG from '../../icons/arrow-up.svg';
+import { css, useTheme, keyframes } from '@emotion/react';
+import Icon from '../Icon';
 type CollapseProps = {
   title?: React.ReactNode | (() => React.ReactNode) | string;
-  expand?: boolean;
+  expand: boolean;
+  animated?: boolean;
   trigger?: React.ReactNode | (() => React.ReactNode);
-  onChange?: () => void;
+  onChange: () => void;
   className?: string;
   children?: React.ReactNode;
 };
 
-const Collapse = ({ title, expand = false, trigger, children, className, ...props }: CollapseProps) => {
+const Collapse = ({
+  title,
+  animated = true,
+  expand = false,
+  trigger,
+  children,
+  className,
+  ...props
+}: CollapseProps) => {
   const theme = useTheme() as Theme;
 
   const handleClickTrigger = () => {
@@ -27,25 +37,45 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
         css: css({
           marginLeft: 'auto',
           transformOrigin: '50% 50%',
-          transform: `rotate(${expand ? '-45deg' : '135deg'})`,
+          transform: `rotate(${expand ? '0deg' : '180deg'})`,
         }),
       });
     else
       return (
-        <div
-          css={css({
-            marginRight: '.5em',
+        <Icon
+          src={arrowSVG}
+          co={{
             marginLeft: 'auto',
             transition: 'transform .1s',
-            transform: `rotate(${expand ? '-45deg' : '135deg'}) translateY(${expand ? '' : '-'}50%)`,
-            width: '0.5em',
-            height: '0.5em',
-            borderTop: `1px solid ${theme?.color?.black || '#232149'}`,
-            borderRight: `1px solid ${theme?.color?.black || '#232149'}`,
-          })}
+            transform: `rotate(${expand ? '0deg' : '180deg'})`,
+            width: '1em',
+            height: '1em',
+          }}
           onClick={handleClickTrigger}
         />
       );
+  };
+
+  const renderChildren = () => {
+    if (animated)
+      return (
+        <div
+        // css={css({
+        //   animation: `${keyframes({
+        //     '0%': {
+        //       maxHeight: '0',
+        //     },
+        //     '100%': {
+        //       maxHeight: '100%',
+        //     },
+        //   })} .8s `,
+        // })}
+        >
+          {children}
+        </div>
+      );
+
+    return children;
   };
 
   const renderTitle = () => {
@@ -58,7 +88,11 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
     );
   };
   return (
-    <div className={className && computedClassNames}>
+    <div
+      className={className && computedClassNames}
+      css={css({
+        height: '100%',
+      })}>
       <div
         css={css({
           display: 'flex',
@@ -69,7 +103,7 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
         {renderTitle()}
         {renderTrigger()}
       </div>
-      {expand && children}
+      {expand && renderChildren()}
     </div>
   );
 };

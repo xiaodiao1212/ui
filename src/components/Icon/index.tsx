@@ -9,9 +9,10 @@ type IconProps = {
   color?: string;
   src?: string;
   className?: string;
+  onClick?: () => any;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
-const Icon = ({ color, co, src, className }: IconProps) => {
+const Icon = ({ color, co, src, onClick, className }: IconProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     background: color,
@@ -19,7 +20,10 @@ const Icon = ({ color, co, src, className }: IconProps) => {
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
-  return <div css={styles} className={computedClassNames} />;
+  const handleClickIcon = () => {
+    onClick?.();
+  };
+  return <div css={styles} className={computedClassNames} onClick={handleClickIcon} />;
 };
 
 export default Icon;

@@ -3,12 +3,17 @@
 import { Theme } from '../../constants/theme';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
-import { useEffect, useState } from 'react';
 type ContainerProps = {
-  noPadding?: boolean;
-  padding?: string;
-  noYPadding?: boolean;
-  noXPadding?: boolean;
+  mt?: string;
+  mb?: string;
+  ml?: string;
+  mr?: string;
+  pb?: string;
+  pa?: string;
+  ma?: string;
+  pt?: string;
+  pl?: string;
+  pr?: string;
   absolute?: boolean;
   relative?: boolean;
   fullHeight?: boolean;
@@ -17,10 +22,16 @@ type ContainerProps = {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 const Container = ({
-  noPadding = false,
-  noYPadding = false,
-  noXPadding = false,
-  padding = '1em',
+  mt,
+  mb,
+  ml,
+  mr,
+  pb,
+  pa,
+  ma,
+  pt,
+  pl,
+  pr,
   absolute = false,
   fullHeight = false,
   relative = false,
@@ -31,12 +42,22 @@ const Container = ({
   children,
   ...props
 }: ContainerProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const [computedPadding, setComputedPadding] = useState(padding);
   const theme = useTheme() as Theme;
   const computedClassNames = clsx(className);
   const styles = css({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
-    padding: computedPadding,
+    padding: pa,
+    margin: ma,
+
+    marginTop: mt,
+    marginBottom: mb,
+    marginLeft: ml,
+    marginRight: mr,
+
+    paddingTop: pt,
+    paddingBottom: pb,
+    paddingLeft: pl,
+    paddingRight: pr,
     ...(sticky && {
       position: 'sticky',
       top: 0,
@@ -45,13 +66,6 @@ const Container = ({
     ...(absolute && { position: 'absolute' }),
     ...(typeof co == 'function' ? co(theme) : co),
   });
-
-  useEffect(() => {
-    if (noPadding) setComputedPadding('');
-    else if (noYPadding) setComputedPadding('0 ' + padding);
-    else if (noXPadding) setComputedPadding(padding + ' 0');
-    else setComputedPadding(padding);
-  }, [noPadding, noYPadding, noXPadding, padding]);
 
   return (
     <div css={styles} className={computedClassNames} {...props}>
