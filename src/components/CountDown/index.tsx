@@ -95,7 +95,7 @@ const CountDown = ({
     },
   });
   const styles = css({
-    display: 'flex',
+    display: 'inline-flex',
     ...(typeof co == 'function' ? co(theme) : co),
     '.text': {
       marginLeft: '5px',
@@ -138,10 +138,18 @@ const CountDown = ({
       <div className={`circle`}>
         <div className={!start ? `circle noslice` : `circle slice`} />
       </div>
-      {!loading ? <div className='text'>{label}</div> : <div className={`text`}>{`${mi}:${se}`}</div>}
+      {!loading ? (
+        <div className='text'>{label}</div>
+      ) : m > 0 ? (
+        <div className={`text`}>{`${mi}:${se}`}</div>
+      ) : (
+        <div className={`text`}>{se}</div>
+      )}
     </div>
   ) : (
-    <div>{!loading ? label : <span>{`${mi}:${se}`}</span>}</div>
+    <div css={styles} className={computedClassNames} {...props}>
+      {!loading ? label : m > 0 ? <span>{`${mi}:${se}`}</span> : <span>{se}</span>}
+    </div>
   );
 };
 export default CountDown;
