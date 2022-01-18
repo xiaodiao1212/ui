@@ -2,8 +2,8 @@
 
 import { theme, Theme } from '../../constants/theme';
 import React from 'react';
-import styled from '@emotion/styled';
 import clsx from 'clsx';
+import { css } from '@emotion/react';
 
 interface ColProps {
   flexSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
@@ -45,7 +45,7 @@ const Col = ({
   pr,
   ...props
 }: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const Container = styled.div({
+  const styles = css({
     textAlign: textAlign ? textAlign : 'center',
     margin: ma,
     padding: ma,
@@ -53,7 +53,6 @@ const Col = ({
     marginBottom: mb,
     marginLeft: autoMargin ? 'auto' : ml,
     marginRight: mr,
-
     paddingTop: pt,
     paddingBottom: pb,
     paddingLeft: pl,
@@ -62,9 +61,9 @@ const Col = ({
     ...(typeof co == 'function' ? co(theme) : co),
   });
   return (
-    <Container className={clsx(className)} {...props}>
+    <div css={styles} className={clsx(className)} {...props}>
       {children}
-    </Container>
+    </div>
   );
 };
 

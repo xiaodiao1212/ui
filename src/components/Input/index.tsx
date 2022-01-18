@@ -8,6 +8,7 @@ import Row from '../Row';
 import { debounce } from '../../utils';
 
 type InputProps = {
+  clearable?: boolean;
   flex?: number;
   gap?: string;
   borderRadius?: string;
@@ -65,7 +66,7 @@ const Input = ({
       : disabled
       ? theme?.color?.white || '#FEFEFE'
       : 'transparent',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(typeof co == 'function' ? co?.(theme) : co),
   });
   const computedClassNames = clsx(className);
   const handleInputChange = (e: { target: { value: string } }) => {

@@ -45,9 +45,11 @@ import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
 import StickyFooter from './components/StickyFooter';
 import ToolTip from './components/ToolTip';
+import Steps from './components/Steps';
 import { useCustomTheme } from './hooks';
 export {
   ToolTip,
+  Steps,
   useCustomTheme,
   Picker,
   StickyFooter,
