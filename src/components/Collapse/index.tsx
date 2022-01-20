@@ -43,14 +43,14 @@ const Collapse = ({
     else
       return (
         <Icon
-          color='red'
+          width='1.2em'
+          height='1.2em'
+          color={theme.color.black}
           src={arrowSVG}
           co={{
             marginLeft: 'auto',
             transition: 'transform .1s',
             transform: `rotate(${expand ? '0deg' : '180deg'})`,
-            width: '1em',
-            height: '1em',
           }}
           onClick={handleClickTrigger}
         />
