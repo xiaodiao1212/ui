@@ -6,17 +6,23 @@ import { useTheme, css } from '@emotion/react';
 // import * as ReactCSS from 'csstype';
 
 type IconProps = {
+  width?: string;
+  height?: string;
   color?: string;
   src?: string;
   className?: string;
   onClick?: () => any;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
-const Icon = ({ color, co, src, onClick, className }: IconProps) => {
+const Icon = ({ width, height, color, co, src, onClick, className }: IconProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
-    background: color,
-    mask: src,
+    display: 'inline-block',
+    width: width,
+    height: height,
+    backgroundColor: color,
+    mask: `url(${src}) no-repeat`,
+    maskSize: '100% 100%',
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);

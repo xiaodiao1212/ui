@@ -3,9 +3,8 @@
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
-import React, { ReactNode } from 'react';
-import Step from './Step';
-import { StepProps } from './Step';
+import React, { ReactNode, useState } from 'react';
+import { Step, StepProps } from './Step';
 
 type StepsProps = {
   type?: 'default' | 'navigation';
@@ -20,25 +19,31 @@ type StepsProps = {
   size?: 'default' | 'small';
   status?: 'wait' | 'process' | 'finish' | 'error';
   children?: ReactNode;
+  dashed?: boolean;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  onChange?: (current: number) => void;
+  onChange?: ((num: any) => void) | undefined;
 };
 
 const Steps = ({
   co,
   className,
-  current = 1,
+  current = 0,
   direction = 'horizontal',
-  initial = 1,
+  initial = 0,
   labelPlacement = 'horizontal',
   children,
+  dashed = false,
+  onChange,
   ...props
 }: StepsProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
+  const color = theme ? theme.color.primary : '#5568FE';
+  let n: number = 0;
   const styles = css({
     display: 'flex',
     alignItems: 'center',
     height: '100%',
+    width: '100%',
     '& .icon': {
       position: 'relative',
       boxSizing: 'border-box',
@@ -52,25 +57,25 @@ const Steps = ({
       borderRadius: '50%',
       position: 'absolute',
       left: -8,
-      top: -1,
+      top: -4,
     },
     '& .wait': {
       borderColor: 'gray',
     },
     '& .finish': {
-      borderColor: 'blue',
+      borderColor: color,
     },
     '& .process': {
-      borderColor: 'blue',
+      borderColor: color,
     },
     '& .error': {
       borderColor: 'red',
     },
     '& .text-finish': {
-      color: 'blue',
+      color: color,
     },
     '& .text-process': {
-      color: 'blue',
+      color: color,
     },
     '& .text-wait': {
       color: 'gray',
@@ -78,31 +83,48 @@ const Steps = ({
     '& .text-error': {
       color: 'red',
     },
+    '& .text-pos': {
+      position: 'absolute',
+      top: '-3px',
+    },
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
+  const handleClick = ({ currentTarget }: React.MouseEvent<HTMLButtonElement>) => {
+    if (currentTarget) {
+      n = Number(currentTarget.value) + 1;
+      onChange?.(n);
+    }
+  };
   const nat = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) {
       return child;
     }
     const props = child.props as StepProps;
     let status = props.status || 'wait';
+    let isDashed = props.isDashed || dashed;
     if (index + 1 < current) {
       status = props.status || 'finish';
     } else if (index + 1 === current) {
       status = props.status || 'process';
     }
 
-    const icon = props.icon ?? (
-      <span className={`icon`}>
-        <span className={`circle ${status}`}></span>
-        <span className={`text-${status}`}>{index + 1}</span>
-      </span>
-    );
-
+    const icon =
+      props.icon ??
+      (onChange ? (
+        <button className={`circle ${status}`} value={index} onClick={handleClick}>
+          <span className={`text-${status}`}>{index + 1}</span>
+        </button>
+      ) : (
+        <label>
+          <span className={`circle ${status}`} />
+          <span className={`text-${status} text-pos`}>{index + 1}</span>
+        </label>
+      ));
     return React.cloneElement(child, {
       status,
       icon,
+      isDashed,
     });
   });
   return (

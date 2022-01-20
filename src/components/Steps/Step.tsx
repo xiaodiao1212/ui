@@ -10,26 +10,29 @@ export type StepProps = {
   children?: ReactNode;
   status?: 'wait' | 'process' | 'finish' | 'error';
   icon?: React.ReactNode;
+  isDashed?: boolean;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const Step = ({
+export const Step = ({
   co,
   className,
   children,
   title,
   icon,
   status,
+  isDashed,
   ...props
-}: StepProps & React.ComponentPropsWithoutRef<'button'>) => {
+}: StepProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
+  const color = theme ? theme.color.primary : '#5568FE';
   const styles = css({
     display: 'block',
     height: '100%',
     width: '100%',
-    '& :hover': {
-      opacity: 0.8,
-    },
+    // '& :hover': {
+    //   color: color,
+    // },
     '& .wait': {
       color: 'gray',
     },
@@ -40,7 +43,7 @@ const Step = ({
       color: 'red',
     },
     '& .process': {
-      color: 'blue',
+      color: color,
     },
     '& .indicator': {
       position: 'relative',
@@ -48,9 +51,9 @@ const Step = ({
         content: '""',
         position: 'absolute',
         zIndex: 0,
-        borderStyle: 'dashed',
+        borderStyle: isDashed ? 'dashed' : 'solid',
         borderWidth: '1px',
-        borderColor: status === 'finish' ? 'blue' : 'gray',
+        borderColor: status === 'finish' ? color : 'gray',
       },
     },
     '& .indicators': {
@@ -78,11 +81,12 @@ const Step = ({
       fontSize: '12px',
       paddingTop: '2px',
       marginLeft: '-10px',
+      textAlign: 'left',
     },
     '& .pagragh': {
       position: 'absolute',
       left: '10px',
-      padding: '3em 2em 1em 1em',
+      padding: '2em 1em 1em .6em',
       fontSize: '12px',
     },
     ...(typeof co == 'function' ? co(theme) : co),
@@ -100,5 +104,3 @@ const Step = ({
     </div>
   );
 };
-
-export default Step;

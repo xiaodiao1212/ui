@@ -3,7 +3,7 @@
 import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
-import arrowSVG from '../../icons/arrow-up.svg';
+import arrowSVG from '../../../assets/arrow-up.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
 import Icon from '../Icon';
 type CollapseProps = {
@@ -43,6 +43,7 @@ const Collapse = ({
     else
       return (
         <Icon
+          color='red'
           src={arrowSVG}
           co={{
             marginLeft: 'auto',
@@ -88,14 +89,11 @@ const Collapse = ({
     );
   };
   return (
-    <div
-      className={className && computedClassNames}
-      css={css({
-        height: '100%',
-      })}>
+    <div className={className && computedClassNames}>
       <div
         css={css({
           display: 'flex',
+          alignItems: 'center',
           '& > .title': {
             flex: '1',
           },
