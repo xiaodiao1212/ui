@@ -41,7 +41,7 @@ const Text = ({
           ? theme.mode == 'light'
             ? theme.color.black
             : theme.color.white
-          : '#111827') as string);
+          : '#232149') as string);
   const styles = css({
     fontSize: size as string,
     fontWeight: blod ? 700 : thin ? 200 : 500,

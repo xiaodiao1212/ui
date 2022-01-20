@@ -2,10 +2,20 @@
 
 import { theme, Theme } from '../../constants/theme';
 import React from 'react';
-import styled from '@emotion/styled';
 import clsx from 'clsx';
+import { css } from '@emotion/react';
 
 type RowProps = {
+  mt?: string;
+  mb?: string;
+  ml?: string;
+  mr?: string;
+  pb?: string;
+  pa?: string;
+  ma?: string;
+  pt?: string;
+  pl?: string;
+  pr?: string;
   vertical?: boolean;
   alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
   justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
@@ -17,6 +27,16 @@ type RowProps = {
 };
 
 const Row = ({
+  mt,
+  mb,
+  ml,
+  mr,
+  pb,
+  pa,
+  ma,
+  pt,
+  pl,
+  pr,
   children,
   vertical,
   wrap,
@@ -28,9 +48,19 @@ const Row = ({
   className,
   ...props
 }: RowProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const Container = styled.div({
+  const styles = css({
     display: 'flex',
     width: '100%',
+    padding: pa,
+    margin: ma,
+    marginTop: mt,
+    marginBottom: mb,
+    marginLeft: ml,
+    marginRight: mr,
+    paddingTop: pt,
+    paddingBottom: pb,
+    paddingLeft: pl,
+    paddingRight: pr,
     justifyContent: justifyContent || '',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
@@ -40,9 +70,9 @@ const Row = ({
     ...(typeof co == 'function' ? co(theme) : co),
   });
   return (
-    <Container className={clsx(className)} {...props}>
+    <div css={styles} className={clsx(className)} {...props}>
       {children}
-    </Container>
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ specifiers:
   '@emotion/react': ^11.5.0
   '@emotion/styled': ^11.3.0
   '@rollup/plugin-commonjs': ^14.0.0
+  '@rollup/plugin-image': ^2.1.1
   '@rollup/plugin-node-resolve': ^8.4.0
   '@size-limit/preset-small-lib': ^5.0.1
   '@testing-library/jest-dom': ^5.11.1
@@ -45,6 +46,7 @@ devDependencies:
   '@emotion/react': 11.7.1_b08e3c15324cbe90a6ff8fcd416c932c
   '@emotion/styled': 11.6.0_0044a6ec6dcf5de7705bffaaff7afd26
   '@rollup/plugin-commonjs': 14.0.0_rollup@2.63.0
+  '@rollup/plugin-image': 2.1.1_rollup@2.63.0
   '@rollup/plugin-node-resolve': 8.4.0_rollup@2.63.0
   '@size-limit/preset-small-lib': 5.0.5_b31ea8db5574e2bb4df3c2675ab18927
   '@testing-library/jest-dom': 5.16.1
@@ -888,6 +890,17 @@ packages:
       is-reference: 1.2.1
       magic-string: 0.25.7
       resolve: 1.21.0
+      rollup: 2.63.0
+    dev: true
+
+  /@rollup/plugin-image/2.1.1_rollup@2.63.0:
+    resolution: {integrity: sha512-AgP4U85zuQJdUopLUCM+hTf45RepgXeTb8EJsleExVy99dIoYpt3ZlDYJdKmAc2KLkNntCDg6BPJvgJU3uGF+g==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0 || ^2.0.0
+    dependencies:
+      '@rollup/pluginutils': 3.1.0_rollup@2.63.0
+      mini-svg-data-uri: 1.4.3
       rollup: 2.63.0
     dev: true
 
@@ -5446,6 +5459,11 @@ packages:
   /min-indent/1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
+    dev: true
+
+  /mini-svg-data-uri/1.4.3:
+    resolution: {integrity: sha512-gSfqpMRC8IxghvMcxzzmMnWpXAChSA+vy4cia33RgerMS8Fex95akUyQZPbxJJmeBGiGmK7n/1OpUX8ksRjIdA==}
+    hasBin: true
     dev: true
 
   /minimalistic-assert/1.0.1:

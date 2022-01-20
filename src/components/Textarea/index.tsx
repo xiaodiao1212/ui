@@ -19,7 +19,7 @@ const Textarea = ({
     width: '100%',
     padding: '12px',
     backgroundColor: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.white) : 'transparent',
-    color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827',
+    color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#232149',
     ...(typeof co == 'function' ? co(theme) : co),
   });
 

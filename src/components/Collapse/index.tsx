@@ -3,18 +3,28 @@
 import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
-import { css, useTheme } from '@emotion/react';
-
+import arrowSVG from '../../../assets/arrow-up.svg';
+import { css, useTheme, keyframes } from '@emotion/react';
+import Icon from '../Icon';
 type CollapseProps = {
   title?: React.ReactNode | (() => React.ReactNode) | string;
-  expand?: boolean;
+  expand: boolean;
+  animated?: boolean;
   trigger?: React.ReactNode | (() => React.ReactNode);
-  onChange?: () => void;
+  onChange: () => void;
   className?: string;
   children?: React.ReactNode;
 };
 
-const Collapse = ({ title, expand = false, trigger, children, className, ...props }: CollapseProps) => {
+const Collapse = ({
+  title,
+  animated = true,
+  expand = false,
+  trigger,
+  children,
+  className,
+  ...props
+}: CollapseProps) => {
   const theme = useTheme() as Theme;
 
   const handleClickTrigger = () => {
@@ -27,25 +37,46 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
         css: css({
           marginLeft: 'auto',
           transformOrigin: '50% 50%',
-          transform: `rotate(${expand ? '-45deg' : '135deg'})`,
+          transform: `rotate(${expand ? '0deg' : '180deg'})`,
         }),
       });
     else
       return (
-        <div
-          css={css({
-            marginRight: '.5em',
+        <Icon
+          width='1.2em'
+          height='1.2em'
+          color={theme.color.black}
+          src={arrowSVG}
+          co={{
             marginLeft: 'auto',
             transition: 'transform .1s',
-            transform: `rotate(${expand ? '-45deg' : '135deg'}) translateY(${expand ? '' : '-'}50%)`,
-            width: '0.5em',
-            height: '0.5em',
-            borderTop: `1px solid ${theme?.color?.black || '#111827'}`,
-            borderRight: `1px solid ${theme?.color?.black || '#111827'}`,
-          })}
+            transform: `rotate(${expand ? '0deg' : '180deg'})`,
+          }}
           onClick={handleClickTrigger}
         />
       );
+  };
+
+  const renderChildren = () => {
+    if (animated)
+      return (
+        <div
+        // css={css({
+        //   animation: `${keyframes({
+        //     '0%': {
+        //       maxHeight: '0',
+        //     },
+        //     '100%': {
+        //       maxHeight: '100%',
+        //     },
+        //   })} .8s `,
+        // })}
+        >
+          {children}
+        </div>
+      );
+
+    return children;
   };
 
   const renderTitle = () => {
@@ -62,6 +93,7 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
       <div
         css={css({
           display: 'flex',
+          alignItems: 'center',
           '& > .title': {
             flex: '1',
           },
@@ -69,7 +101,7 @@ const Collapse = ({ title, expand = false, trigger, children, className, ...prop
         {renderTitle()}
         {renderTrigger()}
       </div>
-      {expand && children}
+      {expand && renderChildren()}
     </div>
   );
 };

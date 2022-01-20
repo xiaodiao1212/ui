@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import filesize from 'rollup-plugin-filesize';
+import image from '@rollup/plugin-image';
 import packageJson from './package.json';
 
 export default {
@@ -21,6 +22,7 @@ export default {
     resolve(),
     commonjs(),
     typescript({ tsconfig: 'tsconfig.json' }),
+    image(),
     process.env.NODE_ENV == 'production' && terser(),
   ],
 };

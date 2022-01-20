@@ -26,7 +26,7 @@ const Chip = ({
 }: ChipProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
   const getComputedColor = (color?: string) =>
-    color || (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827');
+    color || (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#232149');
   const computedClassNames = clsx(className);
   const styles = css({
     display: 'inline-block',

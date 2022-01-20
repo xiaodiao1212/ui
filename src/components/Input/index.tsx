@@ -5,8 +5,10 @@ import { Theme } from '../../constants/theme';
 import * as React from 'react';
 import Col from '../Col';
 import Row from '../Row';
+import { debounce } from '../../utils';
 
 type InputProps = {
+  clearable?: boolean;
   flex?: number;
   gap?: string;
   borderRadius?: string;
@@ -16,6 +18,10 @@ type InputProps = {
   suffix?: { node: React.ReactNode; flex: number };
   outline?: boolean;
   contain?: boolean;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  placeholder?: string;
+  className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
@@ -27,6 +33,7 @@ const Input = ({
   prefix,
   suffix,
   flex = 1,
+  placeholder,
   borderRadius = '4px',
   gap,
   contain = false,
@@ -38,15 +45,15 @@ const Input = ({
   children,
   className,
   ...props
-}: Omit<React.ComponentPropsWithoutRef<'input'>, 'suffix' | 'prefix'> & InputProps) => {
+}: InputProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     width: '100%',
     padding: '0.6em 1.1em',
     backgroundColor: contain
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.white || '#FEFEFE'
       : disabled
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.white || '#FEFEFE'
       : 'transparent',
     color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
     border: contain ? '' : outline ? (!disabled ? '1px solid ' + theme?.color?.greyLight : 'none') : 'none',
@@ -55,17 +62,17 @@ const Input = ({
   });
   const styleRow = css({
     backgroundColor: contain
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.white || '#FEFEFE'
       : disabled
-      ? theme?.color?.greyLight || '#F3F4F6'
+      ? theme?.color?.white || '#FEFEFE'
       : 'transparent',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(typeof co == 'function' ? co?.(theme) : co),
   });
   const computedClassNames = clsx(className);
   const handleInputChange = (e: { target: { value: string } }) => {
-    onChange?.(format?.(e.target.value) || e.target.value, e);
+    debounce(onChange?.(format?.(e.target.value) || e.target.value, e));
   };
-  const inputNode = <input css={styles} {...props} onChange={handleInputChange} />;
+  const inputNode = <input css={styles} placeholder={placeholder} onChange={handleInputChange} />;
   return prefix || suffix ? (
     <Row css={styleRow} className={computedClassNames} gap={gap}>
       {prefix && <Col flex={prefix.flex}>{prefix.node}</Col>}

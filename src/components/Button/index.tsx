@@ -15,7 +15,7 @@ type ButtonProps = {
   outlined?: boolean;
   icon?: boolean;
   tile?: boolean;
-  color?: string;
+  color?: ((theme: Theme) => string) | string;
   accessibilityLabel?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
@@ -43,24 +43,24 @@ const Button = ({
         ? 'transparent'
         : theme
         ? theme.color.primary
-        : '#231F9C'
-      : theme
-      ? theme.color.greyLight
-      : '#F3F4F5';
+        : '#5568FE'
+      : color || theme
+      ? theme.color.primary
+      : '#5568FE';
   const textColor =
     disabled == false
       ? text || outlined || icon
-        ? color || theme?.color?.primary || '#231F9C'
+        ? theme.color.primary || '#5568FE'
         : getLuminance(bgColor || '') <= 0.5
-        ? '#fff'
-        : '#000'
+        ? theme.color.white || '#fff'
+        : theme.color.black || '#000'
       : theme
       ? theme.color.grey
       : '#6b7280';
   const styles = css({
     padding: icon || text ? '' : '0.4em 1em',
     width: block ? '100%' : '',
-    border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#231F9C') : 'none',
+    border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
     borderRadius: tile ? '0px' : '4px',
     color: textColor,
     background: bgColor,

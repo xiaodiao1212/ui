@@ -34,7 +34,7 @@ const Overlay = ({
     left: 0,
     bottom: 0,
     right: 0,
-    background: fade(color || theme?.color?.greyLight || '#F3F4F6', opacity),
+    background: fade(color || theme?.color?.greyLight || '#56538D', opacity),
     backdropFilter: blur ? 'blur(4px)' : '',
     transform: visible ? 'scale(1)' : '',
     '& > *': {
