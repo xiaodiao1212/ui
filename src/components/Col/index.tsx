@@ -22,6 +22,10 @@ interface ColProps {
   pt?: string;
   pl?: string;
   pr?: string;
+  py?: string;
+  px?: string;
+  my?: string;
+  mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }
 
@@ -42,17 +46,26 @@ const Col = ({
   ma,
   pt,
   pl,
+  mx,
+  my,
   pr,
+  py,
+  px,
   ...props
 }: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
   const styles = css({
     textAlign: textAlign ? textAlign : 'center',
     margin: ma,
     padding: ma,
+    ...(my && { marginTop: my, marginBottom: my }),
+    ...(mx && { marginLeft: mx, marginRight: mx }),
+    ...(py && { paddingTop: py, paddingBottom: py }),
+    ...(px && { paddingLeft: px, paddingRight: px }),
     marginTop: mt,
     marginBottom: mb,
     marginLeft: autoMargin ? 'auto' : ml,
     marginRight: mr,
+
     paddingTop: pt,
     paddingBottom: pb,
     paddingLeft: pl,

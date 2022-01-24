@@ -4,21 +4,21 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 
 import * as React from 'react';
-import { getLuminance } from '../../constants/style';
-import Button from '../Button';
 
 type LinkProps = {
-  indicatorColor: string;
-  indicatorWidth: string;
-  indicatorHeight: string;
+  indicatorColor?: string;
+  indicatorWidth?: string;
+  indicatorHeight?: string;
+  href?: string;
   color?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Link = ({
   disabled,
-  indicatorColor,
+  indicatorColor = '#fff',
   indicatorWidth,
+  href,
   indicatorHeight,
   co,
   onClick,
@@ -36,11 +36,12 @@ const Link = ({
 
   const handleClickLink = (e: any) => {
     onClick?.(e);
+    href && (location.href = href);
   };
   return (
-    <Button text onClick={handleClickLink} css={styles} className={clsx(className)} disabled={disabled} {...props}>
+    <button onClick={handleClickLink} css={styles} className={clsx(className)} disabled={disabled} {...props}>
       {children}
-    </Button>
+    </button>
   );
 };
 

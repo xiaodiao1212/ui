@@ -16,6 +16,10 @@ type RowProps = {
   pt?: string;
   pl?: string;
   pr?: string;
+  py?: string;
+  px?: string;
+  my?: string;
+  mx?: string;
   vertical?: boolean;
   alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
   justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
@@ -37,6 +41,10 @@ const Row = ({
   pt,
   pl,
   pr,
+  py,
+  px,
+  my,
+  mx,
   children,
   vertical,
   wrap,
@@ -53,6 +61,10 @@ const Row = ({
     width: '100%',
     padding: pa,
     margin: ma,
+    ...(my && { marginTop: my, marginBottom: my }),
+    ...(mx && { marginLeft: mx, marginRight: mx }),
+    ...(py && { paddingTop: py, paddingBottom: py }),
+    ...(px && { paddingLeft: px, paddingRight: px }),
     marginTop: mt,
     marginBottom: mb,
     marginLeft: ml,

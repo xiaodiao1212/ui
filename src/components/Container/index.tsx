@@ -19,6 +19,10 @@ type ContainerProps = {
   fullHeight?: boolean;
   sticky?: boolean;
   fullScreen?: boolean;
+  py?: string;
+  px?: string;
+  my?: string;
+  mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 const Container = ({
@@ -32,6 +36,10 @@ const Container = ({
   pt,
   pl,
   pr,
+  py,
+  px,
+  my,
+  mx,
   absolute = false,
   fullHeight = false,
   relative = false,
@@ -48,7 +56,10 @@ const Container = ({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     padding: pa,
     margin: ma,
-
+    ...(my && { marginTop: my, marginBottom: my }),
+    ...(mx && { marginLeft: mx, marginRight: mx }),
+    ...(py && { paddingTop: py, paddingBottom: py }),
+    ...(px && { paddingLeft: px, paddingRight: px }),
     marginTop: mt,
     marginBottom: mb,
     marginLeft: ml,
