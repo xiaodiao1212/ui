@@ -1,17 +1,21 @@
 import { theme, Theme } from '../constants/theme';
 import { deepMerge } from '../utils';
-
-import { useState } from 'react';
-export function useCustomTheme(customTheme: Theme) {
-  // console.log('customTheme', deepMerge(theme, customTheme))
-
+import { AppContext } from '../components/App';
+import { useState, useContext } from 'react';
+import { useToast } from './useToast';
+function useCustomTheme(customTheme: Theme) {
   return deepMerge(theme, customTheme) as Theme;
 }
 
-export function useCollapse(root: React.ReactNode) {
+function useCollapse(root: React.ReactNode) {
   const [expand, setExpand] = useState();
 }
 
-export function useModal(root: React.ReactNode) {
+function useModal(root: React.ReactNode) {
   const [modal, setModal] = useState();
 }
+
+function useSystem() {
+  return useContext(AppContext);
+}
+export { useToast, useCustomTheme, useSystem, useModal, useCollapse };

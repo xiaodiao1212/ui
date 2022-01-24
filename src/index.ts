@@ -44,15 +44,18 @@ import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
 import StickyFooter from './components/StickyFooter';
-import ToolTip from './components/ToolTip';
 import Steps from './components/Steps';
+import ToolTip from './components/ToolTip';
 import { useCustomTheme } from './hooks';
+import Tabs from './components/Tabs';
+import Toast from './components/Toast';
 export {
-  ToolTip,
-  Steps,
+  Tabs,
+  Toast,
   useCustomTheme,
   Picker,
   StickyFooter,
+  ToolTip,
   List,
   Icon,
   Link,
@@ -97,4 +100,5 @@ export {
   Upload,
   Textarea,
   Divider,
+  Steps,
 };
