@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, Button, Col, Container, Row, Switch, Text, List, Badge, Card } from './build';
+import { App, Center, Button, Col, Container, Row, Switch, Text, Chip, Badge, Card } from './build';
 const Main = () => {
   const [on, setOn] = useState(false);
   return (
@@ -11,7 +11,15 @@ const Main = () => {
             <Text>this is ui</Text>
           </Col>{' '}
           <Col>
-            <Switch on={on} onChange={() => setOn(v => !v)}></Switch>
+            <Center>
+              <Switch
+                on={on}
+                onChange={() => setOn(v => !v)}
+                co={{
+                  margin: '0 auto',
+                }}
+              />
+            </Center>
           </Col>
         </Row>
       </Container>
@@ -33,15 +41,22 @@ const Main = () => {
             </Badge>
           </Col>{' '}
           <Col>
-            <Switch on={on} onChange={() => setOn(v => !v)}></Switch>
+            <Chip>this is chip</Chip>
           </Col>{' '}
         </Row>
       </Container>
 
       <Container pa='1em'>
-        <Row>
+        <Row gap='1em'>
           <Col>
-            <Card></Card>
+            <Card title='this is card1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
+              this is content1
+            </Card>
+          </Col>{' '}
+          <Col>
+            <Card title='this is card2' extra='133' co={{ borderRadius: '4px' }}>
+              this is content2
+            </Card>
           </Col>{' '}
         </Row>
       </Container>

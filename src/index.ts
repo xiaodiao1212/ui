@@ -50,8 +50,10 @@ import Switch from './components/Switch';
 import { useCustomTheme } from './hooks';
 import Tabs from './components/Tabs';
 import Toast from './components/Toast';
+import Center from './components/Center';
 export {
   Tabs,
+  Center,
   Toast,
   useCustomTheme,
   Picker,

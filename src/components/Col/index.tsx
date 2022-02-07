@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { css } from '@emotion/react';
 
 interface ColProps {
-  flexSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
+  alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
   flex?: number | string;
   noFlex?: boolean;
   autoMargin?: boolean;
@@ -52,11 +52,13 @@ const Col = ({
   pr,
   py,
   px,
+  alignSelf = 'center',
   left = false,
   right = false,
   ...props
 }: ColProps) => {
   const styles = css({
+    alignSelf: alignSelf,
     textAlign: (left && 'left') || (right && 'right') || 'center',
     margin: ma,
     padding: ma,
