@@ -8,6 +8,7 @@ import Row from '../Row';
 
 type InputProps = {
   number?: boolean;
+  password?: boolean;
   clearable?: boolean;
   flex?: number;
   gap?: string;
@@ -39,6 +40,7 @@ const Input = ({
   gap,
   contain = false,
   maxLength,
+  password = false,
   number = false,
   outline = true,
   format,

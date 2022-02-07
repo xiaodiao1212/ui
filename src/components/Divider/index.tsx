@@ -40,7 +40,7 @@ const Divider = ({
         }),
     ...(typeof co == 'function' ? co(theme) : co),
   });
-  return <hr css={styles} aria-label='hr divider' className={clsx(className)} {...props} />;
+  return <hr css={styles} className={clsx(className)} {...props} />;
 };
 
 export default Divider;

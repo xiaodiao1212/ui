@@ -80,7 +80,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     }
   }, [current]);
   return (
-    <div css={styles} aria-label='segment button' role='button' className={computedClassNames} {...props}>
+    <div css={styles} role='button' className={computedClassNames} {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
     </div>
@@ -111,7 +111,7 @@ const SegmentItem = ({
   };
 
   return (
-    <div css={styles} aria-label='segment item' className={computedClassNames} onClick={handleClickSegmentItem}>
+    <div css={styles} className={computedClassNames} onClick={handleClickSegmentItem}>
       {children}
     </div>
   );

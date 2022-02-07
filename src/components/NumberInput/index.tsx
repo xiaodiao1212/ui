@@ -26,7 +26,7 @@ const NumberInput = ({ onChange, children, co, className, ...props }: NumberInpu
   });
   const computedClassNames = clsx(className);
   return (
-    <label aria-label='number input' className={computedClassNames} {...props}>
+    <label className={computedClassNames} {...props}>
       <input css={styles} hidden={!!children} type='number' onChange={handleChange} />
       {children}
     </label>

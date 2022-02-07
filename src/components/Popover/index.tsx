@@ -63,7 +63,7 @@ const Popover = ({
     });
   };
   return (
-    <div css={styles} aria-label='popover' className={computedClassNames} {...props}>
+    <div css={styles} className={computedClassNames} {...props}>
       {handleChildrenRender()}
     </div>
   );
@@ -128,7 +128,6 @@ const PopoverContent = ({
       css={styles}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      aria-label='popover-content'
       className={computedClassNames}
       {...props}>
       {children}

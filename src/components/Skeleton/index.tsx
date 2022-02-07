@@ -48,7 +48,7 @@ const Skeleton = ({
     animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
     ...(typeof co == 'function' ? co?.(theme) : co),
   });
-  return <div css={styles} aria-label='skeleton' className={computedClassNames} {...props} />;
+  return <div css={styles} className={computedClassNames} {...props} />;
 };
 
 export default Skeleton;

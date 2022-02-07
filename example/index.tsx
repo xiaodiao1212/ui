@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, Col, Container, Row, Switch, Text } from './build';
+import { App, Button, Col, Container, Row, Switch, Text, List, Badge, Card } from './build';
 const Main = () => {
   const [on, setOn] = useState(false);
   return (
@@ -12,6 +12,39 @@ const Main = () => {
           </Col>{' '}
           <Col>
             <Switch on={on} onChange={() => setOn(v => !v)}></Switch>
+          </Col>
+        </Row>
+      </Container>
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Button>this is ui</Button>
+          </Col>
+          <Col>
+            <Button outlined>this is ui</Button>
+          </Col>
+          <Col>
+            <Button rounded>this is ui</Button>
+          </Col>
+        </Row>
+      </Container>
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Badge>
+              <Text>this is ui</Text>
+            </Badge>
+          </Col>{' '}
+          <Col>
+            <Switch on={on} onChange={() => setOn(v => !v)}></Switch>
+          </Col>{' '}
+        </Row>
+      </Container>
+
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Card></Card>
           </Col>{' '}
         </Row>
       </Container>

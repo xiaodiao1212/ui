@@ -67,7 +67,6 @@ const Tabs = ({
         display: 'flex',
         ...(typeof co == 'function' ? co(theme) : co),
       })}
-      aria-label='tabs'
       className={computedClassNames}
       {...props}>
       {typeof children === 'function' && children(renderTab)}
@@ -93,12 +92,7 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, c
     ...co?.(theme, tab == tabKey),
   });
   return (
-    <Button
-      css={tabsIndicatorStyles}
-      aria-label='tab item'
-      className={computedClassNames}
-      onClick={handleClickTab}
-      co={tabCssOptions}>
+    <Button css={tabsIndicatorStyles} className={computedClassNames} onClick={handleClickTab} co={tabCssOptions}>
       {children}
       {tab == tabKey && !noIndicator && (indicator || <TabsIndicator />)}
     </Button>
@@ -117,7 +111,7 @@ const TabsIndicator = ({ co, className, ...props }: React.ComponentPropsWithoutR
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
-  return <span css={tabsIndicatorStyles} aria-label='tabs indicator' className={computedClassNames} {...props} />;
+  return <span css={tabsIndicatorStyles} className={computedClassNames} {...props} />;
 };
 
 Tabs.Item = TabItem;

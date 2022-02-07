@@ -22,7 +22,7 @@ const Upload = ({ onFileChange, children, co, className, ...props }: UploadProps
   });
   const computedClassNames = clsx(className);
   return (
-    <label css={styles} aria-label='file upload input' className={computedClassNames}>
+    <label css={styles} className={computedClassNames}>
       <input hidden type='file' onChange={handleFileChange} {...props} />
       {children || 'Upload'}
     </label>

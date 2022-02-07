@@ -92,7 +92,7 @@ const Badge = ({
   const badgeStyles = css({
     position: 'relative',
     '> *:first-child': {
-      borderRadius: theme ? theme.common.circularEdge : '9999em',
+      borderRadius: theme ? theme.common.circularEdge : 999,
       visibility: show ? 'visible' : 'hidden',
       background: color || (theme ? theme.color.red : '#e32b3a'),
       color: theme ? theme.color.white : '#fff',
@@ -102,18 +102,17 @@ const Badge = ({
       height: `${size}px`,
       textAlign: 'center',
       position: 'absolute',
-      // padding: '0 6px',
       ...getInset(),
       boxShadow: '0 0 0 1px #fff',
-      transition: 'all .3s',
+      transition: 'visibility all .3s',
       ...(typeof co == 'function' ? co(theme) : co),
     },
   });
   return (
-    <div css={badgeStyles} aria-label='badge' className={clsx(className)} {...props}>
+    <span css={badgeStyles} className={clsx(className)} {...props}>
       {['string', 'number'].includes(typeof content) || !content ? <span>{content}</span> : content}
       {children}
-    </div>
+    </span>
   );
 };
 

@@ -107,7 +107,7 @@ const Progress = ({
   const computedClassNames = clsx(className);
 
   return (
-    <div css={styles} aria-label='progress' role='progressbar' className={computedClassNames} {...props}>
+    <div css={styles} role='progressbar' className={computedClassNames} {...props}>
       <div className='progress-bar' />
       {text && (
         <div className='progress-text'>
