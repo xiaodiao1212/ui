@@ -20,7 +20,7 @@ const Card = ({ title, extra, co, className, children, onClick, ...props }: Card
   const styles = css({
     display: 'flex',
     flexDirection: 'column',
-    background: theme ? theme.color.white : 'white',
+    background: theme.color.white,
     '& > header': {
       display: 'flex',
       '& > *': {

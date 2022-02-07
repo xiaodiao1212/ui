@@ -90,12 +90,13 @@ const Badge = ({
     }
   };
   const badgeStyles = css({
+    display: 'inline-flex',
     position: 'relative',
-    '> *:first-child': {
-      borderRadius: theme ? theme.common.circularEdge : 999,
+    '& > *:first-child': {
+      borderRadius: 999,
       visibility: show ? 'visible' : 'hidden',
-      background: color || (theme ? theme.color.red : '#e32b3a'),
-      color: theme ? theme.color.white : '#fff',
+      background: color || theme.color.red,
+      color: theme.color.white,
       lineHeight: `${size}px`,
       minWidth: `${size}px`,
       fontSize: '12px',
@@ -103,16 +104,16 @@ const Badge = ({
       textAlign: 'center',
       position: 'absolute',
       ...getInset(),
-      boxShadow: '0 0 0 1px #fff',
+      boxShadow: `0 0 0 1px ${theme.color.white}`,
       transition: 'visibility all .3s',
       ...(typeof co == 'function' ? co(theme) : co),
     },
   });
   return (
-    <span css={badgeStyles} className={clsx(className)} {...props}>
+    <div css={badgeStyles} className={clsx(className)} {...props}>
       {['string', 'number'].includes(typeof content) || !content ? <span>{content}</span> : content}
       {children}
-    </span>
+    </div>
   );
 };
 

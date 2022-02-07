@@ -1,19 +1,18 @@
-
 /** @jsxImportSource @emotion/react */
 
-import React from 'react'
-import clsx from 'clsx'
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../constants/theme'
+import React from 'react';
+import clsx from 'clsx';
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../constants/theme';
 
 export type TimelineItemProps = {
-  children: React.ReactNode
-  icon?: React.ReactNode
-  interval?: string
-  subtitle?: string
-  title?: string
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
-}
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  interval?: string;
+  subtitle?: string;
+  title?: string;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+};
 
 export const TimelineItem = ({
   icon,
@@ -22,8 +21,8 @@ export const TimelineItem = ({
   className,
   ...props
 }: TimelineItemProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme
-  const color = theme ? theme.color.primary : '#5568FE'
+  const theme = useTheme() as Theme;
+  const color = theme.color.primary;
   const styles = css({
     // position: 'absolute',
     // display: 'block',
@@ -56,15 +55,15 @@ export const TimelineItem = ({
       },
     },
     '& .indicators': {
-     // width: '100%',
+      // width: '100%',
       height: '5em',
       '&::after': {
         left: '4px',
         top: '27%',
         height: '98%',
-       // transform: 'translateX(-60%)',
+        // transform: 'translateX(-60%)',
         width: '1px',
-        opacity: '100%'
+        opacity: '100%',
       },
     },
     '&:last-child': {
@@ -86,8 +85,8 @@ export const TimelineItem = ({
       fontSize: '.8em',
     },
     ...(typeof co == 'function' ? co(theme) : co),
-  })
-  const computedClassNames = clsx(className)
+  });
+  const computedClassNames = clsx(className);
   return (
     <div css={styles} className={computedClassNames} {...props}>
       <div className={`indicators indicator`}>
@@ -99,5 +98,5 @@ export const TimelineItem = ({
         </div>
       </li>
     </div>
-  )
-}
+  );
+};

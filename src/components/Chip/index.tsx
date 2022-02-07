@@ -22,7 +22,7 @@ const Chip = ({ outline = false, color, co, children, className, ...props }: Chi
   const theme = useTheme() as Theme;
   const getComputedColor = (color?: ((theme: Theme) => string) | string) =>
     (typeof color == 'function' ? color(theme) : color) ||
-    (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827');
+    (theme.mode == 'light' ? theme.color.black : theme.color.white);
   const computedClassNames = clsx(className);
   const styles = css({
     display: 'inline-flex',
@@ -31,7 +31,7 @@ const Chip = ({ outline = false, color, co, children, className, ...props }: Chi
     ...(!outline
       ? {
           backgroundColor: getComputedColor(color),
-          color: theme ? theme.color.white : '#fff',
+          color: theme.color.white,
         }
       : {
           border: '1px solid ' + getComputedColor(color),

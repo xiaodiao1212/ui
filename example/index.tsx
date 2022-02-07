@@ -18,9 +18,6 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Button>this is ui</Button>
-          </Col>
-          <Col>
             <Button outlined>this is ui</Button>
           </Col>
           <Col>
@@ -32,7 +29,7 @@ const Main = () => {
         <Row>
           <Col>
             <Badge>
-              <Text>this is ui</Text>
+              <Button>this is ui</Button>
             </Badge>
           </Col>{' '}
           <Col>

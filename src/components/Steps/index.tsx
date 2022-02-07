@@ -37,7 +37,7 @@ const Steps = ({
   ...props
 }: StepsProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
-  const color = theme ? theme.color.primary : '#5568FE';
+  const color = theme.color.primary;
   let n: number = 0;
   const styles = css({
     display: 'flex',

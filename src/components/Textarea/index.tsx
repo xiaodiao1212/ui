@@ -18,8 +18,8 @@ const Textarea = ({
   const styles = css({
     width: '100%',
     padding: '12px',
-    backgroundColor: theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.white) : 'transparent',
-    color: theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#232149',
+    backgroundColor: theme.mode == 'light' ? theme.color.greyLight : theme.color.white,
+    color: theme.mode == 'light' ? theme.color.black : theme.color.white,
     ...(typeof co == 'function' ? co(theme) : co),
   });
 

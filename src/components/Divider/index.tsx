@@ -30,12 +30,12 @@ const Divider = ({
       ? {
           display: 'inline',
           borderLeft: `${width}px ${dashed ? 'dashed' : 'solid'}  ${
-            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#56538D'
+            color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
           }`,
         }
       : {
           borderTop: `${width}px ${dashed ? 'dashed' : 'solid'}  ${
-            color || theme ? (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey) : '#56538D'
+            color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
           }`,
         }),
     ...(typeof co == 'function' ? co(theme) : co),

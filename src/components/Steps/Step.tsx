@@ -25,7 +25,7 @@ export const Step = ({
   ...props
 }: StepProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
-  const color = theme ? theme.color.primary : '#5568FE';
+  const color = theme.color.primary;
   const styles = css({
     display: 'block',
     height: '100%',
