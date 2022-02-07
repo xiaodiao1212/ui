@@ -46,6 +46,7 @@ import Collapse from './components/Collapse';
 import StickyFooter from './components/StickyFooter';
 import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
+import Switch from './components/Switch';
 import { useCustomTheme } from './hooks';
 import Tabs from './components/Tabs';
 import Toast from './components/Toast';
@@ -101,4 +102,5 @@ export {
   Textarea,
   Divider,
   Steps,
+  Switch,
 };

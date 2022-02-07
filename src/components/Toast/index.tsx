@@ -33,6 +33,7 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
     right: 0,
     zIndex: 999,
     transform: 'scale(1)',
+    maxWidth: '80vw',
     // 下面trick实现居中
     '& > *': {
       margin: 'auto',

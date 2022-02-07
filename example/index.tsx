@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, StickyFooter, Collapse, Container, TabBar } from './build';
-
+import { App, Col, Container, Row, Switch, Text } from './build';
 const Main = () => {
-  const [expand, setExpand] = useState(false);
-  const handleChangeExpand = () => {
-    setExpand(v => !v);
-  };
+  const [on, setOn] = useState(false);
   return (
     <App>
-      <Container fullScreen noPadding>
-        <Collapse expand={expand} title={'3313'} onChange={handleChangeExpand}>
-          rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrrrrrrrrrrrr
-        </Collapse>
-        <StickyFooter>
-          <TabBar items={[{ text: '1' }, { text: '2' }, { text: '3' }]} />
-        </StickyFooter>
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Text>this is ui</Text>
+          </Col>{' '}
+          <Col>
+            <Switch on={on} onChange={() => setOn(v => !v)}></Switch>
+          </Col>{' '}
+        </Row>
       </Container>
     </App>
   );

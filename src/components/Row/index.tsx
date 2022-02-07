@@ -26,7 +26,7 @@ type RowProps = {
   gap?: string;
   wrap?: boolean;
   fullHeight?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 

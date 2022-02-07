@@ -123,10 +123,22 @@ function debounce(fn: Function, delay: number = 500): Function {
     }, delay);
   };
 }
+
+function dec2hex(dec: { toString: (arg0: number) => string }) {
+  return ('0' + dec.toString(16)).substring(-2);
+}
+
+function randomString(len = 50) {
+  const arr = new Uint8Array(len / 2);
+  window.crypto.getRandomValues(arr);
+  return Array.from(arr, dec2hex).join('');
+}
+
 export {
   isBrowerDarkMode,
   isObject,
   debounce,
+  randomString,
   utf8ToB64,
   b64ToUtf8,
   underlineToHump,

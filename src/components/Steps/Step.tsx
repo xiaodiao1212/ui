@@ -63,8 +63,8 @@ export const Step = ({
         left: '19%',
         top: '30%',
         height: '1px',
-        transform: 'translateY(-50%)',
-        width: '72%',
+        transform: 'translateY(-50%) translateX(10%)',
+        width: '60%',
         opacity: status === 'finish' ? '100%' : '30%',
       },
     },
@@ -83,12 +83,6 @@ export const Step = ({
       marginLeft: '-10px',
       textAlign: 'left',
     },
-    '& .pagragh': {
-      position: 'absolute',
-      left: '10px',
-      padding: '2em 1em 1em .6em',
-      fontSize: '12px',
-    },
     ...(typeof co == 'function' ? co(theme) : co),
   });
   const computedClassNames = clsx(className);
@@ -100,7 +94,6 @@ export const Step = ({
       <div className={`content`}>
         <div className={`${status}`}>{title}</div>
       </div>
-      {status === 'process' ? <div className={`pagragh`}>{children}</div> : null}
     </div>
   );
 };

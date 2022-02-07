@@ -7,11 +7,13 @@ import { css } from '@emotion/react';
 
 interface ColProps {
   flexSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
-  textAlign?: 'center' | 'left' | 'right';
   flex?: number | string;
   noFlex?: boolean;
   autoMargin?: boolean;
   children?: React.ReactNode;
+  className?: string;
+  left?: boolean;
+  right?: boolean;
   mt?: string;
   mb?: string;
   ml?: string;
@@ -31,7 +33,6 @@ interface ColProps {
 
 const Col = ({
   children,
-  textAlign,
   noFlex,
   flex,
   autoMargin,
@@ -51,10 +52,12 @@ const Col = ({
   pr,
   py,
   px,
+  left = false,
+  right = false,
   ...props
-}: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: ColProps) => {
   const styles = css({
-    textAlign: textAlign ? textAlign : 'center',
+    textAlign: (left && 'left') || (right && 'right') || 'center',
     margin: ma,
     padding: ma,
     marginTop: mt || my,

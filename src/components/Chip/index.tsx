@@ -7,7 +7,9 @@ import { useTheme, css } from '@emotion/react';
 
 type ChipProps = {
   outline?: boolean;
-  color?: string;
+  color?: ((theme: Theme) => string) | string;
+  children?: React.ReactNode;
+  className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
@@ -16,20 +18,14 @@ type ChipProps = {
  * @param boolean outline
  * @param string color
  */
-const Chip = ({
-  outline = false,
-  color,
-  co,
-  children,
-  className,
-  ...props
-}: ChipProps & React.ComponentPropsWithoutRef<'div'>) => {
+const Chip = ({ outline = false, color, co, children, className, ...props }: ChipProps) => {
   const theme = useTheme() as Theme;
-  const getComputedColor = (color?: string) =>
-    color || (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#232149');
+  const getComputedColor = (color?: ((theme: Theme) => string) | string) =>
+    (typeof color == 'function' ? color(theme) : color) ||
+    (theme ? (theme.mode == 'light' ? theme.color.black : theme.color.white) : '#111827');
   const computedClassNames = clsx(className);
   const styles = css({
-    display: 'inline-block',
+    display: 'inline-flex',
     padding: '0.1em 0.5em',
     borderRadius: '16px',
     ...(!outline

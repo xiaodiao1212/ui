@@ -36,13 +36,13 @@ type Theme = {
 const theme: Theme = {
   mode: 'light',
   color: {
-    primary: '#5568FE',
+    primary: '#38366D',
     secondary: '#FB7173',
     black: '#232149',
-    grey: '#38366D',
+    grey: '#CDD0EE',
     red: '#e32b3a',
-    accent: '#56538D',
-    greyLight: '#56538D',
+    accent: '#5568FE',
+    greyLight: '#F6F6FF',
     white: '#FEFEFE',
   },
   utils: {

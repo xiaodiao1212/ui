@@ -4,7 +4,7 @@ import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
 import Text from '../Text';
-import { useTheme, css } from '@emotion/react';
+import { useTheme, css, keyframes } from '@emotion/react';
 
 type ProgressProps = {
   circle?: boolean;
@@ -32,6 +32,31 @@ const Progress = ({
   ...props
 }: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
+  const kf = keyframes({
+    from: {
+      width: '0%',
+    },
+    to: {
+      width: percent + '%',
+    },
+  });
+
+  const kfText = keyframes({
+    from: {
+      left: '0%',
+    },
+    to: {
+      left: `calc(${percent}% - ${Math.max(0, text.length - 2.5)}em)`,
+    },
+  });
+  const kfTips = keyframes({
+    from: {
+      left: '0%',
+    },
+    to: {
+      left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
+    },
+  });
   const styles = css({
     position: 'relative',
     height: height,
@@ -40,6 +65,7 @@ const Progress = ({
       height: height,
       width: percent + '%',
       backgroundColor: color || theme?.color?.primary || '#5568FE',
+      animation: animated ? `${kf} 1.5s` : '',
     },
     '&, &>.progress-bar': {
       borderRadius: circle ? '50px' : '',
@@ -51,12 +77,14 @@ const Progress = ({
         top: 0,
         bottom: 0,
         color: color || theme?.color?.white || '#FEFEFE',
+        animation: animated ? `${kfText} 1.5s` : '',
       },
     }),
     ...(tips.length > 0 && {
       '& > .progress-tips': {
         position: 'absolute',
         left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
+        animation: animated ? `${kfTips} 1.5s` : '',
         transform: 'translateY(-230%)',
         padding: '2px 16px',
         borderRadius: '4px',

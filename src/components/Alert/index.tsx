@@ -74,7 +74,7 @@ const Alert = ({ icon, action, co, title, content, duration = 10, scroll, classN
     return (
       <Row vertical alignItems='start'>
         <Col>{title}</Col>
-        <Col style={{ fontSize: '.8em' }}>{content}</Col>
+        <Col co={{ fontSize: '.8em' }}>{content}</Col>
       </Row>
     );
   };

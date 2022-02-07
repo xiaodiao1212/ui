@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
+
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { fade } from '../../constants/style';
 
 type PickerItem = {
   key: string;
@@ -13,20 +13,14 @@ type PickerItem = {
 
 type PickerProps = {
   data: PickerItem[][];
-  onPickerChange: (item: PickerItem[]) => any;
+  onChange: (item: PickerItem[]) => any;
   value: string[];
+  className?: string;
+  children?: React.ReactNode;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const Picker = ({
-  data = [],
-  onPickerChange,
-  value,
-  className,
-  children,
-  co,
-  ...props
-}: PickerProps & React.ComponentPropsWithoutRef<'div'>) => {
+const Picker = ({ data = [], onChange, value, className, children, co, ...props }: PickerProps) => {
   const theme = useTheme() as Theme;
   const [pickerStyle, setPickerStyle] = useState<any>({
     position: 'relative',
@@ -152,9 +146,9 @@ const Picker = ({
         return currentKey[index];
       }),
     );
-    onPickerChange?.(
+    onChange?.(
       data.map((v, i) => {
-        console.log('onPickerChange', v);
+        console.log('onChange', v);
 
         if (i == index) return v[(max[index] - translateY) / 2];
         return v.filter(v => v.key == value[i])[0];
