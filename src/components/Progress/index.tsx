@@ -7,7 +7,7 @@ import Text from '../Text';
 import { useTheme, css, keyframes } from '@emotion/react';
 
 type ProgressProps = {
-  circle?: boolean;
+  radius?: number;
   height?: string;
   percent?: number;
   backgroundColor?: string;
@@ -21,7 +21,7 @@ type ProgressProps = {
 const Progress = ({
   text = '',
   tips = '',
-  circle = true,
+  radius = 999,
   height = '1em',
   percent = 0,
   backgroundColor,
@@ -68,7 +68,7 @@ const Progress = ({
       animation: animated ? `${kf} 1.5s` : '',
     },
     '&, &>.progress-bar': {
-      borderRadius: circle ? '50px' : '',
+      borderRadius: radius,
     },
     ...(text.length > 0 && {
       '& > .progress-text': {

@@ -6,7 +6,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
 import { AppContext } from '../App';
-import { useSystem } from '../../hooks';
+import { useSystem, useToast } from '../../hooks';
 import Card from '../Card';
 import Text from '../Text';
 import Container from '../Container';
@@ -69,5 +69,7 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
 
   return visible ? ReactDOM.createPortal(Toast, system.root as Element) : <></>;
 };
+
+Toast.show = useToast;
 
 export default Toast;

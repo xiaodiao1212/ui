@@ -11,21 +11,22 @@ import Toast from '../components/Toast';
 
 export function useToast(
   content: string,
-  time: number = 2000,
+  time = 2000,
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties,
 ) {
-  const [visible, setVisible] = useState(true);
-  const system = useSystem();
-  useEffect(() => {
-    const t = setTimeout(() => {
-      setVisible(false);
-    }, time);
-    return clearTimeout(t);
-  }, []);
-  return ReactDOM.createPortal(
+  let visible = true;
+  console.log('vv', visible);
+
+  const to = setTimeout(() => {
+    visible = false;
+  }, time);
+
+  ReactDOM.render(
     <Toast visible={visible} co={co}>
       {content}
     </Toast>,
-    system.root as Element,
+    document.getElementById('root'),
   );
+
+  return clearTimeout(to);
 }

@@ -1,6 +1,22 @@
 import { useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, Center, Button, Col, Container, Row, Switch, Text, Chip, Badge, Card } from './build';
+import {
+  App,
+  Center,
+  Button,
+  Col,
+  Container,
+  Row,
+  Switch,
+  Text,
+  Chip,
+  Badge,
+  Card,
+  Divider,
+  Upload,
+  Textarea,
+  Toast,
+} from './build';
 const Main = () => {
   const [on, setOn] = useState(false);
   return (
@@ -37,7 +53,12 @@ const Main = () => {
         <Row>
           <Col>
             <Badge>
-              <Button>this is ui</Button>
+              <Button
+                onClick={() => {
+                  Toast.show('1');
+                }}>
+                this is Toasts
+              </Button>
             </Badge>
           </Col>{' '}
           <Col>
@@ -54,9 +75,30 @@ const Main = () => {
             </Card>
           </Col>{' '}
           <Col>
-            <Card title='this is card2' extra='133' co={{ borderRadius: '4px' }}>
+            <Card title='this is card2' extra='133' color={'red'} co={{ borderRadius: '4px' }}>
               this is content2
             </Card>
+          </Col>{' '}
+        </Row>
+      </Container>
+      <Divider width={6} />
+      <Container pa='1em'>
+        <Row gap='1em'>
+          <Col>
+            <Upload
+              onFileChange={file => {
+                console.log(file);
+              }}
+            />
+          </Col>{' '}
+          <Col>
+            <Textarea
+              showCount
+              onChange={(v, e) => {
+                console.log(v);
+                console.log(e);
+              }}
+            />
           </Col>{' '}
         </Row>
       </Container>
