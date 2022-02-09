@@ -3,7 +3,7 @@
 import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
-import arrowSVG from '../../../assets/arrow-up.svg';
+import arrowSVG from '../../icons/arrow-up.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
 import Icon from '../Icon';
 type CollapseProps = {

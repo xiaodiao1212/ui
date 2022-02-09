@@ -29,7 +29,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     alignItems: 'center',
     position: 'relative',
     borderRadius: '4px',
-    background: theme ? theme.color.greyLight : '#56538D',
+    background: theme.color.greyLight,
     '& > div': {
       display: 'flex',
       alignItems: 'center',
@@ -40,13 +40,13 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
       left: 0,
     },
     '& > div:first-child': {
-      boxShadow: `0px 0px 4px 0px ${theme ? theme.shadow.color : 'rgba(0,0,0,.1)'}`,
+      boxShadow: `0px 0px 4px 0px ${theme.shadow.color}`,
       borderRadius: '4px',
       width: `calc(${fragmentLength}% - ${offsetX}px)`,
       top: '4px',
       bottom: '4px',
       transform: `translateX(calc(${current == 0 ? offsetX : 100 * current}% + ${offsetX * current}px))`,
-      background: theme ? theme.color.white : '#fff',
+      background: theme.color.white,
       transition: '.3s all',
     },
     ...(typeof co == 'function' ? co(theme) : co),
@@ -80,7 +80,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     }
   }, [current]);
   return (
-    <div css={styles} aria-label='segment button' role='button' className={computedClassNames} {...props}>
+    <div css={styles} role='button' className={computedClassNames} {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
     </div>
@@ -100,7 +100,7 @@ const SegmentItem = ({
     padding: '0 .4em',
     flex: 1,
     textAlign: 'center',
-    color: itemkey == currentKey ? (theme ? theme.color.primary : '#5568FE') : theme ? theme.color.grey : '#38366D',
+    color: itemkey == currentKey ? theme.color.primary : theme.color.grey,
     transition: '.3s all',
     fontWeight: itemkey == currentKey ? 700 : 500,
     ...(typeof co == 'function' ? co(theme) : co),
@@ -111,7 +111,7 @@ const SegmentItem = ({
   };
 
   return (
-    <div css={styles} aria-label='segment item' className={computedClassNames} onClick={handleClickSegmentItem}>
+    <div css={styles} className={computedClassNames} onClick={handleClickSegmentItem}>
       {children}
     </div>
   );

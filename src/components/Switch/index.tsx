@@ -2,15 +2,17 @@
 
 import { Theme } from '../../constants/theme';
 import { useTheme, css } from '@emotion/react';
-type SwitchProps = Partial<{
+type SwitchProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
-  on: boolean;
-  color?: string;
+  on?: boolean;
+  color?: ((theme: Theme) => string) | string;
+  width?: number;
+  height?: number;
   className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+};
 
-const Switch = ({ on = false, onChange, color, co }: SwitchProps) => {
+const Switch = ({ on = false, onChange, color, co, width = 3, height = 1.4 }: SwitchProps) => {
   const handleSwitchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
   };
@@ -18,39 +20,38 @@ const Switch = ({ on = false, onChange, color, co }: SwitchProps) => {
   const styles = css({
     display: 'inline-flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     cursor: 'pointer',
-    width: '4em',
-    height: '1.6em',
-    background: on ? color || theme.color.primary || '#5568FE' : theme.color.greyLight || '#56538D',
+    width: `${width}em`,
+    height: `${height}em`,
+    background: on ? (typeof color == 'function' ? color(theme) : color || theme.color.primary) : theme.color.grey,
     borderRadius: 100,
     position: 'relative',
-    transition: 'background 0.4s ease-out',
+    transition: 'background 0.3s',
     ...(typeof co == 'function' ? co(theme) : co),
     '& > input': {
       display: 'none',
     },
-    '& > .switch-button': {
+    '&::after': {
       content: "''",
       position: 'absolute',
-      left: on ? `calc(65% - 5%)` : '5%',
-      width: '1.4em',
-      height: '1.4em',
-      borderRadius: 45,
-      transition: '.4s ease-out',
-      background: '#fff',
-      boxShadow: '0 0 2px 0 ' + theme.color.grey || '#38366D',
-      // transform: on ? 'translateX(60%)' : '',
+      left: on ? `${200 / 3 - 8}%` : '8%',
+      width: `${width / 3}em`,
+      height: `${width / 3}em`,
+      borderRadius: 100,
+      transition: '.3s',
+      background: on ? '#fff' : theme.color.greyLight,
+      boxShadow: '0 0 2px 0 ' + theme.color.black,
     },
-    '&:active > .switch-button': {
-      // width: '2em',
+    '&:active::after': {
+      width: `${width / 3 + 0.2}em`,
+      transform: on ? 'translateX(-0.2em)' : '',
+      transition: '0.2s',
     },
   });
 
   return (
     <label css={styles}>
-      <input checked={on} onChange={handleSwitchChange} type='checkbox' role='switch' />
-      <span className='switch-button' />
+      <input checked={on} onChange={handleSwitchChange} type='checkbox' />
     </label>
   );
 };

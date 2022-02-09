@@ -18,7 +18,7 @@ type ImageProps = {
 };
 const Image = ({
   circle = false,
-  lazy,
+  lazy = true,
   cover,
   scale,
   contain,

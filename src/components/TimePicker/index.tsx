@@ -29,7 +29,7 @@ const TimePicker = ({
     ...(typeof co == 'function' ? co(theme) : co),
   });
   return (
-    <label css={styles} aria-label='time input' className={clsx(className)} {...props}>
+    <label css={styles} className={clsx(className)} {...props}>
       <input min={min} max={max} hidden={!!children} type='time' onChange={handleChange} />
       {children || 'Time'}
     </label>

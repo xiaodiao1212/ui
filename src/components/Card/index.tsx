@@ -10,17 +10,20 @@ type CardProps = Partial<{
   extra: React.ReactNode;
   className: string;
   children: React.ReactNode;
+  color: ((theme: Theme) => string) | string;
   onClick: () => any;
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
-const Card = ({ title, extra, co, className, children, onClick, ...props }: CardProps) => {
+const Card = ({ title, extra, co, className, children, onClick, color, ...props }: CardProps) => {
   const theme = useTheme() as Theme;
   const computedClassNames = clsx(className);
   const styles = css({
+    textAlign: 'initial',
     display: 'flex',
+    padding: '1em',
     flexDirection: 'column',
-    background: theme ? theme.color.white : 'white',
+    background: color ? (typeof color == 'function' ? color?.(theme) : color) : theme.color.white,
     '& > header': {
       display: 'flex',
       '& > *': {
@@ -39,11 +42,13 @@ const Card = ({ title, extra, co, className, children, onClick, ...props }: Card
 
   return (
     <article css={styles} className={computedClassNames} onClick={handleClickCard} {...props}>
-      <header>
-        <div>{title}</div>
-        <div>{extra}</div>
-      </header>
-      {children}
+      {(title || extra) && (
+        <header>
+          <div>{title}</div>
+          <div>{extra}</div>
+        </header>
+      )}
+      <div>{children}</div>
     </article>
   );
 };

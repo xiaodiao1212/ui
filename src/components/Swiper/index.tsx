@@ -3,14 +3,17 @@
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Theme } from '../../constants/theme';
 import { clamp } from '../../utils';
+import SwiperItem from './SwiperItem';
 type SwipeItem = {
   index: number;
   content: React.ReactNode;
 };
 type SwiperProps = {
+  defaultIndex?: number;
   items: SwipeItem[];
-  onSwipe?: (current: number, distance: number) => any;
+  onChange?: (current: number, distance: number) => any;
   onSwipeStart?: (current: number) => any;
   onSwipeEnd?: (current: number) => any;
   onClick?: (index: number) => any;
@@ -18,11 +21,27 @@ type SwiperProps = {
   loop?: boolean;
   delay?: number;
   vertical?: boolean;
-  indicator?: (total: number, current: number) => React.ReactNode;
+  duration?: number;
+  indicatorProps?: {
+    color?: string;
+    show?: boolean;
+  };
+  stopPropagation?: boolean;
+  width?: string;
+  offsetX?: number;
+  offsetY?: number;
+  rubberband?: boolean;
+  indicator?: React.ReactNode | ((total: number, current: number) => React.ReactNode);
   className?: string;
+  children?: React.ReactNode;
+  ref?: React.RefObject<any>;
+  fade?: boolean;
 };
 
 const Swiper = ({
+  fade = false,
+  rubberband = true,
+  defaultIndex = 0,
   items,
   autoPlay = false,
   vertical = false,
@@ -30,13 +49,23 @@ const Swiper = ({
   delay = 3000,
   onSwipeStart,
   onSwipeEnd,
-  onSwipe,
+  onChange,
   onClick,
+  indicatorProps,
+  indicator,
   className,
+  children,
 }: SwiperProps) => {
+  const theme = useTheme() as Theme;
+  const defaultIndicatorProps = {
+    color: theme.color.white,
+    show: true,
+    ...indicatorProps,
+  };
   const computeCurrentItems = useCallback(() => {
     return items.length > 1 ? items.slice(-1).concat(items, items.slice(0, 1)) : items;
   }, [items]);
+
   const ref = useRef(null);
   const [touchResult, setTouchResult] = useState({ clientX: 0, clientY: 0 });
   const [isTouching, setIsTouching] = useState(false);
@@ -44,7 +73,6 @@ const Swiper = ({
   const [boundingInfos, setBoundingInfos] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const [translateY, setTranslateY] = useState<string | number>(0);
   const [translateX, setTranslateX] = useState<string | number>(0);
-  const theme = useTheme();
 
   const styles = css({
     overflow: 'hidden',
@@ -55,12 +83,14 @@ const Swiper = ({
           ? `translate3d(${translateX}px,${translateY}px,0)`
           : `translate3d(${translateX},${translateY},0)`
       }`,
-      '& > li': {
-        display: 'inline-flex',
-        width: '100%',
-      },
     },
   });
+
+  const swipeTo = (index: number) => {
+    console.log(index);
+  };
+  const swipePrev = () => {};
+  const swipeNext = () => {};
 
   useEffect(() => {
     if (autoPlay) {
@@ -70,16 +100,20 @@ const Swiper = ({
   }, []);
 
   useEffect(() => {
-    setBoundingInfos((ref.current as any)?.getBoundingClientRect());
+    const swiper = ref.current as any;
+    setBoundingInfos(swiper.getBoundingClientRect());
+    swiper.swipeTo = swipeTo;
+    swiper.swipePrev = swipePrev;
+    swiper.swipeNext = swipeNext;
   }, [ref]);
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLLIElement>) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setIsTouching(true);
     setTouchResult(e.touches[e.touches.length - 1]);
     onSwipeStart?.(currentIndex);
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLLIElement>) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     const currentTouchResult = e.touches[e.touches.length - 1];
     const diff = currentTouchResult[vertical ? 'clientY' : 'clientX'] - touchResult[vertical ? 'clientY' : 'clientX'];
     const isFirstItem = currentIndex == items[0].index && !loop;
@@ -101,10 +135,10 @@ const Swiper = ({
       const diffClamped = clamp(diff, 0, currentNeededLength);
       setTranslateXByDiff(diffClamped);
     } else setTranslateXByDiff(diff);
-    onSwipe?.(currentIndex, diff);
+    onChange?.(currentIndex, diff);
   };
 
-  const handleTouchEnd = (e: React.TouchEvent<HTMLLIElement>) => {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     setIsTouching(false);
     const currentTouchResult = e.changedTouches[e.changedTouches.length - 1];
     const diff = currentTouchResult[vertical ? 'clientY' : 'clientX'] - touchResult[vertical ? 'clientY' : 'clientX'];
@@ -122,23 +156,17 @@ const Swiper = ({
     onSwipeEnd?.(currentIndex);
   };
   return (
-    <div css={styles} ref={ref} className={clsx(className)}>
-      <ul>
-        {items.map(v => {
-          return (
-            <li
-              key={v.index + 'swipeitem'}
-              onTouchStart={e => handleTouchStart(e)}
-              onTouchMove={e => handleTouchMove(e)}
-              onTouchEnd={e => handleTouchEnd(e)}
-              onClick={e => onClick?.(v.index)}>
-              {v.content}
-            </li>
-          );
-        })}
-      </ul>
+    <div
+      css={styles}
+      ref={ref}
+      className={clsx(className)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}>
+      <ul>{children}</ul>
     </div>
   );
 };
 
+Swiper.item = SwiperItem;
 export default Swiper;

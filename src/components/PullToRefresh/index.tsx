@@ -119,15 +119,12 @@ const PullToRefresh = ({
   return (
     <div
       css={styles}
-      aria-label='pull-to-refresh'
       className={computedRefreshClassNames}
       onTouchStart={e => handleTouchStart(e)}
       onTouchMove={e => handleTouchMove(e)}
       onTouchEnd={e => handleTouchEnd(e)}
       {...props}>
-      <div aria-label='pull-to-refresh container' className='refresh-container'>
-        {handleChildrenRender()}
-      </div>
+      <div className='refresh-container'>{handleChildrenRender()}</div>
     </div>
   );
 };
@@ -144,7 +141,7 @@ const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
   });
   const computedLoadingClassNames = clsx(className);
   return (
-    <div css={style} aria-label='pull-to-refresh loading' className={computedLoadingClassNames}>
+    <div css={style} className={computedLoadingClassNames}>
       {children}
     </div>
   );

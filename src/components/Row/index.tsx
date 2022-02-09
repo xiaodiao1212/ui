@@ -16,13 +16,17 @@ type RowProps = {
   pt?: string;
   pl?: string;
   pr?: string;
+  py?: string;
+  px?: string;
+  my?: string;
+  mx?: string;
   vertical?: boolean;
   alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
   justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
   gap?: string;
   wrap?: boolean;
   fullHeight?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
@@ -37,6 +41,10 @@ const Row = ({
   pt,
   pl,
   pr,
+  py,
+  px,
+  my,
+  mx,
   children,
   vertical,
   wrap,
@@ -53,14 +61,14 @@ const Row = ({
     width: '100%',
     padding: pa,
     margin: ma,
-    marginTop: mt,
-    marginBottom: mb,
-    marginLeft: ml,
-    marginRight: mr,
-    paddingTop: pt,
-    paddingBottom: pb,
-    paddingLeft: pl,
-    paddingRight: pr,
+    marginTop: mt || my,
+    marginBottom: mb || my,
+    marginLeft: ml || mx,
+    marginRight: mr || mx,
+    paddingTop: pt || py,
+    paddingBottom: pb || py,
+    paddingLeft: pl || px,
+    paddingRight: pr || px,
     justifyContent: justifyContent || '',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',

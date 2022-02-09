@@ -31,7 +31,7 @@ const DatePicker = ({
   const computedClassNames = clsx(className);
 
   return (
-    <label css={styles} aria-label='date input' className={computedClassNames} {...props}>
+    <label css={styles} className={computedClassNames} {...props}>
       <input min={min} max={max} hidden={!!children} type='date' onChange={handleChange} />
       {children || <span id='value'>n/a</span>}
     </label>

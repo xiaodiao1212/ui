@@ -5,13 +5,15 @@ import { Theme } from '../../constants/theme';
 import * as React from 'react';
 import Col from '../Col';
 import Row from '../Row';
-import { debounce } from '../../utils';
 
 type InputProps = {
+  number?: boolean;
+  password?: boolean;
   clearable?: boolean;
   flex?: number;
   gap?: string;
   borderRadius?: string;
+  maxLength?: number;
   format?: (value: string) => string;
   onChange?: (value: string, e: any) => any;
   prefix?: { node: React.ReactNode; flex: number };
@@ -37,6 +39,9 @@ const Input = ({
   borderRadius = '4px',
   gap,
   contain = false,
+  maxLength,
+  password = false,
+  number = false,
   outline = true,
   format,
   disabled,
@@ -70,9 +75,20 @@ const Input = ({
   });
   const computedClassNames = clsx(className);
   const handleInputChange = (e: { target: { value: string } }) => {
-    debounce(onChange?.(format?.(e.target.value) || e.target.value, e));
+    let r = number
+      ? e.target.value.length > 1
+        ? e.target.value[0] == '0'
+          ? e.target.value.substring(1)
+          : e.target.value
+        : e.target.value
+      : format?.(e.target.value) || e.target.value;
+
+    if (maxLength) r = r.slice(0, maxLength);
+    onChange?.(r, e);
   };
-  const inputNode = <input css={styles} placeholder={placeholder} onChange={handleInputChange} />;
+  const inputNode = (
+    <input type={number ? 'number' : 'text'} css={styles} placeholder={placeholder} onChange={handleInputChange} />
+  );
   return prefix || suffix ? (
     <Row css={styleRow} className={computedClassNames} gap={gap}>
       {prefix && <Col flex={prefix.flex}>{prefix.node}</Col>}

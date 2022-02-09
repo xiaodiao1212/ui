@@ -5,7 +5,6 @@ import { Theme } from '../../constants/theme';
 
 import * as React from 'react';
 import { getLuminance } from '../../constants/style';
-import { isAndroid, isIos, isPC } from '../../utils';
 
 type ButtonProps = {
   padding?: string;
@@ -15,8 +14,8 @@ type ButtonProps = {
   outlined?: boolean;
   icon?: boolean;
   tile?: boolean;
+  rounded?: boolean;
   color?: ((theme: Theme) => string) | string;
-  accessibilityLabel?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
@@ -25,10 +24,10 @@ const Button = ({
   disabled = false,
   text = false,
   outlined = false,
+  rounded = false,
   co,
   icon = false,
   tile = false,
-  accessibilityLabel,
   color,
   padding,
   className,
@@ -61,7 +60,7 @@ const Button = ({
     padding: icon || text ? '' : '0.4em 1em',
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
-    borderRadius: tile ? '0px' : '4px',
+    borderRadius: tile ? '0px' : rounded ? '999px' : '4px',
     color: textColor,
     background: bgColor,
     ...(typeof co == 'function' ? co(theme) : co),
@@ -71,13 +70,7 @@ const Button = ({
     onClick?.(e);
   };
   return (
-    <button
-      onClick={handleClickButton}
-      aria-label={accessibilityLabel}
-      css={styles}
-      className={clsx(className)}
-      disabled={disabled}
-      {...props}>
+    <button onClick={handleClickButton} css={styles} className={clsx(className)} disabled={disabled} {...props}>
       {children}
     </button>
   );

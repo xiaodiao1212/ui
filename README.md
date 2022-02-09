@@ -30,10 +30,10 @@ UI is unavailable as an [npm package](https://www.npmjs.com/package/).
 
 ```sh
 // with npm
-npm install ui @emotion/react @emotion/styled
+npm install ui @emotion/react
 
 // with yarn
-yarn add ui @emotion/react @emotion/styled
+yarn add ui @emotion/react
 ```
 
 ## Major features
@@ -65,7 +65,7 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 Yes, it's really all you need to get started as you can see in this live and interactive demo:
 
-[![Edit Button](https://www.baidu/com)](https://www.baidu.com)
+[![Edit Button](https://www.baidu.com)](https://www.baidu.com)
 
 ## License
 

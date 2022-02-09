@@ -49,7 +49,7 @@ const Drawer = ({
   });
   const containerStyles = css({
     position: 'fixed',
-    zIndex: theme ? theme.zIndex.floatingWindow : 700,
+    zIndex: theme.zIndex.floatingWindow,
     transition: '.1s all',
     ...(typeof co == 'function' ? co(theme) : co),
   });

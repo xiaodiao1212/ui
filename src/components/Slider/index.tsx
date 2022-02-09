@@ -4,39 +4,55 @@
  */
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
+import { Theme } from '../../constants/theme';
 
-type SliderProps = Partial<{
-  style: string | React.CSSProperties;
-  disable: boolean;
-  defaultValue: string;
-  step: string;
-  onChange: (value: any) => any;
-  max: string;
-  min: string;
-  trackColor: string;
-  thumbColor: string;
-  trackHeight: number;
-  thumbHeight: number;
-  className: string;
-}>;
+type SliderProps = {
+  disable?: boolean;
+  defaultValue?: number;
+  step?: number;
+  value?: string;
+  onChange?: (value: string) => void;
+  max?: number;
+  min?: number;
+  trackColor?: string;
+  thumbColor?: string;
+  trackHeight?: number;
+  thumbHeight?: number;
+  className?: string;
+};
 
 const Slider = ({
-  max,
-  min,
-  step,
-  defaultValue,
+  max = 1,
+  min = 0,
+  step = 0.05,
+  value,
+  defaultValue = 0.3,
   onChange,
   trackColor,
   thumbColor,
   trackHeight = 10,
-  thumbHeight = 15,
+  thumbHeight = 20,
   className,
 }: SliderProps) => {
-  const theme = useTheme();
+  const theme = useTheme() as Theme;
 
   const handleOnChange = (e: { target: { value: string } }) => {
     onChange?.(e.target.value);
   };
+  const thumbStyles = `
+    width: ${thumbHeight}px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px 0px ${theme.color.black};
+    background: ${thumbColor || theme.color.white};
+    height: ${thumbHeight}px;
+    margin-top: -${(thumbHeight - trackHeight) / 2}px;`;
+
+  const trackStyles = `
+    height: ${trackHeight}px;
+    background: linear-gradient(to right, ${theme.color.primary}, ${theme.color.primary}), ${theme.color.grey};
+    background-size: ${(Number(value) / max) * 100}%, 100%;
+    background-repeat: no-repeat;
+    border-radius: 16px;`;
 
   const sliderStyles = css`
     input[type='range'] {
@@ -44,52 +60,37 @@ const Slider = ({
       -moz-appearance: none;
       outline: none;
       border: none;
+      cursor: pointer;
+      display: block;
+      width: 100%;
     }
 
     input[type='range']::-webkit-slider-runnable-track {
-      width: 100%;
-      height: ${trackHeight}px;
-      background: ${trackColor};
-      border-radius: 16px;
+      ${trackStyles}
     }
 
     input[type='range']::-moz-range-track {
-      width: 100%;
-      height: ${trackHeight}px;
-      background: ${trackColor};
-      border-radius: 16px;
+      ${trackStyles}
     }
 
     input[type='range']::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: ${thumbHeight}px;
-      border-radius: 50%;
-      background: ${thumbColor};
-      height: ${thumbHeight}px;
-      margin-top: -${(thumbHeight - trackHeight) / 2}px;
+      ${thumbStyles}
     }
 
     input[type='range']::-moz-range-thumb {
       -moz-appearance: none;
-      outline: none;
-      border: none;
-      width: ${thumbHeight}px;
-      border-radius: 50%;
-      background: ${thumbColor};
-      height: ${thumbHeight}px;
-      margin-top: -${(thumbHeight - trackHeight) / 2}px;
+      ${thumbStyles}
     }
 
     input[type='range']:focus {
       outline: none;
     }
 
-    input[type='range']:focus::-moz-range-track {
-      background: ${trackColor};
+    input[type='range']:focus::-moz-range-thumb {
     }
 
-    input[type='range']:focus::-webkit-slider-runnable-track {
-      background: ${trackColor};
+    input[type='range']:focus::-webkit-slider-thumb {
     }
   `;
 
@@ -100,6 +101,7 @@ const Slider = ({
         max={max}
         step={step}
         defaultValue={defaultValue}
+        value={value}
         type='range'
         onChange={handleOnChange}
         className={clsx(className)}

@@ -7,6 +7,7 @@ import Divider from './components/Divider';
 import Upload from './components/Upload';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
+import Slider from './components/Slider';
 import CheckBox from './components/CheckBox';
 import Radio from './components/Radio';
 import SortButton from './components/SortButton';
@@ -44,15 +45,21 @@ import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
 import StickyFooter from './components/StickyFooter';
-import ToolTip from './components/ToolTip';
 import Steps from './components/Steps';
+import ToolTip from './components/ToolTip';
+import Switch from './components/Switch';
 import { useCustomTheme } from './hooks';
+import Tabs from './components/Tabs';
+import Toast from './components/Toast';
+import Center from './components/Center';
 export {
-  ToolTip,
-  Steps,
+  Tabs,
+  Center,
+  Toast,
   useCustomTheme,
   Picker,
   StickyFooter,
+  ToolTip,
   List,
   Icon,
   Link,
@@ -64,6 +71,7 @@ export {
   Loading,
   PullToRefresh,
   Progress,
+  Slider,
   Dropdown,
   Image,
   Grid,
@@ -97,4 +105,6 @@ export {
   Upload,
   Textarea,
   Divider,
+  Steps,
+  Switch,
 };

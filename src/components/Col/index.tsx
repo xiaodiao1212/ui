@@ -6,12 +6,14 @@ import clsx from 'clsx';
 import { css } from '@emotion/react';
 
 interface ColProps {
-  flexSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
-  textAlign?: 'center' | 'left' | 'right';
+  alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
   flex?: number | string;
   noFlex?: boolean;
   autoMargin?: boolean;
   children?: React.ReactNode;
+  className?: string;
+  left?: boolean;
+  right?: boolean;
   mt?: string;
   mb?: string;
   ml?: string;
@@ -22,12 +24,15 @@ interface ColProps {
   pt?: string;
   pl?: string;
   pr?: string;
+  py?: string;
+  px?: string;
+  my?: string;
+  mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }
 
 const Col = ({
   children,
-  textAlign,
   noFlex,
   flex,
   autoMargin,
@@ -42,21 +47,29 @@ const Col = ({
   ma,
   pt,
   pl,
+  mx,
+  my,
   pr,
+  py,
+  px,
+  alignSelf = 'center',
+  left = false,
+  right = false,
   ...props
-}: ColProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: ColProps) => {
   const styles = css({
-    textAlign: textAlign ? textAlign : 'center',
+    alignSelf: alignSelf,
+    textAlign: (left && 'left') || (right && 'right') || 'center',
     margin: ma,
     padding: ma,
-    marginTop: mt,
-    marginBottom: mb,
-    marginLeft: autoMargin ? 'auto' : ml,
-    marginRight: mr,
-    paddingTop: pt,
-    paddingBottom: pb,
-    paddingLeft: pl,
-    paddingRight: pr,
+    marginTop: mt || my,
+    marginBottom: mb || my,
+    marginLeft: autoMargin ? 'auto' : ml || mx,
+    marginRight: mr || mx,
+    paddingTop: pt || py,
+    paddingBottom: pb || py,
+    paddingLeft: pl || px,
+    paddingRight: pr || px,
     ...(!autoMargin && { flex: noFlex ? '' : flex || '1' }),
     ...(typeof co == 'function' ? co(theme) : co),
   });

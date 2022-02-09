@@ -35,7 +35,7 @@ const Fab = ({
   const styles = css({
     position: 'fixed',
     ...position,
-    zIndex: theme ? theme.zIndex.floatingWindow : 700,
+    zIndex: theme.zIndex.floatingWindow,
     transition: '.1s all',
     ...(typeof co == 'function' ? co(theme) : co),
   });

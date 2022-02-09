@@ -4,10 +4,10 @@ import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
 import Text from '../Text';
-import { useTheme, css } from '@emotion/react';
+import { useTheme, css, keyframes } from '@emotion/react';
 
 type ProgressProps = {
-  circle?: boolean;
+  radius?: number;
   height?: string;
   percent?: number;
   backgroundColor?: string;
@@ -21,7 +21,7 @@ type ProgressProps = {
 const Progress = ({
   text = '',
   tips = '',
-  circle = true,
+  radius = 999,
   height = '1em',
   percent = 0,
   backgroundColor,
@@ -32,17 +32,43 @@ const Progress = ({
   ...props
 }: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
+  const kf = keyframes({
+    from: {
+      width: '0%',
+    },
+    to: {
+      width: percent + '%',
+    },
+  });
+
+  const kfText = keyframes({
+    from: {
+      left: '0%',
+    },
+    to: {
+      left: `calc(${percent}% - ${Math.max(0, text.length - 2.5)}em)`,
+    },
+  });
+  const kfTips = keyframes({
+    from: {
+      left: '0%',
+    },
+    to: {
+      left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
+    },
+  });
   const styles = css({
     position: 'relative',
     height: height,
-    backgroundColor: backgroundColor || theme ? theme.color.accent : '#F3F4F6',
+    backgroundColor: backgroundColor || theme.color.accent,
     '& > .progress-bar': {
       height: height,
       width: percent + '%',
       backgroundColor: color || theme?.color?.primary || '#5568FE',
+      animation: animated ? `${kf} 1.5s` : '',
     },
     '&, &>.progress-bar': {
-      borderRadius: circle ? '50px' : '',
+      borderRadius: radius,
     },
     ...(text.length > 0 && {
       '& > .progress-text': {
@@ -51,12 +77,14 @@ const Progress = ({
         top: 0,
         bottom: 0,
         color: color || theme?.color?.white || '#FEFEFE',
+        animation: animated ? `${kfText} 1.5s` : '',
       },
     }),
     ...(tips.length > 0 && {
       '& > .progress-tips': {
         position: 'absolute',
         left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
+        animation: animated ? `${kfTips} 1.5s` : '',
         transform: 'translateY(-230%)',
         padding: '2px 16px',
         borderRadius: '4px',
@@ -79,7 +107,7 @@ const Progress = ({
   const computedClassNames = clsx(className);
 
   return (
-    <div css={styles} aria-label='progress' role='progressbar' className={computedClassNames} {...props}>
+    <div css={styles} role='progressbar' className={computedClassNames} {...props}>
       <div className='progress-bar' />
       {text && (
         <div className='progress-text'>

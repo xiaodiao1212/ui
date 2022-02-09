@@ -4,6 +4,9 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import * as React from 'react';
 type TextProps = Partial<{
+  left: boolean;
+  center: boolean;
+  right: boolean;
   thin: boolean;
   blod: boolean;
   inline: boolean;
@@ -17,10 +20,13 @@ type TextProps = Partial<{
 }>;
 
 const Text = ({
+  left = false,
+  center = false,
+  right = false,
   thin = false,
   dark = false,
   maxLength,
-  size = '1em',
+  size,
   blod,
   color,
   children,
@@ -41,13 +47,13 @@ const Text = ({
           ? theme.mode == 'light'
             ? theme.color.black
             : theme.color.white
-          : '#232149') as string);
+          : '#111827') as string);
   const styles = css({
     fontSize: size as string,
     fontWeight: blod ? 700 : thin ? 200 : 500,
     display: 'inline',
     alignItems: 'center',
-
+    textAlign: ((center && 'center') || (left && 'left') || (right && 'right')) as any,
     justifyContent: 'center',
     textOverflow: maxLength ? 'ellipsis' : undefined,
     whiteSpace: maxLength ? 'nowrap' : undefined,

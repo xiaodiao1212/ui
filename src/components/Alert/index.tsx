@@ -36,8 +36,8 @@ const Alert = ({ icon, action, co, title, content, duration = 10, scroll, classN
   const styles = css({
     display: 'flex',
     alignItems: 'center',
-    background: theme ? (theme.mode == 'light' ? theme.color.accent : theme.color.grey) : '#56538D',
-    color: theme ? (theme.mode == 'light' ? theme.color.primary : theme.color.greyLight) : '#5568FE',
+    background: theme.mode == 'light' ? theme.color.accent : theme.color.grey,
+    color: theme.mode == 'light' ? theme.color.primary : theme.color.greyLight,
     padding: '.5em',
     ...(typeof co == 'function' ? co(theme) : co),
   });
@@ -74,7 +74,7 @@ const Alert = ({ icon, action, co, title, content, duration = 10, scroll, classN
     return (
       <Row vertical alignItems='start'>
         <Col>{title}</Col>
-        <Col style={{ fontSize: '.8em' }}>{content}</Col>
+        <Col co={{ fontSize: '.8em' }}>{content}</Col>
       </Row>
     );
   };
