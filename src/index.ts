@@ -7,6 +7,7 @@ import Divider from './components/Divider';
 import Upload from './components/Upload';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
+import Slider from './components/Slider';
 import CheckBox from './components/CheckBox';
 import Radio from './components/Radio';
 import SortButton from './components/SortButton';
@@ -70,6 +71,7 @@ export {
   Loading,
   PullToRefresh,
   Progress,
+  Slider,
   Dropdown,
   Image,
   Grid,

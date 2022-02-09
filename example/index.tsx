@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import {
+  Swiper,
   App,
   Center,
   Button,
@@ -16,11 +17,21 @@ import {
   Upload,
   Textarea,
   Toast,
+  Slider,
 } from './build';
 const Main = () => {
+  const ref = useRef();
+  const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
   return (
     <App>
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Slider value={v} onChange={v => setV(v)} />
+          </Col>
+        </Row>
+      </Container>
       <Container pa='1em'>
         <Row>
           <Col>
@@ -68,6 +79,7 @@ const Main = () => {
       </Container>
 
       <Container pa='1em'>
+        <Swiper ref={ref}>[0, 1, 2, 3]</Swiper>
         <Row gap='1em'>
           <Col>
             <Card title='this is card1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
