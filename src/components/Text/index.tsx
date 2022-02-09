@@ -19,6 +19,11 @@ type TextProps = Partial<{
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
+/**
+ * The Text widget lets you create a run of styled text within your application.
+ * @param param0
+ * @returns
+ */
 const Text = ({
   left = false,
   center = false,

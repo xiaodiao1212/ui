@@ -25,6 +25,11 @@ type ContainerProps = {
   mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
+/**
+ * The Container widget lets you create a rectangular visual element. A container can be decorated with a Box, such as a background, a border, or a shadow. A Container can also have margins, padding, and constraints applied to its size. In addition, a Container can be transformed in three dimensional space using a matrix.
+ * @param param0
+ * @returns
+ */
 const Container = ({
   mt,
   mb,

@@ -19,7 +19,7 @@ import ToolBar from './components/ToolBar';
 import Popover from './components/Popover';
 import Button from './components/Button';
 import Alert from './components/Alert';
-import Modal from './components/Modal';
+import Dialog from './components/Dialog';
 import Fab from './components/Fab';
 import Notification from './components/Notification';
 import Chip from './components/Chip';
@@ -88,7 +88,7 @@ export {
   TabBar,
   Fab,
   Notification,
-  Modal,
+  Dialog,
   Alert,
   Button,
   Popover,

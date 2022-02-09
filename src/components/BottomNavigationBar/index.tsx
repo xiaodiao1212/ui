@@ -5,7 +5,7 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import * as React from 'react';
 
-interface StickyFooterProps {
+interface BottomNavigationBarProps {
   row?: number;
   col?: number;
   rowGap?: string;
@@ -13,7 +13,7 @@ interface StickyFooterProps {
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }
 
-const StickyFooter = ({
+const BottomNavigationBar = ({
   row,
   col,
   rowGap,
@@ -22,7 +22,7 @@ const StickyFooter = ({
   children,
   className,
   ...props
-}: StickyFooterProps & React.ComponentPropsWithoutRef<'footer'>) => {
+}: React.ComponentPropsWithoutRef<'footer'> & BottomNavigationBarProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     position: 'sticky',
@@ -36,4 +36,4 @@ const StickyFooter = ({
     </footer>
   );
 };
-export default StickyFooter;
+export default BottomNavigationBar;

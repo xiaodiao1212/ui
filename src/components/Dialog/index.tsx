@@ -16,7 +16,7 @@ type ModalProps = {
   className?: string;
 };
 
-const Modal = ({
+const Dialog = ({
   visible = false,
   shy = true,
   opacity,
@@ -93,4 +93,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default Dialog;

@@ -20,6 +20,11 @@ type ToastProps = Partial<{
   className: string;
 }>;
 
+/**
+ * also nam ed HUD
+ * @param param0
+ * @returns
+ */
 const Toast = ({ visible, duration = 2000, children, onChange, co, className }: ToastProps) => {
   const theme = useTheme() as Theme;
   const system = useSystem();
