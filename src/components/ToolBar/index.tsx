@@ -16,7 +16,7 @@ type ToolBarProps = {
 const ToolBar = ({ title, left, right, co, className, children, ...props }: ToolBarProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   return (

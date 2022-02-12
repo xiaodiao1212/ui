@@ -38,7 +38,7 @@ const Image = ({
     imageRendering: 'initial',
     imageOrientation: 'initial',
     height: height,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   return <img css={styles} loading={(lazy && 'lazy') || 'eager'} className={computedClassNames} {...props} />;

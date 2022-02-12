@@ -22,7 +22,7 @@ const Grid = ({ row, col, rowGap, colGap, co, children, className, ...restProps 
     gridAutoRows: '1fr',
     gridColumnGap: colGap,
     gridRowGap: rowGap,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   return (

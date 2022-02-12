@@ -29,7 +29,7 @@ const ScrollView = ({
     '&::-webkit-scrollbar': {
       display: 'none',
     },
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const [scrollTop, setScrollTop] = useState(0);

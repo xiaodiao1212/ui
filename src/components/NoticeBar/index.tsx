@@ -7,7 +7,7 @@ import * as React from 'react';
 import Row from '../Row';
 import Col from '../Col';
 
-type AlertProps = Partial<{
+type NoticeBarProps = Partial<{
   action: React.ReactNode;
   icon: React.ReactNode;
   title: React.ReactNode;
@@ -20,7 +20,7 @@ type AlertProps = Partial<{
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 /**
- * The Alert component, some component libraries are also called NoticeBar or Banner, are generally embedded in the area between the Appbar and the main content, and display a fixed notification content or a special prompt, divided into icons, actions and scrollable themes. Information area
+ * The NoticeBar component, some component libraries are also called Banner, are generally embedded in the area between the Appbar and the main content, and display a fixed notification content or a special prompt, divided into icons, actions and scrollable themes. Information area
  * @param icon A notification icon on the far left
  * @param action An area used to display the subsequent operations of the information display
  * @param title The main summary of the reminder or notification message
@@ -28,7 +28,17 @@ type AlertProps = Partial<{
  * @param scroll Whether the content of the component scrolls
  * @param children The main text content of the prompt, scrollable or custom content
  */
-const Alert = ({ icon, action, co, title, content, duration = 10, scroll, className, children }: AlertProps) => {
+const NoticeBar = ({
+  icon,
+  action,
+  co,
+  title,
+  content,
+  duration = 10,
+  scroll,
+  className,
+  children,
+}: NoticeBarProps) => {
   /**
    *The main style part of the component
    */
@@ -39,7 +49,7 @@ const Alert = ({ icon, action, co, title, content, duration = 10, scroll, classN
     background: theme.mode == 'light' ? theme.color.accent : theme.color.grey,
     color: theme.mode == 'light' ? theme.color.primary : theme.color.greyLight,
     padding: '.5em',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
 
@@ -90,4 +100,4 @@ const Alert = ({ icon, action, co, title, content, duration = 10, scroll, classN
     </aside>
   );
 };
-export default Alert;
+export default NoticeBar;

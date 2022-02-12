@@ -65,7 +65,7 @@ const Tabs = ({
     <nav
       css={css({
         display: 'flex',
-        ...(typeof co == 'function' ? co(theme) : co),
+        ...(co && (typeof co == 'function' ? co(theme) : co)),
       })}
       className={computedClassNames}
       {...props}>
@@ -108,7 +108,7 @@ const TabsIndicator = ({ co, className, ...props }: React.ComponentPropsWithoutR
     bottom: 0,
     left: '50%',
     transform: 'translateX(-50%)',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   return <span css={tabsIndicatorStyles} className={computedClassNames} {...props} />;

@@ -12,7 +12,6 @@ type CountDownProps = {
   time?: number;
   label?: React.ReactNode;
   animation?: boolean;
-  onChange?: (num: number) => any;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
@@ -21,7 +20,6 @@ const CountDown = ({
   m = 0,
   s = 0,
   time = 0,
-  onChange,
   label,
   animation,
   co,
@@ -39,7 +37,6 @@ const CountDown = ({
   const [mi, setMinutes] = useState<any>(''); //分钟
   const [se, setSeconds] = useState<any>(''); //秒
   const [moveS, setMoveS] = useState(s * 1.25);
-  const [ts, setTs] = useState(end | timeEnd);
   useEffect(() => {
     let timer: any;
     timer = 0;
@@ -51,7 +48,6 @@ const CountDown = ({
           const minutes = Math.floor(n / 60);
           // let minutes = Math.floor((n / 60) % 60) < 10 ? `0${Math.floor((n / 60) % 60)}` : Math.floor((n / 60) % 60)
           const seconds = Math.floor(n % 60) < 10 ? `0${Math.floor(n % 60)}` : Math.floor(n % 60);
-
           setHours(() => hours);
           setMinutes(() => minutes);
           setSeconds(() => seconds); //函数写法保证值在setInterval里更新，避免useEffect的bug
@@ -78,7 +74,6 @@ const CountDown = ({
           setSeconds(() => seconds); //函数写法保证值在setInterval里更新，避免useEffect的bug
           setLoading(true);
           setStart(true);
-          onChange?.(n);
           if (n === 0) {
             clearInterval(timer);
             setMoveS(0);
@@ -88,21 +83,7 @@ const CountDown = ({
         });
       }, 1000);
     }
-    if (ts !== 0) {
-      let ti: any = 0;
-      ti = setInterval(() => {
-        setTs(n => {
-          onChange?.(n);
-          if (n === 0) {
-            clearInterval(ti);
-          }
-          return n - 1;
-        });
-      }, 1000);
-    }
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, []);
 
   const move = keyframes({
@@ -115,7 +96,8 @@ const CountDown = ({
   });
   const styles = css({
     display: 'inline-flex',
-    ...(typeof co == 'function' ? co(theme) : co),
+    alignItems: 'center',
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
     '.text': {
       marginLeft: '5px',
       marginTop: '-1px',
@@ -151,24 +133,50 @@ const CountDown = ({
       },
     },
   });
+
   const computedClassNames = clsx(className);
-  return animation ? (
-    <div css={styles} className={computedClassNames} {...props}>
-      <div className={`circle`}>
-        <div className={!start ? `circle noslice` : `circle slice`} />
+  const renderContent = () => {
+    if (animation) {
+      // 动画
+      return (
+        <div css={styles} className={computedClassNames} {...props}>
+          <div className={`circle`}>
+            <div className={!start ? `circle noslice` : `circle slice`} />
+          </div>
+          {!loading ? (
+            <div className='text'>{label}</div>
+          ) : m > 0 ? (
+            <div className={`text`}>{`${mi}:${se}`}</div>
+          ) : (
+            <div className={`text`}>{`${mi}:${se}`}</div>
+          )}
+        </div>
+      );
+    }
+    return (
+      <div css={styles} className={computedClassNames} {...props}>
+        {!loading ? label : m > 0 ? <span>{`${mi}:${se}`}</span> : <span>{`${mi}:${se}`}</span>}
       </div>
-      {!loading ? (
-        <div className='text'>{label}</div>
-      ) : m > 0 ? (
-        <div className={`text`}>{`${mi}:${se}`}</div>
-      ) : (
-        <div className={`text`}>{se}</div>
-      )}
-    </div>
-  ) : (
-    <div css={styles} className={computedClassNames} {...props}>
-      {!loading ? label : m > 0 ? <span>{`${mi}:${se}`}</span> : <span>{se}</span>}
-    </div>
-  );
+    );
+  };
+  return renderContent();
+  // return animation ? (
+  //   <div css={styles} className={computedClassNames} {...props}>
+  //     <div className={`circle`}>
+  //       <div className={!start ? `circle noslice` : `circle slice`} />
+  //     </div>
+  //     {!loading ? (
+  //       <div className='text'>{label}</div>
+  //     ) : m > 0 ? (
+  //       <div className={`text`}>{`${mi}:${se}`}</div>
+  //     ) : (
+  //       <div className={`text`}>{se}</div>
+  //     )}
+  //   </div>
+  // ) : (
+  //   <div css={styles} className={computedClassNames} {...props}>
+  //     {!loading ? label : m > 0 ? <span>{`${mi}:${se}`}</span> : <span>{se}</span>}
+  //   </div>
+  // );
 };
 export default CountDown;

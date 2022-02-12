@@ -50,7 +50,7 @@ const PullToRefresh = ({
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
       scrollBehavior: 'smooth',
       height: '100%',
-      ...(typeof co == 'function' ? co(theme) : co),
+      ...(co && (typeof co == 'function' ? co(theme) : co)),
     },
   });
   const computedRefreshClassNames = clsx(className);
@@ -137,7 +137,7 @@ const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
     left: 0,
     textAlign: 'center',
     transform: 'translateY(-100%)',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedLoadingClassNames = clsx(className);
   return (

@@ -28,7 +28,7 @@ const TabBar = ({ items = [], vertical = false, co, className, ...props }: TabBa
   const styles = css({
     display: 'flex',
 
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const defaultRenderer = (item: TabBarItem, index: number) => {

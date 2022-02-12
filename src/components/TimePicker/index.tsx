@@ -26,7 +26,7 @@ const TimePicker = ({
 
   const theme = useTheme() as Theme;
   const styles = css({
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
     <label css={styles} className={clsx(className)} {...props}>

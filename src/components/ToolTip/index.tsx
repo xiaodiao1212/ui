@@ -33,7 +33,7 @@ const ToolTip = ({
   const styles = css({
     position: 'relative',
     display: 'inline-block',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
     '& .tooltiptext': {
       visibility: show ? 'visible' : 'hidden',
       fontSize: '12px',

@@ -64,7 +64,7 @@ const Text = ({
     whiteSpace: maxLength ? 'nowrap' : undefined,
     overflow: maxLength ? 'hidden' : undefined,
     color: computedColor,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
     <div css={styles} className={clsx(className)} {...props}>

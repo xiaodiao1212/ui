@@ -6,7 +6,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
 import { AppContext } from '../App';
-import { useSystem, useToast } from '../../hooks';
+import { useSystem } from '../../hooks';
 import Card from '../Card';
 import Text from '../Text';
 import Container from '../Container';
@@ -20,11 +20,6 @@ type ToastProps = Partial<{
   className: string;
 }>;
 
-/**
- * also nam ed HUD
- * @param param0
- * @returns
- */
 const Toast = ({ visible, duration = 2000, children, onChange, co, className }: ToastProps) => {
   const theme = useTheme() as Theme;
   const system = useSystem();
@@ -33,7 +28,7 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
     display: 'flex',
     position: 'fixed',
     top: 0,
-    left: 0,
+    left: '10%',
     bottom: 0,
     right: 0,
     zIndex: 999,
@@ -72,9 +67,7 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
     </aside>
   );
 
-  return visible ? ReactDOM.createPortal(Toast, system.root as Element) : <></>;
+  return Toast;
 };
-
-Toast.show = useToast;
 
 export default Toast;

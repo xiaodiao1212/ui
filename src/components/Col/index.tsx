@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme } from '../../constants/theme';
+import { Margin, Padding, theme, Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
 
-interface ColProps {
+type ColProps = {
   alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
   flex?: number | string;
   noFlex?: boolean;
@@ -14,22 +14,9 @@ interface ColProps {
   className?: string;
   left?: boolean;
   right?: boolean;
-  mt?: string;
-  mb?: string;
-  ml?: string;
-  mr?: string;
-  pb?: string;
-  pa?: string;
-  ma?: string;
-  pt?: string;
-  pl?: string;
-  pr?: string;
-  py?: string;
-  px?: string;
-  my?: string;
-  mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}
+} & Margin &
+  Padding;
 
 const Col = ({
   children,
@@ -71,7 +58,7 @@ const Col = ({
     paddingLeft: pl || px,
     paddingRight: pr || px,
     ...(!autoMargin && { flex: noFlex ? '' : flex || '1' }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
     <div css={styles} className={clsx(className)} {...props}>

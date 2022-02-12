@@ -106,7 +106,7 @@ const Badge = ({
       ...getInset(),
       boxShadow: `0 0 0 1px ${theme.color.white}`,
       transition: 'visibility all .3s',
-      ...(typeof co == 'function' ? co(theme) : co),
+      ...(co && (typeof co == 'function' ? co(theme) : co)),
     },
   });
   return (

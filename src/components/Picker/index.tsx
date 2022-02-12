@@ -28,7 +28,7 @@ const Picker = ({ data = [], onChange, value, className, children, co, ...props 
     flexDirection: 'column',
     minHeight: '10em',
     cursor: 'grab',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
     '& > .container': {
       display: 'flex',
       justifyContent: 'center',

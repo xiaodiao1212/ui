@@ -33,7 +33,7 @@ const Card = ({ title, extra, co, className, children, onClick, color, ...props 
         marginLeft: '0',
       },
     },
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   const handleClickCard = () => {

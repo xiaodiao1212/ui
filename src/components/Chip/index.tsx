@@ -37,7 +37,7 @@ const Chip = ({ outline = false, color, co, children, className, ...props }: Chi
           border: '1px solid ' + getComputedColor(color),
           color: getComputedColor(color),
         }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
     <span css={styles} className={computedClassNames} {...props}>

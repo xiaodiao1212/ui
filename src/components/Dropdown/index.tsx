@@ -12,7 +12,7 @@ interface DropdownProps {
 const Dropdown = ({ co, children, className, ...props }: React.ComponentPropsWithoutRef<'div'> & DropdownProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
 

@@ -35,7 +35,7 @@ const ListItem = ({
     position: 'relative',
     transform: `translate3d(-${translateX}px,0,0)`,
     transition: 'transform 0.1s cubic-bezier(0.4, 0, 1, 1) 0s',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
     '& > :nth-child(2)': {
       position: 'absolute',
       top: 0,

@@ -18,7 +18,7 @@ import Icon from './components/Icon';
 import ToolBar from './components/ToolBar';
 import Popover from './components/Popover';
 import Button from './components/Button';
-import Alert from './components/Alert';
+import NoticeBar from './components/NoticeBar';
 import Dialog from './components/Dialog';
 import Fab from './components/Fab';
 import Notification from './components/Notification';
@@ -44,7 +44,7 @@ import Input from './components/Input';
 import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
-import StickyFooter from './components/StickyFooter';
+import BottomNavigationBar from './components/BottomNavigationBar';
 import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
 import Switch from './components/Switch';
@@ -58,7 +58,7 @@ export {
   Toast,
   useCustomTheme,
   Picker,
-  StickyFooter,
+  BottomNavigationBar,
   ToolTip,
   List,
   Icon,
@@ -89,7 +89,7 @@ export {
   Fab,
   Notification,
   Dialog,
-  Alert,
+  NoticeBar,
   Button,
   Popover,
   ToolBar,

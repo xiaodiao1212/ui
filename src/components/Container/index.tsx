@@ -1,34 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme, Margin, Padding } from '../../constants/theme';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 type ContainerProps = {
-  mt?: string;
-  mb?: string;
-  ml?: string;
-  mr?: string;
-  pb?: string;
-  pa?: string;
-  ma?: string;
-  pt?: string;
-  pl?: string;
-  pr?: string;
   absolute?: boolean;
   relative?: boolean;
   fullHeight?: boolean;
   sticky?: boolean;
   fullScreen?: boolean;
-  py?: string;
-  px?: string;
-  my?: string;
-  mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-};
+} & Margin &
+  Padding;
 /**
- * The Container widget lets you create a rectangular visual element. A container can be decorated with a Box, such as a background, a border, or a shadow. A Container can also have margins, padding, and constraints applied to its size. In addition, a Container can be transformed in three dimensional space using a matrix.
- * @param param0
- * @returns
+ * 一个方便的小部件，它结合了常见的绘画、定位和调整大小的小部件。
  */
 const Container = ({
   mt,
@@ -75,7 +60,7 @@ const Container = ({
     }),
     ...(relative && { position: 'relative' }),
     ...(absolute && { position: 'absolute' }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   return (
