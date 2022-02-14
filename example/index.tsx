@@ -19,11 +19,14 @@ import {
   Textarea,
   Toast,
   Slider,
+  BottomNavigationBar,
 } from './build';
 const Main = () => {
   const ref = useRef();
   const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
+  const [item, setItem] = useState([1, 2, 3, 4]);
+  const [ci, setCi] = useState(2);
   return (
     <App>
       <Container pa='1em'>
@@ -120,6 +123,16 @@ const Main = () => {
           <List.Item />
         </List>
       </Container>
+
+      <BottomNavigationBar
+        currentIndex={ci}
+        onTap={i => {
+          setCi(i as number);
+        }}>
+        {item.map(v => (
+          <BottomNavigationBar.item label={v + ''} icon={'1212'} />
+        ))}
+      </BottomNavigationBar>
     </App>
   );
 };

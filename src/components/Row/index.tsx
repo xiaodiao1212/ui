@@ -27,9 +27,10 @@ const Row = ({
   justifyContent,
   gap,
   co,
+
   className,
   ...props
-}: RowProps) => {
+}: RowProps & Pick<React.ComponentPropsWithoutRef<'div'>, 'onClick'>) => {
   const styles = css({
     display: 'flex',
     width: '100%',

@@ -21,7 +21,7 @@ type ColProps = {
 const Col = ({
   children,
   noFlex,
-  flex,
+  flex = 'auto',
   autoMargin,
   co,
   className,
@@ -57,7 +57,7 @@ const Col = ({
     paddingBottom: pb || py,
     paddingLeft: pl || px,
     paddingRight: pr || px,
-    ...(!autoMargin && { flex: noFlex ? '' : flex || '1' }),
+    ...(!autoMargin && { flex: noFlex ? '' : flex }),
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
