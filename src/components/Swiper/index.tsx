@@ -50,7 +50,6 @@ const Swiper = ({
   onSwipeStart,
   onSwipeEnd,
   onChange,
-  onClick,
   indicatorProps,
   indicator,
   className,

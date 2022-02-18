@@ -45,13 +45,13 @@ const Drawer = ({
     ...contentStyle,
     transition: 'all .3s',
     ...(open ? openStyle : { ...closeStyle }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const containerStyles = css({
     position: 'fixed',
     zIndex: theme.zIndex.floatingWindow,
     transition: '.1s all',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const handleClickOverlay = (e: any) => {

@@ -16,7 +16,7 @@ type ModalProps = {
   className?: string;
 };
 
-const Modal = ({
+const Dialog = ({
   visible = false,
   shy = true,
   opacity,
@@ -77,7 +77,7 @@ const Modal = ({
     '& > *:first-child': {
       animation: `${visible ? mountAnim : unmountAnim} .3s`,
     },
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedModalClassNames = clsx(className);
 
@@ -93,4 +93,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default Dialog;

@@ -1,18 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme'
-import clsx from 'clsx'
-import React, { ReactNode } from 'react'
-import { css, useTheme } from '@emotion/react'
-import { TimelineItemProps, TimelineItem } from './item'
+import { Theme } from '../../constants/theme';
+import clsx from 'clsx';
+import React, { ReactNode } from 'react';
+import { css, useTheme } from '@emotion/react';
+import { TimelineItemProps, TimelineItem } from './item';
 
 interface TimelineProps {
-  children: React.ReactNode
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties
+  children: React.ReactNode;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }
 
 const Timeline = ({ children, co, className, ...props }: TimelineProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const styles = css({
     display: 'flex',
     alignItems: 'center',
@@ -35,25 +35,25 @@ const Timeline = ({ children, co, className, ...props }: TimelineProps & React.C
       position: 'absolute',
       top: '-3px',
     },
-    ...(typeof co == 'function' ? co(theme) : co),
-  })
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
+  });
   const nat = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) {
-      return child
+      return child;
     }
-    console.log('index:', child)
-    const props = child.props as TimelineItemProps
+    console.log('index:', child);
+    const props = child.props as TimelineItemProps;
     const icon = props.icon ?? (
       <label className={`la`}>
         <span className={`circle`} />
         {/* <span className={`text-pos`}>{index + 1}</span> */}
       </label>
-    )
+    );
     return React.cloneElement(child, {
       icon,
-    })
-  })
-  const computedClassNames = clsx(className)
+    });
+  });
+  const computedClassNames = clsx(className);
   return (
     // <Container>
     //   <ul className='timeline'>{children}</ul>
@@ -61,7 +61,7 @@ const Timeline = ({ children, co, className, ...props }: TimelineProps & React.C
     <div css={styles} className={computedClassNames} {...props}>
       <ul className='timeline'>{nat}</ul>
     </div>
-  )
-}
-Timeline.item = TimelineItem
-export default Timeline
+  );
+};
+Timeline.item = TimelineItem;
+export default Timeline;

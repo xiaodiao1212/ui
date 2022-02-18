@@ -41,7 +41,7 @@ const Overlay = ({
       margin: 'auto',
     },
 
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedOverlayClassNames = clsx(className);
   const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

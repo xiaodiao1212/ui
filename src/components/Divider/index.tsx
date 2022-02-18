@@ -38,7 +38,7 @@ const Divider = ({
             color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
           }`,
         }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return <hr css={styles} className={clsx(className)} {...props} />;
 };

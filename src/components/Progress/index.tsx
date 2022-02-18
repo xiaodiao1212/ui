@@ -102,7 +102,7 @@ const Progress = ({
         },
       },
     }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
 

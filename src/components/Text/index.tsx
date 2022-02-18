@@ -19,6 +19,11 @@ type TextProps = Partial<{
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
+/**
+ * The Text widget lets you create a run of styled text within your application.
+ * @param param0
+ * @returns
+ */
 const Text = ({
   left = false,
   center = false,
@@ -59,7 +64,7 @@ const Text = ({
     whiteSpace: maxLength ? 'nowrap' : undefined,
     overflow: maxLength ? 'hidden' : undefined,
     color: computedColor,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
     <div css={styles} className={clsx(className)} {...props}>

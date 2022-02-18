@@ -57,7 +57,7 @@ const Radio = ({
     cursor: disabled ? 'not-allowed' : 'pointer',
   });
   const labelStyle = css({
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
     padding: 9,
     cursor: disabled ? 'not-allowed' : 'pointer',
     color: disabled ? '#00000040' : '#000000',

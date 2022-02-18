@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import arrowSVG from '../../icons/arrow-up.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
 import Icon from '../Icon';
+//ExpansionPanel
 type CollapseProps = {
   title?: React.ReactNode | (() => React.ReactNode) | string;
   expand: boolean;

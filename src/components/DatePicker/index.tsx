@@ -26,7 +26,7 @@ const DatePicker = ({
   const theme = useTheme() as Theme;
   const styles = css({
     cursor: ' pointer',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
 

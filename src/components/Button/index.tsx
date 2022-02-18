@@ -63,7 +63,7 @@ const Button = ({
     borderRadius: tile ? '0px' : rounded ? '999px' : '4px',
     color: textColor,
     background: bgColor,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   const handleClickButton = (e: any) => {

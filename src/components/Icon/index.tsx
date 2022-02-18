@@ -23,7 +23,7 @@ const Icon = ({ width, height, color, co, src, onClick, className }: IconProps) 
     backgroundColor: color,
     mask: `url(${src}) no-repeat`,
     maskSize: '100% 100%',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const handleClickIcon = () => {

@@ -1,25 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme } from '../../constants/theme';
+import { theme, Theme, Margin, Padding } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
-
-type RowProps = {
-  mt?: string;
-  mb?: string;
-  ml?: string;
-  mr?: string;
-  pb?: string;
-  pa?: string;
-  ma?: string;
-  pt?: string;
-  pl?: string;
-  pr?: string;
-  py?: string;
-  px?: string;
-  my?: string;
-  mx?: string;
+import { useMarginCSS, usePaddingCSS } from '../../hooks';
+type RowProps = Margin & {
   vertical?: boolean;
   alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
   justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
@@ -27,24 +13,12 @@ type RowProps = {
   wrap?: boolean;
   fullHeight?: boolean;
   children?: React.ReactNode;
+  className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-};
+} & Margin &
+  Padding;
 
 const Row = ({
-  mt,
-  mb,
-  ml,
-  mr,
-  pb,
-  pa,
-  ma,
-  pt,
-  pl,
-  pr,
-  py,
-  px,
-  my,
-  mx,
   children,
   vertical,
   wrap,
@@ -53,29 +27,22 @@ const Row = ({
   justifyContent,
   gap,
   co,
+
   className,
   ...props
-}: RowProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: RowProps & Pick<React.ComponentPropsWithoutRef<'div'>, 'onClick'>) => {
   const styles = css({
     display: 'flex',
     width: '100%',
-    padding: pa,
-    margin: ma,
-    marginTop: mt || my,
-    marginBottom: mb || my,
-    marginLeft: ml || mx,
-    marginRight: mr || mx,
-    paddingTop: pt || py,
-    paddingBottom: pb || py,
-    paddingLeft: pl || px,
-    paddingRight: pr || px,
+    ...useMarginCSS(props),
+    ...usePaddingCSS(props),
     justifyContent: justifyContent || '',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
     gridGap: gap,
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
     <div css={styles} className={clsx(className)} {...props}>

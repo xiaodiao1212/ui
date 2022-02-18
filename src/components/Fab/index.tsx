@@ -37,7 +37,7 @@ const Fab = ({
     ...position,
     zIndex: theme.zIndex.floatingWindow,
     transition: '.1s all',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const handleTouchStart = (e: any) => {

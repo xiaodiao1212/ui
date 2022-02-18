@@ -33,7 +33,7 @@ const Popover = ({
     display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const handleChildrenRender = () => {
@@ -83,7 +83,7 @@ const PopoverContent = ({
     ...cp,
     display: show ? 'block' : 'none',
 
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const [usePropsShow, setUsePropsShow] = React.useState(true);
   const handleMouseOver = (e: any) => {

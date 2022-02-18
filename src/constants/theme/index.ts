@@ -1,5 +1,23 @@
 import { darken, lighten, fade, emphasize } from '../style';
+type Margin = {
+  mt?: string;
+  mb?: string;
+  ml?: string;
+  mr?: string;
+  ma?: string;
+  my?: string;
+  mx?: string;
+};
 
+type Padding = {
+  pb?: string;
+  pa?: string;
+  py?: string;
+  px?: string;
+  pt?: string;
+  pl?: string;
+  pr?: string;
+};
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
@@ -71,4 +89,4 @@ const theme: Theme = {
     height: '3em',
   },
 };
-export { theme, Theme };
+export { theme, Theme, Padding, Margin };

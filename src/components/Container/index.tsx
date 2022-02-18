@@ -1,30 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme, Margin, Padding } from '../../constants/theme';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 type ContainerProps = {
-  mt?: string;
-  mb?: string;
-  ml?: string;
-  mr?: string;
-  pb?: string;
-  pa?: string;
-  ma?: string;
-  pt?: string;
-  pl?: string;
-  pr?: string;
   absolute?: boolean;
   relative?: boolean;
   fullHeight?: boolean;
   sticky?: boolean;
   fullScreen?: boolean;
-  py?: string;
-  px?: string;
-  my?: string;
-  mx?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-};
+} & Margin &
+  Padding;
+/**
+ * 一个方便的小部件，它结合了常见的绘画、定位和调整大小的小部件。
+ */
 const Container = ({
   mt,
   mb,
@@ -70,7 +60,7 @@ const Container = ({
     }),
     ...(relative && { position: 'relative' }),
     ...(absolute && { position: 'absolute' }),
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   return (

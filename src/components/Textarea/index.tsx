@@ -29,7 +29,7 @@ const Textarea = ({
     padding: '12px',
     backgroundColor: theme.mode == 'light' ? theme.color.greyLight : theme.color.white,
     color: theme.mode == 'light' ? theme.color.black : theme.color.white,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -18,7 +18,7 @@ const Upload = ({ onFileChange, children, co, className, ...props }: UploadProps
   const theme = useTheme() as Theme;
   const styles = css({
     cursor: ' pointer',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   return (

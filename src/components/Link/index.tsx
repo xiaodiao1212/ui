@@ -31,7 +31,7 @@ const Link = ({
   const styles = css({
     borderBottomWidth: indicatorWidth,
     borderBottom: `${indicatorHeight || '1px'} solid  ${indicatorColor || theme?.color?.primary || '#5568FE'}`,
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   const handleClickLink = (e: any) => {

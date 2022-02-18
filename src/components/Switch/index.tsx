@@ -27,7 +27,7 @@ const Switch = ({ on = false, onChange, color, co, width = 3, height = 1.4 }: Sw
     borderRadius: 100,
     position: 'relative',
     transition: 'background 0.3s',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
     '& > input': {
       display: 'none',
     },

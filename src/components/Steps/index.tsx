@@ -87,7 +87,7 @@ const Steps = ({
       position: 'absolute',
       top: '-3px',
     },
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedClassNames = clsx(className);
   const handleClick = ({ currentTarget }: React.MouseEvent<HTMLButtonElement>) => {

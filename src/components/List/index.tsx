@@ -12,10 +12,12 @@ type ListProps = {
 
 const List = ({ co, className, children, ...props }: ListProps & React.ComponentPropsWithoutRef<'section'>) => {
   const theme = useTheme() as Theme;
+
   const styles = css({
     overflow: 'hidden',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
+
   const computedClassNames = clsx(className);
 
   return (
