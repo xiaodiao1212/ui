@@ -4,21 +4,14 @@ import { Theme } from '../../constants/theme';
 import React from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
-
+import SegmentItem from './SegmentItem';
 type SegmentProps = Partial<{
   vertical: boolean;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
-type SegmentItemProps = Partial<{
-  itemkey: React.Key | null | undefined;
-  currentKey: React.Key | null | undefined;
-  onClickItem: (key: React.Key | null | undefined) => void;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
 
 const Segment = ({ co, children, className, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
-  const fragmentLength = React.useRef(100 / (children as any).length);
-
+  const [fragmentLength, setFragmentLength] = React.useState(100 / (children as any).length);
   const [offsetX, setOffsetX] = React.useState(0);
   const [left, setLeft] = React.useState(0);
   const [current, setCurrent] = React.useState(0);
@@ -83,36 +76,6 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     <div css={styles} role='button' className={computedClassNames} {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
-    </div>
-  );
-};
-
-const SegmentItem = ({
-  itemkey,
-  currentKey,
-  onClickItem,
-  co,
-  children,
-  className,
-}: React.ComponentPropsWithoutRef<'div'> & SegmentItemProps) => {
-  const theme = useTheme() as Theme;
-  const styles = css({
-    padding: '0 .4em',
-    flex: 1,
-    textAlign: 'center',
-    color: itemkey == currentKey ? theme.color.primary : theme.color.grey,
-    transition: '.3s all',
-    fontWeight: itemkey == currentKey ? 700 : 500,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
-  });
-  const computedClassNames = clsx(className);
-  const handleClickSegmentItem = () => {
-    onClickItem?.(itemkey);
-  };
-
-  return (
-    <div css={styles} className={computedClassNames} onClick={handleClickSegmentItem}>
-      {children}
     </div>
   );
 };

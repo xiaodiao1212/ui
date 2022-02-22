@@ -10,15 +10,24 @@ type ChipProps = {
   color?: ((theme: Theme) => string) | string;
   children?: React.ReactNode;
   className?: string;
+  r?: number;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 /**
- * Chips are compact elements that represent an input, attribute, or action.
- * @param boolean outline
- * @param string color
+ * Chips appear in form fields – mainly in search bars –
+ * and are used as an indicator for filtered content.
+ * They reflect the input a user types in.
+ * Chips can be manipulated by editing the text or deleted by clicking on the x.
+ *
+ * ```js
+ *
+ * ```
+ * @param outline (Optional) set style with outline
+ * @param color (Optional) the css property `color`
+ * @param r (Optional) the css property `borderRadius`
  */
-const Chip = ({ outline = false, color, co, children, className, ...props }: ChipProps) => {
+const Chip = ({ outline = false, r = 4, color, co, children, className, ...props }: ChipProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = (color?: ((theme: Theme) => string) | string) =>
     (typeof color == 'function' ? color(theme) : color) ||
@@ -26,8 +35,8 @@ const Chip = ({ outline = false, color, co, children, className, ...props }: Chi
   const computedClassNames = clsx(className);
   const styles = css({
     display: 'inline-flex',
-    padding: '0.1em 0.5em',
-    borderRadius: '16px',
+    padding: '0.2em 0.6em',
+    borderRadius: r + 'px',
     ...(!outline
       ? {
           backgroundColor: getComputedColor(color),

@@ -29,6 +29,7 @@ type Theme = {
     footer: number;
     modal: number;
     overlay: number;
+    actionSheet: number;
     notification: number;
     drawer: number;
   };
@@ -76,6 +77,7 @@ const theme: Theme = {
     modal: 1100,
     overlay: 1000,
     notification: 1400,
+    actionSheet: 1200,
     drawer: 1200,
   },
   common: {

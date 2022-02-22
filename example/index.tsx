@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import {
+  Drawer,
   Swiper,
   App,
   Center,
@@ -11,6 +12,7 @@ import {
   Switch,
   List,
   Text,
+  Segment,
   Chip,
   Badge,
   Card,
@@ -19,10 +21,13 @@ import {
   Textarea,
   Toast,
   Slider,
-  BottomNavigationBar,
+  BottomNavigation,
+  Overlay,
 } from './build';
 const Main = () => {
   const ref = useRef();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [overlayOpen, setOverlayOpen] = useState(false);
   const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
   const [item, setItem] = useState([1, 2, 3, 4]);
@@ -57,10 +62,22 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Button outlined>this is ui</Button>
+            <Button
+              outlined
+              onClick={() => {
+                setOverlayOpen(v => !v);
+              }}>
+              overlay
+            </Button>
           </Col>
           <Col>
-            <Button rounded>this is ui</Button>
+            <Button
+              rounded
+              onClick={() => {
+                setDrawerOpen(v => !v);
+              }}>
+              drawer
+            </Button>
           </Col>
         </Row>
       </Container>
@@ -70,7 +87,7 @@ const Main = () => {
             <Badge>
               <Button
                 onClick={() => {
-                  Toast.show('1');
+                  // Toast.show('1');
                 }}>
                 this is Toasts
               </Button>
@@ -119,20 +136,32 @@ const Main = () => {
         </Row>
       </Container>
       <Container pa='1em'>
+        <Segment>
+          {item.map(v => (
+            <Segment.Item>{v}</Segment.Item>
+          ))}
+        </Segment>
+      </Container>
+      <Container pa='1em'>
         <List>
           <List.Item />
         </List>
       </Container>
-
-      <BottomNavigationBar
+      <BottomNavigation
         currentIndex={ci}
         onTap={i => {
           setCi(i as number);
         }}>
         {item.map(v => (
-          <BottomNavigationBar.item label={v + ''} icon={'1212'} />
+          <BottomNavigation.item label={v + ''} icon={'1212'} />
         ))}
-      </BottomNavigationBar>
+      </BottomNavigation>
+      {drawerOpen && (
+        <Drawer open={drawerOpen} onClose={() => setDrawerOpen(v => !v)}>
+          <Card>1</Card>
+        </Drawer>
+      )}
+      {overlayOpen && <Overlay visible={overlayOpen}></Overlay>}
     </App>
   );
 };

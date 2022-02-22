@@ -15,8 +15,11 @@ export type BottomNavigationItemProps = {
   className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
+
+// const [item, setItem] = useState([1, 2, 3, 4]);
+// const [ci, setCi] = useState(2);
 /**
- * An interactive button within either material's BottomNavigationBar or the iOS themed CupertinoTabBar with an icon and title.
+ * An interactive button within either material's BottomNavigation or the iOS themed CupertinoTabBar with an icon and title.
  * This class is rarely used in isolation. It is typically embedded in one of the bottom navigation component above.
  */
 const BottomNavigationItem = ({
