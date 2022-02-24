@@ -39,7 +39,7 @@ const Row = ({
     justifyContent: justifyContent || '',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
-    gridGap: gap,
+    gap: gap,
     alignItems,
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
     ...(co && (typeof co == 'function' ? co(theme) : co)),

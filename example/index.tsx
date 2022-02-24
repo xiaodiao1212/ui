@@ -30,7 +30,7 @@ const Main = () => {
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
-  const [item, setItem] = useState([1, 2, 3, 4]);
+  const [item, setItem] = useState([1, 4]);
   const [ci, setCi] = useState(2);
   return (
     <App>
@@ -142,10 +142,15 @@ const Main = () => {
           ))}
         </Segment>
       </Container>
+
       <Container pa='1em'>
-        <List>
-          <List.Item />
-        </List>
+        <List
+          gap='1em'
+          data={[
+            { id: '1', title: '3', extra: <Button color='red'>3333</Button> },
+            { id: '2', title: '2' },
+          ]}
+        />
       </Container>
       <BottomNavigation
         currentIndex={ci}
@@ -156,11 +161,10 @@ const Main = () => {
           <BottomNavigation.item label={v + ''} icon={'1212'} />
         ))}
       </BottomNavigation>
-      {drawerOpen && (
-        <Drawer open={drawerOpen} onClose={() => setDrawerOpen(v => !v)}>
-          <Card>1</Card>
-        </Drawer>
-      )}
+      <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)}>
+        <Card>1</Card>
+      </Drawer>
+
       {overlayOpen && <Overlay visible={overlayOpen}></Overlay>}
     </App>
   );

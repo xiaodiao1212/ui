@@ -5,14 +5,14 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import Overlay from '../Overlay';
+import ReactDOM from 'react-dom';
 
 type DrawerProps = {
   width?: string;
   height?: string;
   position?: 'left' | 'right' | 'top' | 'bottom';
-  showOverlay?: boolean;
-  shy?: boolean;
   open?: boolean;
+  backdrop?: boolean;
   children?: React.ReactNode;
   className?: string;
   onClose?: (e: any) => any;
@@ -96,13 +96,13 @@ type DrawerProps = {
  *  }
  */
 const Drawer = ({
-  width = '40vw',
+  width = '60vw',
   height = 'auto',
   position = 'left',
   open = false,
+  backdrop = true,
   onClose,
-  showOverlay = true,
-  shy = true,
+
   children,
   className,
   co,
@@ -117,6 +117,11 @@ const Drawer = ({
   const theme = useTheme() as Theme;
 
   const contentStyles = css({
+    touchAction: 'none',
+    background: 'white',
+    paddingTop: '8px',
+    borderTopLeftRadius: '8px',
+    borderTopRightRadius: '8px',
     position: 'fixed',
     zIndex: theme.zIndex.drawer,
     ...contentStyle,
@@ -125,17 +130,18 @@ const Drawer = ({
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const containerStyles = css({
+  const backdropStyles = css({
+    touchAction: 'none',
     position: 'fixed',
-    zIndex: theme.zIndex.floatingWindow,
-    transition: '.1s all',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    zIndex: theme.zIndex.drawer,
+    inset: 0,
+    backgroundColor: 'rgba(0,0,0,.8)',
+    transition: 'backgroundColor 1s',
+    visibility: open ? 'visible' : 'hidden',
   });
   const computedClassNames = clsx(className);
-  const handleClickOverlay = (e: any) => {
-    if (shy) {
-      onClose?.(e);
-    }
+  const handleClickBackDrop = (e: any) => {
+    onClose?.(e);
   };
 
   React.useEffect(() => {
@@ -177,7 +183,7 @@ const Drawer = ({
         };
         setContentStyle({
           width: '100%',
-          height: height,
+          height: height == 'auto' ? '40vh' : height,
           left: 0,
           right: 0,
           top: baseYOffset,
@@ -193,7 +199,7 @@ const Drawer = ({
         };
         setContentStyle({
           width: '100%',
-          height: height,
+          height: height == 'auto' ? '40vh' : height,
           left: 0,
           right: 0,
           bottom: baseYOffset,
@@ -225,15 +231,9 @@ const Drawer = ({
     });
   }, [position, width, height]);
   return (
-    <aside
-      css={css({
-        visibility: open ? 'visible' : 'hidden',
-      })}>
-      {showOverlay && (
-        <Overlay visible={true} onClick={handleClickOverlay}>
-          <div>123</div>
-        </Overlay>
-      )}
+    <aside>
+      {backdrop && <div css={backdropStyles} className={computedClassNames} onClick={handleClickBackDrop}></div>}
+      <div css={contentStyles}>{children}</div>
     </aside>
   );
 };
