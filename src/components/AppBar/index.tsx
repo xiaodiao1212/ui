@@ -5,35 +5,39 @@ import { Theme } from '../../constants/theme';
 import * as React from 'react';
 
 type AppBarProps = {
+  center?: boolean;
+  icon?: boolean;
+  extra?: boolean;
   title?: React.ReactNode;
-  left?: React.ReactNode;
-  right?: React.ReactNode;
-  absolute?: Boolean;
+  color?: string;
   fixed?: Boolean;
-  relative?: Boolean;
-  static?: Boolean;
   sticky?: Boolean;
   className?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   children?: React.ReactNode;
-  sliver?: boolean;
 };
 
-const AppBar = ({ title, left, right, co, className, children, ...props }: AppBarProps) => {
+const AppBar = ({ center, icon, extra, title, color, co, className, children, ...props }: AppBarProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const containerStyles = css({
+    backgroundColor: color,
+    '& > ul': {
+      display: 'flex',
+      '&>li': {},
+      '&>li:nth-child(2)': {
+        textAlign: center ? 'center' : 'left',
+      },
+    },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
   return (
-    <header css={styles} className={clsx(className)} {...props}>
-      <nav>
-        <ul>
-          <li></li>
-          <li>{title}</li>
-          <li></li>
-        </ul>
-      </nav>
+    <header css={containerStyles} className={clsx(className)} {...props}>
+      <ul>
+        {icon && <li>{icon}</li>}
+        {title && <li>{title}</li>}
+        {extra && <li>{extra}</li>}
+      </ul>
       {children}
     </header>
   );

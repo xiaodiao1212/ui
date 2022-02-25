@@ -15,7 +15,6 @@ import TimePicker from './components/TimePicker';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
 import Icon from './components/Icon';
-import ToolBar from './components/ToolBar';
 import Popover from './components/Popover';
 import Button from './components/Button';
 import NoticeBar from './components/NoticeBar';
@@ -89,7 +88,6 @@ export {
   NoticeBar,
   Button,
   Popover,
-  ToolBar,
   Overlay,
   DatePicker,
   TimePicker,
