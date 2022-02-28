@@ -36,7 +36,7 @@ type Theme = {
   shadow: {
     color: string;
   };
-  system: {};
+
   color: {
     primary: string;
     secondary: string;
@@ -86,7 +86,7 @@ const theme: Theme = {
   shadow: {
     color: 'rgba(0,0,0,.1)',
   },
-  system: {},
+
   appBar: {
     height: '3em',
   },
