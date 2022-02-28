@@ -5,31 +5,108 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import Overlay from '../Overlay';
+import ReactDOM from 'react-dom';
 
-type DrawerPosition = 'left' | 'right' | 'top' | 'bottom';
 type DrawerProps = {
   width?: string;
   height?: string;
-  position?: DrawerPosition;
-  showOverlay?: boolean;
-  shy?: boolean;
+  position?: 'left' | 'right' | 'top' | 'bottom';
   open?: boolean;
-  onClose: (e: any) => any;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  backdrop?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  onClose?: (e: any) => any;
+  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
+
+/**
+ * React component that like the DrawerLayout (Android only).
+ * The Drawer (typically used for navigation) is rendered with List and
+ * direct children are the main view (where your children goes).
+ * The component is initially not visible on the screen,
+ * but can be pulled in from the side of the window specified by
+ * the position prop and its width can be set by the width prop.
+ *
+ * ```js
+ * const csvUrl =
+ * 'https://storage.googleapis.com/tfjs-examples/multivariate-linear-regression/data/boston-housing-train.csv';
+ *
+ * async function run() {
+ *   // We want to predict the column "medv", which represents a median value of
+ *   // a home (in $1000s), so we mark it as a label.
+ *   const csvDataset = tf.data.csv(
+ *     csvUrl, {
+ *       columnConfigs: {
+ *         medv: {
+ *           isLabel: true
+ *         }
+ *       }
+ *     });
+ *
+ *   // Number of features is the number of column names minus one for the label
+ *   // column.
+ *   const numOfFeatures = (await csvDataset.columnNames()).length - 1;
+ *
+ *   // Prepare the Dataset for training.
+ *   const flattenedDataset =
+ *     csvDataset
+ *     .map(({xs, ys}) =>
+ *       {
+ *         // Convert xs(features) and ys(labels) from object form (keyed by
+ *         // column name) to array form.
+ *         return {xs:Object.values(xs), ys:Object.values(ys)};
+ *       })
+ *     .batch(10);
+ *
+ *   // Define the model.
+ *   const model = tf.sequential();
+ *   model.add(tf.layers.dense({
+ *     inputShape: [numOfFeatures],
+ *     units: 1
+ *   }));
+ *   model.compile({
+ *     optimizer: tf.train.sgd(0.000001),
+ *     loss: 'meanSquaredError'
+ *   });
+ *
+ *   // Fit the model using the prepared Dataset
+ *   return model.fitDataset(flattenedDataset, {
+ *     epochs: 10,
+ *     callbacks: {
+ *       onEpochEnd: async (epoch, logs) => {
+ *         console.log(epoch + ':' + logs.loss);
+ *       }
+ *     }
+ *   });
+ * }
+ *
+ * await run();
+ * ```
+ *
+ * @param source URL or local path to get CSV file. If it's a local path, it
+ * must have prefix `file://` and it only works in node environment.
+ * @param csvConfig (Optional) A CSVConfig object that contains configurations
+ *     of reading and decoding from CSV file(s).
+ *
+ * @doc {
+ *   heading: 'Data',
+ *   subheading: 'Creation',
+ *   namespace: 'data',
+ *   configParamIndices: [1]
+ *  }
+ */
 const Drawer = ({
-  width = '40vw',
+  width = '60vw',
   height = 'auto',
   position = 'left',
   open = false,
+  backdrop = true,
   onClose,
-  showOverlay = true,
-  shy = true,
+
   children,
   className,
   co,
-  ...props
-}: DrawerProps & React.ComponentPropsWithoutRef<'aside'>) => {
+}: DrawerProps) => {
   const [closeStyle, setCloseStyle] = useState({});
   const [baseYOffset, setBaseYOffset] = useState(height != 'auto' ? height : '-100vh');
   const [baseXOffset, setBaseXOffset] = useState('-' + width);
@@ -40,6 +117,11 @@ const Drawer = ({
   const theme = useTheme() as Theme;
 
   const contentStyles = css({
+    touchAction: 'none',
+    background: 'white',
+    paddingTop: '8px',
+    borderTopLeftRadius: '8px',
+    borderTopRightRadius: '8px',
     position: 'fixed',
     zIndex: theme.zIndex.drawer,
     ...contentStyle,
@@ -47,17 +129,19 @@ const Drawer = ({
     ...(open ? openStyle : { ...closeStyle }),
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const containerStyles = css({
+
+  const backdropStyles = css({
+    touchAction: 'none',
     position: 'fixed',
-    zIndex: theme.zIndex.floatingWindow,
-    transition: '.1s all',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    zIndex: theme.zIndex.drawer,
+    inset: 0,
+    backgroundColor: 'rgba(0,0,0,.8)',
+    transition: 'backgroundColor 1s',
+    visibility: open ? 'visible' : 'hidden',
   });
   const computedClassNames = clsx(className);
-  const handleClickOverlay = (e: any) => {
-    if (shy) {
-      onClose(e);
-    }
+  const handleClickBackDrop = (e: any) => {
+    onClose?.(e);
   };
 
   React.useEffect(() => {
@@ -99,7 +183,7 @@ const Drawer = ({
         };
         setContentStyle({
           width: '100%',
-          height: height,
+          height: height == 'auto' ? '40vh' : height,
           left: 0,
           right: 0,
           top: baseYOffset,
@@ -115,7 +199,7 @@ const Drawer = ({
         };
         setContentStyle({
           width: '100%',
-          height: height,
+          height: height == 'auto' ? '40vh' : height,
           left: 0,
           right: 0,
           bottom: baseYOffset,
@@ -147,18 +231,9 @@ const Drawer = ({
     });
   }, [position, width, height]);
   return (
-    <aside
-      css={css({
-        visibility: open ? 'visible' : 'hidden',
-      })}
-      {...props}>
-      <Overlay
-        visible={open}
-        onClick={handleClickOverlay}
-        co={() => ({
-          display: showOverlay ? 'flex' : 'none',
-        })}
-      />
+    <aside>
+      {backdrop && <div css={backdropStyles} className={computedClassNames} onClick={handleClickBackDrop}></div>}
+      <div css={contentStyles}>{children}</div>
     </aside>
   );
 };

@@ -67,6 +67,7 @@ const Button = ({
   });
 
   const handleClickButton = (e: any) => {
+    e.stopPropagation();
     onClick?.(e);
   };
   return (

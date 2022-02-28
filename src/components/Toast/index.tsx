@@ -22,7 +22,6 @@ type ToastProps = Partial<{
 
 const Toast = ({ visible, duration = 2000, children, onChange, co, className }: ToastProps) => {
   const theme = useTheme() as Theme;
-  const system = useSystem();
   const [v, setV] = useState(true);
   const styles = css({
     display: 'flex',
@@ -44,6 +43,7 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
     const t = setTimeout(() => {
       setV(false);
       onChange?.();
+      9;
     }, duration);
     if (!v) return clearTimeout(t);
   }, [v]);
@@ -52,7 +52,7 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
     console.log('visible', visible);
   }, [visible]);
   const computedToastClassNames = clsx(className);
-  const Toast = (
+  return (
     <aside css={styles} className={computedToastClassNames}>
       {typeof children === 'string' ? (
         <Card
@@ -66,8 +66,12 @@ const Toast = ({ visible, duration = 2000, children, onChange, co, className }: 
       )}
     </aside>
   );
-
-  return Toast;
 };
+
+// Toast.show = (root?: string) => {
+//   const ref = React.useRef()
+//   ReactDOM.render(<Toast ref={ref}/>, document.getElementById('root'));
+//   ReactDOM.unmountComponentAtNode(ref.current)
+// };
 
 export default Toast;

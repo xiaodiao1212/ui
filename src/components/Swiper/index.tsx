@@ -2,7 +2,7 @@
 
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { Theme } from '../../constants/theme';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
@@ -61,6 +61,12 @@ const Swiper = ({
     show: true,
     ...indicatorProps,
   };
+  // const inputRef = useRef();
+  // useImperativeHandle(ref, () => ({
+  //   focus: () => {
+  //     inputRef.current.focus();
+  //   },
+  // }));
   const computeCurrentItems = useCallback(() => {
     return items.length > 1 ? items.slice(-1).concat(items, items.slice(0, 1)) : items;
   }, [items]);

@@ -15,7 +15,6 @@ import TimePicker from './components/TimePicker';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
 import Icon from './components/Icon';
-import ToolBar from './components/ToolBar';
 import Popover from './components/Popover';
 import Button from './components/Button';
 import NoticeBar from './components/NoticeBar';
@@ -23,11 +22,10 @@ import Dialog from './components/Dialog';
 import Fab from './components/Fab';
 import Notification from './components/Notification';
 import Chip from './components/Chip';
-import TabBar from './components/TabBar';
 import Skeleton from './components/Skeleton';
 import Card from './components/Card';
 import Container from './components/Container';
-import NumberInput from './components/NumberInput';
+
 import CountDown from './components/CountDown';
 import ScrollView from './components/ScrollView';
 import Image from './components/Image';
@@ -44,7 +42,7 @@ import Input from './components/Input';
 import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
-import BottomNavigationBar from './components/BottomNavigationBar';
+import BottomNavigation from './components/BottomNavigation';
 import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
 import Switch from './components/Switch';
@@ -58,7 +56,7 @@ export {
   Toast,
   useCustomTheme,
   Picker,
-  BottomNavigationBar,
+  BottomNavigation,
   ToolTip,
   List,
   Icon,
@@ -78,21 +76,18 @@ export {
   Chip,
   ScrollView,
   CountDown,
-  NumberInput,
   Container,
   Radio,
   CheckBox,
   Card,
   Swiper,
   Skeleton,
-  TabBar,
   Fab,
   Notification,
   Dialog,
   NoticeBar,
   Button,
   Popover,
-  ToolBar,
   Overlay,
   DatePicker,
   TimePicker,

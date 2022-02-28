@@ -40,7 +40,6 @@ const Overlay = ({
     '& > *': {
       margin: 'auto',
     },
-
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   const computedOverlayClassNames = clsx(className);
