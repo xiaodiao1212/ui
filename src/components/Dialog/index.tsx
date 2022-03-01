@@ -74,7 +74,7 @@ const Dialog = ({
       : {},
   );
   const styles = css({
-    '& > *:first-child': {
+    '& > *:first-of-child': {
       animation: `${visible ? mountAnim : unmountAnim} .3s`,
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),

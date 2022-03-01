@@ -1,40 +1,54 @@
 /** @jsxImportSource @emotion/react */
+
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import * as React from 'react';
-type DividerProps = {
-  width?: number;
-  vertical?: boolean;
-  color?: string;
-  doubleLine?: boolean;
-  dashed?: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-};
 
+type DividerProps = Partial<{
+  size: number;
+  vertical: boolean;
+  color: string;
+  doubleLine: boolean;
+  dashed: boolean;
+  className: string;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
+
+/**
+ * A divider is a thin line that groups content in lists and layouts.
+ * common renders as an <hr> by default.
+ *
+ * example:
+ * ```js
+ * <Divider color="red" size={6} />
+ * ```
+ * main props:
+ * @param size Thickness of dividing line.
+ */
 const Divider = ({
-  width = 1,
+  size = 1,
   vertical = false,
   dashed = false,
   doubleLine = false,
   color,
   co,
   className,
-  children,
   ...props
-}: DividerProps & React.ComponentPropsWithoutRef<'hr'>) => {
+}: DividerProps) => {
   const theme = useTheme() as Theme;
+  // Use border properties in different positions to easily and concisely simulate dividing lines
   const styles = css({
     border: 'none',
     ...(vertical
       ? {
           display: 'inline',
-          borderLeft: `${width}px ${dashed ? 'dashed' : 'solid'}  ${
+          borderLeft: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
             color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
           }`,
         }
       : {
-          borderTop: `${width}px ${dashed ? 'dashed' : 'solid'}  ${
+          borderTop: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
             color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
           }`,
         }),

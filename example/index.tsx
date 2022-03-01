@@ -31,7 +31,7 @@ const Main = () => {
   const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
   const [item, setItem] = useState([1, 4]);
-  const [ci, setCi] = useState(2);
+  const [currentIndex, setCurrentIndex] = useState(2);
   return (
     <App>
       <Container pa='1em'>
@@ -44,7 +44,7 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Text>this is ui</Text>
+            <Text>first-of-child ui</Text>
           </Col>{' '}
           <Col>
             <Center>
@@ -64,6 +64,7 @@ const Main = () => {
           <Col>
             <Button
               outlined
+              disabled
               onClick={() => {
                 setOverlayOpen(v => !v);
               }}>
@@ -100,7 +101,6 @@ const Main = () => {
       </Container>
 
       <Container pa='1em'>
-        {/* <Swiper ref={ref}>[0, 1, 2, 3]</Swiper> */}
         <Row gap='1em'>
           <Col>
             <Card title='this is card1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
@@ -114,7 +114,12 @@ const Main = () => {
           </Col>{' '}
         </Row>
       </Container>
-      <Divider width={6} />
+      {/* <Swiper>
+        {[0, 1, 2, 3].map(v => (
+          <Swiper.item />
+        ))}
+      </Swiper> */}
+      <Divider color='red' size={6} />
       <Container pa='1em'>
         <Row gap='1em'>
           <Col>
@@ -137,8 +142,8 @@ const Main = () => {
       </Container>
       <Container pa='1em'>
         <Segment>
-          {item.map(v => (
-            <Segment.Item>{v}</Segment.Item>
+          {item.map((v, i) => (
+            <Segment.Item key={i}>{v}</Segment.Item>
           ))}
         </Segment>
       </Container>
@@ -153,16 +158,16 @@ const Main = () => {
         />
       </Container>
       <BottomNavigation
-        currentIndex={ci}
+        currentIndex={currentIndex}
         onTap={i => {
-          setCi(i as number);
+          setCurrentIndex(i);
         }}>
-        {item.map(v => (
-          <BottomNavigation.item label={v + ''} icon={'1212'} />
+        {item.map((v, i) => (
+          <BottomNavigation.item key={i} label={v + ''} icon={'1212'} />
         ))}
       </BottomNavigation>
-      <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)}>
-        <Card>1</Card>
+      <Drawer open={drawerOpen} position='right' onClose={() => setDrawerOpen(v => !v)} co={t => ({})}>
+        <Card>Main Content</Card>
       </Drawer>
 
       {overlayOpen && <Overlay visible={overlayOpen}></Overlay>}

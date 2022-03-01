@@ -92,7 +92,7 @@ const Badge = ({
   const badgeStyles = css({
     display: 'inline-flex',
     position: 'relative',
-    '& > *:first-child': {
+    '& > *:first-of-child': {
       borderRadius: 999,
       visibility: show ? 'visible' : 'hidden',
       background: color || theme.color.red,

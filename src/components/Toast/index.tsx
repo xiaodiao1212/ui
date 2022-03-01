@@ -4,9 +4,7 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { useEffect, useState } from 'react';
-import { AppContext } from '../App';
-import { useSystem } from '../../hooks';
+import { useEffect, useState, useCallback, createContext, ReactNode } from 'react';
 import Card from '../Card';
 import Text from '../Text';
 import Container from '../Container';
@@ -14,64 +12,49 @@ import Container from '../Container';
 type ToastProps = Partial<{
   visible: boolean;
   duration: number;
+  title?: React.ReactNode;
+  icon?: React.ReactNode;
   children: React.ReactNode;
-  onChange: () => any;
+  color: string;
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   className: string;
 }>;
 
-const Toast = ({ visible, duration = 2000, children, onChange, co, className }: ToastProps) => {
+const Toast = ({ title, color, children, co, className }: ToastProps) => {
+  console.log('title', title);
+
   const theme = useTheme() as Theme;
-  const [v, setV] = useState(true);
+
   const styles = css({
-    display: 'flex',
     position: 'fixed',
-    top: 0,
-    left: '10%',
-    bottom: 0,
-    right: 0,
-    zIndex: 999,
-    transform: 'scale(1)',
-    maxWidth: '80vw',
-    // 下面trick实现居中
-    '& > *': {
-      margin: 'auto',
-    },
+    top: '50%',
+    left: '50%',
+    height: '2em',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '4px',
+    background: color || theme?.color?.black || '#232149',
+    opacity: '0.8',
+    color: 'white',
+    padding: '.4em 1em',
+    ...(typeof co == 'function' ? co(theme) : co),
   });
 
-  useEffect(() => {
-    const t = setTimeout(() => {
-      setV(false);
-      onChange?.();
-      9;
-    }, duration);
-    if (!v) return clearTimeout(t);
-  }, [v]);
-
-  useEffect(() => {
-    console.log('visible', visible);
-  }, [visible]);
-  const computedToastClassNames = clsx(className);
+  const computedClassNames = clsx(className);
   return (
-    <aside css={styles} className={computedToastClassNames}>
-      {typeof children === 'string' ? (
-        <Card
-          co={{ borderRadius: '7px', background: theme.color.black, ...(typeof co == 'function' ? co(theme) : co) }}>
-          <Container pa='.8em 2em'>
-            <Text dark>{children}</Text>
-          </Container>
-        </Card>
-      ) : (
-        children
-      )}
-    </aside>
+    <div css={styles} className={computedClassNames}>
+      {children || title}
+    </div>
   );
 };
 
-// Toast.show = (root?: string) => {
-//   const ref = React.useRef()
-//   ReactDOM.render(<Toast ref={ref}/>, document.getElementById('root'));
-//   ReactDOM.unmountComponentAtNode(ref.current)
-// };
+Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
+  const aside = document.createElement('aside');
+  document.body.appendChild(aside);
+  ReactDOM.render(<Toast {...{ title, icon, ...rest }} />, aside);
+  setTimeout(() => {
+    ReactDOM.unmountComponentAtNode(aside);
+    document.body.removeChild(aside);
+  }, duration);
+};
 
 export default Toast;

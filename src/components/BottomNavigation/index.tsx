@@ -7,7 +7,7 @@ import { Theme } from '../../constants/theme';
 import BottomNavigationItem from './BottomNavigationItem';
 
 type BottomNavigation = {
-  onTap?: (index?: number) => void; // Called when one of the items is tapped.
+  onTap?: (index: number) => void; // Called when one of the items is tapped.
   iconSize?: string; // The size of all of the BottomNavigationItem icons
   selectedItemColor?: string; // The value of selectedItemColor
   backgroundColor?: string; // The color of the BottomNavigation itself

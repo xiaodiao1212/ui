@@ -25,7 +25,6 @@ import Chip from './components/Chip';
 import Skeleton from './components/Skeleton';
 import Card from './components/Card';
 import Container from './components/Container';
-
 import CountDown from './components/CountDown';
 import ScrollView from './components/ScrollView';
 import Image from './components/Image';
