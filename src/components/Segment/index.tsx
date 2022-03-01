@@ -32,7 +32,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
       bottom: 0,
       left: 0,
     },
-    '& > div:first-child': {
+    '& > div:first-of-type': {
       boxShadow: `0px 0px 4px 0px ${theme.shadow.color}`,
       borderRadius: '4px',
       width: `calc(${fragmentLength}% - ${offsetX}px)`,

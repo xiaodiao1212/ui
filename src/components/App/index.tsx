@@ -1,5 +1,5 @@
-import { ThemeProvider, Global, css } from '@emotion/react';
-import { createContext, forwardRef, useCallback, useRef } from 'react';
+import { ThemeProvider, Global } from '@emotion/react';
+import { useCallback } from 'react';
 import { defaultStyle } from '../../constants/style';
 import { theme as defaultTheme, Theme } from '../../constants/theme';
 import { deepMerge } from '../../utils';

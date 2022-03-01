@@ -29,7 +29,7 @@ const Card = ({ title, extra, co, className, children, onClick, color, ...props 
       '& > *': {
         marginLeft: 'auto',
       },
-      '& > *:first-of-child': {
+      '& > *:first-of-type': {
         marginLeft: '0',
       },
     },

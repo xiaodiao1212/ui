@@ -30,7 +30,7 @@ const Main = () => {
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
-  const [item, setItem] = useState([1, 4]);
+  const [item, setItem] = useState([1, 4, 4, 5]);
   const [currentIndex, setCurrentIndex] = useState(2);
   return (
     <App>
@@ -88,28 +88,44 @@ const Main = () => {
             <Badge>
               <Button
                 onClick={() => {
-                  // Toast.show('1');
+                  Toast.show({
+                    title: '1313',
+                  });
                 }}>
-                this is Toasts
+                click to Toasts
               </Button>
             </Badge>
           </Col>{' '}
           <Col>
-            <Chip>this is chip</Chip>
+            <Chip>chip</Chip>
           </Col>{' '}
         </Row>
       </Container>
-
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Chip outline color={' #F067B4'}>
+              chip
+            </Chip>
+          </Col>
+          <Col>
+            <Chip color={'linear-gradient(to right, #da4453, #89216b)'}>chip</Chip>
+          </Col>
+          <Col>
+            <Chip r={99}>chip</Chip>
+          </Col>
+        </Row>
+      </Container>
       <Container pa='1em'>
         <Row gap='1em'>
           <Col>
-            <Card title='this is card1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
-              this is content1
+            <Card title='t1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
+              c1
             </Card>
           </Col>{' '}
           <Col>
-            <Card title='this is card2' extra='133' color={'red'} co={{ borderRadius: '4px' }}>
-              this is content2
+            <Card title='t2' extra='133' color={'red'} co={{ borderRadius: '4px' }}>
+              c2
             </Card>
           </Col>{' '}
         </Row>
@@ -119,15 +135,24 @@ const Main = () => {
           <Swiper.item />
         ))}
       </Swiper> */}
-      <Divider color='red' size={6} />
+      <Container py='.2em'>
+        <Divider color='red' size={3} />
+      </Container>
+      <Container pb='1em'>
+        <Divider color='green' size={2} />{' '}
+      </Container>
+      <Container pb='1em'>
+        <Divider color='red' size={3} dashed />{' '}
+      </Container>
       <Container pa='1em'>
         <Row gap='1em'>
           <Col>
             <Upload
               onFileChange={file => {
                 console.log(file);
-              }}
-            />
+              }}>
+              <Card co={{ border: '1px solid #3B2667', borderRadius: '4px' }}>Upload</Card>
+            </Upload>
           </Col>{' '}
           <Col>
             <Textarea
@@ -166,7 +191,7 @@ const Main = () => {
           <BottomNavigation.item key={i} label={v + ''} icon={'1212'} />
         ))}
       </BottomNavigation>
-      <Drawer open={drawerOpen} position='right' onClose={() => setDrawerOpen(v => !v)} co={t => ({})}>
+      <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)} co={t => ({})}>
         <Card>Main Content</Card>
       </Drawer>
 

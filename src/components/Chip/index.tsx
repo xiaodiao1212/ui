@@ -29,9 +29,10 @@ type ChipProps = {
  */
 const Chip = ({ outline = false, r = 4, color, co, children, className, ...props }: ChipProps) => {
   const theme = useTheme() as Theme;
-  const getComputedColor = (color?: ((theme: Theme) => string) | string) =>
+  const getComputedColor = () =>
     (typeof color == 'function' ? color(theme) : color) ||
     (theme.mode == 'light' ? theme.color.black : theme.color.white);
+
   const computedClassNames = clsx(className);
   const styles = css({
     display: 'inline-flex',
@@ -39,12 +40,12 @@ const Chip = ({ outline = false, r = 4, color, co, children, className, ...props
     borderRadius: r + 'px',
     ...(!outline
       ? {
-          backgroundColor: getComputedColor(color),
+          background: getComputedColor(),
           color: theme.color.white,
         }
       : {
-          border: '1px solid ' + getComputedColor(color),
-          color: getComputedColor(color),
+          border: '1px solid ' + getComputedColor(),
+          color: getComputedColor(),
         }),
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });

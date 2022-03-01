@@ -9,7 +9,6 @@ type DividerProps = Partial<{
   size: number;
   vertical: boolean;
   color: string;
-  doubleLine: boolean;
   dashed: boolean;
   className: string;
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
@@ -26,16 +25,7 @@ type DividerProps = Partial<{
  * main props:
  * @param size Thickness of dividing line.
  */
-const Divider = ({
-  size = 1,
-  vertical = false,
-  dashed = false,
-  doubleLine = false,
-  color,
-  co,
-  className,
-  ...props
-}: DividerProps) => {
+const Divider = ({ size = 1, vertical = false, dashed = false, color, co, className, ...props }: DividerProps) => {
   const theme = useTheme() as Theme;
   // Use border properties in different positions to easily and concisely simulate dividing lines
   const styles = css({
