@@ -23,6 +23,7 @@ import {
   Slider,
   BottomNavigation,
   Overlay,
+  Image,
 } from './build';
 const Main = () => {
   const ref = useRef();
@@ -44,7 +45,7 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Text>first-of-child ui</Text>
+            <Text> text</Text>
           </Col>{' '}
           <Col>
             <Center>
@@ -62,14 +63,7 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Button
-              outlined
-              disabled
-              onClick={() => {
-                setOverlayOpen(v => !v);
-              }}>
-              overlay
-            </Button>
+            <Button disabled>disabled</Button>
           </Col>
           <Col>
             <Button
@@ -92,12 +86,12 @@ const Main = () => {
                     title: '1313',
                   });
                 }}>
-                click to Toasts
+                toasts
               </Button>
             </Badge>
           </Col>{' '}
           <Col>
-            <Chip>chip</Chip>
+            <Button outlined>outline</Button>
           </Col>{' '}
         </Row>
       </Container>
@@ -130,18 +124,74 @@ const Main = () => {
           </Col>{' '}
         </Row>
       </Container>
-      {/* <Swiper>
-        {[0, 1, 2, 3].map(v => (
-          <Swiper.item />
-        ))}
-      </Swiper> */}
+
+      <Container pa='1em'>
+        <Swiper
+          items={[
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 0,
+            },
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 1,
+            },
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 2,
+            },
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 3,
+            },
+          ]}
+        />
+      </Container>
+      <Container>
+        <Image
+          width='7em'
+          backdropFilter='blur(5px)'
+          src='https://cdn4.bysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+          mask={<div style={{ color: 'white' }}>loading</div>}
+          errorImg={<div>error img</div>}
+        />
+        <Image width='7em' circle src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png' />
+      </Container>
       <Container py='.2em'>
         <Divider color='red' size={3} />
       </Container>
-      <Container pb='1em'>
+      <Container py='.2em'>
         <Divider color='green' size={2} />{' '}
       </Container>
-      <Container pb='1em'>
+      <Container py='.2em'>
         <Divider color='red' size={3} dashed />{' '}
       </Container>
       <Container pa='1em'>
@@ -153,7 +203,7 @@ const Main = () => {
               }}>
               <Card co={{ border: '1px solid #3B2667', borderRadius: '4px' }}>Upload</Card>
             </Upload>
-          </Col>{' '}
+          </Col>
           <Col>
             <Textarea
               showCount
@@ -162,7 +212,7 @@ const Main = () => {
                 console.log(e);
               }}
             />
-          </Col>{' '}
+          </Col>
         </Row>
       </Container>
       <Container pa='1em'>
@@ -194,8 +244,6 @@ const Main = () => {
       <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)} co={t => ({})}>
         <Card>Main Content</Card>
       </Drawer>
-
-      {overlayOpen && <Overlay visible={overlayOpen}></Overlay>}
     </App>
   );
 };
