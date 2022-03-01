@@ -179,11 +179,10 @@ const Main = () => {
         <Image
           width='7em'
           backdropFilter='blur(5px)'
-          src='https://cdn4.bysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+          src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
           mask={<div style={{ color: 'white' }}>loading</div>}
           errorImg={<div>error img</div>}
         />
-        <Image width='7em' circle src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png' />
       </Container>
       <Container py='.2em'>
         <Divider color='red' size={3} />

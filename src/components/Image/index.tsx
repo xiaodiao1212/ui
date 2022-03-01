@@ -15,6 +15,7 @@ type ImageProps = {
   contain?: boolean;
   backdropFilter?: string;
   width?: string;
+  loadingImg?: ReactNode;
   errorImg?: ReactNode;
   height?: string;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
@@ -31,11 +32,12 @@ const Image = ({
   backdropFilter,
   height,
   co,
+  loadingImg,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'img'> & ImageProps) => {
   const theme = useTheme() as Theme;
-  const [isLoadingError, setIsLoadingError] = useState(false);
+  const [loadingState, setLoadingState] = useState<'error' | 'success' | 'loading'>('loading');
   const styles = css({
     verticalAlign: 'middle',
     background: 'transparent',
@@ -50,9 +52,11 @@ const Image = ({
 
   const computedClassNames = clsx(className);
   const handleImgError = (e: any) => {
-    setIsLoadingError(true);
+    setLoadingState('error');
   };
-  const handleImgLoad = (e: any) => {};
+  const handleImgLoad = (e: any) => {
+    setLoadingState('success');
+  };
   const img = (
     <img
       onError={handleImgError}
@@ -73,8 +77,9 @@ const Image = ({
           alignItems: 'center',
           position: 'relative',
         })}>
-        {isLoadingError ? errorImg : img}
-        {!isLoadingError && mask && (
+        {loadingState == 'loading' && loadingImg}
+        {loadingState == 'error' ? errorImg : img}
+        {loadingState == 'success' && mask && (
           <div
             css={css({
               display: 'flex',
