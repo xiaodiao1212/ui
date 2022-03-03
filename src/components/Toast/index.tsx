@@ -12,28 +12,27 @@ import Container from '../Container';
 type ToastProps = Partial<{
   visible: boolean;
   duration: number;
-  title?: React.ReactNode;
-  icon?: React.ReactNode;
-  children: React.ReactNode;
+  title?: ReactNode;
+  icon?: ReactNode;
+  content?: ReactNode;
+  children: ReactNode;
   color: string;
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   className: string;
 }>;
 
-const Toast = ({ title, color, children, co, className }: ToastProps) => {
-  console.log('title', title);
-
+const Toast = ({ title, content, color, children, co, className }: ToastProps) => {
   const theme = useTheme() as Theme;
-
   const styles = css({
     position: 'fixed',
     top: '50%',
     left: '50%',
-    height: '2em',
+    width: '80vw',
+    height: 'auto',
+    textAlign: 'center',
     transform: 'translate(-50%, -50%)',
     borderRadius: '4px',
-    background: color || theme?.color?.black || '#232149',
-    opacity: '0.8',
+    background: color || theme?.color?.black || 'rgba(0, 0, 0, 0.45)',
     color: 'white',
     padding: '.4em 1em',
     ...(typeof co == 'function' ? co(theme) : co),
@@ -42,7 +41,12 @@ const Toast = ({ title, color, children, co, className }: ToastProps) => {
   const computedClassNames = clsx(className);
   return (
     <div css={styles} className={computedClassNames}>
-      {children || title}
+      {children || (
+        <div>
+          <div>{title}</div>
+          <div>{content}</div>
+        </div>
+      )}
     </div>
   );
 };
@@ -50,7 +54,7 @@ const Toast = ({ title, color, children, co, className }: ToastProps) => {
 Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
   const aside = document.createElement('aside');
   document.body.appendChild(aside);
-  ReactDOM.render(<Toast {...{ title, icon, ...rest }} />, aside);
+  ReactDOM.render(<Toast {...{ title, icon, color, ...rest }} />, aside);
   setTimeout(() => {
     ReactDOM.unmountComponentAtNode(aside);
     document.body.removeChild(aside);

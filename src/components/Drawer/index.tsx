@@ -46,7 +46,7 @@ type DrawerProps = {
  */
 const Drawer = ({
   width = '60vw',
-  height = 'auto',
+  height = '40vh',
   position = 'left',
   open = false,
   mask = true,
@@ -56,9 +56,6 @@ const Drawer = ({
   co,
 }: DrawerProps) => {
   const theme = useTheme() as Theme;
-  // The distance from the drawer to the visible area
-  const [yOffset, setYOffset] = useState(height != 'auto' ? height : '-100vh');
-  const [xOffset, setXOffset] = useState('-' + width);
 
   // Main style of drawer container
   const [contentStyle, setContentStyle] = useState({});
@@ -102,7 +99,7 @@ const Drawer = ({
         setContentStyle({
           width: width,
           height: '100%',
-          right: xOffset,
+          right: '-100%',
           top: '0',
           bottom: '0',
         });
@@ -111,20 +108,20 @@ const Drawer = ({
       case 'top':
         setContentStyle({
           width: '100%',
-          height: height == 'auto' ? '40vh' : height,
+          height: height,
           left: 0,
           right: 0,
-          top: yOffset,
+          top: '-100%',
         });
         setOpenStyle({ top: 0 });
         break;
       case 'bottom':
         setContentStyle({
           width: '100%',
-          height: height == 'auto' ? '40vh' : height,
+          height: height,
           left: 0,
           right: 0,
-          bottom: yOffset,
+          bottom: '-100%',
         });
         setOpenStyle({ bottom: 0 });
         break;
@@ -132,7 +129,7 @@ const Drawer = ({
         setContentStyle({
           width: width,
           height: '100%',
-          left: xOffset,
+          left: '-100%',
           top: '0',
           bottom: '0',
         });
@@ -141,8 +138,6 @@ const Drawer = ({
       default:
         break;
     }
-    setYOffset(height != 'auto' ? height : '-100vh');
-    setXOffset('-' + width);
   }, [position, width, height]);
 
   return (

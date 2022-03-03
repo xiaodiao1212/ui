@@ -19,6 +19,7 @@ const Link = ({
   indicatorColor = '#fff',
   indicatorWidth,
   href,
+  color,
   indicatorHeight,
   co,
   onClick,
@@ -29,9 +30,10 @@ const Link = ({
   const theme = useTheme() as Theme;
 
   const styles = css({
+    color,
     borderBottomWidth: indicatorWidth,
     borderBottom: `${indicatorHeight || '1px'} solid  ${indicatorColor || theme?.color?.primary || '#5568FE'}`,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
 
   const handleClickLink = (e: any) => {
