@@ -5,8 +5,10 @@ import {
   Swiper,
   App,
   Center,
+  Input,
   Button,
   Col,
+  AppBar,
   Container,
   Row,
   Switch,
@@ -21,7 +23,7 @@ import {
   Textarea,
   Toast,
   Slider,
-  BottomNavigation,
+  Navigation,
   Overlay,
   Image,
 } from './build';
@@ -35,6 +37,7 @@ const Main = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
   return (
     <App>
+      <AppBar></AppBar>
       <Container pa='1em'>
         <Row>
           <Col>
@@ -42,6 +45,29 @@ const Main = () => {
           </Col>
         </Row>
       </Container>
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Input
+              label='UserName'
+              labelStyle={{
+                color: 'red',
+              }}
+              message='username valid error'
+              verify={v => {
+                if (v.length > 6) {
+                  return false;
+                }
+                return true;
+              }}
+              placeholder='Name'
+              icon={<div>icon</div>}
+              extra={<div>icon</div>}
+            />
+          </Col>
+        </Row>
+      </Container>
+
       <Container pa='1em'>
         <Row>
           <Col>
@@ -124,7 +150,6 @@ const Main = () => {
           </Col>{' '}
         </Row>
       </Container>
-
       <Container pa='1em'>
         <Swiper
           items={[
@@ -221,7 +246,6 @@ const Main = () => {
           ))}
         </Segment>
       </Container>
-
       <Container pa='1em'>
         <List
           gap='1em'
@@ -231,15 +255,29 @@ const Main = () => {
           ]}
         />
       </Container>
-      <BottomNavigation
+      <Navigation
         currentIndex={currentIndex}
         onTap={i => {
+          console.log(i);
+
           setCurrentIndex(i);
+        }}
+        selectedLabelStyle={{
+          color: 'red',
         }}>
         {item.map((v, i) => (
-          <BottomNavigation.item key={i} label={v + ''} icon={'1212'} />
+          <Navigation.Item key={i} label={v + ''} icon={'1212'}>
+            {i == 3 && (
+              <div
+                style={{
+                  color: currentIndex == i ? 'red' : 'green',
+                }}>
+                sdsd
+              </div>
+            )}
+          </Navigation.Item>
         ))}
-      </BottomNavigation>
+      </Navigation>
       <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)} co={t => ({})}>
         <Card>Main Content</Card>
       </Drawer>
