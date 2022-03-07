@@ -5,12 +5,12 @@ import { Theme } from '../../constants/theme';
 import * as React from 'react';
 import Overlay from '../Overlay';
 
-type ModalProps = {
+type DialogProps = {
   shy?: boolean;
   visible: boolean;
   opacity?: number;
   animationType?: 'none' | 'slide' | 'fade' | string;
-  handleModalVisibleChange?: () => void;
+  handleDialogVisibleChange?: () => void;
   children?: React.ReactNode;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   className?: string;
@@ -20,12 +20,12 @@ const Dialog = ({
   visible = false,
   shy = true,
   opacity,
-  handleModalVisibleChange,
+  handleDialogVisibleChange,
   animationType = 'slide',
   children,
   co,
   className,
-}: ModalProps) => {
+}: DialogProps) => {
   const theme = useTheme() as Theme;
   const mountAnim = keyframes(
     animationType == 'fade'
@@ -79,15 +79,15 @@ const Dialog = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedModalClassNames = clsx(className);
+  const computedDialogClassNames = clsx(className);
 
   return (
     <Overlay
-      onClick={shy ? handleModalVisibleChange : () => {}}
+      onClick={shy ? handleDialogVisibleChange : () => {}}
       css={styles}
       opacity={opacity || 0}
       visible={visible}
-      className={computedModalClassNames}>
+      className={computedDialogClassNames}>
       {children}
     </Overlay>
   );

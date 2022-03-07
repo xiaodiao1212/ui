@@ -6,12 +6,14 @@ import { Theme } from '../../constants/theme';
 import * as React from 'react';
 type ListItem = {
   id?: string | number;
+
   avator?: React.ReactNode;
   title?: React.ReactNode;
   content?: React.ReactNode;
   extra?: React.ReactNode;
 };
 type ListProps = {
+  divider?: boolean;
   data: ListItem[];
   renderItem?: (item: ListItem) => React.ReactNode;
   gap?: string;
@@ -23,6 +25,7 @@ const List = ({
   renderItem,
   gap,
   co,
+  divider,
   className,
   children,
   ...props
@@ -33,6 +36,7 @@ const List = ({
     display: 'flex',
     alignItems: 'center',
     gap,
+    borderBottom: divider ? '1px solid #F4F5F7' : '',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
