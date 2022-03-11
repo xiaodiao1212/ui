@@ -4,205 +4,124 @@ import { Theme } from '../../constants/theme';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
-import Overlay from '../Overlay';
-import ReactDOM from 'react-dom';
 
 type DrawerProps = {
   width?: string;
   height?: string;
   position?: 'left' | 'right' | 'top' | 'bottom';
   open?: boolean;
-  backdrop?: boolean;
+  mask?: boolean;
   children?: React.ReactNode;
   className?: string;
-  onClose?: (e: any) => any;
+  onClose?: () => any;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 /**
- * React component that like the DrawerLayout (Android only).
- * The Drawer (typically used for navigation) is rendered with List and
- * direct children are the main view (where your children goes).
+ * Navigation drawers (or "sidebars") provide access to destinations and app functionality,
+ * such as switching accounts. They can either be permanently on-screen or
+ * controlled by a navigation menu icon..
  * The component is initially not visible on the screen,
  * but can be pulled in from the side of the window specified by
  * the position prop and its width can be set by the width prop.
  *
  * ```js
- * const csvUrl =
- * 'https://storage.googleapis.com/tfjs-examples/multivariate-linear-regression/data/boston-housing-train.csv';
  *
- * async function run() {
- *   // We want to predict the column "medv", which represents a median value of
- *   // a home (in $1000s), so we mark it as a label.
- *   const csvDataset = tf.data.csv(
- *     csvUrl, {
- *       columnConfigs: {
- *         medv: {
- *           isLabel: true
- *         }
- *       }
- *     });
+ * const [drawerOpen, setDrawerOpen] = useState(false);
  *
- *   // Number of features is the number of column names minus one for the label
- *   // column.
- *   const numOfFeatures = (await csvDataset.columnNames()).length - 1;
- *
- *   // Prepare the Dataset for training.
- *   const flattenedDataset =
- *     csvDataset
- *     .map(({xs, ys}) =>
- *       {
- *         // Convert xs(features) and ys(labels) from object form (keyed by
- *         // column name) to array form.
- *         return {xs:Object.values(xs), ys:Object.values(ys)};
- *       })
- *     .batch(10);
- *
- *   // Define the model.
- *   const model = tf.sequential();
- *   model.add(tf.layers.dense({
- *     inputShape: [numOfFeatures],
- *     units: 1
- *   }));
- *   model.compile({
- *     optimizer: tf.train.sgd(0.000001),
- *     loss: 'meanSquaredError'
- *   });
- *
- *   // Fit the model using the prepared Dataset
- *   return model.fitDataset(flattenedDataset, {
- *     epochs: 10,
- *     callbacks: {
- *       onEpochEnd: async (epoch, logs) => {
- *         console.log(epoch + ':' + logs.loss);
- *       }
- *     }
- *   });
- * }
- *
- * await run();
+ * <Drawer
+ *     open={drawerOpen}
+ *     position='bottom'
+ *     onClose={() => setDrawerOpen(v => !v)}
+ *     co={t => ({
+ *       paddingTop: '8px',
+ *       borderTopLeftRadius: '8px',
+ *       borderTopRightRadius: '8px',
+ *     })}>
+ *     <Card>Main Content</Card>
+ * </Drawer>
  * ```
  *
- * @param source URL or local path to get CSV file. If it's a local path, it
- * must have prefix `file://` and it only works in node environment.
- * @param csvConfig (Optional) A CSVConfig object that contains configurations
- *     of reading and decoding from CSV file(s).
- *
- * @doc {
- *   heading: 'Data',
- *   subheading: 'Creation',
- *   namespace: 'data',
- *   configParamIndices: [1]
- *  }
+ * @param mask weather the component has a mask.
  */
 const Drawer = ({
   width = '60vw',
-  height = 'auto',
+  height = '40vh',
   position = 'left',
   open = false,
-  backdrop = true,
+  mask = true,
   onClose,
-
   children,
   className,
   co,
 }: DrawerProps) => {
-  const [closeStyle, setCloseStyle] = useState({});
-  const [baseYOffset, setBaseYOffset] = useState(height != 'auto' ? height : '-100vh');
-  const [baseXOffset, setBaseXOffset] = useState('-' + width);
-  const [contentStyle, setContentStyle] = useState({});
-  const [openStyle, setOpenStyle] = useState({});
-  const [kfOut, setKfOut] = useState({});
-  const [kfIn, setKfIn] = useState({});
   const theme = useTheme() as Theme;
 
+  // Main style of drawer container
+  const [contentStyle, setContentStyle] = useState({});
+  const [openStyle, setOpenStyle] = useState({});
+
+  // The CSS properties of drawer content container,
   const contentStyles = css({
     touchAction: 'none',
-    background: 'white',
-    paddingTop: '8px',
-    borderTopLeftRadius: '8px',
-    borderTopRightRadius: '8px',
+    background: theme.color.white || 'white',
     position: 'fixed',
     zIndex: theme.zIndex.drawer,
+    transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     ...contentStyle,
-    transition: 'all .3s',
-    ...(open ? openStyle : { ...closeStyle }),
+    ...(open ? openStyle : {}),
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const backdropStyles = css({
+  /**
+   * The CSS properties of the background layer,
+   * mainly the fixed layout and the corresponding color, animation
+   */
+  const maskStyles = css({
     touchAction: 'none',
     position: 'fixed',
     zIndex: theme.zIndex.drawer,
     inset: 0,
-    backgroundColor: 'rgba(0,0,0,.8)',
-    transition: 'backgroundColor 1s',
+    backgroundColor: 'rgba(0,0,0,.5)',
+    opacity: 1,
     visibility: open ? 'visible' : 'hidden',
+    transition: 'opacity .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
   });
   const computedClassNames = clsx(className);
-  const handleClickBackDrop = (e: any) => {
-    onClose?.(e);
+  const handleClickmask = (e: any) => {
+    onClose?.();
   };
 
-  React.useEffect(() => {
-    let to: any = {
-      left: '-' + width,
-    };
-    let from: any = {
-      left: '0',
-    };
-    let from2: any = {
-      left: '-' + width,
-    };
-    let to2: any = {
-      left: '0',
-    };
+  useEffect(() => {
+    // Calculate the corresponding position and length according to several attributes
     switch (position) {
       case 'right':
-        from2 = to = {
-          right: '-' + width,
-        };
-        to2 = from = {
-          right: '0',
-        };
         setContentStyle({
           width: width,
           height: '100%',
-          right: baseXOffset,
+          right: '-100%',
           top: '0',
           bottom: '0',
         });
         setOpenStyle({ right: 0 });
         break;
       case 'top':
-        from2 = to = {
-          top: '-' + height == 'auto' ? '100vh' : height,
-        };
-        to2 = from = {
-          top: '0',
-        };
         setContentStyle({
           width: '100%',
-          height: height == 'auto' ? '40vh' : height,
+          height: height,
           left: 0,
           right: 0,
-          top: baseYOffset,
+          top: '-100%',
         });
         setOpenStyle({ top: 0 });
         break;
       case 'bottom':
-        from2 = to = {
-          bottom: '-' + height == 'auto' ? '100vh' : height,
-        };
-        to2 = from = {
-          bottom: '0',
-        };
         setContentStyle({
           width: '100%',
-          height: height == 'auto' ? '40vh' : height,
+          height: height,
           left: 0,
           right: 0,
-          bottom: baseYOffset,
+          bottom: '-100%',
         });
         setOpenStyle({ bottom: 0 });
         break;
@@ -210,7 +129,7 @@ const Drawer = ({
         setContentStyle({
           width: width,
           height: '100%',
-          left: baseXOffset,
+          left: '-100%',
           top: '0',
           bottom: '0',
         });
@@ -219,20 +138,11 @@ const Drawer = ({
       default:
         break;
     }
-    setBaseYOffset(height != 'auto' ? height : '-100vh');
-    setBaseXOffset('-' + width);
-    setKfOut({
-      from: from,
-      to: to,
-    });
-    setKfIn({
-      from: from2,
-      to: to2,
-    });
   }, [position, width, height]);
+
   return (
     <aside>
-      {backdrop && <div css={backdropStyles} className={computedClassNames} onClick={handleClickBackDrop}></div>}
+      {mask && <div css={maskStyles} className={computedClassNames} onClick={handleClickmask}></div>}
       <div css={contentStyles}>{children}</div>
     </aside>
   );

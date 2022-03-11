@@ -28,7 +28,9 @@ const SegmentItem = ({
     fontWeight: itemkey == currentKey ? 700 : 500,
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
+
   const computedClassNames = clsx(className);
+
   const handleClickSegmentItem = () => {
     onClickItem?.(itemkey);
   };

@@ -5,8 +5,10 @@ import {
   Swiper,
   App,
   Center,
+  Input,
   Button,
   Col,
+  AppBar,
   Container,
   Row,
   Switch,
@@ -21,8 +23,9 @@ import {
   Textarea,
   Toast,
   Slider,
-  BottomNavigation,
+  Navigation,
   Overlay,
+  Image,
 } from './build';
 const Main = () => {
   const ref = useRef();
@@ -30,10 +33,11 @@ const Main = () => {
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [v, setV] = useState('0.3');
   const [on, setOn] = useState(false);
-  const [item, setItem] = useState([1, 4]);
-  const [ci, setCi] = useState(2);
+  const [item, setItem] = useState([1, 4, 4, 5]);
+  const [currentIndex, setCurrentIndex] = useState(2);
   return (
     <App>
+      <AppBar></AppBar>
       <Container pa='1em'>
         <Row>
           <Col>
@@ -44,7 +48,30 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Text>this is ui</Text>
+            <Input
+              label='UserName'
+              labelStyle={{
+                color: 'red',
+              }}
+              message='username valid error'
+              verify={v => {
+                if (v.length > 6) {
+                  return false;
+                }
+                return true;
+              }}
+              placeholder='Name'
+              icon={<div>icon</div>}
+              extra={<div>icon</div>}
+            />
+          </Col>
+        </Row>
+      </Container>
+
+      <Container pa='1em'>
+        <Row>
+          <Col>
+            <Text> text</Text>
           </Col>{' '}
           <Col>
             <Center>
@@ -62,13 +89,7 @@ const Main = () => {
       <Container pa='1em'>
         <Row>
           <Col>
-            <Button
-              outlined
-              onClick={() => {
-                setOverlayOpen(v => !v);
-              }}>
-              overlay
-            </Button>
+            <Button disabled>disabled</Button>
           </Col>
           <Col>
             <Button
@@ -87,43 +108,126 @@ const Main = () => {
             <Badge>
               <Button
                 onClick={() => {
-                  // Toast.show('1');
+                  Toast.show({
+                    title: '1313',
+                  });
                 }}>
-                this is Toasts
+                toasts
               </Button>
             </Badge>
           </Col>{' '}
           <Col>
-            <Chip>this is chip</Chip>
+            <Button outlined>outline</Button>
           </Col>{' '}
         </Row>
       </Container>
-
       <Container pa='1em'>
-        {/* <Swiper ref={ref}>[0, 1, 2, 3]</Swiper> */}
+        <Row>
+          <Col>
+            <Chip outline color={' #F067B4'}>
+              chip
+            </Chip>
+          </Col>
+          <Col>
+            <Chip color={'linear-gradient(to right, #da4453, #89216b)'}>chip</Chip>
+          </Col>
+          <Col>
+            <Chip r={99}>chip</Chip>
+          </Col>
+        </Row>
+      </Container>
+      <Container pa='1em'>
         <Row gap='1em'>
           <Col>
-            <Card title='this is card1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
-              this is content1
+            <Card title='t1' extra='133' color={t => t.color.grey} co={{ borderRadius: '4px' }}>
+              c1
             </Card>
           </Col>{' '}
           <Col>
-            <Card title='this is card2' extra='133' color={'red'} co={{ borderRadius: '4px' }}>
-              this is content2
+            <Card title='t2' extra='133' color={'red'} co={{ borderRadius: '4px' }}>
+              c2
             </Card>
           </Col>{' '}
         </Row>
       </Container>
-      <Divider width={6} />
+      <Container pa='1em'>
+        <Swiper
+          items={[
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 0,
+            },
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 1,
+            },
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 2,
+            },
+            {
+              content: (
+                <Image
+                  width='7em'
+                  backdropFilter='blur(5px)'
+                  src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+                  mask={<div style={{ color: 'white' }}>loading</div>}
+                />
+              ),
+              index: 3,
+            },
+          ]}
+        />
+      </Container>
+      <Container>
+        <Image
+          width='7em'
+          backdropFilter='blur(5px)'
+          src='https://cdn4.buysellads.net/uu/1/72681/1600362731-MC_Carbon_Logo_260x200.png'
+          mask={<div style={{ color: 'white' }}>loading</div>}
+          errorImg={<div>error img</div>}
+        />
+      </Container>
+      <Container py='.2em'>
+        <Divider color='red' size={3} />
+      </Container>
+      <Container py='.2em'>
+        <Divider color='green' size={2} />{' '}
+      </Container>
+      <Container py='.2em'>
+        <Divider color='red' size={3} dashed />{' '}
+      </Container>
       <Container pa='1em'>
         <Row gap='1em'>
           <Col>
             <Upload
               onFileChange={file => {
                 console.log(file);
-              }}
-            />
-          </Col>{' '}
+              }}>
+              <Card co={{ border: '1px solid #3B2667', borderRadius: '4px' }}>Upload</Card>
+            </Upload>
+          </Col>
           <Col>
             <Textarea
               showCount
@@ -132,17 +236,16 @@ const Main = () => {
                 console.log(e);
               }}
             />
-          </Col>{' '}
+          </Col>
         </Row>
       </Container>
       <Container pa='1em'>
         <Segment>
-          {item.map(v => (
-            <Segment.Item>{v}</Segment.Item>
+          {item.map((v, i) => (
+            <Segment.Item key={i}>{v}</Segment.Item>
           ))}
         </Segment>
       </Container>
-
       <Container pa='1em'>
         <List
           gap='1em'
@@ -152,20 +255,32 @@ const Main = () => {
           ]}
         />
       </Container>
-      <BottomNavigation
-        currentIndex={ci}
+      <Navigation
+        currentIndex={currentIndex}
         onTap={i => {
-          setCi(i as number);
-        }}>
-        {item.map(v => (
-          <BottomNavigation.item label={v + ''} icon={'1212'} />
-        ))}
-      </BottomNavigation>
-      <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)}>
-        <Card>1</Card>
-      </Drawer>
+          console.log(i);
 
-      {overlayOpen && <Overlay visible={overlayOpen}></Overlay>}
+          setCurrentIndex(i);
+        }}
+        selectedLabelStyle={{
+          color: 'red',
+        }}>
+        {item.map((v, i) => (
+          <Navigation.Item key={i} label={v + ''} icon={'1212'}>
+            {i == 3 && (
+              <div
+                style={{
+                  color: currentIndex == i ? 'red' : 'green',
+                }}>
+                sdsd
+              </div>
+            )}
+          </Navigation.Item>
+        ))}
+      </Navigation>
+      <Drawer open={drawerOpen} position='bottom' onClose={() => setDrawerOpen(v => !v)} co={t => ({})}>
+        <Card>Main Content</Card>
+      </Drawer>
     </App>
   );
 };

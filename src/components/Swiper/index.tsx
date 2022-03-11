@@ -10,6 +10,7 @@ type SwipeItem = {
   index: number;
   content: React.ReactNode;
 };
+
 type SwiperProps = {
   defaultIndex?: number;
   items: SwipeItem[];

@@ -36,33 +36,42 @@ const Button = ({
   ...props
 }: ButtonProps & React.ComponentProps<'button'>) => {
   const theme = useTheme() as Theme;
-  const bgColor =
-    disabled == false
-      ? text || outlined || icon
-        ? 'transparent'
-        : theme
-        ? theme.color.primary
-        : '#5568FE'
-      : color || theme
-      ? theme.color.primary
-      : '#5568FE';
-  const textColor =
-    disabled == false
-      ? text || outlined || icon
-        ? theme.color.primary || '#5568FE'
-        : getLuminance(bgColor || '') <= 0.5
-        ? theme.color.white || '#fff'
-        : theme.color.black || '#000'
-      : theme
-      ? theme.color.grey
-      : '#6b7280';
+
   const styles = css({
     padding: icon || text ? '' : '0.4em 1em',
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
     borderRadius: tile ? '0px' : rounded ? '999px' : '4px',
-    color: textColor,
-    background: bgColor,
+    color:
+      disabled == false
+        ? text || outlined || icon
+          ? theme.color.primary || '#5568FE'
+          : getLuminance(
+              disabled == false
+                ? text || outlined || icon
+                  ? 'transparent'
+                  : theme
+                  ? theme.color.primary
+                  : '#5568FE'
+                : color || theme
+                ? theme.color.primary
+                : '#5568FE' || '',
+            ) <= 0.5
+          ? theme.color.white || '#fff'
+          : theme.color.black || '#000'
+        : theme
+        ? theme.color.grey
+        : '#6b7280',
+    background:
+      disabled == false
+        ? text || outlined || icon
+          ? 'transparent'
+          : theme
+          ? theme.color.primary
+          : '#5568FE'
+        : color || theme
+        ? theme.color.primary
+        : '#5568FE',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 

@@ -5,6 +5,8 @@ import Col from './components/Col';
 import Textarea from './components/Textarea';
 import Divider from './components/Divider';
 import Upload from './components/Upload';
+import AppBar from './components/AppBar';
+
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
 import Slider from './components/Slider';
@@ -25,7 +27,6 @@ import Chip from './components/Chip';
 import Skeleton from './components/Skeleton';
 import Card from './components/Card';
 import Container from './components/Container';
-
 import CountDown from './components/CountDown';
 import ScrollView from './components/ScrollView';
 import Image from './components/Image';
@@ -42,7 +43,7 @@ import Input from './components/Input';
 import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
-import BottomNavigation from './components/BottomNavigation';
+import Navigation from './components/Navigation';
 import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
 import Switch from './components/Switch';
@@ -56,9 +57,10 @@ export {
   Toast,
   useCustomTheme,
   Picker,
-  BottomNavigation,
+  Navigation,
   ToolTip,
   List,
+  AppBar,
   Icon,
   Link,
   Drawer,
