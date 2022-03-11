@@ -20,6 +20,7 @@ type InputProps = {
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => any;
   icon?: ReactNode;
   extra?: ReactNode;
+  value?: any;
   outline?: boolean;
   contain?: boolean;
   disabled?: boolean;
@@ -45,6 +46,7 @@ const Input = ({
   message,
   closable,
   loading,
+  value,
   placeholder,
   contain = true,
   maxLength,
@@ -131,6 +133,7 @@ const Input = ({
       <div css={contentStyles}>
         {icon && <div css={iconStyles}>{icon}</div>}
         <input
+          value={value}
           type={number ? 'number' : 'text'}
           css={inputStyles}
           placeholder={placeholder}

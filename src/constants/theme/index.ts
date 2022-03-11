@@ -1,42 +1,24 @@
 import { darken, lighten, fade, emphasize } from '../style';
-type Margin = {
-  mt?: string;
-  mb?: string;
-  ml?: string;
-  mr?: string;
-  ma?: string;
-  my?: string;
-  mx?: string;
-};
 
-type Padding = {
-  pb?: string;
-  pa?: string;
-  py?: string;
-  px?: string;
-  pt?: string;
-  pl?: string;
-  pr?: string;
-};
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
     height: string;
   };
   zIndex: {
+    dialog: number;
     floatingWindow: number;
     appBar: number;
     footer: number;
     modal: number;
     overlay: number;
-    actionSheet: number;
     notification: number;
     drawer: number;
   };
   shadow: {
     color: string;
   };
-
+  system: {};
   color: {
     primary: string;
     secondary: string;
@@ -55,13 +37,13 @@ type Theme = {
 const theme: Theme = {
   mode: 'light',
   color: {
-    primary: '#38366D',
+    primary: '#5568FE',
     secondary: '#FB7173',
-    black: '#2C3E50',
-    grey: '#CDD0EE',
+    black: '#232149',
+    grey: '#F3F4F6',
     red: '#e32b3a',
-    accent: '#5568FE',
-    greyLight: '#F6F6FF',
+    accent: '#56538D',
+    greyLight: '#F3F4F6',
     white: '#FEFEFE',
   },
   utils: {
@@ -75,9 +57,9 @@ const theme: Theme = {
     footer: 700,
     floatingWindow: 1000,
     modal: 1100,
+    dialog: 1100,
     overlay: 1000,
     notification: 1400,
-    actionSheet: 1200,
     drawer: 1200,
   },
   common: {
@@ -86,9 +68,9 @@ const theme: Theme = {
   shadow: {
     color: 'rgba(0,0,0,.1)',
   },
-
+  system: {},
   appBar: {
     height: '3em',
   },
 };
-export { theme, Theme, Padding, Margin };
+export { theme, Theme };

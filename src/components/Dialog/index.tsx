@@ -3,14 +3,15 @@ import clsx from 'clsx';
 import { css, keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../constants/theme';
 import * as React from 'react';
-import Overlay from '../Overlay';
 
 type DialogProps = {
   shy?: boolean;
   visible: boolean;
-  opacity?: number;
+  mask?: boolean;
+  loading?: boolean;
+  close?: boolean;
   animationType?: 'none' | 'slide' | 'fade' | string;
-  handleDialogVisibleChange?: () => void;
+  onClose?: () => void;
   children?: React.ReactNode;
   co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   className?: string;
@@ -19,8 +20,10 @@ type DialogProps = {
 const Dialog = ({
   visible = false,
   shy = true,
-  opacity,
-  handleDialogVisibleChange,
+  loading,
+  close,
+  mask,
+  onClose,
   animationType = 'slide',
   children,
   co,
@@ -41,7 +44,7 @@ const Dialog = ({
       ? {
           '0%': {
             opacity: 0,
-            transform: 'translateY(10%)',
+            transform: 'translateY(5%)',
           },
           '100%': {
             opacity: 1,
@@ -64,7 +67,7 @@ const Dialog = ({
       ? {
           '100%': {
             opacity: 0,
-            transform: 'translateY(10%)',
+            transform: 'translateY(5%)',
           },
           '0%': {
             opacity: 1,
@@ -73,23 +76,70 @@ const Dialog = ({
         }
       : {},
   );
-  const styles = css({
-    '& > *:first-of-child': {
-      animation: `${visible ? mountAnim : unmountAnim} .3s`,
-    },
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
-  });
-  const computedDialogClassNames = clsx(className);
 
+  const containerStyles = css({
+    position: 'fixed',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: theme.zIndex.dialog,
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    maxHeight: '100vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    paddingTop: '80px',
+    paddingBottom: '80px',
+    backgroundColor: 'rgba(0,0,0,.5)',
+    visibility: visible ? 'visible' : 'hidden',
+  });
+  // The CSS properties of drawer content container,
+  const contentStyles = css({
+    touchAction: 'none',
+    position: 'fixed',
+    zIndex: theme.zIndex.drawer,
+    animation: `${visible ? mountAnim : unmountAnim} .3s`,
+
+    transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+  });
+  const closeStyles = css({
+    position: 'absolute',
+    top: '-6px',
+    right: '-6px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '12px',
+    transition: 'all .25s ease',
+  });
+  const loadingStyles = css({
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    height: '100%',
+    borderRadius: 'inherit',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'rgba(255,255,255,.8)',
+  });
+  const headerStyles = css({});
+  const footerStyles = css({});
+  const computedClassNames = clsx(className);
+
+  const handleClickClose = () => {
+    shy && onClose?.();
+  };
   return (
-    <Overlay
-      onClick={shy ? handleDialogVisibleChange : () => {}}
-      css={styles}
-      opacity={opacity || 0}
-      visible={visible}
-      className={computedDialogClassNames}>
-      {children}
-    </Overlay>
+    <aside css={containerStyles} onClick={handleClickClose}>
+      {loading && <div css={loadingStyles} className={computedClassNames} />}
+      {close && <button css={closeStyles} className={computedClassNames} onClick={handleClickClose}></button>}
+      <header css={headerStyles}></header>
+      {/* {mask && <div css={maskStyles} className={computedClassNames} onClick={handleClickmask}></div>} */}
+      <div css={contentStyles}>{children}</div>
+      <footer css={footerStyles}></footer>
+    </aside>
   );
 };
 
