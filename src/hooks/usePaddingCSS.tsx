@@ -1,4 +1,4 @@
-import { Padding } from '../constants/theme';
+import { Padding } from '../constants/style';
 
 export default function usePaddingCSS(props: Padding) {
   const { pa, py, pt, pb, px, pl, pr } = props;
