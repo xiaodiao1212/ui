@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { Margin, Padding, theme, Theme } from '../../constants/theme';
+import { theme, Theme } from '../../constants/theme';
+import { Margin, Padding } from '../../constants/style';
+
 import React from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
@@ -29,13 +31,14 @@ const Col = ({
   mb,
   ml,
   mr,
-  pb,
-  pa,
-  ma,
-  pt,
-  pl,
   mx,
   my,
+  ma,
+  pb,
+  pa,
+  pt,
+  pl,
+
   pr,
   py,
   px,

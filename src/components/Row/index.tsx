@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme, Margin, Padding } from '../../constants/theme';
+import { theme, Theme } from '../../constants/theme';
+import { Margin, Padding } from '../../constants/style';
 import React from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
