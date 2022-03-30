@@ -3,7 +3,7 @@
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
 import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
 type SwipeItem = {

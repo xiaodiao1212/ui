@@ -1,4 +1,4 @@
-import { theme, Theme } from '../constants/theme';
+import { theme, Theme } from '../styles/themes';
 import { deepMerge } from '../utils';
 import { useState, useContext } from 'react';
 import useMarginCSS from './useMarginCSS';

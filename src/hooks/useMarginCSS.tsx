@@ -1,4 +1,4 @@
-import { Margin } from '../constants/style';
+import { Margin } from '../components/props';
 
 export default function useMarginCSS(props: Margin) {
   const { ma, my, mt, mb, mx, ml, mr } = props;

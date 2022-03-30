@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 type SwitchProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;

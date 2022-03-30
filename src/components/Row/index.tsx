@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme } from '../../constants/theme';
-import { Margin, Padding } from '../../constants/style';
+import { theme, Theme } from '../../styles/themes';
+
 import React from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
 import { useMarginCSS, usePaddingCSS } from '../../hooks';
-type RowProps = Margin & {
+import { Margin, Padding } from '../props';
+type RowProps = {
   vertical?: boolean;
   alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
   justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';

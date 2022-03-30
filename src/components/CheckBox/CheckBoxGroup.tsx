@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
+
 import { useState, createContext } from 'react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 
 type CheckboxValue = string | number;

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import { useState, ReactNode } from 'react';

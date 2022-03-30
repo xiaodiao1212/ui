@@ -3,7 +3,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 
 export type TimelineItemProps = {
   children: React.ReactNode;

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import * as React from 'react';
 
 type AppBarProps = {
@@ -13,11 +13,11 @@ type AppBarProps = {
   fixed?: Boolean;
   sticky?: Boolean;
   className?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+  styles?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   children?: React.ReactNode;
 };
 
-const AppBar = ({ center, icon, extra, title, color, co, className, children, ...props }: AppBarProps) => {
+const AppBar = ({ center, icon, extra, title, color, styles, className, children, ...props }: AppBarProps) => {
   const theme = useTheme() as Theme;
   const containerStyles = css({
     backgroundColor: color,
@@ -28,7 +28,7 @@ const AppBar = ({ center, icon, extra, title, color, co, className, children, ..
         textAlign: center ? 'center' : 'left',
       },
     },
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...(styles && (typeof styles == 'function' ? styles(theme) : styles)),
   });
 
   return (

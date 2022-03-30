@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { css, useTheme, keyframes } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import Row from '../Row';
 import Col from '../Col';

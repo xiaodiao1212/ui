@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { theme, Theme } from '../../constants/theme';
-import { Margin, Padding } from '../../constants/style';
+import { theme, Theme } from '../../styles/themes';
 
 import React from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
+import { Margin, Padding } from '../props';
 
 type ColProps = {
   alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';

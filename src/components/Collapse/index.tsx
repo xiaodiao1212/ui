@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React from 'react';
 import clsx from 'clsx';
 import arrowSVG from '../../icons/arrow-up.svg';

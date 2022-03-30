@@ -1,5 +1,3 @@
-import { darken, lighten, fade, emphasize } from '../style';
-
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
@@ -32,7 +30,6 @@ type Theme = {
   common: {
     circularEdge: string;
   };
-  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize };
 };
 const theme: Theme = {
   mode: 'light',
@@ -46,12 +43,7 @@ const theme: Theme = {
     greyLight: '#F3F4F6',
     white: '#FEFEFE',
   },
-  utils: {
-    darken,
-    lighten,
-    fade,
-    emphasize,
-  },
+
   zIndex: {
     appBar: 700,
     footer: 700,

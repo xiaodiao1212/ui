@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import NavigationItem from './NavigationItem';
 import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
 type Navigation = {

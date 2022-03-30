@@ -4,7 +4,7 @@
  */
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 
 type SliderProps = {
   disable?: boolean;

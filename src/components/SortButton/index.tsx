@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React, { useState, useEffect } from 'react';
 
 type SortButtonProps = {

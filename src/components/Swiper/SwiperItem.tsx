@@ -3,7 +3,7 @@
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 
 type SwiperItemProps = {
   onClick?: (index: number) => any;

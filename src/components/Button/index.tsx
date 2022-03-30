@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 
 import * as React from 'react';
-import { getLuminance } from '../../constants/style';
 
 type ButtonProps = {
   padding?: string;
@@ -46,19 +45,8 @@ const Button = ({
       disabled == false
         ? text || outlined || icon
           ? theme.color.primary || '#5568FE'
-          : getLuminance(
-              disabled == false
-                ? text || outlined || icon
-                  ? 'transparent'
-                  : theme
-                  ? theme.color.primary
-                  : '#5568FE'
-                : color || theme
-                ? theme.color.primary
-                : '#5568FE' || '',
-            ) <= 0.5
-          ? theme.color.white || '#fff'
-          : theme.color.black || '#000'
+          : theme.color.white || '#fff'
+          
         : theme
         ? theme.color.grey
         : '#6b7280',

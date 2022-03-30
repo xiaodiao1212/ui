@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import * as React from 'react';
-import { fade } from '../../constants/style';
 
 type OverlayProps = Partial<{
   color: string;
@@ -34,7 +33,8 @@ const Overlay = ({
     left: 0,
     bottom: 0,
     right: 0,
-    background: fade(color || theme?.color?.greyLight || '#56538D', opacity),
+    background: color || theme?.color?.greyLight || '#56538D',
+    opacity,
     backdropFilter: blur ? 'blur(4px)' : '',
     transform: visible ? 'scale(1)' : '',
     '& > *': {

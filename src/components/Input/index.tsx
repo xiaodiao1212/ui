@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { useState, ReactNode, CSSProperties } from 'react';
 
 type InputProps = {

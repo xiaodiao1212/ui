@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React, { ReactNode, useState } from 'react';
 import { Step, StepProps } from './Step';
 
