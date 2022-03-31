@@ -5,8 +5,9 @@
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
 import { Theme } from '../../styles/themes';
+import { Base } from '../props';
 
-type SliderProps = {
+type SliderProps = Base & {
   disable?: boolean;
   defaultValue?: number;
   step?: number;
@@ -18,7 +19,6 @@ type SliderProps = {
   thumbColor?: string;
   trackHeight?: number;
   thumbHeight?: number;
-  className?: string;
 };
 
 const Slider = ({
@@ -32,7 +32,7 @@ const Slider = ({
   thumbColor,
   trackHeight = 10,
   thumbHeight = 20,
-  className,
+  ...props
 }: SliderProps) => {
   const theme = useTheme() as Theme;
 
@@ -104,7 +104,7 @@ const Slider = ({
         value={value}
         type='range'
         onChange={handleOnChange}
-        className={clsx(className)}
+        {...props}
       />
     </div>
   );

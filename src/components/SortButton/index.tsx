@@ -1,15 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { useState, useEffect } from 'react';
+import { Base } from '../props';
 
-type SortButtonProps = {
+type SortButtonProps = Base & {
   state?: -1 | 1 | 0;
   onClick?: ((state: any) => void) | undefined;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  children?: React.ReactNode;
   color?: string;
 };
 
@@ -19,7 +17,6 @@ const SortButton = ({
   onClick,
   state,
   co,
-  className,
   ...props
 }: SortButtonProps & React.ComponentPropsWithoutRef<'button'>) => {
   const theme = useTheme() as Theme;
@@ -87,10 +84,9 @@ const SortButton = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
 
   return (
-    <button css={styles} className={computedClassNames} {...props} onClick={handleClick}>
+    <button css={styles} {...props} onClick={handleClick}>
       <div style={{ color: `${titleColor}` }} className={`text`}>
         {children}
       </div>

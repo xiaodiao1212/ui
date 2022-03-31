@@ -3,18 +3,18 @@ import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
+import { Base } from '../props';
 
-type BadgeProps = Partial<{
-  size: number;
-  show: boolean;
-  color: string;
-  offsetX: string | number;
-  offsetY: string | number;
-  // position: 'top' | 'left' | 'bottom' | 'right' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
-  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-  content: React.ReactNode;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+type BadgeProps = Base &
+  Partial<{
+    size: number;
+    show: boolean;
+    color: string;
+    offsetX: string | number;
+    offsetY: string | number;
+    position: 'top' | 'left' | 'bottom' | 'right' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+    content: React.ReactNode;
+  }>;
 
 const Badge = ({
   size = 14,
@@ -28,34 +28,34 @@ const Badge = ({
   children,
   className,
   ...props
-}: BadgeProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: BadgeProps) => {
   const theme = useTheme() as Theme;
   const getInset = () => {
     switch (position) {
-      // case 'top':
-      //   return {
-      //     left: offsetX || 0,
-      //     top: offsetY || 0,
-      //     transform: 'translate3d(-50%,-50%,0)',
-      //   }
-      // case 'left':
-      //   return {
-      //     left: offsetX || 0,
-      //     top: offsetY || 0,
-      //     transform: 'translate3d(-50%,-0%,0)',
-      //   }
-      // case 'bottom':
-      //   return {
-      //     left: offsetX || 0,
-      //     top: offsetY || 0,
-      //     transform: 'translate3d(-50%,-50%,0)',
-      //   }
-      // case 'right':
-      //   return {
-      //     left: offsetX || 0,
-      //     top: offsetY || 0,
-      //     transform: 'translate3d(-50%,-50%,0)',
-      //   }
+      case 'top':
+        return {
+          left: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(-50%,-50%,0)',
+        };
+      case 'left':
+        return {
+          left: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(-50%,-0%,0)',
+        };
+      case 'bottom':
+        return {
+          left: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(-50%,-50%,0)',
+        };
+      case 'right':
+        return {
+          left: offsetX || 0,
+          top: offsetY || 0,
+          transform: 'translate3d(-50%,-50%,0)',
+        };
 
       case 'top-left':
         return {

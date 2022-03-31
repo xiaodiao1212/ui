@@ -5,14 +5,20 @@ import { Theme } from '../../styles/themes';
 import * as React from 'react';
 type UploadProps = Partial<{
   onlyImg?: boolean;
-  accept?: string;
   className: string;
   children: React.ReactNode;
   onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any;
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
-const Upload = ({ onlyImg, accept, onFileChange, children, co, className, ...props }: UploadProps) => {
+const Upload = ({
+  onlyImg,
+  accept,
+  onFileChange,
+  children,
+  co,
+  ...props
+}: React.InputHTMLAttributes<HTMLInputElement> & UploadProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = (e.target.files as FileList)[0];
     onFileChange?.(file, URL.createObjectURL(file), e);
@@ -22,9 +28,9 @@ const Upload = ({ onlyImg, accept, onFileChange, children, co, className, ...pro
     cursor: ' pointer',
     ...(typeof co == 'function' ? co(theme) : co),
   });
-  const computedClassNames = clsx(className);
+
   return (
-    <label css={styles} aria-label='file upload input' className={computedClassNames}>
+    <label css={styles} aria-label='file upload input'>
       <input
         accept={onlyImg ? 'image/png,image/jpeg,image/jpg' : accept}
         hidden

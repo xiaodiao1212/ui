@@ -5,13 +5,11 @@ import clsx from 'clsx';
 import React, { ReactNode } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { TimelineItemProps, TimelineItem } from './item';
+import { Base } from '../props';
 
-interface TimelineProps {
-  children: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}
+type TimelineProps = Base;
 
-const Timeline = ({ children, co, className, ...props }: TimelineProps & React.ComponentPropsWithoutRef<'div'>) => {
+const Timeline = ({ children, co, ...props }: TimelineProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
   const styles = css({
     display: 'flex',
@@ -53,12 +51,9 @@ const Timeline = ({ children, co, className, ...props }: TimelineProps & React.C
       icon,
     });
   });
-  const computedClassNames = clsx(className);
+
   return (
-    // <Container>
-    //   <ul className='timeline'>{children}</ul>
-    // </Container>
-    <div css={styles} className={computedClassNames} {...props}>
+    <div css={styles} {...props}>
       <ul className='timeline'>{nat}</ul>
     </div>
   );

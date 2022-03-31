@@ -5,8 +5,9 @@ import React from 'react';
 import clsx from 'clsx';
 import Text from '../Text';
 import { useTheme, css, keyframes } from '@emotion/react';
+import { Base } from '../props';
 
-type ProgressProps = {
+type ProgressProps = Base & {
   radius?: number;
   height?: string;
   percent?: number;
@@ -15,7 +16,6 @@ type ProgressProps = {
   animated?: boolean;
   tips?: string;
   text?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Progress = ({
@@ -104,10 +104,9 @@ const Progress = ({
     }),
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
 
   return (
-    <div css={styles} role='progressbar' className={computedClassNames} {...props}>
+    <div css={styles} role='progressbar' {...props}>
       <div className='progress-bar' />
       {text && (
         <div className='progress-text'>

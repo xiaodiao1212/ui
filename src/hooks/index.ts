@@ -1,10 +1,6 @@
-import { theme, Theme } from '../styles/themes';
-import { deepMerge } from '../utils';
-import { useState, useContext } from 'react';
-import useMarginCSS from './useMarginCSS';
-import usePaddingCSS from './usePaddingCSS';
-function useCustomTheme(customTheme: Theme) {
-  return deepMerge(theme, customTheme) as Theme;
-}
+import useMargin from './useMargin';
+import usePadding from './usePadding';
+import usePosition from './usePosition';
+import useCustomTheme from './useCustomTheme';
 
-export { useMarginCSS, useCustomTheme, usePaddingCSS };
+export { useCustomTheme, useMargin, usePosition, usePadding };

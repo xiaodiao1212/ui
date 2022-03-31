@@ -1,22 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { ReactNode } from 'react';
+import { Base } from '../props';
 
-export type StepProps = {
+export type StepProps = Base & {
   title?: ReactNode;
-  children?: ReactNode;
+
   status?: 'wait' | 'process' | 'finish' | 'error';
   icon?: React.ReactNode;
   isDashed?: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 export const Step = ({
   co,
-  className,
+
   children,
   title,
   icon,
@@ -85,9 +84,9 @@ export const Step = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   return (
-    <div css={styles} className={computedClassNames} {...props}>
+    <div css={styles} {...props}>
       <div className={`indicators indicator`}>
         <div className={`icon-container`}>{icon}</div>
       </div>

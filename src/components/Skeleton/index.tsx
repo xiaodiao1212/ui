@@ -2,9 +2,10 @@
 
 import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css, keyframes } from '@emotion/react';
-type SkeletonProps = {
+import { Base } from '../props';
+type SkeletonProps = Base & {
   duration?: number;
   delay?: number;
   circle?: boolean;
@@ -12,7 +13,6 @@ type SkeletonProps = {
   text?: boolean;
   width?: string;
   height?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Skeleton = ({
@@ -24,10 +24,8 @@ const Skeleton = ({
   co,
   width,
   height = '100%',
-  className,
   ...props
 }: SkeletonProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const computedClassNames = clsx(className);
   const theme = useTheme() as Theme;
 
   const anim = keyframes({
@@ -48,7 +46,7 @@ const Skeleton = ({
     animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
     ...(typeof co == 'function' ? co?.(theme) : co),
   });
-  return <div css={styles} className={computedClassNames} {...props} />;
+  return <div css={styles} {...props} />;
 };
 
 export default Skeleton;

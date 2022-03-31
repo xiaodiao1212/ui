@@ -4,16 +4,17 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import { debounce } from '../../utils';
+import { Base } from '../props';
 
-type FabProps = Partial<{
-  adsorption?: boolean;
-  draggable?: boolean;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  position?: {
-    left: number | string;
-    top: number | string;
-  };
-}>;
+type FabProps = Base &
+  Partial<{
+    adsorption?: boolean;
+    draggable?: boolean;
+    position?: {
+      left: number | string;
+      top: number | string;
+    };
+  }>;
 
 const Fab = ({
   draggable = false,
@@ -24,7 +25,6 @@ const Fab = ({
   },
   children,
   co,
-  className,
   ...props
 }: FabProps & React.ComponentPropsWithoutRef<'aside'>) => {
   const [computedPosition, setComputedPosition] = React.useState(position);
@@ -39,7 +39,7 @@ const Fab = ({
     transition: '.1s all',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   const handleTouchStart = (e: any) => {
     if (!clientProperty) {
       setClientProperty({
@@ -88,7 +88,7 @@ const Fab = ({
       }
     : {};
   return (
-    <aside css={styles} {...touchProps} className={computedClassNames} {...props}>
+    <aside css={styles} {...touchProps} {...props}>
       {children}
     </aside>
   );

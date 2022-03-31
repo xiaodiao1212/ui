@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { ReactNode, useState } from 'react';
 import { Step, StepProps } from './Step';
+import { Base } from '../props'
 
-type StepsProps = {
+type StepsProps = Base & {
   type?: 'default' | 'navigation';
-  className?: string;
+
   current?: number;
   direction?: 'horizontal' | 'vertical';
   iconPrefix?: string;
@@ -18,15 +18,14 @@ type StepsProps = {
   responsive?: boolean;
   size?: 'default' | 'small';
   status?: 'wait' | 'process' | 'finish' | 'error';
-  children?: ReactNode;
+
   dashed?: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+ 
   onChange?: ((num: any) => void) | undefined;
 };
 
 const Steps = ({
   co,
-  className,
   current = 0,
   direction = 'horizontal',
   initial = 0,
@@ -89,7 +88,7 @@ const Steps = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   const handleClick = ({ currentTarget }: React.MouseEvent<HTMLButtonElement>) => {
     if (currentTarget) {
       n = Number(currentTarget.value) + 1;
@@ -128,7 +127,7 @@ const Steps = ({
     });
   });
   return (
-    <div css={styles} className={computedClassNames} {...props}>
+    <div css={styles}  {...props}>
       {nat}
     </div>
   );

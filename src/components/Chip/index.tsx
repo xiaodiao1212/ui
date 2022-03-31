@@ -4,14 +4,11 @@ import { Theme } from '../../styles/themes';
 import React from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
-
-type ChipProps = {
+import { Base } from '../props';
+type ChipProps = Base & {
   outline?: boolean;
   color?: ((theme: Theme) => string) | string;
-  children?: React.ReactNode;
-  className?: string;
   r?: number;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 /**

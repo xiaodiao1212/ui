@@ -5,12 +5,13 @@ import React from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import SegmentItem from './SegmentItem';
-type SegmentProps = Partial<{
-  vertical: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+import { Base } from '../props';
+type SegmentProps = Base &
+  Partial<{
+    vertical: boolean;
+  }>;
 
-const Segment = ({ co, children, className, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
+const Segment = ({ co, children, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
   const [fragmentLength, setFragmentLength] = React.useState(100 / (children as any).length);
   const [offsetX, setOffsetX] = React.useState(0);
   const [left, setLeft] = React.useState(0);
@@ -44,7 +45,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
       const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
@@ -73,7 +74,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     }
   }, [current]);
   return (
-    <div css={styles} role='button' className={computedClassNames} {...props}>
+    <div css={styles} role='button' {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
     </div>

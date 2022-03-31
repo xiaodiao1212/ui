@@ -4,15 +4,15 @@ import { css, keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import { useState } from 'react';
+import { Base } from '../props';
 
-type TooltipProps = {
+type TooltipProps = Base & {
   backgroundColor?: ((theme: Theme) => string) | string;
   color?: ((theme: Theme) => string) | string;
   info?: React.ReactNode;
   width?: string;
   show?: boolean;
   position?: 'top' | 'left' | 'right' | 'bottom';
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const ToolTip = ({
@@ -113,9 +113,8 @@ const ToolTip = ({
         break;
     }
   }, [position]);
-  const computedClassNames = clsx(className);
   return (
-    <div css={styles} className={computedClassNames} {...props}>
+    <div css={styles} {...props}>
       {children}
       <span className={`tooltiptext`}>{info}</span>
     </div>

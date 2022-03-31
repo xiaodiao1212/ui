@@ -2,17 +2,16 @@
 
 import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
-type SwitchProps = {
+import { Base } from '../props';
+type SwitchProps = Base & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
   on?: boolean;
   color?: ((theme: Theme) => string) | string;
   width?: number;
   height?: number;
-  className?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const Switch = ({ on = false, onChange, color, co, width = 3, height = 1.4 }: SwitchProps) => {
+const Switch = ({ on = false, onChange, color, co, width = 3, height = 1.4, ...props }: SwitchProps) => {
   const handleSwitchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
   };
@@ -51,7 +50,7 @@ const Switch = ({ on = false, onChange, color, co, width = 3, height = 1.4 }: Sw
 
   return (
     <label css={styles}>
-      <input checked={on} onChange={handleSwitchChange} type='checkbox' />
+      <input checked={on} onChange={handleSwitchChange} type='checkbox' {...props} />
     </label>
   );
 };

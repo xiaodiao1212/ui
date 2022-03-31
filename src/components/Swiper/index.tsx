@@ -6,12 +6,13 @@ import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } 
 import { Theme } from '../../styles/themes';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
+import { Base } from '../props';
 type SwipeItem = {
   index: number;
   content: React.ReactNode;
 };
 
-type SwiperProps = {
+type SwiperProps = Base & {
   defaultIndex?: number;
   items: SwipeItem[];
   onChange?: (current: number, distance: number) => any;
@@ -33,8 +34,6 @@ type SwiperProps = {
   offsetY?: number;
   rubberband?: boolean;
   indicator?: React.ReactNode | ((total: number, current: number) => React.ReactNode);
-  className?: string;
-  children?: React.ReactNode;
   ref?: React.RefObject<any>;
   fade?: boolean;
 };
@@ -53,8 +52,8 @@ const Swiper = ({
   onChange,
   indicatorProps,
   indicator,
-  className,
   children,
+  ...props
 }: SwiperProps) => {
   const theme = useTheme() as Theme;
   const defaultIndicatorProps = {
@@ -126,7 +125,6 @@ const Swiper = ({
     const isLastItem = currentIndex == items[items.length - 1].index && !loop;
     const currentNeededLength = boundingInfos[vertical ? 'height' : 'width'];
     const currentTranslate = currentIndex * currentNeededLength;
-    console.log('currentTranslate', currentTranslate);
     const setTranslateXByDiff = (diffClamped: number) => {
       if (diff < 0) {
         setTranslateX(-currentTranslate + diffClamped);
@@ -157,7 +155,6 @@ const Swiper = ({
     } else {
       setTranslateX(`${newCurrentIndex * (isRightDirection ? -1 : 1) * 100}%`);
     }
-
     setTouchResult(currentTouchResult);
     onSwipeEnd?.(currentIndex);
   };
@@ -165,10 +162,10 @@ const Swiper = ({
     <div
       css={styles}
       ref={ref}
-      className={clsx(className)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}>
+      onTouchEnd={handleTouchEnd}
+      {...props}>
       <ul>{children}</ul>
     </div>
   );

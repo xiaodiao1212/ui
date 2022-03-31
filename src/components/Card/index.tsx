@@ -4,16 +4,13 @@ import { Theme } from '../../styles/themes';
 import React from 'react';
 import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
-
-type CardProps = Partial<{
-  title: React.ReactNode;
-  extra: React.ReactNode;
-  className: string;
-  children: React.ReactNode;
-  color: ((theme: Theme) => string) | string;
-  onClick: () => any;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+import { Base } from '../props';
+type CardProps = Base &
+  Partial<{
+    title: React.ReactNode;
+    extra: React.ReactNode;
+    color: ((theme: Theme) => string) | string;
+  }>;
 
 const Card = ({ title, extra, co, className, children, onClick, color, ...props }: CardProps) => {
   const theme = useTheme() as Theme;

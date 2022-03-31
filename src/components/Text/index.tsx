@@ -1,23 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
-type TextProps = Partial<{
-  left: boolean;
-  center: boolean;
-  right: boolean;
-  thin: boolean;
-  blod: boolean;
-  inline: boolean;
-  color: ((theme: Theme) => string) | string;
-  size: string;
-  maxLength: number;
-  dark: boolean;
-  className: string;
-  children: React.ReactNode;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+import { Base } from '../props';
+type TextProps = Base &
+  Partial<{
+    left: boolean;
+    center: boolean;
+    right: boolean;
+    thin: boolean;
+    blod: boolean;
+    inline: boolean;
+    color: ((theme: Theme) => string) | string;
+    size: string;
+    maxLength: number;
+    dark: boolean;
+  }>;
 
 /**
  * The Text widget lets you create a run of styled text within your application.
@@ -36,7 +34,6 @@ const Text = ({
   color,
   children,
   co,
-  className,
   ...props
 }: TextProps) => {
   const theme = useTheme() as Theme;
@@ -67,7 +64,7 @@ const Text = ({
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
-    <div css={styles} className={clsx(className)} {...props}>
+    <div css={styles} {...props}>
       {maxLength ? (children as string).substring(0, maxLength) + '...' : children}
     </div>
   );

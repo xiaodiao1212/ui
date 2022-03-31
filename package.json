@@ -1,13 +1,13 @@
 {
   "name": "ui",
   "version": "0.0.1",
-  "description": "The component design that a good react mobile application should have",
-  "main": "example/build/index.js",
-  "module": "example/build/index.js",
+  "description": "The most developer-friendly mobile component library",
+  "main": "example/build/index.umd.js",
+  "module": "example/build/index.es.js",
   "files": [
     "example/build"
   ],
-  "typings": "example/build/index.d.ts",
+  "types": "example/build/index.d.ts",
   "scripts": {
     "dev": "concurrently --kill-others \"rollup -wc rollup.config.js\" \"cd example && npm start\"",
     "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.js",
@@ -23,13 +23,11 @@
     "url": "git+https://github.com/fogcity/ui.git"
   },
   "keywords": [
-    "vanilla-extract",
-    "sprinkles",
-    "css-in-js",
+    "emotion",
+    "mobile",
     "css-in-ts",
-    "css",
-    "webpack",
-    "react"
+    "rollup",
+    "react 18"
   ],
   "author": {
     "name": "hyxs"

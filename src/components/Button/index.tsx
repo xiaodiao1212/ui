@@ -4,8 +4,9 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 
 import * as React from 'react';
+import { Base } from '../props';
 
-type ButtonProps = {
+type ButtonProps = Base & {
   padding?: string;
   block?: boolean;
   disabled?: boolean;
@@ -15,7 +16,6 @@ type ButtonProps = {
   tile?: boolean;
   rounded?: boolean;
   color?: ((theme: Theme) => string) | string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Button = ({
@@ -46,7 +46,6 @@ const Button = ({
         ? text || outlined || icon
           ? theme.color.primary || '#5568FE'
           : theme.color.white || '#fff'
-          
         : theme
         ? theme.color.grey
         : '#6b7280',

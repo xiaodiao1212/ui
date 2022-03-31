@@ -2,30 +2,19 @@
 
 import { Theme } from '../../styles/themes';
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
-import { useTheme, css, keyframes } from '@emotion/react';
+import { useTheme, keyframes, css } from '@emotion/react';
+import { Base } from '../props';
 
-type CountDownProps = {
+type CountDownProps = Base & {
   h?: number;
   m?: number;
   s?: number;
   time?: number;
   label?: React.ReactNode;
   animation?: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const CountDown = ({
-  h = 0,
-  m = 0,
-  s = 0,
-  time = 0,
-  label,
-  animation,
-  co,
-  className,
-  ...props
-}: CountDownProps & React.ComponentPropsWithoutRef<'div'>) => {
+const CountDown = ({ h = 0, m = 0, s = 0, time = 0, label, animation, co, ...props }: CountDownProps) => {
   const theme = useTheme() as Theme;
   const end: number = h * 3600 + m * 60 + s;
   const timeEnd: number = time;
@@ -134,12 +123,11 @@ const CountDown = ({
     },
   });
 
-  const computedClassNames = clsx(className);
   const renderContent = () => {
     if (animation) {
       // 动画
       return (
-        <div css={styles} className={computedClassNames} {...props}>
+        <div css={styles} {...props}>
           <div className={`circle`}>
             <div className={!start ? `circle noslice` : `circle slice`} />
           </div>
@@ -154,7 +142,7 @@ const CountDown = ({
       );
     }
     return (
-      <div css={styles} className={computedClassNames} {...props}>
+      <div css={styles} {...props}>
         {!loading ? label : m > 0 ? <span>{`${mi}:${se}`}</span> : <span>{`${mi}:${se}`}</span>}
       </div>
     );

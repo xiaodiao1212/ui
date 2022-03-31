@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { css, keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { ComponentPropsWithoutRef, CSSProperties, ReactNode } from 'react';
+import { Base } from '../props';
 
 type ListItem = {
   id?: string | number;
@@ -14,7 +15,7 @@ type ListItem = {
 
   extra?: ReactNode;
 };
-type ListProps = {
+type ListProps = Base & {
   divider?: boolean | ReactNode;
   data: ListItem[];
   pa?: string;
@@ -26,7 +27,6 @@ type ListProps = {
   renderItem?: (item: ListItem) => ReactNode;
   gap?: string;
   innerGap?: string;
-  co?: ((theme: Theme) => CSSProperties) | CSSProperties;
 };
 
 const List = ({
@@ -42,7 +42,6 @@ const List = ({
   px,
   my,
   mx,
-  className,
   children,
   ...props
 }: ListProps & ComponentPropsWithoutRef<'section'>) => {
@@ -102,10 +101,8 @@ const List = ({
     );
   };
 
-  const computedClassNames = clsx(className);
-
   return (
-    <ul css={listStyles} className={computedClassNames} {...props}>
+    <ul css={listStyles} {...props}>
       {data.map(v => (renderItem ? renderItem(v) : defaulRenderItem(v)))}
     </ul>
   );

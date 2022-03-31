@@ -4,14 +4,13 @@ import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import CheckBoxGroup from './CheckBoxGroup';
 import { CheckboxGroupContext } from './CheckBoxGroup';
-
+import { Base } from '../props';
 type CheckboxValue = string | number;
 
-type CheckBoxProps = {
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+type CheckBoxProps = Base & {
   disabled?: boolean;
   checked?: boolean;
-  children?: React.ReactNode;
+
   value?: CheckboxValue;
   checkColor?: string;
   shape?: 'round' | 'square';

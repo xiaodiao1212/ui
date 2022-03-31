@@ -1,27 +1,22 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { useEffect, useState, useCallback, createContext, ReactNode } from 'react';
-import Card from '../Card';
-import Text from '../Text';
-import Container from '../Container';
+import { ReactNode } from 'react';
+import { Base } from '../props';
+type ToastProps = Base &
+  Partial<{
+    visible: boolean;
+    duration: number;
+    title?: ReactNode;
+    icon?: ReactNode;
+    content?: ReactNode;
+    color: string;
+  }>;
 
-type ToastProps = Partial<{
-  visible: boolean;
-  duration: number;
-  title?: ReactNode;
-  icon?: ReactNode;
-  content?: ReactNode;
-  children: ReactNode;
-  color: string;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  className: string;
-}>;
-
-const Toast = ({ title, content, color, children, co, className }: ToastProps) => {
+const Toast = ({ title, content, color, children, co, ...props }: ToastProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     position: 'fixed',
@@ -38,9 +33,8 @@ const Toast = ({ title, content, color, children, co, className }: ToastProps) =
     ...(typeof co == 'function' ? co(theme) : co),
   });
 
-  const computedClassNames = clsx(className);
   return (
-    <div css={styles} className={computedClassNames}>
+    <div css={styles} {...props}>
       {children || (
         <div>
           <div>{title}</div>

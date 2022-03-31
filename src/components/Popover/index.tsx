@@ -3,29 +3,22 @@ import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
+import { Base } from '../props';
 
-interface PopoverProps {
+type PopoverProps = Base & {
   hover?: boolean;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}
-interface PopoverContentProps {
+};
+type PopoverContentProps = Base & {
   position?: 'top' | 'left' | 'right' | 'bottom';
   show?: boolean;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}
+};
 
 /**
  * A Popover can be used to display some content on top of another.
  * @param boolean hover
  * @returns Popover
  */
-const Popover = ({
-  hover = false,
-  co,
-  children,
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
+const Popover = ({ hover = false, co, children, ...props }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
   const theme = useTheme() as Theme;
   const [isContentShow, setIsContentShow] = React.useState(false);
   const styles = css({
@@ -35,7 +28,7 @@ const Popover = ({
     alignItems: 'center',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
       const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
@@ -63,7 +56,7 @@ const Popover = ({
     });
   };
   return (
-    <div css={styles} className={computedClassNames} {...props}>
+    <div css={styles} {...props}>
       {handleChildrenRender()}
     </div>
   );
@@ -92,7 +85,7 @@ const PopoverContent = ({
   const handleMouseOut = (e: any) => {
     setUsePropsShow(true);
   };
-  const computedClassNames = clsx('popover-content', className);
+
   React.useEffect(() => {
     switch (position) {
       case 'top':
@@ -128,7 +121,7 @@ const PopoverContent = ({
       css={styles}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      className={computedClassNames}
+      className={'popover-content ' + className}
       {...props}>
       {children}
     </div>
