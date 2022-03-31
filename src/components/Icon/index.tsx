@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
-// import * as ReactCSS from 'csstype';
 
 type IconProps = Base & {
   width?: string;
@@ -14,7 +12,7 @@ type IconProps = Base & {
 
   onClick?: () => any;
 };
-const Icon = ({ width, height, color, co, src, onClick, className }: IconProps) => {
+const Icon = ({ width, height, color, co, src, onClick, ...props }: IconProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     display: 'inline-block',
@@ -29,7 +27,7 @@ const Icon = ({ width, height, color, co, src, onClick, className }: IconProps) 
   const handleClickIcon = () => {
     onClick?.();
   };
-  return <div css={styles} className={className} onClick={handleClickIcon} />;
+  return <div css={styles} onClick={handleClickIcon} {...props} />;
 };
 
 export default Icon;

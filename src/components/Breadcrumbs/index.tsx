@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React from 'react';
@@ -27,10 +27,8 @@ const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsPr
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const computedClassNames = clsx('breadcrumbs', className);
-
   return (
-    <nav css={sliderStyles} className={computedClassNames}>
+    <nav css={sliderStyles} className={'breadcrumbs ' + className}>
       {items.map((v, i) => {
         return (
           <div key={v.title}>

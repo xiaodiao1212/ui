@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
+
 import Text from '../Text';
 import { useTheme, css, keyframes } from '@emotion/react';
 import { Base } from '../props';

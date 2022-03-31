@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
 import SegmentItem from './SegmentItem';
 import { Base } from '../props';

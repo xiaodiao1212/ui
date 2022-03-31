@@ -21,7 +21,6 @@ import Button from './components/Button';
 import NoticeBar from './components/NoticeBar';
 import Dialog from './components/Dialog';
 import Fab from './components/Fab';
-import Notification from './components/Notification';
 import Chip from './components/Chip';
 import Skeleton from './components/Skeleton';
 import Card from './components/Card';
@@ -84,7 +83,6 @@ export {
   Swiper,
   Skeleton,
   Fab,
-  Notification,
   Dialog,
   NoticeBar,
   Button,

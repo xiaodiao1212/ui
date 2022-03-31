@@ -10,23 +10,23 @@ specifiers:
   '@testing-library/jest-dom': ^5.11.1
   '@testing-library/react': ^10.4.7
   '@types/jest': ^26.0.7
-  '@types/react': ^17.0.14
-  '@types/react-dom': ^17.0.9
+  '@types/react': ^17.0.43
+  '@types/react-dom': ^17.0.14
   '@typescript-eslint/eslint-plugin': ^4.28.4
   '@typescript-eslint/parser': ^4.28.4
-  classnames: ^2.2.6
-  clsx: ^1.1.1
   concurrently: ^7.0.0
   cross-env: ^7.0.3
   eslint: ^7.5.0
   eslint-config-prettier: ^6.11.0
   eslint-plugin-prettier: ^3.1.4
   eslint-plugin-react: ^7.20.5
+  identity-obj-proxy: ^3.0.0
   jest: ^26.1.0
+  jest-svg-transformer: ^1.0.0
   jss-cli: ^6.0.2
   prettier: ^2.3.2
-  react: ^17.0.2
-  react-dom: ^17.0.2
+  react: ^18.0.0
+  react-dom: ^18.0.0
   rollup: ^2.53.3
   rollup-plugin-filesize: ^9.1.1
   rollup-plugin-peer-deps-external: ^2.2.4
@@ -37,35 +37,33 @@ specifiers:
   tslib: ^2.3.0
   typescript: ^4.4.4
 
-dependencies:
-  clsx: 1.1.1
-
 devDependencies:
   '@emotion/eslint-plugin': 11.7.0_eslint@7.32.0
-  '@emotion/react': 11.7.1_b08e3c15324cbe90a6ff8fcd416c932c
+  '@emotion/react': 11.7.1_00a11a054056e3746b551a83b9229751
   '@rollup/plugin-commonjs': 14.0.0_rollup@2.63.0
   '@rollup/plugin-image': 2.1.1_rollup@2.63.0
   '@rollup/plugin-node-resolve': 8.4.0_rollup@2.63.0
   '@size-limit/preset-small-lib': 5.0.5_b31ea8db5574e2bb4df3c2675ab18927
   '@testing-library/jest-dom': 5.16.1
-  '@testing-library/react': 10.4.9_react-dom@17.0.2+react@17.0.2
+  '@testing-library/react': 10.4.9_react-dom@18.0.0+react@18.0.0
   '@types/jest': 26.0.24
-  '@types/react': 17.0.38
-  '@types/react-dom': 17.0.11
+  '@types/react': 17.0.43
+  '@types/react-dom': 17.0.14
   '@typescript-eslint/eslint-plugin': 4.33.0_3289a875d95a672b97ebf589745c66ef
   '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.5.4
-  classnames: 2.3.1
   concurrently: 7.0.0
   cross-env: 7.0.3
   eslint: 7.32.0
   eslint-config-prettier: 6.15.0_eslint@7.32.0
   eslint-plugin-prettier: 3.4.1_a90c626bbf8b44e0aad298faeac07fd7
   eslint-plugin-react: 7.28.0_eslint@7.32.0
+  identity-obj-proxy: 3.0.0
   jest: 26.6.3
+  jest-svg-transformer: 1.0.0_jest@26.6.3+react@18.0.0
   jss-cli: 6.0.2
   prettier: 2.5.1
-  react: 17.0.2
-  react-dom: 17.0.2_react@17.0.2
+  react: 18.0.0
+  react-dom: 18.0.0_react@18.0.0
   rollup: 2.63.0
   rollup-plugin-filesize: 9.1.1
   rollup-plugin-peer-deps-external: 2.2.4_rollup@2.63.0
@@ -496,7 +494,7 @@ packages:
     resolution: {integrity: sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==}
     dev: true
 
-  /@emotion/react/11.7.1_b08e3c15324cbe90a6ff8fcd416c932c:
+  /@emotion/react/11.7.1_00a11a054056e3746b551a83b9229751:
     resolution: {integrity: sha512-DV2Xe3yhkF1yT4uAUoJcYL1AmrnO5SVsdfvu+fBuS7IbByDeTVx9+wFmvx9Idzv7/78+9Mgx2Hcmr7Fex3tIyw==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -514,9 +512,9 @@ packages:
       '@emotion/sheet': 1.1.0
       '@emotion/utils': 1.0.0
       '@emotion/weak-memoize': 0.2.5
-      '@types/react': 17.0.38
+      '@types/react': 17.0.43
       hoist-non-react-statics: 3.3.2
-      react: 17.0.2
+      react: 18.0.0
     dev: true
 
   /@emotion/serialize/1.0.2:
@@ -1029,7 +1027,7 @@ packages:
       redent: 3.0.0
     dev: true
 
-  /@testing-library/react/10.4.9_react-dom@17.0.2+react@17.0.2:
+  /@testing-library/react/10.4.9_react-dom@18.0.0+react@18.0.0:
     resolution: {integrity: sha512-pHZKkqUy0tmiD81afs8xfiuseXfU/N7rAX3iKjeZYje86t9VaB0LrxYVa+OOsvkrveX5jCK3IjajVn2MbePvqA==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -1038,8 +1036,8 @@ packages:
     dependencies:
       '@babel/runtime': 7.16.7
       '@testing-library/dom': 7.31.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
     dev: true
 
   /@tootallnate/once/1.1.2:
@@ -1142,14 +1140,14 @@ packages:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
-  /@types/react-dom/17.0.11:
-    resolution: {integrity: sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==}
+  /@types/react-dom/17.0.14:
+    resolution: {integrity: sha512-H03xwEP1oXmSfl3iobtmQ/2dHF5aBHr8aUMwyGZya6OW45G+xtdzmq6HkncefiBt5JU8DVyaWl/nWZbjZCnzAQ==}
     dependencies:
-      '@types/react': 17.0.38
+      '@types/react': 17.0.43
     dev: true
 
-  /@types/react/17.0.38:
-    resolution: {integrity: sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==}
+  /@types/react/17.0.43:
+    resolution: {integrity: sha512-8Q+LNpdxf057brvPu1lMtC5Vn7J119xrP1aq4qiaefNioQUYANF/CYeK4NsKorSZyUGJ66g0IM+4bbjwx45o2A==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
@@ -2261,10 +2259,6 @@ packages:
       static-extend: 0.1.2
     dev: true
 
-  /classnames/2.3.1:
-    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
-    dev: true
-
   /clean-stack/2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
@@ -2290,11 +2284,6 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: true
-
-  /clsx/1.1.1:
-    resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
-    engines: {node: '>=6'}
-    dev: false
 
   /co/4.6.0:
     resolution: {integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=}
@@ -3770,6 +3759,10 @@ packages:
       har-schema: 2.0.0
     dev: true
 
+  /harmony-reflect/1.6.2:
+    resolution: {integrity: sha512-HIp/n38R9kQjDEziXyDTuW3vvoxxyxjxFzXLrBr18uB47GnSt+G9D29fqrpM5ZkspMcPICud3XsBJQ4Y2URg8g==}
+    dev: true
+
   /has-bigints/1.0.1:
     resolution: {integrity: sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA==}
     dev: true
@@ -3965,6 +3958,13 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.5
+    dev: true
+
+  /identity-obj-proxy/3.0.0:
+    resolution: {integrity: sha1-lNK9qWCERT7zb7xarsN+D3nx/BQ=}
+    engines: {node: '>=4'}
+    dependencies:
+      harmony-reflect: 1.6.2
     dev: true
 
   /ieee754/1.2.1:
@@ -4791,6 +4791,16 @@ packages:
       natural-compare: 1.4.0
       pretty-format: 26.6.2
       semver: 7.3.5
+    dev: true
+
+  /jest-svg-transformer/1.0.0_jest@26.6.3+react@18.0.0:
+    resolution: {integrity: sha1-44iEykzYsilc36KgskZnkgw6im0=}
+    peerDependencies:
+      jest: '>22'
+      react: '>=16'
+    dependencies:
+      jest: 26.6.3
+      react: 18.0.0
     dev: true
 
   /jest-util/26.6.2:
@@ -6718,15 +6728,14 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /react-dom/17.0.2_react@17.0.2:
-    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+  /react-dom/18.0.0_react@18.0.0:
+    resolution: {integrity: sha512-XqX7uzmFo0pUceWFCt7Gff6IyIMzFUn7QMZrbrQfGxtaxXZIcGQzoNpRLE3fQLnS4XzLLPMZX2T9TRcSrasicw==}
     peerDependencies:
-      react: 17.0.2
+      react: ^18.0.0
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
-      react: 17.0.2
-      scheduler: 0.20.2
+      react: 18.0.0
+      scheduler: 0.21.0
     dev: true
 
   /react-is/16.13.1:
@@ -6737,12 +6746,11 @@ packages:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
     dev: true
 
-  /react/17.0.2:
-    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+  /react/18.0.0:
+    resolution: {integrity: sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: true
 
   /read-package-json-fast/2.0.3:
@@ -7108,11 +7116,10 @@ packages:
       xmlchars: 2.2.0
     dev: true
 
-  /scheduler/0.20.2:
-    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
+  /scheduler/0.21.0:
+    resolution: {integrity: sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: true
 
   /schema-utils/1.0.0:

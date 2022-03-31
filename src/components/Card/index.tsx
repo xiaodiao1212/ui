@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 type CardProps = Base &
@@ -12,9 +12,9 @@ type CardProps = Base &
     color: ((theme: Theme) => string) | string;
   }>;
 
-const Card = ({ title, extra, co, className, children, onClick, color, ...props }: CardProps) => {
+const Card = ({ title, extra, co, children, onClick, color, ...props }: CardProps) => {
   const theme = useTheme() as Theme;
-  const computedClassNames = clsx(className);
+
   const styles = css({
     textAlign: 'initial',
     display: 'flex',
@@ -38,7 +38,7 @@ const Card = ({ title, extra, co, className, children, onClick, color, ...props 
   };
 
   return (
-    <article css={styles} className={computedClassNames} onClick={handleClickCard} {...props}>
+    <article css={styles} onClick={handleClickCard} {...props}>
       {(title || extra) && (
         <header>
           <div>{title}</div>

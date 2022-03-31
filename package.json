@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "The most developer-friendly mobile component library",
   "main": "example/build/index.umd.js",
-  "module": "example/build/index.es.js",
+  "module": "example/build/index.js",
   "files": [
     "example/build"
   ],
@@ -53,22 +53,23 @@
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.4.7",
     "@types/jest": "^26.0.7",
-    "@types/react": "^17.0.14",
-    "@types/react-dom": "^17.0.9",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
-    "classnames": "^2.2.6",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
+    "jest-svg-transformer": "^1.0.0",
     "jss-cli": "^6.0.2",
     "prettier": "^2.3.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "rollup": "^2.53.3",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -83,8 +84,5 @@
     "@emotion/react": ">=11.5.0",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2"
-  },
-  "dependencies": {
-    "clsx": "^1.1.1"
   }
 }

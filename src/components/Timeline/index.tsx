@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import clsx from 'clsx';
+
 import React, { ReactNode } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { TimelineItemProps, TimelineItem } from './item';

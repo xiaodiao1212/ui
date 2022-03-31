@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 type ScrollViewProps = Base & {

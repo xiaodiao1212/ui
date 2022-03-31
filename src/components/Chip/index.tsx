@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import React from 'react';
-import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 type ChipProps = Base & {
@@ -24,13 +22,12 @@ type ChipProps = Base & {
  * @param color (Optional) the css property `color`
  * @param r (Optional) the css property `borderRadius`
  */
-const Chip = ({ outline = false, r = 4, color, co, children, className, ...props }: ChipProps) => {
+const Chip = ({ outline = false, r = 4, color, co, children, ...props }: ChipProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = () =>
     (typeof color == 'function' ? color(theme) : color) ||
     (theme.mode == 'light' ? theme.color.black : theme.color.white);
 
-  const computedClassNames = clsx(className);
   const styles = css({
     display: 'inline-flex',
     padding: '0.2em 0.6em',
@@ -47,7 +44,7 @@ const Chip = ({ outline = false, r = 4, color, co, children, className, ...props
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
   return (
-    <span css={styles} className={computedClassNames} {...props}>
+    <span css={styles} {...props}>
       {children}
     </span>
   );

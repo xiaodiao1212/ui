@@ -3,7 +3,7 @@
  * In webkit based browsers, the track is styled with a special pseudo selector ::-webkit-slider-runnable-track, and the thumb with ::webkit-slider-thumb.
  */
 import { css, useTheme } from '@emotion/react';
-import clsx from 'clsx';
+
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 

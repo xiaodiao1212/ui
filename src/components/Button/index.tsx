@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-
 import * as React from 'react';
 import { Base } from '../props';
 
@@ -37,7 +35,7 @@ const Button = ({
   const theme = useTheme() as Theme;
 
   const styles = css({
-    padding: icon || text ? '' : '0.4em 1em',
+    padding: padding || (icon || text ? '' : '0.4em 1em'),
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
     borderRadius: tile ? '0px' : rounded ? '999px' : '4px',
@@ -67,7 +65,7 @@ const Button = ({
     onClick?.(e);
   };
   return (
-    <button onClick={handleClickButton} css={styles} className={clsx(className)} disabled={disabled} {...props}>
+    <button onClick={handleClickButton} css={styles} disabled={disabled} {...props}>
       {children}
     </button>
   );

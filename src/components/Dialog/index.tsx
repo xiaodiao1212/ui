@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
 import { css, keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
 import { Base } from '../props';
 
 type DialogProps = Base & {
