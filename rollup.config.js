@@ -17,6 +17,7 @@ export default {
     },
     {
       name: 'ui',
+      globals: 'ui',
       file: packageJson.main,
       format: 'umd',
       sourcemap: process.env.NODE_ENV == 'development',

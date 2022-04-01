@@ -11,8 +11,8 @@ type AppBarProps = Base & {
   extra?: boolean;
   title?: React.ReactNode;
   color?: string;
-  fixed?: Boolean;
-  sticky?: Boolean;
+  fixed?: boolean;
+  sticky?: boolean;
   children?: React.ReactNode;
 };
 

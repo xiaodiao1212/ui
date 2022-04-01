@@ -3,6 +3,9 @@ type Theme = {
   appBar: {
     height: string;
   };
+  border: {
+    full: number;
+  };
   zIndex: {
     dialog: number;
     floatingWindow: number;
@@ -16,7 +19,7 @@ type Theme = {
   shadow: {
     color: string;
   };
-  system: {};
+  system: Record<string, unknown>;
   color: {
     primary: string;
     secondary: string;
@@ -43,7 +46,9 @@ const theme: Theme = {
     greyLight: '#F3F4F6',
     white: '#FEFEFE',
   },
-
+  border: {
+    full: 999,
+  },
   zIndex: {
     appBar: 700,
     footer: 700,

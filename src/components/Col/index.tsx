@@ -2,8 +2,8 @@
 
 import { Base, Margin, Padding } from '../props';
 import { usePadding, useMargin } from '../../hooks';
-import { css, useTheme } from '@emotion/react'
-import { Theme } from '../../styles/themes'
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../styles/themes';
 type ColProps = Base & {
   alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
   flex?: number | string;
@@ -25,7 +25,7 @@ const Col = ({
   right = false,
   ...props
 }: ColProps) => {
-  const theme = useTheme() as Theme
+  const theme = useTheme() as Theme;
   const styles = css({
     alignSelf: alignSelf,
     textAlign: (left && 'left') || (right && 'right') || 'center',
@@ -34,7 +34,7 @@ const Col = ({
     marginLeft: autoMargin ? 'auto' : props.ml || props.mx,
     ...(!autoMargin && { flex: noFlex ? '' : flex }),
     ...(co && (typeof co == 'function' ? co(theme) : co)),
-  })
+  });
   return (
     <div css={styles} {...props}>
       {children}

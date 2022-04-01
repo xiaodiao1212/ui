@@ -2,8 +2,7 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ReactNode } from 'react';
 import { Base } from '../props';
 type ToastProps = Base &
@@ -48,9 +47,11 @@ const Toast = ({ title, content, color, children, co, ...props }: ToastProps) =>
 Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
   const aside = document.createElement('aside');
   document.body.appendChild(aside);
-  ReactDOM.render(<Toast {...{ title, icon, color, ...rest }} />, aside);
+  const root = createRoot(aside);
+  root.render(<Toast {...{ title, icon, color, ...rest }} />);
+
   setTimeout(() => {
-    ReactDOM.unmountComponentAtNode(aside);
+    root.unmount();
     document.body.removeChild(aside);
   }, duration);
 };

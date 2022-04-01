@@ -65,6 +65,8 @@ const Input = ({
   extraStyle,
   ...props
 }: InputProps) => {
+  console.log('input update');
+
   const theme = useTheme() as Theme;
   const [showMessage, setShowMessage] = useState(false);
   const inputStyles = css({

@@ -4,7 +4,7 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { ReactNode, useState } from 'react';
 import { Step, StepProps } from './Step';
-import { Base } from '../props'
+import { Base } from '../props';
 
 type StepsProps = Base & {
   type?: 'default' | 'navigation';
@@ -20,7 +20,7 @@ type StepsProps = Base & {
   status?: 'wait' | 'process' | 'finish' | 'error';
 
   dashed?: boolean;
- 
+
   onChange?: ((num: any) => void) | undefined;
 };
 
@@ -37,7 +37,7 @@ const Steps = ({
 }: StepsProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
   const color = theme.color.primary;
-  let n: number = 0;
+  let n = 0;
   const styles = css({
     display: 'flex',
     alignItems: 'center',
@@ -101,7 +101,7 @@ const Steps = ({
     }
     const props = child.props as StepProps;
     let status = props.status || 'wait';
-    let isDashed = props.isDashed || dashed;
+    const isDashed = props.isDashed || dashed;
     if (index + 1 < current) {
       status = props.status || 'finish';
     } else if (index + 1 === current) {
@@ -127,7 +127,7 @@ const Steps = ({
     });
   });
   return (
-    <div css={styles}  {...props}>
+    <div css={styles} {...props}>
       {nat}
     </div>
   );

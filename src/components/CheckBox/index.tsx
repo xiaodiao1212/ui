@@ -56,7 +56,7 @@ const CheckBox = ({
       if (e.target.checked) {
         groupContext.check(value);
       } else {
-        groupContext.uncheck(value);
+        groupContext?.uncheck(value);
       }
     }
   };

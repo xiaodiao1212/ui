@@ -94,12 +94,18 @@ const Swiper = ({
   const swipeTo = (index: number) => {
     console.log(index);
   };
-  const swipePrev = () => {};
-  const swipeNext = () => {};
+  const swipePrev = () => {
+    console.log('');
+  };
+  const swipeNext = () => {
+    console.log('');
+  };
 
   useEffect(() => {
     if (autoPlay) {
-      const iv = setInterval(() => {}, delay);
+      const iv = setInterval(() => {
+        console.log('');
+      }, delay);
       return clearInterval(iv);
     }
   }, []);

@@ -28,7 +28,9 @@ export type Position = Partial<{
   sticky: boolean;
   static: boolean;
 }>;
-
+export type Radius = Partial<{
+  radius: number;
+}>;
 export type Base = Partial<{
   onClick: () => any;
   className: string;

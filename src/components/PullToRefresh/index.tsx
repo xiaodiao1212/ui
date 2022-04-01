@@ -16,7 +16,7 @@ type PullToRefreshProps = Base & {
   onPullEnd?: () => any;
   onRefresh?: (refreshOver: () => any) => any;
 };
-type RefreshLoadingProps = Base & {};
+type RefreshLoadingProps = Base;
 
 const PullToRefresh = ({
   triggerValue = 80,

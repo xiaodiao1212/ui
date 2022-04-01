@@ -13,6 +13,7 @@ type ButtonProps = Base & {
   icon?: boolean;
   tile?: boolean;
   rounded?: boolean;
+  radius?: string;
   color?: ((theme: Theme) => string) | string;
 };
 
@@ -22,6 +23,7 @@ const Button = ({
   text = false,
   outlined = false,
   rounded = false,
+  radius,
   co,
   icon = false,
   tile = false,
@@ -31,32 +33,17 @@ const Button = ({
   children,
   onClick,
   ...props
-}: ButtonProps & React.ComponentProps<'button'>) => {
+}: ButtonProps & React.ComponentPropsWithoutRef<'button'>) => {
   const theme = useTheme() as Theme;
 
   const styles = css({
-    padding: padding || (icon || text ? '' : '0.4em 1em'),
+    padding: padding || (icon || text ? '' : '.5em .75em'),
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
     borderRadius: tile ? '0px' : rounded ? '999px' : '4px',
-    color:
-      disabled == false
-        ? text || outlined || icon
-          ? theme.color.primary || '#5568FE'
-          : theme.color.white || '#fff'
-        : theme
-        ? theme.color.grey
-        : '#6b7280',
-    background:
-      disabled == false
-        ? text || outlined || icon
-          ? 'transparent'
-          : theme
-          ? theme.color.primary
-          : '#5568FE'
-        : color || theme
-        ? theme.color.primary
-        : '#5568FE',
+    color: text || outlined || icon ? theme.color.primary || '#5568FE' : theme.color.white || '#fff',
+    background: text || outlined || icon ? 'transparent' : theme ? theme.color.primary : '#5568FE',
+
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 

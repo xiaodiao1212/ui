@@ -3,7 +3,7 @@
  * In webkit based browsers, the track is styled with a special pseudo selector ::-webkit-slider-runnable-track, and the thumb with ::webkit-slider-thumb.
  */
 import { css, useTheme } from '@emotion/react';
-
+import { memo } from 'react';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
@@ -34,6 +34,7 @@ const Slider = ({
   thumbHeight = 20,
   ...props
 }: SliderProps) => {
+  console.log('slider update');
   const theme = useTheme() as Theme;
 
   const handleOnChange = (e: { target: { value: string } }) => {

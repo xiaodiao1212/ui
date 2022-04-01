@@ -40,7 +40,7 @@ const Radio = ({
       if (e.target.value) {
         groupContext.check(value);
       } else {
-        groupContext.uncheck(value);
+        groupContext?.uncheck(value);
       }
     } else {
       setIschecked(e.target.checked);

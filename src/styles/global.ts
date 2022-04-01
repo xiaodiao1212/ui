@@ -82,6 +82,8 @@ export const globalStyles = {
     margin: 0,
   },
   '[disabled]': {
+    PointerEvent: 'none',
+    opacity: '.25',
     cursor: 'default',
   },
   "[type='number']::-webkit-outer-spin-button": {

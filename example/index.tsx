@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { StrictMode, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Drawer,
@@ -39,6 +39,7 @@ if (container) {
     const [v, setV] = useState('0.3');
     const [on, setOn] = useState(false);
     const [item, setItem] = useState([1, 4, 4, 5]);
+    const [page, setPage] = useState('Button');
     const [currentIndex, setCurrentIndex] = useState(2);
     return (
       <App>
@@ -80,13 +81,7 @@ if (container) {
             </Col>{' '}
             <Col>
               <Center>
-                <Switch
-                  on={on}
-                  onChange={() => setOn(v => !v)}
-                  co={{
-                    margin: '0 auto',
-                  }}
-                />
+                <Switch on={on} onChange={() => setOn(v => !v)} trackOnColor='red' />
               </Center>
             </Col>
           </Row>
@@ -97,7 +92,13 @@ if (container) {
               <Button disabled>disabled</Button>
             </Col>
             <Col>
+              <Button text disabled>
+                disabled
+              </Button>
+            </Col>
+            <Col>
               <Button
+                padding='2em 3em'
                 rounded
                 onClick={() => {
                   setDrawerOpen(v => !v);
@@ -230,7 +231,7 @@ if (container) {
                 onFileChange={file => {
                   console.log(file);
                 }}>
-                <Card co={{ border: '1px solid #3B2667', borderRadius: '4px' }}>Upload</Card>
+                <Card co={{ textAlign: 'center', border: '1px solid #3B2667', borderRadius: '4px' }}>Upload</Card>
               </Upload>
             </Col>
             <Col>
@@ -290,5 +291,9 @@ if (container) {
     );
   };
 
-  root.render(<Main />);
+  root.render(
+    <StrictMode>
+      <Main />
+    </StrictMode>,
+  );
 }

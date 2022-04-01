@@ -32,7 +32,7 @@ describe('Button testing...', () => {
     );
     const button = screen.getByText('test button');
     expect(button).toHaveStyle({
-      padding: '',
+      padding: '0px',
       color: '#5568FE',
       background: 'transparent',
     });
@@ -58,5 +58,8 @@ describe('Button testing...', () => {
     );
     const button = screen.getByText('test button');
     expect(button).toBeDisabled();
+    expect(button).toHaveStyle({
+      opacity: '.25',
+    });
   });
 });

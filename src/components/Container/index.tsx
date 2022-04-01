@@ -3,6 +3,7 @@ import { Theme } from '../../styles/themes';
 import { Base, Margin, Position, Padding } from '../props';
 import { usePadding, usePosition, useMargin } from '../../hooks';
 import { css, useTheme } from '@emotion/react';
+import { memo } from 'react';
 type ContainerProps = Base &
   Margin &
   Position &
@@ -23,13 +24,10 @@ const Container = ({
   ...props
 }: ContainerProps) => {
   const theme = useTheme() as Theme;
-  console.log(usePosition(props));
-
   const styles = css({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     ...useMargin(props),
     ...usePadding(props),
-
     background,
     color,
     ...(co && (typeof co == 'function' ? co(theme) : co)),
