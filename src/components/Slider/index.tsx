@@ -102,6 +102,7 @@ const Slider = ({
         max={max}
         step={step}
         // defaultValue={defaultValue}
+
         value={value}
         type='range'
         onChange={handleOnChange}

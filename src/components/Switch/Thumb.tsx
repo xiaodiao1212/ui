@@ -5,8 +5,6 @@ import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 import { memo, ReactNode } from 'react';
 import vars from '../../styles/vars';
-import Thumb from './Thumb';
-import Track from './Track';
 
 type SwitchProps = Base & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
@@ -25,15 +23,10 @@ type SwitchProps = Base & {
   textOn?: ReactNode;
   textOff?: ReactNode;
 };
-
-// render diffrent background based on off or on
-const computedBackground = (theme: Theme, on: boolean, c?: ((theme: Theme) => string) | string) => {
-  return typeof c == 'function'
-    ? c(theme)
-    : c || (theme ? (on ? theme.color.primary : theme.color.grey) : on ? vars.color.primary : vars.color.grey);
+const computedBackground = (theme: Theme, c?: ((theme: Theme) => string) | string) => {
+  return typeof c == 'function' ? c(theme) : c || theme ? theme.color.primary : vars.color.primary;
 };
-
-const Switch = ({
+const Thumb = ({
   on = false,
   onChange,
   trackColorOff,
@@ -46,7 +39,7 @@ const Switch = ({
   textOff,
   radius,
   co,
-  width = 2.8,
+  width = 3,
   height = 1.4,
   ...props
 }: SwitchProps) => {
@@ -59,7 +52,7 @@ const Switch = ({
     cursor: 'pointer',
     width: `${width}em`,
     height: `${height}em`,
-    background: on ? computedBackground(theme, on, trackColorOn) : computedBackground(theme, on, trackColorOff),
+    background: on ? computedBackground(theme, trackColorOn) : computedBackground(theme, trackColorOff),
     borderRadius: radius || (theme ? theme.border.full : '999px'),
     position: 'relative',
     transition: `background ${vars.transition.time}`,
@@ -68,7 +61,7 @@ const Switch = ({
     },
 
     // switch track's click animation
-    '&:active': { transition: 'all .2s', transform: 'scale(0.9)' },
+    '&:active': { transition: 'all .25s ease', transform: 'scale(0.9)' },
 
     // switch thumb css implement with selecter::after,like a <circle>
     '&::after': {
@@ -77,7 +70,7 @@ const Switch = ({
       left: on ? `${200 / 3 - 8}%` : '8%',
       width: `${width / 3}em`,
       height: `${width / 3}em`,
-      transition: 'all .2s',
+      transition: 'all .25s ease',
       borderRadius: theme.border.full || '999px',
       background: on ? '#fff' : theme.color.greyLight,
       boxShadow: '0 0 2px 0 ' + theme.color.black,
@@ -98,14 +91,12 @@ const Switch = ({
 
   return (
     <label css={styles}>
-      {(textOn || textOff) && <div>{on ? textOn : textOff}</div>}
       <input checked={on} onChange={handleOnChange} type='checkbox' {...props} />
+      {(textOn || textOff) && <div>{on ? textOn : textOff}</div>}
     </label>
   );
 };
 
-Switch.Thumb = Thumb;
-Switch.Track = Track;
 /**
  * @description
  * A Switch is a visual toggle between two mutually exclusive states — on and off,
@@ -136,7 +127,7 @@ Switch.Track = Track;
  * @param trackColorOff track's color with switch off.
  * @param trackColorOn track's color with switch on.
  */
-export default memo(Switch);
+export default memo(Thumb);
 /**
  * The component will not re-render unless the following props change
  */

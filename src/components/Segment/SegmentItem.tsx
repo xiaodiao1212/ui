@@ -24,7 +24,7 @@ const SegmentItem = ({
     padding: '0 .4em',
     flex: 1,
     textAlign: 'center',
-    color: itemkey == currentKey ? theme.color.primary : theme.color.grey,
+    color: itemkey == currentKey ? theme.color.primary : theme.color.black,
     transition: '.3s all',
     fontWeight: itemkey == currentKey ? 700 : 500,
     ...(co && (typeof co == 'function' ? co(theme) : co)),

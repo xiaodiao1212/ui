@@ -2,19 +2,17 @@
 
 import { Theme } from '../../styles/themes';
 import React from 'react';
-
 import { useTheme, css } from '@emotion/react';
 import SegmentItem from './SegmentItem';
 import { Base } from '../props';
+
 type SegmentProps = Base &
   Partial<{
     vertical: boolean;
   }>;
 
 const Segment = ({ co, children, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
-  const [fragmentLength, setFragmentLength] = React.useState(100 / (children as any).length);
   const [offsetX, setOffsetX] = React.useState(0);
-  const [left, setLeft] = React.useState(0);
   const [current, setCurrent] = React.useState(0);
   const theme = useTheme() as Theme;
   const styles = css({
@@ -36,7 +34,7 @@ const Segment = ({ co, children, ...props }: React.ComponentPropsWithoutRef<'div
     '& > div:first-of-type': {
       boxShadow: `0px 0px 4px 0px ${theme.shadow.color}`,
       borderRadius: '4px',
-      width: `calc(${fragmentLength}% - ${offsetX}px)`,
+      width: `calc(${100 / (children as any).length}% - ${offsetX}px)`,
       top: '4px',
       bottom: '4px',
       transform: `translateX(calc(${current == 0 ? offsetX : 100 * current}% + ${offsetX * current}px))`,
@@ -64,13 +62,10 @@ const Segment = ({ co, children, ...props }: React.ComponentPropsWithoutRef<'div
   React.useEffect(() => {
     if (current == 0) {
       setOffsetX(4);
-      setLeft(4);
     } else if (current == (children as any).length - 1) {
       setOffsetX(4);
-      setLeft(0);
     } else {
       setOffsetX(0);
-      setLeft(0);
     }
   }, [current]);
   return (

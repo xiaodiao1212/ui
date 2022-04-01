@@ -12,6 +12,9 @@ const vars = {
     greyLight: '#F3F4F6',
     white: '#FEFEFE',
   },
+  transition: {
+    time: '.25s',
+  },
 };
 
 export default vars;

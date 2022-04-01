@@ -23,7 +23,6 @@ type Navigation = Omit<Base, 'co'> & {
   unselectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The size, opacity, and color of the icon in the currently unselected NavigationItem.icons.
   unselectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; //The style of the unselected NavigationItem.icon and NavigationItem.labels. [...]
   unselectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The style of the NavigationItem labels when they are not selected.
-
   navigationStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
 };
 /**

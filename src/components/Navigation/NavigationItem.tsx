@@ -54,6 +54,7 @@ const NavigationItem = ({
 }: NavigationItemProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     flex: 'auto',

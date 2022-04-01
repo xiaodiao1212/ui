@@ -36,7 +36,7 @@ if (container) {
     const ref = useRef();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [overlayOpen, setOverlayOpen] = useState(false);
-    const [v, setV] = useState('0.3');
+    const [v, setV] = useState('05');
     const [on, setOn] = useState(false);
     const [item, setItem] = useState([1, 4, 4, 5]);
     const [page, setPage] = useState('Button');
@@ -47,7 +47,15 @@ if (container) {
         <Container pa='1em'>
           <Row>
             <Col>
-              <Slider value={v} onChange={v => setV(v)} />
+              <Slider
+                max={100}
+                min={1}
+                step={1}
+                value={v}
+                onChange={v => {
+                  setV(v);
+                }}
+              />
             </Col>
           </Row>
         </Container>
@@ -81,7 +89,7 @@ if (container) {
             </Col>{' '}
             <Col>
               <Center>
-                <Switch on={on} onChange={() => setOn(v => !v)} trackOnColor='red' />
+                <Switch on={on} onChange={() => setOn(v => !v)} trackColorOn='red' />
               </Center>
             </Col>
           </Row>
@@ -98,8 +106,8 @@ if (container) {
             </Col>
             <Col>
               <Button
-                padding='2em 3em'
                 rounded
+                disabled
                 onClick={() => {
                   setDrawerOpen(v => !v);
                 }}>
