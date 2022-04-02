@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import * as React from 'react';
-type TextareaProps = {
+import { Base } from '../props';
+type TextareaProps = Base & {
   showCount?: boolean | ((length: number, maxLength?: number) => React.ReactNode);
   onChange?: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  className?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 /**
@@ -35,8 +34,8 @@ const Textarea = ({
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange?.(e.target.value, e);
   };
-  const computedClassNames = clsx(className);
-  return <textarea {...props} css={styles} className={computedClassNames} onChange={handleTextAreaChange} />;
+
+  return <textarea {...props} css={styles} className={className} onChange={handleTextAreaChange} />;
 };
 
 export default Textarea;

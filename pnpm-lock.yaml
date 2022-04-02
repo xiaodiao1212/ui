@@ -1,48 +1,46 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@emotion/cache': ^11.7.1
   '@emotion/eslint-plugin': ^11.7.0
-  '@emotion/react': ^11.5.0
+  '@emotion/react': ^11.7.1
   '@rollup/plugin-commonjs': ^14.0.0
   '@rollup/plugin-image': ^2.1.1
   '@rollup/plugin-node-resolve': ^8.4.0
-  '@size-limit/preset-small-lib': ^5.0.1
-  '@testing-library/jest-dom': ^5.11.1
-  '@testing-library/react': ^10.4.7
-  '@types/jest': ^26.0.7
-  '@types/react': ^17.0.14
-  '@types/react-dom': ^17.0.9
-  '@typescript-eslint/eslint-plugin': ^4.28.4
-  '@typescript-eslint/parser': ^4.28.4
-  classnames: ^2.2.6
-  clsx: ^1.1.1
+  '@size-limit/preset-small-lib': ^5.0.5
+  '@testing-library/jest-dom': ^5.16.1
+  '@testing-library/react': ^10.4.9
+  '@types/jest': ^26.0.24
+  '@types/react': ^17.0.43
+  '@types/react-dom': ^17.0.14
+  '@typescript-eslint/eslint-plugin': ^4.33.0
+  '@typescript-eslint/parser': ^4.33.0
   concurrently: ^7.0.0
   cross-env: ^7.0.3
-  eslint: ^7.5.0
-  eslint-config-prettier: ^6.11.0
-  eslint-plugin-prettier: ^3.1.4
-  eslint-plugin-react: ^7.20.5
-  jest: ^26.1.0
+  eslint: ^7.32.0
+  eslint-config-prettier: ^6.15.0
+  eslint-plugin-prettier: ^3.4.1
+  eslint-plugin-react: ^7.28.0
+  identity-obj-proxy: ^3.0.0
+  jest: ^26.6.3
   jss-cli: ^6.0.2
-  prettier: ^2.3.2
-  react: ^17.0.2
-  react-dom: ^17.0.2
-  rollup: ^2.53.3
+  prettier: ^2.5.1
+  react: 17.0.2
+  react-dom: 17.0.2
+  rollup: ^2.63.0
   rollup-plugin-filesize: ^9.1.1
   rollup-plugin-peer-deps-external: ^2.2.4
   rollup-plugin-terser: ^6.1.0
   rollup-plugin-typescript2: ^0.27.3
-  size-limit: ^5.0.1
-  ts-jest: ^26.1.4
-  tslib: ^2.3.0
-  typescript: ^4.4.4
-
-dependencies:
-  clsx: 1.1.1
+  size-limit: ^5.0.5
+  ts-jest: ^26.5.6
+  tslib: ^2.3.1
+  typescript: ^4.5.4
 
 devDependencies:
+  '@emotion/cache': 11.7.1
   '@emotion/eslint-plugin': 11.7.0_eslint@7.32.0
-  '@emotion/react': 11.7.1_b08e3c15324cbe90a6ff8fcd416c932c
+  '@emotion/react': 11.7.1_03a98942b76c57740a9573edba2d1cc1
   '@rollup/plugin-commonjs': 14.0.0_rollup@2.63.0
   '@rollup/plugin-image': 2.1.1_rollup@2.63.0
   '@rollup/plugin-node-resolve': 8.4.0_rollup@2.63.0
@@ -50,17 +48,17 @@ devDependencies:
   '@testing-library/jest-dom': 5.16.1
   '@testing-library/react': 10.4.9_react-dom@17.0.2+react@17.0.2
   '@types/jest': 26.0.24
-  '@types/react': 17.0.38
-  '@types/react-dom': 17.0.11
+  '@types/react': 17.0.43
+  '@types/react-dom': 17.0.14
   '@typescript-eslint/eslint-plugin': 4.33.0_3289a875d95a672b97ebf589745c66ef
   '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.5.4
-  classnames: 2.3.1
   concurrently: 7.0.0
   cross-env: 7.0.3
   eslint: 7.32.0
   eslint-config-prettier: 6.15.0_eslint@7.32.0
   eslint-plugin-prettier: 3.4.1_a90c626bbf8b44e0aad298faeac07fd7
   eslint-plugin-react: 7.28.0_eslint@7.32.0
+  identity-obj-proxy: 3.0.0
   jest: 26.6.3
   jss-cli: 6.0.2
   prettier: 2.5.1
@@ -496,7 +494,7 @@ packages:
     resolution: {integrity: sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==}
     dev: true
 
-  /@emotion/react/11.7.1_b08e3c15324cbe90a6ff8fcd416c932c:
+  /@emotion/react/11.7.1_03a98942b76c57740a9573edba2d1cc1:
     resolution: {integrity: sha512-DV2Xe3yhkF1yT4uAUoJcYL1AmrnO5SVsdfvu+fBuS7IbByDeTVx9+wFmvx9Idzv7/78+9Mgx2Hcmr7Fex3tIyw==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -514,7 +512,7 @@ packages:
       '@emotion/sheet': 1.1.0
       '@emotion/utils': 1.0.0
       '@emotion/weak-memoize': 0.2.5
-      '@types/react': 17.0.38
+      '@types/react': 17.0.43
       hoist-non-react-statics: 3.3.2
       react: 17.0.2
     dev: true
@@ -1142,14 +1140,14 @@ packages:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
-  /@types/react-dom/17.0.11:
-    resolution: {integrity: sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==}
+  /@types/react-dom/17.0.14:
+    resolution: {integrity: sha512-H03xwEP1oXmSfl3iobtmQ/2dHF5aBHr8aUMwyGZya6OW45G+xtdzmq6HkncefiBt5JU8DVyaWl/nWZbjZCnzAQ==}
     dependencies:
-      '@types/react': 17.0.38
+      '@types/react': 17.0.43
     dev: true
 
-  /@types/react/17.0.38:
-    resolution: {integrity: sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==}
+  /@types/react/17.0.43:
+    resolution: {integrity: sha512-8Q+LNpdxf057brvPu1lMtC5Vn7J119xrP1aq4qiaefNioQUYANF/CYeK4NsKorSZyUGJ66g0IM+4bbjwx45o2A==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
@@ -1994,7 +1992,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001296
+      caniuse-lite: 1.0.30001323
       electron-to-chromium: 1.4.37
       escalade: 3.1.1
       node-releases: 2.0.1
@@ -2133,13 +2131,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.19.1
-      caniuse-lite: 1.0.30001296
+      caniuse-lite: 1.0.30001323
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite/1.0.30001296:
-    resolution: {integrity: sha512-WfrtPEoNSoeATDlf4y3QvkwiELl9GyPLISV5GejTbbQRtQx4LhsXmc9IQ6XCL2d7UxCyEzToEZNMeqR79OUw8Q==}
+  /caniuse-lite/1.0.30001323:
+    resolution: {integrity: sha512-e4BF2RlCVELKx8+RmklSEIVub1TWrmdhvA5kEUueummz1XyySW0DVk+3x9HyhU9MuWTa2BhqLgEuEmUwASAdCA==}
     dev: true
 
   /capture-exit/2.0.0:
@@ -2185,7 +2183,7 @@ packages:
 
   /chokidar/2.1.8:
     resolution: {integrity: sha512-ZmZUazfOzf0Nve7duiCKD23PFSCs4JPoYyccjUFF3aQkQadqBhfzhjkwBH2mNOG9cTBwhamM37EIsIkZw3nRgg==}
-    deprecated: Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.
+    deprecated: Chokidar 2 does not receive security updates since 2019. Upgrade to chokidar 3 with 15x fewer dependencies
     dependencies:
       anymatch: 2.0.0
       async-each: 1.0.3
@@ -2217,6 +2215,22 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /chokidar/3.5.3:
+    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
+    engines: {node: '>= 8.10.0'}
+    dependencies:
+      anymatch: 3.1.2
+      braces: 3.0.2
+      glob-parent: 5.1.2
+      is-binary-path: 2.1.0
+      is-glob: 4.0.3
+      normalize-path: 3.0.0
+      readdirp: 3.6.0
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+    optional: true
 
   /chownr/1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
@@ -2261,10 +2275,6 @@ packages:
       static-extend: 0.1.2
     dev: true
 
-  /classnames/2.3.1:
-    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
-    dev: true
-
   /clean-stack/2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
@@ -2290,11 +2300,6 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: true
-
-  /clsx/1.1.1:
-    resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
-    engines: {node: '>=6'}
-    dev: false
 
   /co/4.6.0:
     resolution: {integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=}
@@ -3770,6 +3775,10 @@ packages:
       har-schema: 2.0.0
     dev: true
 
+  /harmony-reflect/1.6.2:
+    resolution: {integrity: sha512-HIp/n38R9kQjDEziXyDTuW3vvoxxyxjxFzXLrBr18uB47GnSt+G9D29fqrpM5ZkspMcPICud3XsBJQ4Y2URg8g==}
+    dev: true
+
   /has-bigints/1.0.1:
     resolution: {integrity: sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA==}
     dev: true
@@ -3965,6 +3974,13 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.5
+    dev: true
+
+  /identity-obj-proxy/3.0.0:
+    resolution: {integrity: sha1-lNK9qWCERT7zb7xarsN+D3nx/BQ=}
+    engines: {node: '>=4'}
+    dependencies:
+      harmony-reflect: 1.6.2
     dev: true
 
   /ieee754/1.2.1:
@@ -8187,7 +8203,7 @@ packages:
       graceful-fs: 4.2.9
       neo-async: 2.6.2
     optionalDependencies:
-      chokidar: 3.5.2
+      chokidar: 3.5.3
       watchpack-chokidar2: 2.0.1
     dev: true
 

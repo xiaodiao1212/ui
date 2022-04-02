@@ -1,10 +1,16 @@
-import { theme, Theme } from '../constants/theme';
-import { deepMerge } from '../utils';
-import { useState, useContext } from 'react';
-import useMarginCSS from './useMarginCSS';
-import usePaddingCSS from './usePaddingCSS';
-function useCustomTheme(customTheme: Theme) {
-  return deepMerge(theme, customTheme) as Theme;
-}
-
-export { useMarginCSS, useCustomTheme, usePaddingCSS };
+import useMargin from './useMargin';
+import usePadding from './usePadding';
+import usePosition from './usePosition';
+import useCustomTheme from './useCustomTheme';
+import { useCenter, useHorizontalCenter, useVerticalCenter } from './useCenterFlex';
+import useFunctionLikeValue from './useFunctionLikeValue';
+export {
+  useFunctionLikeValue,
+  useCenter,
+  useHorizontalCenter,
+  useVerticalCenter,
+  useCustomTheme,
+  useMargin,
+  usePosition,
+  usePadding,
+};

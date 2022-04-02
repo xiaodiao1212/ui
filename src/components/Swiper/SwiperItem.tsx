@@ -1,22 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from '@emotion/react';
-import clsx from 'clsx';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
+import { Base } from '../props';
 
-type SwiperItemProps = {
+type SwiperItemProps = Base & {
   onClick?: (index: number) => any;
   width?: string;
   offsetX?: number;
   offsetY?: number;
   index?: number;
-  className?: string;
-  children?: React.ReactNode;
+
   ref?: React.RefObject<any>;
 };
 
-const SwiperItem = ({ offsetX = 0, offsetY = 0, width, index = 0, onClick, className, children }: SwiperItemProps) => {
+const SwiperItem = ({ offsetX = 0, offsetY = 0, width, index = 0, onClick, children, ...props }: SwiperItemProps) => {
   const theme = useTheme() as Theme;
 
   const styles = css({
@@ -25,7 +24,7 @@ const SwiperItem = ({ offsetX = 0, offsetY = 0, width, index = 0, onClick, class
   });
 
   return (
-    <li css={styles} className={clsx(className)} onClick={e => onClick?.(index)}>
+    <li css={styles} onClick={e => onClick?.(index)} {...props}>
       {children}
     </li>
   );

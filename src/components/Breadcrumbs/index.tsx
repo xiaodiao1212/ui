@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React from 'react';
+import { Base } from '../props';
 
 type BreadcrumbsItem = Partial<{
   link: boolean;
   title: string;
   onClick: () => any;
 }>;
-type BreadcrumbsProps = Partial<{
-  divider: React.ReactNode;
-  items: BreadcrumbsItem[];
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  className: string;
-}>;
+type BreadcrumbsProps = Base &
+  Partial<{
+    divider: React.ReactNode;
+    items: BreadcrumbsItem[];
+  }>;
 
 const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsProps) => {
   const theme = useTheme() as Theme;
@@ -27,10 +27,8 @@ const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsPr
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const computedClassNames = clsx('breadcrumbs', className);
-
   return (
-    <nav css={sliderStyles} className={computedClassNames}>
+    <nav css={sliderStyles} className={'breadcrumbs ' + className}>
       {items.map((v, i) => {
         return (
           <div key={v.title}>

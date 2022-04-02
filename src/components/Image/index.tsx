@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
-import clsx from 'clsx';
+import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import { useState, ReactNode } from 'react';
-// import * as ReactCSS from 'csstype';
+import { Base } from '../props';
 
-type ImageProps = {
+type ImageProps = Base & {
   mask?: ReactNode;
   circle?: boolean;
   lazy?: boolean;
@@ -18,7 +17,6 @@ type ImageProps = {
   loadingImg?: ReactNode;
   errorImg?: ReactNode;
   height?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 const Image = ({
   circle = false,
@@ -33,7 +31,6 @@ const Image = ({
   height,
   co,
   loadingImg,
-  className,
   ...props
 }: React.ComponentPropsWithoutRef<'img'> & ImageProps) => {
   const theme = useTheme() as Theme;
@@ -50,7 +47,6 @@ const Image = ({
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const computedClassNames = clsx(className);
   const handleImgError = (e: any) => {
     setLoadingState('error');
   };
@@ -63,7 +59,6 @@ const Image = ({
       onLoad={handleImgLoad}
       css={styles}
       loading={(lazy && 'lazy') || 'eager'}
-      className={computedClassNames}
       {...props}
     />
   );

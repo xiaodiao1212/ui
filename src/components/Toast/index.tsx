@@ -1,27 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import { useEffect, useState, useCallback, createContext, ReactNode } from 'react';
-import Card from '../Card';
-import Text from '../Text';
-import Container from '../Container';
+import { Theme } from '../../styles/themes';
+import { createRoot } from 'react-dom/client';
+import { ReactNode } from 'react';
+import { Base } from '../props';
+type ToastProps = Base &
+  Partial<{
+    visible: boolean;
+    duration: number;
+    title?: ReactNode;
+    icon?: ReactNode;
+    content?: ReactNode;
+    color: string;
+  }>;
 
-type ToastProps = Partial<{
-  visible: boolean;
-  duration: number;
-  title?: ReactNode;
-  icon?: ReactNode;
-  content?: ReactNode;
-  children: ReactNode;
-  color: string;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  className: string;
-}>;
-
-const Toast = ({ title, content, color, children, co, className }: ToastProps) => {
+const Toast = ({ title, content, color, children, co, ...props }: ToastProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     position: 'fixed',
@@ -38,9 +32,8 @@ const Toast = ({ title, content, color, children, co, className }: ToastProps) =
     ...(typeof co == 'function' ? co(theme) : co),
   });
 
-  const computedClassNames = clsx(className);
   return (
-    <div css={styles} className={computedClassNames}>
+    <div css={styles} {...props}>
       {children || (
         <div>
           <div>{title}</div>
@@ -54,9 +47,11 @@ const Toast = ({ title, content, color, children, co, className }: ToastProps) =
 Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
   const aside = document.createElement('aside');
   document.body.appendChild(aside);
-  ReactDOM.render(<Toast {...{ title, icon, color, ...rest }} />, aside);
+  const root = createRoot(aside);
+  root.render(<Toast {...{ title, icon, color, ...rest }} />);
+
   setTimeout(() => {
-    ReactDOM.unmountComponentAtNode(aside);
+    root.unmount();
     document.body.removeChild(aside);
   }, duration);
 };

@@ -15,6 +15,13 @@ export default {
       format: 'es',
       sourcemap: process.env.NODE_ENV == 'development',
     },
+    {
+      name: 'ui',
+      globals: 'ui',
+      file: packageJson.main,
+      format: 'umd',
+      sourcemap: process.env.NODE_ENV == 'development',
+    },
   ],
   plugins: [
     peerDepsExternal(),

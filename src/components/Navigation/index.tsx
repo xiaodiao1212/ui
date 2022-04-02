@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import NavigationItem from './NavigationItem';
 import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
-type Navigation = {
+import { Base } from '../props';
+type Navigation = Omit<Base, 'co'> & {
   onTap?: (index: number) => void; // Called when one of the items is tapped.
   iconSize?: string; // The size of all of the NavigationItem icons
   labelSize?: string; // The size of all of the NavigationItem labels
@@ -23,8 +23,6 @@ type Navigation = {
   unselectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The size, opacity, and color of the icon in the currently unselected NavigationItem.icons.
   unselectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; //The style of the unselected NavigationItem.icon and NavigationItem.labels. [...]
   unselectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The style of the NavigationItem labels when they are not selected.
-  children?: ReactNode;
-  className?: string;
   navigationStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
 };
 /**
@@ -83,7 +81,7 @@ const Navigation = ({
   unselectedLabelStyle,
   navigationStyle,
   children,
-  className,
+  ...props
 }: Navigation) => {
   const theme = useTheme() as Theme;
   const styles = css({
@@ -95,10 +93,9 @@ const Navigation = ({
     alignItems: 'center',
     ...(navigationStyle && (typeof navigationStyle == 'function' ? navigationStyle(theme) : navigationStyle)),
   });
-  const computedClassNames = clsx(className);
 
   return (
-    <ul css={styles} className={computedClassNames}>
+    <ul css={styles} {...props}>
       {Children.map(children, (child, i) => {
         return cloneElement(child as ReactElement, {
           selected: i == currentIndex,

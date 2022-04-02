@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { useState, ReactNode, CSSProperties } from 'react';
 
 type InputProps = {
@@ -57,14 +57,16 @@ const Input = ({
   disabled,
   onChange,
   inputStyle,
-  className,
   messageStyle,
   containerStyle,
   contentStyle,
   labelStyle,
   iconStyle,
   extraStyle,
+  ...props
 }: InputProps) => {
+  console.log('input update');
+
   const theme = useTheme() as Theme;
   const [showMessage, setShowMessage] = useState(false);
   const inputStyles = css({
@@ -104,7 +106,6 @@ const Input = ({
     color: showMessage ? theme.color.red || 'red' : '',
     ...(typeof messageStyle == 'function' ? messageStyle?.(theme) : messageStyle),
   });
-  const computedClassNames = clsx(className);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -128,7 +129,7 @@ const Input = ({
   };
 
   return (
-    <div css={containerStyles} className={computedClassNames}>
+    <div css={containerStyles} {...props}>
       {label && <div css={labelStyles}>{label}</div>}
       <div css={contentStyles}>
         {icon && <div css={iconStyles}>{icon}</div>}

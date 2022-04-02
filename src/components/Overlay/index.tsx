@@ -1,20 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
-import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
-import * as React from 'react';
-import { fade } from '../../constants/style';
 
-type OverlayProps = Partial<{
-  color: string;
-  visible: boolean;
-  blur: boolean;
-  opacity: number;
-  children: React.ReactNode;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  className: string;
-}>;
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../styles/themes';
+import * as React from 'react';
+import { Base } from '../props';
+
+type OverlayProps = Base &
+  Partial<{
+    color: string;
+    visible: boolean;
+    blur: boolean;
+    opacity: number;
+
+    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  }>;
 
 const Overlay = ({
   opacity = 0.4,
@@ -24,7 +23,7 @@ const Overlay = ({
   children,
   onClick,
   co,
-  className,
+  ...props
 }: OverlayProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
@@ -34,7 +33,8 @@ const Overlay = ({
     left: 0,
     bottom: 0,
     right: 0,
-    background: fade(color || theme?.color?.greyLight || '#56538D', opacity),
+    background: color || theme?.color?.greyLight || '#56538D',
+    opacity,
     backdropFilter: blur ? 'blur(4px)' : '',
     transform: visible ? 'scale(1)' : '',
     '& > *': {
@@ -42,12 +42,12 @@ const Overlay = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedOverlayClassNames = clsx(className);
+
   const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     onClick?.(e);
   };
   return (
-    <aside css={styles} className={computedOverlayClassNames} onClick={handleClickOverlay}>
+    <aside css={styles} onClick={handleClickOverlay} {...props}>
       {children}
     </aside>
   );

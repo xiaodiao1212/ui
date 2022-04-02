@@ -1,16 +1,25 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
-type ScrollViewProps = {
+import { Base } from '../props';
+type ScrollViewProps = Base & {
   triggerValue?: number;
   onScrollToBottom?: (handleScrollToBottomOver: () => any) => any;
   fetchNode?: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
+/**
+ *
+ * 滚动视图允许用户浏览大于可见区域的内容，例如文档中的文本或图像集合。
+ * 当人们滑动、轻拂、拖动、点击和捏合时，滚动视图会跟随手势，以一种感觉自然的方式显示或缩放内容。
+ * 滚动视图本身没有外观，但会在人们与之交互时显示瞬态滚动指示器。
+ * 滚动视图也可以配置为在分页模式下运行，滚动显示全新的内容页面，而不是在当前页面中移动。
+ * @param param0
+ * @returns
+ */
 const ScrollView = ({
   fetchNode,
   triggerValue = 40,
@@ -31,7 +40,7 @@ const ScrollView = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   const [scrollTop, setScrollTop] = useState(0);
   const [isTouch, setIsTouch] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -70,7 +79,6 @@ const ScrollView = ({
       onTouchStart={e => handleTouchStart(e)}
       onTouchMove={e => handleTouchMove(e)}
       onTouchEnd={e => handleTouchEnd(e)}
-      className={computedClassNames}
       {...props}>
       {children}
       {isFetching && fetchNode}

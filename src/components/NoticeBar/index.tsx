@@ -1,24 +1,22 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme, keyframes } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import Row from '../Row';
 import Col from '../Col';
+import { Base } from '../props';
 
-type NoticeBarProps = Partial<{
-  action: React.ReactNode;
-  icon: React.ReactNode;
-  title: React.ReactNode;
-  content: React.ReactNode;
-  scroll: boolean;
-  duration: number;
-  delay: number;
-  className: string;
-  children: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+type NoticeBarProps = Base &
+  Partial<{
+    action: React.ReactNode;
+    icon: React.ReactNode;
+    title: React.ReactNode;
+    content: React.ReactNode;
+    scroll: boolean;
+    duration: number;
+    delay: number;
+  }>;
 /**
  * The NoticeBar component, some component libraries are also called Banner, are generally embedded in the area between the Appbar and the main content, and display a fixed notification content or a special prompt, divided into icons, actions and scrollable themes. Information area
  * @param icon A notification icon on the far left
@@ -36,8 +34,9 @@ const NoticeBar = ({
   content,
   duration = 10,
   scroll,
-  className,
+
   children,
+  ...props
 }: NoticeBarProps) => {
   /**
    *The main style part of the component
@@ -51,7 +50,6 @@ const NoticeBar = ({
     padding: '.5em',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
 
   /**
    * The rendering logic of the main content of the message or notification
@@ -93,7 +91,7 @@ const NoticeBar = ({
    * The component is essentially a semantic aside, and the children render the corresponding ui
    */
   return (
-    <aside css={styles} className={computedClassNames}>
+    <aside css={styles} {...props}>
       {icon}
       {renderContent()}
       {action}

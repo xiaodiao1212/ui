@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { useState, createContext } from 'react';
-import { Theme } from '../../constants/theme';
-import { useTheme, css } from '@emotion/react';
 
+import { useState, createContext } from 'react';
+import { Theme } from '../../styles/themes';
+import { useTheme, css } from '@emotion/react';
+import { Base } from '../props';
 type CheckboxValue = string | number;
 
 export const CheckboxGroupContext = createContext<{
@@ -12,12 +13,11 @@ export const CheckboxGroupContext = createContext<{
   uncheck: (val: CheckboxValue) => void;
 } | null>(null);
 
-type CheckBoxGroupProps = {
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+type CheckBoxGroupProps = Base & {
   disabled?: boolean;
   value?: CheckboxValue[];
   defaultValue?: CheckboxValue[];
-  children: any;
+
   onChange?: ((val: CheckboxValue[]) => void) | undefined;
 };
 

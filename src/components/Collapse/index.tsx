@@ -1,37 +1,26 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
 import arrowSVG from '../../icons/arrow-up.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
 import Icon from '../Icon';
+import { Base } from '../props';
 //ExpansionPanel
-type CollapseProps = {
+type CollapseProps = Base & {
   title?: React.ReactNode | (() => React.ReactNode) | string;
   expand: boolean;
   animated?: boolean;
   trigger?: React.ReactNode | (() => React.ReactNode);
   onChange: () => void;
-  className?: string;
-  children?: React.ReactNode;
 };
 
-const Collapse = ({
-  title,
-  animated = true,
-  expand = false,
-  trigger,
-  children,
-  className,
-  ...props
-}: CollapseProps) => {
+const Collapse = ({ title, animated = true, expand = false, trigger, children, ...props }: CollapseProps) => {
   const theme = useTheme() as Theme;
 
   const handleClickTrigger = () => {
     props?.onChange?.();
   };
-  const computedClassNames = clsx(className);
   const renderTrigger = () => {
     if (trigger)
       return React.cloneElement(typeof trigger === 'function' ? trigger() : trigger, {
@@ -59,23 +48,7 @@ const Collapse = ({
   };
 
   const renderChildren = () => {
-    if (animated)
-      return (
-        <div
-        // css={css({
-        //   animation: `${keyframes({
-        //     '0%': {
-        //       maxHeight: '0',
-        //     },
-        //     '100%': {
-        //       maxHeight: '100%',
-        //     },
-        //   })} .8s `,
-        // })}
-        >
-          {children}
-        </div>
-      );
+    if (animated) return <div>{children}</div>;
 
     return children;
   };
@@ -90,7 +63,7 @@ const Collapse = ({
     );
   };
   return (
-    <div className={className && computedClassNames}>
+    <div>
       <div
         css={css({
           display: 'flex',

@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
 import { useTheme, css } from '@emotion/react';
 import SegmentItem from './SegmentItem';
-type SegmentProps = Partial<{
-  vertical: boolean;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+import { Base } from '../props';
 
-const Segment = ({ co, children, className, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
-  const [fragmentLength, setFragmentLength] = React.useState(100 / (children as any).length);
+type SegmentProps = Base &
+  Partial<{
+    vertical: boolean;
+  }>;
+
+const Segment = ({ co, children, ...props }: React.ComponentPropsWithoutRef<'div'> & SegmentProps) => {
   const [offsetX, setOffsetX] = React.useState(0);
-  const [left, setLeft] = React.useState(0);
   const [current, setCurrent] = React.useState(0);
   const theme = useTheme() as Theme;
   const styles = css({
@@ -35,7 +34,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     '& > div:first-of-type': {
       boxShadow: `0px 0px 4px 0px ${theme.shadow.color}`,
       borderRadius: '4px',
-      width: `calc(${fragmentLength}% - ${offsetX}px)`,
+      width: `calc(${100 / (children as any).length}% - ${offsetX}px)`,
       top: '4px',
       bottom: '4px',
       transform: `translateX(calc(${current == 0 ? offsetX : 100 * current}% + ${offsetX * current}px))`,
@@ -44,7 +43,7 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
       const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
@@ -63,17 +62,14 @@ const Segment = ({ co, children, className, ...props }: React.ComponentPropsWith
   React.useEffect(() => {
     if (current == 0) {
       setOffsetX(4);
-      setLeft(4);
     } else if (current == (children as any).length - 1) {
       setOffsetX(4);
-      setLeft(0);
     } else {
       setOffsetX(0);
-      setLeft(0);
     }
   }, [current]);
   return (
-    <div css={styles} role='button' className={computedClassNames} {...props}>
+    <div css={styles} role='button' {...props}>
       <div></div>
       {children instanceof Array && <div>{handleChildrenRender()}</div>}
     </div>

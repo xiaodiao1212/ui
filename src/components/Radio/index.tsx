@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { useContext, useState } from 'react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import RadioGroup from './RadioGroup';
 import { RadioGroupContext } from './RadioGroup';
+import { Base } from '../props';
 
 type RadioValue = string | number;
 
-type RadioProps = {
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+type RadioProps = Base & {
   disabled?: boolean;
   checked?: boolean;
-  children?: React.ReactNode;
+
   value?: RadioValue;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
 };
@@ -40,7 +40,7 @@ const Radio = ({
       if (e.target.value) {
         groupContext.check(value);
       } else {
-        groupContext.uncheck(value);
+        groupContext?.uncheck(value);
       }
     } else {
       setIschecked(e.target.checked);

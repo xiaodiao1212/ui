@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
 import Button from '../Button';
 
@@ -35,11 +35,10 @@ const Tabs = ({
   tab,
   co,
   children,
-  className,
   ...props
 }: React.ComponentPropsWithoutRef<'nav'> & TabsProps) => {
   const theme = useTheme() as Theme;
-  const computedClassNames = clsx(className);
+
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
       const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
@@ -67,7 +66,6 @@ const Tabs = ({
         display: 'flex',
         ...(co && (typeof co == 'function' ? co(theme) : co)),
       })}
-      className={computedClassNames}
       {...props}>
       {typeof children === 'function' && children(renderTab)}
       {children instanceof Array && handleChildrenRender()}
@@ -75,7 +73,7 @@ const Tabs = ({
   );
 };
 
-const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, className }: TabItemProps) => {
+const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, ...props }: TabItemProps) => {
   const theme = useTheme() as Theme;
   const tabsIndicatorStyles = css({
     position: 'relative',
@@ -83,7 +81,7 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, c
     textAlign: 'center',
     ...(typeof co == 'function' && co(theme, tab == tabKey)),
   });
-  const computedClassNames = clsx(className);
+
   const handleClickTab = () => {
     onClick?.(tabKey as React.Key);
   };
@@ -92,7 +90,7 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, c
     ...co?.(theme, tab == tabKey),
   });
   return (
-    <Button css={tabsIndicatorStyles} className={computedClassNames} onClick={handleClickTab} co={tabCssOptions}>
+    <Button {...props} css={tabsIndicatorStyles} onClick={handleClickTab} co={tabCssOptions}>
       {children}
       {tab == tabKey && !noIndicator && (indicator || <TabsIndicator />)}
     </Button>
@@ -110,8 +108,8 @@ const TabsIndicator = ({ co, className, ...props }: React.ComponentPropsWithoutR
     transform: 'translateX(-50%)',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
-  return <span css={tabsIndicatorStyles} className={computedClassNames} {...props} />;
+
+  return <span css={tabsIndicatorStyles} {...props} />;
 };
 
 Tabs.Item = TabItem;

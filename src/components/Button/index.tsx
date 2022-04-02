@@ -1,12 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
-
+import { Theme } from '../../styles/themes';
 import * as React from 'react';
-import { getLuminance } from '../../constants/style';
+import { Base } from '../props';
 
-type ButtonProps = {
+type ButtonProps = Base & {
   padding?: string;
   block?: boolean;
   disabled?: boolean;
@@ -15,8 +13,8 @@ type ButtonProps = {
   icon?: boolean;
   tile?: boolean;
   rounded?: boolean;
+  radius?: string;
   color?: ((theme: Theme) => string) | string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Button = ({
@@ -25,6 +23,7 @@ const Button = ({
   text = false,
   outlined = false,
   rounded = false,
+  radius,
   co,
   icon = false,
   tile = false,
@@ -34,44 +33,17 @@ const Button = ({
   children,
   onClick,
   ...props
-}: ButtonProps & React.ComponentProps<'button'>) => {
+}: ButtonProps & React.ComponentPropsWithoutRef<'button'>) => {
   const theme = useTheme() as Theme;
 
   const styles = css({
-    padding: icon || text ? '' : '0.4em 1em',
+    padding: padding || (icon || text ? '' : '.5em .75em'),
     width: block ? '100%' : '',
     border: outlined ? '1px solid ' + (color || theme?.color?.primary || '#5568FE') : 'none',
     borderRadius: tile ? '0px' : rounded ? '999px' : '4px',
-    color:
-      disabled == false
-        ? text || outlined || icon
-          ? theme.color.primary || '#5568FE'
-          : getLuminance(
-              disabled == false
-                ? text || outlined || icon
-                  ? 'transparent'
-                  : theme
-                  ? theme.color.primary
-                  : '#5568FE'
-                : color || theme
-                ? theme.color.primary
-                : '#5568FE' || '',
-            ) <= 0.5
-          ? theme.color.white || '#fff'
-          : theme.color.black || '#000'
-        : theme
-        ? theme.color.grey
-        : '#6b7280',
-    background:
-      disabled == false
-        ? text || outlined || icon
-          ? 'transparent'
-          : theme
-          ? theme.color.primary
-          : '#5568FE'
-        : color || theme
-        ? theme.color.primary
-        : '#5568FE',
+    color: text || outlined || icon ? theme.color.primary || '#5568FE' : theme.color.white || '#fff',
+    background: text || outlined || icon ? 'transparent' : theme ? theme.color.primary : '#5568FE',
+
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
@@ -80,7 +52,7 @@ const Button = ({
     onClick?.(e);
   };
   return (
-    <button onClick={handleClickButton} css={styles} className={clsx(className)} disabled={disabled} {...props}>
+    <button onClick={handleClickButton} css={styles} disabled={disabled} {...props}>
       {children}
     </button>
   );

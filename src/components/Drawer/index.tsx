@@ -1,20 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
-import { useTheme, css } from '@emotion/react';
 
-type DrawerProps = {
+import { useTheme, css } from '@emotion/react';
+import { Base } from '../props';
+
+type DrawerProps = Base & {
   width?: string;
   height?: string;
   position?: 'left' | 'right' | 'top' | 'bottom';
   open?: boolean;
   mask?: boolean;
-  children?: React.ReactNode;
-  className?: string;
+
   onClose?: () => any;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 /**
@@ -52,8 +51,9 @@ const Drawer = ({
   mask = true,
   onClose,
   children,
-  className,
+
   co,
+  ...props
 }: DrawerProps) => {
   const theme = useTheme() as Theme;
 
@@ -87,7 +87,7 @@ const Drawer = ({
     visibility: open ? 'visible' : 'hidden',
     transition: 'opacity .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
   });
-  const computedClassNames = clsx(className);
+
   const handleClickmask = (e: any) => {
     onClose?.();
   };
@@ -141,8 +141,8 @@ const Drawer = ({
   }, [position, width, height]);
 
   return (
-    <aside>
-      {mask && <div css={maskStyles} className={computedClassNames} onClick={handleClickmask}></div>}
+    <aside {...props}>
+      {mask && <div css={maskStyles} onClick={handleClickmask}></div>}
       <div css={contentStyles}>{children}</div>
     </aside>
   );

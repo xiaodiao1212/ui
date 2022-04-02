@@ -3,10 +3,11 @@
  * In webkit based browsers, the track is styled with a special pseudo selector ::-webkit-slider-runnable-track, and the thumb with ::webkit-slider-thumb.
  */
 import { css, useTheme } from '@emotion/react';
-import clsx from 'clsx';
-import { Theme } from '../../constants/theme';
+import { memo } from 'react';
+import { Theme } from '../../styles/themes';
+import { Base } from '../props';
 
-type SliderProps = {
+type SliderProps = Base & {
   disable?: boolean;
   defaultValue?: number;
   step?: number;
@@ -18,7 +19,6 @@ type SliderProps = {
   thumbColor?: string;
   trackHeight?: number;
   thumbHeight?: number;
-  className?: string;
 };
 
 const Slider = ({
@@ -32,8 +32,9 @@ const Slider = ({
   thumbColor,
   trackHeight = 10,
   thumbHeight = 20,
-  className,
+  ...props
 }: SliderProps) => {
+  console.log('slider update');
   const theme = useTheme() as Theme;
 
   const handleOnChange = (e: { target: { value: string } }) => {
@@ -101,10 +102,11 @@ const Slider = ({
         max={max}
         step={step}
         // defaultValue={defaultValue}
+
         value={value}
         type='range'
         onChange={handleOnChange}
-        className={clsx(className)}
+        {...props}
       />
     </div>
   );

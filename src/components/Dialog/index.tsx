@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
 import { css, keyframes, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
-import * as React from 'react';
+import { Theme } from '../../styles/themes';
+import { Base } from '../props';
 
-type DialogProps = {
+type DialogProps = Base & {
   shy?: boolean;
   visible: boolean;
   mask?: boolean;
@@ -12,9 +11,6 @@ type DialogProps = {
   close?: boolean;
   animationType?: 'none' | 'slide' | 'fade' | string;
   onClose?: () => void;
-  children?: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  className?: string;
 };
 
 const Dialog = ({
@@ -27,7 +23,7 @@ const Dialog = ({
   animationType = 'slide',
   children,
   co,
-  className,
+  ...props
 }: DialogProps) => {
   const theme = useTheme() as Theme;
   const mountAnim = keyframes(
@@ -126,17 +122,16 @@ const Dialog = ({
   });
   const headerStyles = css({});
   const footerStyles = css({});
-  const computedClassNames = clsx(className);
 
   const handleClickClose = () => {
     shy && onClose?.();
   };
   return (
     <aside css={containerStyles} onClick={handleClickClose}>
-      {loading && <div css={loadingStyles} className={computedClassNames} />}
-      {close && <button css={closeStyles} className={computedClassNames} onClick={handleClickClose}></button>}
+      {loading && <div css={loadingStyles} />}
+      {close && <button css={closeStyles} onClick={handleClickClose}></button>}
       <header css={headerStyles}></header>
-      {/* {mask && <div css={maskStyles} className={computedClassNames} onClick={handleClickmask}></div>} */}
+      {/* {mask && <div css={maskStyles} onClick={handleClickmask}></div>} */}
       <div css={contentStyles}>{children}</div>
       <footer css={footerStyles}></footer>
     </aside>

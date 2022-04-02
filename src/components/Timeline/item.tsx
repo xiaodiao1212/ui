@@ -1,24 +1,22 @@
 /** @jsxImportSource @emotion/react */
 
 import React from 'react';
-import clsx from 'clsx';
-import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
 
-export type TimelineItemProps = {
-  children: React.ReactNode;
+import { css, useTheme } from '@emotion/react';
+import { Theme } from '../../styles/themes';
+import { Base } from '../props';
+
+export type TimelineItemProps = Base & {
   icon?: React.ReactNode;
   interval?: string;
   subtitle?: string;
   title?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 export const TimelineItem = ({
   icon,
   children,
   co,
-  className,
   ...props
 }: TimelineItemProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
@@ -86,9 +84,9 @@ export const TimelineItem = ({
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   return (
-    <div css={styles} className={computedClassNames} {...props}>
+    <div css={styles} {...props}>
       <div className={`indicators indicator`}>
         <span className={`icon`}>{icon}</span>
       </div>

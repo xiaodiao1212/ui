@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 
 import * as React from 'react';
+import { Base } from '../props';
 
-type LinkProps = {
+type LinkProps = Base & {
   indicatorColor?: string;
   indicatorWidth?: string;
   indicatorHeight?: string;
   href?: string;
   color?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Link = ({
-  disabled,
   indicatorColor = '#fff',
   indicatorWidth,
   href,
@@ -23,7 +22,6 @@ const Link = ({
   indicatorHeight,
   co,
   onClick,
-  className,
   children,
   ...props
 }: LinkProps & React.ComponentProps<'button'>) => {
@@ -41,7 +39,7 @@ const Link = ({
     href && (location.href = href);
   };
   return (
-    <button onClick={handleClickLink} css={styles} className={clsx(className)} disabled={disabled} {...props}>
+    <button onClick={handleClickLink} css={styles} {...props}>
       {children}
     </button>
   );

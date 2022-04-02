@@ -1,18 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
-import { css, keyframes, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
-import * as React from 'react';
 
-type LoadingProps = {
+import { css, keyframes, useTheme } from '@emotion/react';
+import { Theme } from '../../styles/themes';
+import * as React from 'react';
+import { Base } from '../props';
+
+type LoadingProps = Base & {
   bit?: boolean;
   duration?: string;
-  className?: string;
+
   width?: string;
   backgroudColor?: ((theme: Theme) => string) | string;
   color?: ((theme: Theme) => string) | string;
   borderWidth?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
 const Loading = ({
@@ -23,7 +23,7 @@ const Loading = ({
   backgroudColor = '#f3f3f3',
   bit = false,
   co,
-  className,
+  ...props
 }: LoadingProps & Omit<React.ComponentPropsWithoutRef<'div'>, 'color'>) => {
   const theme = useTheme() as Theme;
   const kfSpin = keyframes({
@@ -132,9 +132,9 @@ const Loading = ({
 
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   return (
-    <div css={styles} className={computedClassNames}>
+    <div css={styles} {...props}>
       {!bit ? (
         <div className={`nomal`} />
       ) : (

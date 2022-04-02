@@ -1,26 +1,23 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
+import { Base } from '../props';
 
 type PickerItem = {
   key: string;
   value: string | number;
 };
 
-type PickerProps = {
+type PickerProps = Base & {
   data: PickerItem[][];
   onChange: (item: PickerItem[]) => any;
   value: string[];
-  className?: string;
-  children?: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const Picker = ({ data = [], onChange, value, className, children, co, ...props }: PickerProps) => {
+const Picker = ({ data = [], onChange, value, children, co, ...props }: PickerProps) => {
   const theme = useTheme() as Theme;
   const [pickerStyle, setPickerStyle] = useState<any>({
     position: 'relative',
@@ -82,7 +79,7 @@ const Picker = ({ data = [], onChange, value, className, children, co, ...props 
   const [translateYlength, setTranslateYlength] = useState<number[]>(data.map(v => 4));
   const [offsetY, setOffsetY] = useState<number[]>(data.map(v => 0));
   const [startPageY, setStartPageY] = useState<number[]>(data.map(v => 0));
-  const computedClassNames = clsx(className);
+
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>, index: number) => {
     setStartPageY(v =>
       v.map((v, i) => {
@@ -203,7 +200,7 @@ const Picker = ({ data = [], onChange, value, className, children, co, ...props 
     setPickerStyle({ ...ps });
   }, [translateYlength]);
   return (
-    <div css={css(pickerStyle)} className={computedClassNames} {...props}>
+    <div css={css(pickerStyle)} {...props}>
       <div className='container'>
         {computedData.map((columnData, i) => (
           <div

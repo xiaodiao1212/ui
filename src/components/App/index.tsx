@@ -1,7 +1,7 @@
-import { ThemeProvider, Global } from '@emotion/react';
+import { ThemeProvider, Global, CSSObject } from '@emotion/react';
 import { useCallback } from 'react';
-import { defaultStyle } from '../../constants/style';
-import { theme as defaultTheme, Theme } from '../../constants/theme';
+import { globalStyles } from '../../styles/global';
+import { theme as defaultTheme, Theme } from '../../styles/themes';
 import { deepMerge } from '../../utils';
 
 type AppProps = {
@@ -13,7 +13,7 @@ const App = ({ children, theme }: AppProps) => {
   const computedTheme = useCallback(() => deepMerge(defaultTheme, theme || {}), [theme]);
   return (
     <ThemeProvider theme={computedTheme()}>
-      <Global styles={defaultStyle as any} />
+      <Global styles={globalStyles as CSSObject} />
       {children}
     </ThemeProvider>
   );

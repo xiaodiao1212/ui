@@ -1,20 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import clsx from 'clsx';
+
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
-import * as React from 'react';
+import { Theme } from '../../styles/themes';
 import GridContainer from './GridContainer';
-interface GridProps {
+import { Base } from '../props';
+type GridProps = Base & {
   row?: number;
   col?: number;
   rowGap?: string;
   colGap?: string;
-  children?: React.ReactNode;
-  className?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}
+};
 
-const Grid = ({ row, col, rowGap, colGap, co, children, className, ...restProps }: GridProps) => {
+const Grid = ({ row, col, rowGap, colGap, co, children, ...props }: GridProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     display: 'grid',
@@ -24,9 +21,9 @@ const Grid = ({ row, col, rowGap, colGap, co, children, className, ...restProps 
     gridRowGap: rowGap,
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedClassNames = clsx(className);
+
   return (
-    <div css={styles} className={computedClassNames} {...restProps}>
+    <div css={styles} {...props}>
       {children}
     </div>
   );

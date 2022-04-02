@@ -1,23 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
+import { Base } from '../props';
+type CardProps = Base &
+  Partial<{
+    title: React.ReactNode;
+    extra: React.ReactNode;
+    color: ((theme: Theme) => string) | string;
+  }>;
 
-type CardProps = Partial<{
-  title: React.ReactNode;
-  extra: React.ReactNode;
-  className: string;
-  children: React.ReactNode;
-  color: ((theme: Theme) => string) | string;
-  onClick: () => any;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
-
-const Card = ({ title, extra, co, className, children, onClick, color, ...props }: CardProps) => {
+const Card = ({ title, extra, co, children, onClick, color, ...props }: CardProps) => {
   const theme = useTheme() as Theme;
-  const computedClassNames = clsx(className);
+
   const styles = css({
     textAlign: 'initial',
     display: 'flex',
@@ -41,7 +38,7 @@ const Card = ({ title, extra, co, className, children, onClick, color, ...props 
   };
 
   return (
-    <article css={styles} className={computedClassNames} onClick={handleClickCard} {...props}>
+    <article css={styles} onClick={handleClickCard} {...props}>
       {(title || extra) && (
         <header>
           <div>{title}</div>

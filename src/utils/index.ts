@@ -114,7 +114,7 @@ function deepMerge(target: any, source: any) {
   return target;
 }
 
-function debounce(fn: Function, delay: number = 500): Function {
+function debounce(fn: () => any, delay = 500): () => any {
   let timer: any;
   return function (this: any, ...args: any) {
     if (timer) clearTimeout(timer);

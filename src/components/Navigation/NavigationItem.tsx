@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import clsx from 'clsx';
 import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import { ReactNode, CSSProperties } from 'react';
+import { Base } from '../props';
 
-export type NavigationItemProps = {
+export type NavigationItemProps = Omit<Base, 'co'> & {
   index?: number;
   onTap?: (index?: number) => void;
   selected?: boolean;
@@ -26,8 +26,6 @@ export type NavigationItemProps = {
   unselectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   unselectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   unselectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  children?: ReactNode;
-  className?: string;
 };
 
 const NavigationItem = ({
@@ -50,12 +48,13 @@ const NavigationItem = ({
   unselectedItemStyle,
   unselectedLabelStyle,
   onTap,
-  className,
   index,
   children,
+  ...props
 }: NavigationItemProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     flex: 'auto',
@@ -109,12 +108,12 @@ const NavigationItem = ({
       ? unselectedIconStyle(theme)
       : unselectedIconStyle),
   });
-  const computedClassNames = clsx(className);
+
   const handleClickNavigationItem = () => {
     onTap?.(index);
   };
   return (
-    <li css={styles} className={computedClassNames} onClick={handleClickNavigationItem}>
+    <li css={styles} onClick={handleClickNavigationItem} {...props}>
       {children || (
         <>
           <div css={iconStyles}>{selected ? activeIcon || icon : icon}</div>

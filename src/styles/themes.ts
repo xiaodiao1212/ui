@@ -1,9 +1,10 @@
-import { darken, lighten, fade, emphasize } from '../style';
-
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
     height: string;
+  };
+  border: {
+    full: number;
   };
   zIndex: {
     dialog: number;
@@ -18,7 +19,7 @@ type Theme = {
   shadow: {
     color: string;
   };
-  system: {};
+  system: Record<string, unknown>;
   color: {
     primary: string;
     secondary: string;
@@ -32,7 +33,6 @@ type Theme = {
   common: {
     circularEdge: string;
   };
-  utils: { darken: typeof darken; lighten: typeof lighten; fade: typeof fade; emphasize: typeof emphasize };
 };
 const theme: Theme = {
   mode: 'light',
@@ -46,11 +46,8 @@ const theme: Theme = {
     greyLight: '#F3F4F6',
     white: '#FEFEFE',
   },
-  utils: {
-    darken,
-    lighten,
-    fade,
-    emphasize,
+  border: {
+    full: 999,
   },
   zIndex: {
     appBar: 700,

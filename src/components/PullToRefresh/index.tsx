@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../constants/theme';
+import { Theme } from '../../styles/themes';
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
+
 import { useTheme, css } from '@emotion/react';
 import { debounce } from '../../utils';
+import { Base } from '../props';
 
-type PullToRefreshProps = {
+type PullToRefreshProps = Base & {
   triggerValue?: number;
   pullDelay?: number;
   refreshDelay?: number;
@@ -14,15 +15,8 @@ type PullToRefreshProps = {
   onPull?: (pullLength: number) => any;
   onPullEnd?: () => any;
   onRefresh?: (refreshOver: () => any) => any;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-  className?: string;
-  children?: React.ReactNode;
 };
-type RefreshLoadingProps = {
-  children?: React.ReactNode;
-  className?: string;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-};
+type RefreshLoadingProps = Base;
 
 const PullToRefresh = ({
   triggerValue = 80,
@@ -32,7 +26,6 @@ const PullToRefresh = ({
   onPullStart,
   onPullEnd,
   onRefresh,
-  className,
   children,
   co,
   ...props
@@ -53,7 +46,6 @@ const PullToRefresh = ({
       ...(co && (typeof co == 'function' ? co(theme) : co)),
     },
   });
-  const computedRefreshClassNames = clsx(className);
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setStartY(e.touches[0].pageY);
@@ -119,7 +111,6 @@ const PullToRefresh = ({
   return (
     <div
       css={styles}
-      className={computedRefreshClassNames}
       onTouchStart={e => handleTouchStart(e)}
       onTouchMove={e => handleTouchMove(e)}
       onTouchEnd={e => handleTouchEnd(e)}
@@ -139,9 +130,9 @@ const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
     transform: 'translateY(-100%)',
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
-  const computedLoadingClassNames = clsx(className);
+
   return (
-    <div css={style} className={computedLoadingClassNames}>
+    <div css={style} className={className}>
       {children}
     </div>
   );
