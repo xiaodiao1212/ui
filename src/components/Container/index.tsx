@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Theme } from '../../styles/themes';
 import { Base, Margin, Position, Padding } from '../props';
-import { usePadding, usePosition, useMargin } from '../../hooks';
+import { usePadding, usePosition, useMargin } from '../../styles/css';
 import { css, useTheme } from '@emotion/react';
 import { memo } from 'react';
 type ContainerProps = Base &

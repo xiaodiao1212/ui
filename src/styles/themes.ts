@@ -1,3 +1,8 @@
+import { deepMerge } from '../utils';
+import vars from './vars';
+function useCustomTheme(customTheme: Theme) {
+  return deepMerge(theme, customTheme) as Theme;
+}
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
@@ -36,16 +41,7 @@ type Theme = {
 };
 const theme: Theme = {
   mode: 'light',
-  color: {
-    primary: '#5568FE',
-    secondary: '#FB7173',
-    black: '#232149',
-    grey: '#F3F4F6',
-    red: '#e32b3a',
-    accent: '#56538D',
-    greyLight: '#F3F4F6',
-    white: '#FEFEFE',
-  },
+  color: vars.color,
   border: {
     full: 999,
   },
@@ -70,4 +66,4 @@ const theme: Theme = {
     height: '3em',
   },
 };
-export { theme, Theme };
+export { theme, Theme, useCustomTheme };

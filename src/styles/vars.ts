@@ -10,7 +10,7 @@ const vars = {
     red: '#e32b3a',
     accent: '#56538D',
     greyLight: '#F3F4F6',
-    white: '#FEFEFE',
+    white: '#fff',
   },
   transition: {
     time: '.25s',

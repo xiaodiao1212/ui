@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Base, Margin, Padding } from '../props';
-import { usePadding, useMargin } from '../../hooks';
+import { usePadding, useMargin } from '../../styles/css';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 type ColProps = Base & {
