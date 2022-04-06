@@ -21,7 +21,6 @@ const Switch = ({ on = false, onChange, color, radius, co, width = 2.8, height =
 
   const styles = css({
     //switch track css implement
-
     display: 'inline-flex',
     alignItems: 'center',
     cursor: 'pointer',

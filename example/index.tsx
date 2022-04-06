@@ -288,7 +288,7 @@ if (container) {
 
     return (
       <App>
-        <Container fullScreen pa='1em' background='#F4F7F8'>
+        <Container fullHeight pa='1em' background='#F4F7F8'>
           {content()}
         </Container>
       </App>
