@@ -116,7 +116,7 @@ const Switch = memo(
       alignItems: 'center',
       cursor: 'pointer',
       // ensure the min-width contain the text
-      minWidth: !loading && trackMinWidth,
+      minWidth: loading ? trackHeight : trackMinWidth,
       width: loading && trackHeight,
       height: trackHeight,
       opacity: disabled ? 0.25 : 1,
