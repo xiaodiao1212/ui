@@ -10,21 +10,19 @@ type LinkProps = Base & {
   indicatorColor?: string;
   indicatorWidth?: string;
   indicatorHeight?: string;
-  href?: string;
   color?: string;
 };
 
 const Link = ({
   indicatorColor = '#fff',
   indicatorWidth,
-  href,
   color,
   indicatorHeight,
   co,
   onClick,
   children,
   ...props
-}: LinkProps & React.ComponentProps<'button'>) => {
+}: LinkProps & React.ComponentPropsWithoutRef<'a'>) => {
   const theme = useTheme() as Theme;
 
   const styles = css({
@@ -34,14 +32,10 @@ const Link = ({
     ...(typeof co == 'function' ? co(theme) : co),
   });
 
-  const handleClickLink = (e: any) => {
-    onClick?.(e);
-    href && (location.href = href);
-  };
   return (
-    <button onClick={handleClickLink} css={styles} {...props}>
+    <a css={styles} {...props}>
       {children}
-    </button>
+    </a>
   );
 };
 

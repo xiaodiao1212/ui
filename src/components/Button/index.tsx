@@ -5,7 +5,6 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
 import { Base } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
@@ -70,6 +69,10 @@ const Button = ({
     borderRadius: computedRadius,
     color: text || outline || icon ? computedColor : theme ? theme.color.white : vars.color.white,
     background: text || outline || icon ? 'transparent' : computedColor,
+    '&:hover': {
+      transition: 'transform .25s ease',
+      transform: 'scale(0.9)',
+    },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
