@@ -43,6 +43,8 @@ export const globalStyles = {
     textDecoration: 'underline dotted',
   },
   a: {
+    textDecoration: 'none',
+    color: 'black',
     backgroundColor: 'transparent',
   },
   'a:active, a:hover': {

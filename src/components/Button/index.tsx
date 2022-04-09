@@ -8,6 +8,7 @@ import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
+import { useFunctionLikeValue } from '../../styles/css';
 
 // 组件库有一些例如下面Base一样的常用的props type定义，
 // 组件中直接使用节约代码量
@@ -73,7 +74,7 @@ const Button = ({
       transition: 'transform .25s ease',
       transform: 'scale(0.9)',
     },
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...(co && useFunctionLikeValue(theme, co)),
   });
 
   // 比较普通的点击方法实现

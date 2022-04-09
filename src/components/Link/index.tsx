@@ -2,34 +2,46 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-
-import * as React from 'react';
+import vars from '../../styles/vars';
+import { ComponentPropsWithoutRef, useMemo } from 'react';
 import { Base } from '../props';
+import { useFunctionLikeValue } from '../../styles/css';
 
 type LinkProps = Base & {
   indicatorColor?: string;
-  indicatorWidth?: string;
-  indicatorHeight?: string;
+  indicatorSize?: string;
+  indicatorAction?: 'always' | 'none' | 'hover';
   color?: string;
+  disabled?: boolean;
 };
 
 const Link = ({
-  indicatorColor = '#fff',
-  indicatorWidth,
+  disabled,
+  indicatorColor,
+  indicatorAction = 'always',
   color,
-  indicatorHeight,
+  indicatorSize = '1px',
   co,
-  onClick,
   children,
   ...props
-}: LinkProps & React.ComponentPropsWithoutRef<'a'>) => {
+}: LinkProps & ComponentPropsWithoutRef<'a'>) => {
   const theme = useTheme() as Theme;
-
+  const indicatorStyles = useMemo(
+    () => ({
+      borderBottom: `${indicatorSize} solid ${indicatorColor || (theme ? theme.color.black : vars.color.black)}`,
+    }),
+    [indicatorSize, indicatorColor],
+  );
   const styles = css({
-    color,
-    borderBottomWidth: indicatorWidth,
-    borderBottom: `${indicatorHeight || '1px'} solid  ${indicatorColor || theme?.color?.primary || '#5568FE'}`,
-    ...(typeof co == 'function' ? co(theme) : co),
+    cursor: !disabled ? 'pointer' : 'initial',
+    color: color || (theme ? theme.color.black : vars.color.black),
+    ...(indicatorAction == 'always'
+      ? indicatorStyles
+      : indicatorAction == 'hover'
+      ? { ':hover': indicatorStyles }
+      : {}),
+    opacity: disabled ? 0.25 : 1,
+    ...(co && useFunctionLikeValue(theme, co)),
   });
 
   return (

@@ -38,14 +38,7 @@ if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('link');
-    const ref = useRef();
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [overlayOpen, setOverlayOpen] = useState(false);
-    const [v, setV] = useState('05');
-    const [on, setOn] = useState(false);
-    const [item, setItem] = useState([1, 4, 4, 5]);
-    const [currentIndex, setCurrentIndex] = useState(2);
+    const [example, setExample] = useState<Components>('switch');
     const content = () => {
       switch (example) {
         case 'button':
@@ -59,7 +52,7 @@ if (container) {
         case 'image':
           return <LinkExamples />;
         default:
-          break;
+          return undefined;
       }
     };
 

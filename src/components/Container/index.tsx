@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Theme } from '../../styles/themes';
 import { Base, Margin, Position, Padding } from '../props';
-import { usePadding, usePosition, useMargin } from '../../styles/css';
+import { usePadding, usePosition, useMargin, useFunctionLikeValue } from '../../styles/css';
 import { css, useTheme } from '@emotion/react';
 import { memo } from 'react';
 type ContainerProps = Base &
   Margin &
   Position &
   Padding & {
-    background?: string;
-    color?: string;
+    background?: ((theme: Theme) => string) | string;
+    color?: ((theme: Theme) => string) | string;
     fullHeight?: boolean;
     fullScreen?: boolean;
   };
@@ -28,9 +28,9 @@ const Container = ({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     ...useMargin(props),
     ...usePadding(props),
-    background,
-    color,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, background),
+    ...useFunctionLikeValue(theme, color),
+    ...(co && useFunctionLikeValue(theme, co)),
   });
 
   return (

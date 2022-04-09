@@ -1,6 +1,5 @@
 import React from 'react';
 import { Theme } from '../styles/themes';
-
 export type ColorFormat = 'rgb' | 'rgba' | 'hsl' | 'hsla';
 export type Padding = Partial<{
   pt: string;
