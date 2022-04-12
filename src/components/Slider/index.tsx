@@ -17,8 +17,8 @@ type SliderProps = Base & {
   min?: number;
   trackColor?: string;
   thumbColor?: string;
-  trackHeight?: number;
-  thumbHeight?: number;
+  trackSize?: number;
+  thumbSize?: number;
 };
 
 const Slider = ({
@@ -30,8 +30,8 @@ const Slider = ({
   onChange,
   trackColor,
   thumbColor,
-  trackHeight = 10,
-  thumbHeight = 20,
+  trackSize = 10,
+  thumbSize = 20,
   ...props
 }: SliderProps) => {
   console.log('slider update');
@@ -40,16 +40,20 @@ const Slider = ({
   const handleOnChange = (e: { target: { value: string } }) => {
     onChange?.(e.target.value);
   };
-  const thumbStyles = `
-    width: ${thumbHeight}px;
+
+  const thumbDefaultStyles = `
+  display:relative;
+    width: ${thumbSize}px;
     border-radius: 50%;
     box-shadow: 0px 0px 2px 0px ${theme.color.black};
     background: ${thumbColor || theme.color.white};
-    height: ${thumbHeight}px;
-    margin-top: -${(thumbHeight - trackHeight) / 2}px;`;
+    height: ${thumbSize}px;
+    margin-top: -${(thumbSize - trackSize) / 2}px;
+    &::after:
+    `;
 
-  const trackStyles = `
-    height: ${trackHeight}px;
+  const trackDefaultStyles = `
+    height: ${trackSize}px;
     background: linear-gradient(to right, ${theme.color.primary}, ${theme.color.primary}), ${theme.color.grey};
     background-size: ${(Number(value) / max) * 100}%, 100%;
     background-repeat: no-repeat;
@@ -67,21 +71,21 @@ const Slider = ({
     }
 
     input[type='range']::-webkit-slider-runnable-track {
-      ${trackStyles}
+      ${trackDefaultStyles}
     }
 
     input[type='range']::-moz-range-track {
-      ${trackStyles}
+      ${trackDefaultStyles}
     }
 
     input[type='range']::-webkit-slider-thumb {
       -webkit-appearance: none;
-      ${thumbStyles}
+      ${thumbDefaultStyles}
     }
 
     input[type='range']::-moz-range-thumb {
       -moz-appearance: none;
-      ${thumbStyles}
+      ${thumbDefaultStyles}
     }
 
     input[type='range']:focus {

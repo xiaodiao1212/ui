@@ -5,47 +5,39 @@ import React from 'react';
 
 import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
-type CardProps = Base &
+type CellProps = Base &
   Partial<{
-    title: React.ReactNode;
-    extra: React.ReactNode;
-    color: ((theme: Theme) => string) | string;
+    key: React.ReactNode;
+    keyStyles: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+    value: React.ReactNode;
+    valueStyles: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   }>;
 
-const Cell = ({ title, extra, co, children, onClick, color, ...props }: CardProps) => {
+const Cell = ({ key, value, co, children, onClick, keyStyles, valueStyles, ...props }: CellProps) => {
   const theme = useTheme() as Theme;
 
   const styles = css({
     textAlign: 'initial',
     display: 'flex',
-    padding: '1em',
-    flexDirection: 'column',
-    background: color ? (typeof color == 'function' ? color?.(theme) : color) : theme.color.white,
-    '& > header': {
-      display: 'flex',
-      '& > *': {
-        marginLeft: 'auto',
-      },
-      '& > *:first-of-type': {
-        marginLeft: '0',
-      },
+    alignItems: 'center',
+    '& > .key': {
+      ...(keyStyles && (typeof keyStyles == 'function' ? keyStyles?.(theme) : keyStyles)),
+    },
+    '& > .value': {
+      marginLeft: '0',
+      ...(valueStyles && (typeof valueStyles == 'function' ? valueStyles?.(theme) : valueStyles)),
     },
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const handleClickCard = () => {
+  const handleClickCell = () => {
     onClick?.();
   };
 
   return (
-    <article css={styles} onClick={handleClickCard} {...props}>
-      {(title || extra) && (
-        <header>
-          <div>{title}</div>
-          <div>{extra}</div>
-        </header>
-      )}
-      <div>{children}</div>
+    <article css={styles} onClick={handleClickCell} {...props}>
+      <section className='key'>{key}</section>
+      <section className='value'>{value}</section>
     </article>
   );
 };

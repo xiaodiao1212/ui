@@ -27,18 +27,19 @@ import {
   Overlay,
   Image,
 } from './build';
+import SliderExamples from './src/Slider.examples';
 import ButtonExamples from './src/Button.examples';
 import SwitchExamples from './src/Switch.examples';
 import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
 const container = document.getElementById('root');
 
-type Components = 'link' | 'switch' | 'button' | 'image' | 'divider';
+type Components = 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
 if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('switch');
+    const [example, setExample] = useState<Components>('slider');
     const content = () => {
       switch (example) {
         case 'button':
@@ -51,6 +52,9 @@ if (container) {
           return <LinkExamples />;
         case 'image':
           return <LinkExamples />;
+        case 'slider':
+          return <SliderExamples />;
+
         default:
           return undefined;
       }
