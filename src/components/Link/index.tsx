@@ -12,29 +12,51 @@ type LinkProps = Base & {
   indicatorSize?: string;
   indicatorAction?: 'always' | 'none' | 'hover';
   color?: string;
+  blank?: boolean;
   disabled?: boolean;
 };
 
+/**
+ * Links allow users to navigate to a different location. 
+ * They can be presented inline inside a paragraph or as standalone text.
+ * ```
+ * <Link href='#' indicatorAction='none' color='green'>
+      customr link
+   </Link>
+ * ```
+ * @param indicatorColor link's underline color.
+ * @param color link's text color.
+ * @param indicatorAction link's underline triger way.
+ * @param indicatorSize link's underline coarseness.
+ * @param blank open url with new window.
+ * @returns <a> tag 
+ */
 const Link = ({
   disabled,
   indicatorColor,
   indicatorAction = 'always',
   color,
+  blank = false,
   indicatorSize = '1px',
   co,
   children,
   ...props
 }: LinkProps & ComponentPropsWithoutRef<'a'>) => {
   const theme = useTheme() as Theme;
+
+  // indicator styles
   const indicatorStyles = useMemo(
     () => ({
-      borderBottom: `${indicatorSize} solid ${indicatorColor || (theme ? theme.color.black : vars.color.black)}`,
+      borderBottom: `${indicatorSize} solid 
+      ${indicatorColor || (theme ? theme.color.black : vars.color.black)}`,
     }),
     [indicatorSize, indicatorColor],
   );
+
   const styles = css({
     cursor: !disabled ? 'pointer' : 'initial',
     color: color || (theme ? theme.color.black : vars.color.black),
+    // indicator show way by `indicatorAction`
     ...(indicatorAction == 'always'
       ? indicatorStyles
       : indicatorAction == 'hover'
@@ -45,7 +67,7 @@ const Link = ({
   });
 
   return (
-    <a css={styles} {...props}>
+    <a target={blank ? '_blank' : '_self'} css={styles} {...props}>
       {children}
     </a>
   );

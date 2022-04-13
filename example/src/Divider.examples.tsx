@@ -22,13 +22,13 @@ const DividerExamples = () => {
       <Example title='Target' desc='Jump to a link (modify target to change the opening method)'>
         <Center>
           <Link target={'_blank'} href={img}>
-            _blank
+            blank
           </Link>
           <Link target={'_top'} href={img}>
-            _top
+            top
           </Link>
           <Link target={'_parent'} href={img}>
-            _parent
+            parent
           </Link>
         </Center>
       </Example>

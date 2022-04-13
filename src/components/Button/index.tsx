@@ -10,7 +10,7 @@ import vars from '../../styles/vars';
 import { useMemo } from 'react';
 import { useFunctionLikeValue } from '../../styles/css';
 
-// 组件库有一些例如下面Base一样的常用的props type定义，
+// 组件库有一些例如下面Base一样的常用的props type定义
 // 组件中直接使用节约代码量
 
 type ButtonProps = Base & {

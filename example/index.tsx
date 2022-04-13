@@ -27,6 +27,7 @@ import {
   Overlay,
   Image,
 } from './build';
+import Introduction from './src/Introduction';
 import SliderExamples from './src/Slider.examples';
 import ButtonExamples from './src/Button.examples';
 import SwitchExamples from './src/Switch.examples';
@@ -34,16 +35,18 @@ import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
 const container = document.getElementById('root');
 
-type Components = 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
+type Components = 'introduction' | 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
 if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('slider');
+    const [example, setExample] = useState<Components>('introduction');
     const content = () => {
       switch (example) {
         case 'button':
           return <ButtonExamples />;
+        case 'introduction':
+          return <Introduction />;
         case 'divider':
           return <DividerExamples />;
         case 'switch':
