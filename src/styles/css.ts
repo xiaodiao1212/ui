@@ -13,7 +13,7 @@ export function useVerticalCenter() {
 }
 
 export function useFunctionLikeValue(theme: Theme, target: any) {
-  return typeof target == 'function' ? target(theme) : target;
+  return target && (typeof target == 'function' ? target(theme) : target);
 }
 
 export function useMargin(props: Margin) {

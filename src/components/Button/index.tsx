@@ -74,7 +74,7 @@ const Button = ({
       transition: 'transform .25s ease',
       transform: 'scale(0.9)',
     },
-    ...(co && useFunctionLikeValue(theme, co)),
+    ...useFunctionLikeValue(theme, co),
   });
 
   // 比较普通的点击方法实现

@@ -60,7 +60,7 @@ const Divider = ({ text, size = 1, vertical = false, dashed = false, color, co, 
         right: 0,
       },
     }),
-    ...(co && useFunctionLikeValue(theme, co)),
+    ...useFunctionLikeValue(theme, co),
   });
   return (
     <hr css={styles} {...props}>

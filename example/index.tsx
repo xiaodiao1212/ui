@@ -33,14 +33,15 @@ import ButtonExamples from './src/Button.examples';
 import SwitchExamples from './src/Switch.examples';
 import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
+import SwiperExamples from './src/Swiper.examples';
 const container = document.getElementById('root');
 
-type Components = 'introduction' | 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
+type Components = 'swiper' | 'introduction' | 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
 if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('introduction');
+    const [example, setExample] = useState<Components>('swiper');
     const content = () => {
       switch (example) {
         case 'button':
@@ -51,6 +52,8 @@ if (container) {
           return <DividerExamples />;
         case 'switch':
           return <SwitchExamples />;
+        case 'swiper':
+          return <SwiperExamples />;
         case 'link':
           return <LinkExamples />;
         case 'image':

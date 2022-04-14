@@ -5,6 +5,7 @@ export const globalStyles = {
     wordBreak: 'normal',
     mozTabSize: '4',
     tabSize: '4',
+    scrollBehavior: 'smooth',
   },
   '*, ::before, ::after': {
     backgroundRepeat: 'no-repeat',

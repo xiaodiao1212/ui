@@ -63,6 +63,7 @@ const Image = ({
   useLayoutEffect(() => {
     (ref.current as any).complete && setLoadingState('success');
   }, [ref.current]);
+
   const img = (
     <img
       ref={ref}

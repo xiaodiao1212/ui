@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
+
 import { Theme } from '../../styles/themes';
 import { Base, Margin, Position, Padding } from '../props';
-import { usePadding, usePosition, useMargin, useFunctionLikeValue } from '../../styles/css';
+import { usePadding, useMargin, useFunctionLikeValue } from '../../styles/css';
 import { css, useTheme } from '@emotion/react';
-import { memo } from 'react';
+
 type ContainerProps = Base &
   Margin &
   Position &
@@ -30,7 +31,7 @@ const Container = ({
     ...usePadding(props),
     ...useFunctionLikeValue(theme, background),
     ...useFunctionLikeValue(theme, color),
-    ...(co && useFunctionLikeValue(theme, co)),
+    ...useFunctionLikeValue(theme, co),
   });
 
   return (
