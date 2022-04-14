@@ -23,11 +23,8 @@ type DrawerProps = Base & {
  * The component is initially not visible on the screen,
  * but can be pulled in from the side of the window specified by
  * the position prop and its width can be set by the width prop.
- *
- * ```js
- *
+ * ```
  * const [drawerOpen, setDrawerOpen] = useState(false);
- *
  * <Drawer
  *     open={drawerOpen}
  *     position='bottom'
@@ -42,6 +39,7 @@ type DrawerProps = Base & {
  * ```
  *
  * @param mask weather the component has a mask.
+ * @returns <aside/>
  */
 const Drawer = ({
   width = '60vw',

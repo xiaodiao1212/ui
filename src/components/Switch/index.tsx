@@ -116,7 +116,7 @@ const Switch = memo(
       alignItems: 'center',
       cursor: 'pointer',
       // ensure the min-width contain the text
-      minWidth: !loading && trackMinWidth,
+      minWidth: loading ? trackHeight : trackMinWidth,
       width: loading && trackHeight,
       height: trackHeight,
       opacity: disabled ? 0.25 : 1,
@@ -196,7 +196,7 @@ const Switch = memo(
         left: on ? `calc(calc(100% - ${thumbStartPosition}) - ${thumbWidth})` : thumbStartPosition,
         background: theme ? theme.color.white : vars.color.white,
         ...useCenter(),
-        ...(thumbStyles && useFunctionLikeValue(theme, thumbStyles)),
+        ...useFunctionLikeValue(theme, thumbStyles),
       },
 
       '& .switch-track': {
@@ -210,10 +210,10 @@ const Switch = memo(
         borderRadius: radius || (theme ? theme.border.full : '999px'),
         paddingBottom: '100%',
         visibility: loading ? 'hidden' : 'visible',
-        ...(trackStyles && useFunctionLikeValue(theme, trackStyles)),
+        ...useFunctionLikeValue(theme, trackStyles),
       },
 
-      ...(co && useFunctionLikeValue(theme, co)),
+      ...useFunctionLikeValue(theme, co),
     });
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

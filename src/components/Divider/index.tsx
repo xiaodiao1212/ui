@@ -4,6 +4,9 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import { Base } from '../props';
+import { useMemo } from 'react';
+import vars from '../../styles/vars';
+import { useFunctionLikeValue } from '../../styles/css';
 
 type DividerProps = Base &
   Partial<{
@@ -11,6 +14,7 @@ type DividerProps = Base &
     vertical: boolean;
     color: string;
     dashed: boolean;
+    text: React.ReactNode;
   }>;
 
 /**
@@ -24,26 +28,45 @@ type DividerProps = Base &
  * main props:
  * @param size Thickness of dividing line.
  */
-const Divider = ({ size = 1, vertical = false, dashed = false, color, co, ...props }: DividerProps) => {
+const Divider = ({ text, size = 1, vertical = false, dashed = false, color, co, children, ...props }: DividerProps) => {
   const theme = useTheme() as Theme;
   // Use border properties in different positions to easily and concisely simulate dividing lines
+  const borderStyles = useMemo(
+    () =>
+      vertical
+        ? {
+            display: 'inline',
+            borderLeft: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
+              color || theme ? theme.color.greyLight : vars.color.greyLight
+            }`,
+          }
+        : {
+            borderTop: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
+              color || theme ? theme.color.greyLight : vars.color.greyLight
+            }`,
+          },
+    [size, dashed, color],
+  );
   const styles = css({
+    position: 'relative',
     border: 'none',
-    ...(vertical
-      ? {
-          display: 'inline',
-          borderLeft: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
-            color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
-          }`,
-        }
-      : {
-          borderTop: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
-            color || (theme.mode == 'light' ? theme.color.greyLight : theme.color.grey)
-          }`,
-        }),
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...borderStyles,
+    ...(children && {
+      '& > *': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+      },
+    }),
+    ...useFunctionLikeValue(theme, co),
   });
-  return <hr css={styles} {...props} />;
+  return (
+    <hr css={styles} {...props}>
+      {children}
+    </hr>
+  );
 };
 
 export default Divider;

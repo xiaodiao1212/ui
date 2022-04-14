@@ -2,46 +2,89 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-
-import * as React from 'react';
+import vars from '../../styles/vars';
+import { useMemo } from 'react';
 import { Base } from '../props';
+import { useFunctionLikeValue } from '../../styles/css';
 
 type LinkProps = Base & {
   indicatorColor?: string;
-  indicatorWidth?: string;
-  indicatorHeight?: string;
-  href?: string;
-  color?: string;
+  indicatorSize?: string;
+  indicatorAction?: 'always' | 'none' | 'hover';
+  textColor?: string;
+  blank?: boolean;
+  disabled?: boolean;
+  backTop?: boolean;
+  to?: string;
+  download?: string;
 };
 
+/**
+ * @description
+ * Links allow users to navigate to a different location. 
+ * 
+ * They can be presented inline inside a paragraph or as standalone text.
+ * @examples
+ * ```
+ * <Link href='#' indicatorAction='none' color='green'>
+      customr link
+   </Link>
+ * ```
+ * 
+ * @param indicatorColor link's underline color.
+ * @param textColor link's text color.
+ * @param indicatorAction link's underline triger way.
+ * @param indicatorSize link's underline coarseness.
+ * @param blank open url with new window.
+ * @param backTop click to return the top of page.
+ * @param download change open way to download & set file name by download value.
+ * @param to destination url.
+ * @returns <a> tag 
+ */
 const Link = ({
-  indicatorColor = '#fff',
-  indicatorWidth,
-  href,
-  color,
-  indicatorHeight,
+  disabled,
+  indicatorColor,
+  indicatorAction = 'always',
+  textColor,
+  blank = false,
+  to,
+  indicatorSize = '1px',
   co,
-  onClick,
+  backTop,
   children,
   ...props
-}: LinkProps & React.ComponentProps<'button'>) => {
+}: LinkProps) => {
   const theme = useTheme() as Theme;
+  const memoedIndicatorStyles = useMemo(
+    () =>
+      indicatorAction == 'always'
+        ? {
+            borderBottom: `${indicatorSize} solid 
+        ${indicatorColor || (theme ? theme.color.black : vars.color.black)}`,
+          }
+        : indicatorAction == 'hover'
+        ? {
+            ':hover': {
+              borderBottom: `${indicatorSize} solid 
+        ${indicatorColor || (theme ? theme.color.black : vars.color.black)}`,
+            },
+          }
+        : {},
+    [indicatorSize, indicatorColor, indicatorAction],
+  );
 
   const styles = css({
-    color,
-    borderBottomWidth: indicatorWidth,
-    borderBottom: `${indicatorHeight || '1px'} solid  ${indicatorColor || theme?.color?.primary || '#5568FE'}`,
-    ...(typeof co == 'function' ? co(theme) : co),
+    cursor: !disabled ? 'pointer' : 'initial',
+    color: textColor || (theme ? theme.color.black : vars.color.black),
+    ...memoedIndicatorStyles,
+    opacity: disabled ? 0.25 : 1,
+    ...useFunctionLikeValue(theme, co),
   });
 
-  const handleClickLink = (e: any) => {
-    onClick?.(e);
-    href && (location.href = href);
-  };
   return (
-    <button onClick={handleClickLink} css={styles} {...props}>
+    <a {...(!disabled && { target: blank ? '_blank' : '_self', href: backTop ? '#' : to })} css={styles} {...props}>
       {children}
-    </button>
+    </a>
   );
 };
 

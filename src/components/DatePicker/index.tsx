@@ -17,7 +17,6 @@ const DatePicker = ({
   max,
   children,
   co,
-
   ...props
 }: React.ComponentPropsWithoutRef<'label'> & DatePickerProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

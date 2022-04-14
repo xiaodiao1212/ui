@@ -24,9 +24,7 @@ const Example = ({ title, desc, children }: any) => {
         co={{
           borderRadius: '8px',
         }}>
-        <Row>
-          <Col>{children}</Col>
-        </Row>
+        {children}
       </Container>
     </Container>
   );

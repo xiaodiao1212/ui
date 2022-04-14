@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode, useLayoutEffect, useRef, ReactEventHandler, SyntheticEvent } from 'react';
 import { Base } from '../props';
 
 type ImageProps = Base & {
@@ -16,6 +16,8 @@ type ImageProps = Base & {
   width?: string;
   loadingImg?: ReactNode;
   errorImg?: ReactNode;
+  onError?: ReactEventHandler<HTMLImageElement>;
+  onLoad?: ReactEventHandler<HTMLImageElement>;
   height?: string;
 };
 const Image = ({
@@ -29,10 +31,13 @@ const Image = ({
   errorImg,
   backdropFilter,
   height,
+  onError,
+  onLoad,
   co,
   loadingImg,
   ...props
-}: React.ComponentPropsWithoutRef<'img'> & ImageProps) => {
+}: Omit<React.ComponentPropsWithoutRef<'img'>, 'onLoad' | 'onError'> & ImageProps) => {
+  const ref = useRef(null);
   const theme = useTheme() as Theme;
   const [loadingState, setLoadingState] = useState<'error' | 'success' | 'loading'>('loading');
   const styles = css({
@@ -47,16 +52,23 @@ const Image = ({
     ...(co && (typeof co == 'function' ? co(theme) : co)),
   });
 
-  const handleImgError = (e: any) => {
+  const handleImgLoadError = (e: SyntheticEvent<HTMLImageElement>) => {
     setLoadingState('error');
+    onError && onError(e);
   };
-  const handleImgLoad = (e: any) => {
-    setLoadingState('success');
+  const handleImgLoadFinish = (e: SyntheticEvent<HTMLImageElement>) => {
+    onLoad && onLoad(e);
   };
+
+  useLayoutEffect(() => {
+    (ref.current as any).complete && setLoadingState('success');
+  }, [ref.current]);
+
   const img = (
     <img
-      onError={handleImgError}
-      onLoad={handleImgLoad}
+      ref={ref}
+      onError={handleImgLoadError}
+      onLoad={handleImgLoadFinish}
       css={styles}
       loading={(lazy && 'lazy') || 'eager'}
       {...props}

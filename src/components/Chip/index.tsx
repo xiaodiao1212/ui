@@ -3,10 +3,13 @@
 import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
+import { lighten } from 'polished';
+import vars from '../../styles/vars';
 type ChipProps = Base & {
   outline?: boolean;
   color?: ((theme: Theme) => string) | string;
-  r?: number;
+  radius?: number;
+  hollow?: boolean;
 };
 
 /**
@@ -20,9 +23,10 @@ type ChipProps = Base & {
  * ```
  * @param outline (Optional) set style with outline
  * @param color (Optional) the css property `color`
- * @param r (Optional) the css property `borderRadius`
+ * @param hollow (Optional) weather the background hollow out
+ * @param radius (Optional) the css property `borderRadius` size
  */
-const Chip = ({ outline = false, r = 4, color, co, children, ...props }: ChipProps) => {
+const Chip = ({ outline = false, radius, color, co, children, ...props }: ChipProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = () =>
     (typeof color == 'function' ? color(theme) : color) ||
@@ -31,7 +35,7 @@ const Chip = ({ outline = false, r = 4, color, co, children, ...props }: ChipPro
   const styles = css({
     display: 'inline-flex',
     padding: '0.2em 0.6em',
-    borderRadius: r + 'px',
+    borderRadius: radius || (theme ? theme.border.full : vars.radius.full),
     ...(!outline
       ? {
           background: getComputedColor(),

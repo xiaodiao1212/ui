@@ -5,6 +5,7 @@ export const globalStyles = {
     wordBreak: 'normal',
     mozTabSize: '4',
     tabSize: '4',
+    scrollBehavior: 'smooth',
   },
   '*, ::before, ::after': {
     backgroundRepeat: 'no-repeat',
@@ -43,6 +44,8 @@ export const globalStyles = {
     textDecoration: 'underline dotted',
   },
   a: {
+    textDecoration: 'none',
+    color: 'black',
     backgroundColor: 'transparent',
   },
   'a:active, a:hover': {

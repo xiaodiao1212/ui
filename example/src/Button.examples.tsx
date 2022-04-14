@@ -16,7 +16,7 @@ const ButtonExamples = () => {
           </Col>
 
           <Col>
-            <Button outlined>outlined</Button>
+            <Button outline>outlined</Button>
           </Col>
         </Row>
       </Container>
@@ -37,7 +37,7 @@ const ButtonExamples = () => {
           </Col>
 
           <Col>
-            <Button disabled outlined>
+            <Button disabled outline>
               outlined
             </Button>
           </Col>
