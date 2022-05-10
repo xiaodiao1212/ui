@@ -26,9 +26,16 @@ const apis: APIs = [
     defaultValue: '-',
   },
 ];
-
+const step = 1;
+const min = 100;
+const max = 708.23;
+const l = [];
+for (let i = min; i < max; i += step) {
+  l.push(i);
+}
+l.push(max);
 const SwitchExamples = () => {
-  const [on, setOn] = useState(true);
+  const [v, setV] = useState(max + '');
   return (
     <Container pa='1em'>
       <Example
@@ -36,7 +43,18 @@ const SwitchExamples = () => {
         desc='Generate a switch element easily with beautiful animations and functionality'>
         <Row gap='1em'>
           <Col>
-            <Slider />
+            {v}
+
+            <Slider
+              trackSize={4}
+              thumbSize={30}
+              max={max}
+              min={min}
+              step={step}
+              value={v}
+              defaultValue={max}
+              onChange={v => ((v as unknown as number) * 1 + step > max ? setV(max + '') : setV(v))}
+            />
           </Col>
         </Row>
       </Example>

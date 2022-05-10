@@ -34,15 +34,16 @@ import SwitchExamples from './src/Switch.examples';
 import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
+import AppBarExamples from './src/AppBar.examples';
 const container = document.getElementById('root');
 
-type Components = 'swiper' | 'introduction' | 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
+type Components = 'appbar' | 'swiper' | 'introduction' | 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
 if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('swiper');
-    const content = () => {
+    const [example, setExample] = useState<Components>('appbar');
+    const renderContent = () => {
       switch (example) {
         case 'button':
           return <ButtonExamples />;
@@ -60,7 +61,8 @@ if (container) {
           return <LinkExamples />;
         case 'slider':
           return <SliderExamples />;
-
+        case 'appbar':
+          return <AppBarExamples />;
         default:
           return undefined;
       }
@@ -69,7 +71,7 @@ if (container) {
     return (
       <App>
         <Container fullHeight pa='1em' background='#F4F7F8'>
-          {content()}
+          {renderContent()}
         </Container>
       </App>
     );
