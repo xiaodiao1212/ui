@@ -2,7 +2,7 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { useState, ReactNode, CSSProperties } from 'react';
+import { useState, ReactNode, CSSProperties, useMemo } from 'react';
 import { useFunctionLikeValue } from '../../styles/css';
 import vars from '../../styles/vars';
 
@@ -11,8 +11,8 @@ type InputProps = {
   clearable?: boolean;
   flex?: number;
   gap?: string;
-  label?: string;
-  message?: string;
+  label?: ReactNode;
+  message?: ReactNode;
   closable?: boolean;
   loading?: boolean;
   borderRadius?: string;
@@ -74,11 +74,13 @@ const Input = ({
   const [showMessage, setShowMessage] = useState(false);
   const [focus, setFocus] = useState(false);
   const [innerValue, setInnerValue] = useState('');
-
+  const padding = useMemo(() => (theme ? theme.input.padding : vars.input.padding), []);
   const inputStyles = css({
     position: 'relative',
-    background: theme ? theme.color.grey : vars.color.grey,
-    padding: theme ? theme.input.padding : vars.input.padding,
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding,
+    '& > input': {},
     ...useFunctionLikeValue(theme, inputStyle),
   });
 
@@ -106,19 +108,16 @@ const Input = ({
     ...useFunctionLikeValue(theme, contentStyle),
   });
   const labelStyles = css({
-    padding: theme ? theme.input.padding : vars.input.padding,
-
     ...useFunctionLikeValue(theme, labelStyle),
   });
   const iconStyles = css({
-    padding: theme ? theme.input.padding : vars.input.padding,
-
+    padding,
     ...useFunctionLikeValue(theme, iconStyle),
   });
   const placeholderStyles = css({
     position: 'absolute',
     left: 0,
-    padding: theme ? theme.input.padding : vars.input.padding,
+    padding,
     transition: 'all .25s ease-out',
     userSelect: 'none',
     cursor: 'text',
@@ -127,12 +126,15 @@ const Input = ({
     ...useFunctionLikeValue(theme, placeholderStyle),
   });
   const extraStyles = css({
-    padding: theme ? theme.input.padding : vars.input.padding,
-
+    padding,
+    ...useFunctionLikeValue(theme, extraStyle),
+  });
+  const loadingStyles = css({
+    padding,
     ...useFunctionLikeValue(theme, extraStyle),
   });
   const messageStyles = css({
-    color: showMessage ? theme.color.red || 'red' : '',
+    color: showMessage ? (theme ? theme.color.red : vars.color.red) : '',
     ...useFunctionLikeValue(theme, messageStyle),
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,7 +166,7 @@ const Input = ({
       {label && <div css={labelStyles}>{label}</div>}
       <div css={contentStyles}>
         {icon && <div css={iconStyles}>{icon}</div>}
-        <div css={contentStyles}>
+        <div css={inputStyles}>
           <input
             onBlur={() => {
               innerValue.length == 0 && setFocus(false);
@@ -172,12 +174,13 @@ const Input = ({
             onFocus={() => setFocus(true)}
             value={value}
             type={number ? 'number' : 'text'}
-            css={inputStyles}
             onChange={handleInputChange}
           />
           {placeholder && <div css={placeholderStyles}>{placeholder}</div>}
         </div>
-        {extra && <div css={extraStyles}>{extra}</div>}
+        {loading && <div css={loadingStyles}></div>}
+
+        {!loading && extra && <div css={extraStyles}>{extra}</div>}
       </div>
 
       {showMessage && <div css={messageStyles}>{message}</div>}

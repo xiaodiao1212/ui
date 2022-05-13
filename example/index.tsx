@@ -109,7 +109,7 @@ if (container) {
               }}>
               <Container fullScreen>
                 {components.map(v => (
-                  <Button block text co={{ margin: '1em 0' }} onClick={() => setExample(v)}>
+                  <Button block text co={{ margin: '1em 0' }} onClick={() => setExample(v as any)}>
                     <Text size='1.3rem' blod color={t => t.color.primary}>
                       {v}
                     </Text>
