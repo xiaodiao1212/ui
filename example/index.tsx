@@ -35,18 +35,43 @@ import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
 import AppBarExamples from './src/AppBar.examples';
+import InputExamples from './src/Input.examples';
+import { useCustomTheme } from './build/styles/themes';
 const container = document.getElementById('root');
-
-type Components = 'appbar' | 'swiper' | 'introduction' | 'slider' | 'link' | 'switch' | 'button' | 'image' | 'divider';
+const components = [
+  'input',
+  'appbar',
+  'swiper',
+  'introduction',
+  'slider',
+  'link',
+  'switch',
+  'button',
+  'image',
+  'divider',
+];
+type Components =
+  | 'input'
+  | 'appbar'
+  | 'swiper'
+  | 'introduction'
+  | 'slider'
+  | 'link'
+  | 'switch'
+  | 'button'
+  | 'image'
+  | 'divider';
 if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('appbar');
+    const [example, setExample] = useState<Components>('input');
     const renderContent = () => {
       switch (example) {
         case 'button':
           return <ButtonExamples />;
+        case 'input':
+          return <InputExamples />;
         case 'introduction':
           return <Introduction />;
         case 'divider':
@@ -69,9 +94,33 @@ if (container) {
     };
 
     return (
-      <App>
-        <Container fullHeight pa='1em' background='#F4F7F8'>
-          {renderContent()}
+      <App
+        theme={{
+          color: {
+            primary: '#011B69',
+          },
+        }}>
+        <Container fullScreen pa='1em'>
+          <Row>
+            <Col
+              flex={1}
+              co={{
+                background: '#F4F7F8',
+              }}>
+              <Container fullScreen>
+                {components.map(v => (
+                  <Button block text co={{ margin: '1em 0' }} onClick={() => setExample(v)}>
+                    <Text size='1.3rem' blod color={t => t.color.primary}>
+                      {v}
+                    </Text>
+                  </Button>
+                ))}
+              </Container>
+            </Col>
+            <Col co={{ textAlign: 'left' }} flex={3}>
+              {renderContent()}
+            </Col>
+          </Row>
         </Container>
       </App>
     );

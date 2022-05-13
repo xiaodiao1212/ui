@@ -34,7 +34,6 @@ const LinkExamples = () => {
         </Left>
       </Example>
 
-      <h1 style={{ marginBottom: '1em' }}>Props</h1>
       <APITable apis={apis} />
     </Container>
   );

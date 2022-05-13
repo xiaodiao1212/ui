@@ -6,7 +6,7 @@ import { deepMerge } from '../../utils';
 
 type AppProps = {
   children?: React.ReactNode;
-  theme?: Theme;
+  theme?: object;
 };
 
 const App = ({ children, theme }: AppProps) => {

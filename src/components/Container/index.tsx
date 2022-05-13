@@ -10,14 +10,14 @@ type ContainerProps = Base &
   Position &
   Padding & {
     background?: ((theme: Theme) => string) | string;
-    color?: ((theme: Theme) => string) | string;
+
     fullHeight?: boolean;
     fullScreen?: boolean;
   };
 
 const Container = ({
   background,
-  color,
+
   fullHeight = false,
   fullScreen = false,
   co,
@@ -29,8 +29,8 @@ const Container = ({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     ...useMargin(props),
     ...usePadding(props),
-    ...useFunctionLikeValue(theme, background),
-    ...useFunctionLikeValue(theme, color),
+    background: useFunctionLikeValue(theme, background),
+
     ...useFunctionLikeValue(theme, co),
   });
 

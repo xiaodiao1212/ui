@@ -20,7 +20,6 @@ const Example = ({ title, desc, children }: any) => {
       </Row>
       <Container
         pa='1em'
-        background='white'
         co={{
           borderRadius: '8px',
         }}>

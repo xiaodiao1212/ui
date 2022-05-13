@@ -1,37 +1,43 @@
 /** @jsxImportSource @emotion/react */
-
-import * as React from 'react';
-import { Base } from '../props';
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-type DatePickerProps = Base &
-  Partial<{
-    onChange: (date: any) => any;
-    min: string;
-    max: string;
-  }>;
+import * as React from 'react';
+import { useState } from 'react';
+type DatePickerProps = Partial<{
+  onlyImg?: boolean;
+  className: string;
+  children: React.ReactNode;
+  placeholder: string;
+  formater: (date: string) => string;
+  onChange: (date: string, e: React.ChangeEvent<HTMLInputElement>) => any;
+  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
+}>;
 
 const DatePicker = ({
+  onlyImg,
+  accept,
   onChange,
-  min,
-  max,
+  formater,
   children,
+  placeholder,
   co,
   ...props
-}: React.ComponentPropsWithoutRef<'label'> & DatePickerProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e.target.value);
+}: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'placeholder'> & DatePickerProps) => {
+  const [value, setValue] = useState('');
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(formater ? formater(e.target.value) : e.target.value);
+    onChange?.(formater ? formater(e.target.value) : e.target.value, e);
   };
   const theme = useTheme() as Theme;
   const styles = css({
     cursor: ' pointer',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...(typeof co == 'function' ? co(theme) : co),
   });
 
   return (
-    <label css={styles} {...props}>
-      <input min={min} max={max} hidden={!!children} type='date' onChange={handleChange} />
-      {children || <span id='value'>n/a</span>}
+    <label css={styles} aria-label='file DatePicker input'>
+      <input type='datetime-local' hidden onChange={handleDateChange} {...props} />
+      {value || placeholder}
     </label>
   );
 };

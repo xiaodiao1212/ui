@@ -119,7 +119,7 @@ const LinkExamples = () => {
           <Link backTop>back top</Link>
         </Left>
       </Example>
-      <h1 style={{ marginBottom: '1em' }}>Props</h1>
+
       <APITable apis={apis} />
     </Container>
   );
