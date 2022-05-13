@@ -6,7 +6,7 @@ import { Base } from '../props';
 import { lighten } from 'polished';
 import vars from '../../styles/vars';
 type ChipProps = Base & {
-  outline?: boolean;
+  outlined?: boolean;
   color?: ((theme: Theme) => string) | string;
   radius?: number;
   hollow?: boolean;
@@ -21,12 +21,12 @@ type ChipProps = Base & {
  * ```js
  *
  * ```
- * @param outline (Optional) set style with outline
+ * @param outlined (Optional) set style with outlined
  * @param color (Optional) the css property `color`
  * @param hollow (Optional) weather the background hollow out
  * @param radius (Optional) the css property `borderRadius` size
  */
-const Chip = ({ outline = false, radius, color, co, children, ...props }: ChipProps) => {
+const Chip = ({ outlined = false, radius, color, co, children, ...props }: ChipProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = () =>
     (typeof color == 'function' ? color(theme) : color) ||
@@ -36,7 +36,7 @@ const Chip = ({ outline = false, radius, color, co, children, ...props }: ChipPr
     display: 'inline-flex',
     padding: '0.2em 0.6em',
     borderRadius: radius || (theme ? theme.border.full : vars.radius.full),
-    ...(!outline
+    ...(!outlined
       ? {
           background: getComputedColor(),
           color: theme.color.white,

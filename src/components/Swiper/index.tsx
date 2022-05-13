@@ -2,7 +2,7 @@
 
 import { css, useTheme } from '@emotion/react';
 
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { Theme } from '../../styles/themes';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
@@ -110,7 +110,7 @@ const Swiper = ({
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const swiper = ref.current as any;
     setBoundingInfos(swiper.getBoundingClientRect());
     swiper.swipeTo = swipeTo;

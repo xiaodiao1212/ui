@@ -1,8 +1,10 @@
 import { deepMerge } from '../utils';
 import vars from './vars';
+
 function useCustomTheme(customTheme: Theme) {
   return deepMerge(theme, customTheme) as Theme;
 }
+
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
@@ -24,6 +26,9 @@ type Theme = {
   shadow: {
     color: string;
   };
+  input: {
+    padding: string;
+  };
   system: Record<string, unknown>;
   color: {
     primary: string;
@@ -39,12 +44,14 @@ type Theme = {
     circularEdge: string;
   };
 };
+
 const theme: Theme = {
   mode: 'light',
   color: vars.color,
   border: {
     full: 999,
   },
+  input: { padding: '7px 13px 7px 10px' },
   zIndex: {
     appBar: 700,
     footer: 700,

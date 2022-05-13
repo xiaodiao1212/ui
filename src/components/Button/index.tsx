@@ -18,7 +18,7 @@ type ButtonProps = Base & {
   block?: boolean;
   disabled?: boolean;
   text?: boolean;
-  outline?: boolean;
+  outlined?: boolean;
   icon?: boolean;
   tile?: boolean;
   rounded?: boolean;
@@ -29,11 +29,16 @@ type ButtonProps = Base & {
 
 // 组件用解构赋值的方式接收props并提供一些初始设置
 
+/**
+ *
+ * @param param0
+ * @returns
+ */
 const Button = ({
   block = false,
   disabled = false,
   text = false,
-  outline = false,
+  outlined = false,
   rounded = false,
   radius,
   co,
@@ -66,14 +71,11 @@ const Button = ({
   const styles = css({
     padding: padding || (icon || text ? '' : padding),
     width: block ? '100%' : '',
-    border: outline ? '1px solid ' + computedColor : 'none',
+    border: outlined ? '1px solid ' + computedColor : 'none',
     borderRadius: computedRadius,
-    color: text || outline || icon ? computedColor : theme ? theme.color.white : vars.color.white,
-    background: text || outline || icon ? 'transparent' : computedColor,
-    '&:hover': {
-      transition: 'transform .25s ease',
-      transform: 'scale(0.9)',
-    },
+    color: text || outlined || icon ? computedColor : theme ? theme.color.white : vars.color.white,
+    background: text || outlined || icon ? 'transparent' : computedColor,
+
     ...useFunctionLikeValue(theme, co),
   });
 

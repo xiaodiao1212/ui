@@ -8,7 +8,15 @@ const copy = (text: string) => {
   }
   document.body.removeChild(transfer);
 };
-
+const debounce = (fn: Function, delay: number = 500): Function => {
+  let timer: any;
+  return function (this: any, ...args: any) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+};
 function isBrowerTabInView() {
   return !document.hidden;
 }
@@ -112,16 +120,6 @@ function deepMerge(target: any, source: any) {
   // Join `target` and modified `source`
   Object.assign(target || {}, source);
   return target;
-}
-
-function debounce(fn: () => any, delay = 500): () => any {
-  let timer: any;
-  return function (this: any, ...args: any) {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
-  };
 }
 
 function dec2hex(dec: { toString: (arg0: number) => string }) {

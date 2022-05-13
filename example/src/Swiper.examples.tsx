@@ -24,13 +24,8 @@ const SwiperExamples = () => {
       <Example
         title='Default'
         desc='The Link component allows you to easily customize anchor elements with your theme colors and indicator
-      styles.'>
-        <Left>
-          <Swiper items={[]}>no indicator</Swiper>
-        </Left>
-      </Example>
+      styles.'></Example>
 
-      <h1 style={{ marginBottom: '1em' }}>Props</h1>
       <APITable apis={apis} />
     </Container>
   );

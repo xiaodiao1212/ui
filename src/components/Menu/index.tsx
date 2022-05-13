@@ -22,10 +22,10 @@ type AppBarProps = Base & {
  * The top app bar provides content and actions related to the current screen.
  * It’s used for branding, screen titles, navigation, and actions.
  * ```
- * <AppBar
+ * <Menu
  *    title='Title'
  *    extra={<Menu onClick={()=>{}}/>}>
- * </AppBar>
+ * </Menu>
  * ```
  * @param left weather use the title left layout.
  * @param navIcon some operation icons like arrow,back,memu aligned on the left of the bar.
@@ -34,7 +34,7 @@ type AppBarProps = Base & {
  * @param color bar's background color.
  * @param gap the gap of the title,extra,navIcon
  */
-const AppBar = ({ left, navIcon, extra, title, color, co, gap, children, ...props }: AppBarProps) => {
+const Menu = ({ left, navIcon, extra, title, color, co, gap, children, ...props }: AppBarProps) => {
   const theme = useTheme() as Theme;
   const containerStyles = css({
     backgroundColor: color,
@@ -70,4 +70,4 @@ const AppBar = ({ left, navIcon, extra, title, color, co, gap, children, ...prop
   );
 };
 
-export default AppBar;
+export default Menu;

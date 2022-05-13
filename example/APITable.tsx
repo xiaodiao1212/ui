@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Col, Container, Row } from './build';
+import { Col, Container, Row, Text } from './build';
 export type APIs = {
   attributes: ReactNode;
   type: ReactNode;
@@ -15,6 +15,9 @@ const Td = ({ children }: any) => (
 export default ({ apis }: { apis: APIs }) => {
   return (
     <Container>
+      <Text blod size='2rem' primary>
+        Props
+      </Text>
       <Row
         py='1em'
         px='.5em'

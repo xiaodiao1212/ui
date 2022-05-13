@@ -15,6 +15,7 @@ type SliderProps = Base & {
   onChange?: (value: string) => void;
   max?: number;
   min?: number;
+  list?: number[];
   trackColor?: string;
   thumbColor?: string;
   trackSize?: number;
@@ -25,8 +26,9 @@ const Slider = ({
   max = 1,
   min = 0,
   step = 0.05,
+  list,
   value,
-  defaultValue = 0.3,
+  defaultValue,
   onChange,
   trackColor,
   thumbColor,
@@ -34,7 +36,6 @@ const Slider = ({
   thumbSize = 20,
   ...props
 }: SliderProps) => {
-  console.log('slider update');
   const theme = useTheme() as Theme;
 
   const handleOnChange = (e: { target: { value: string } }) => {
@@ -42,7 +43,8 @@ const Slider = ({
   };
 
   const thumbDefaultStyles = `
-  display:relative;
+  float:${(Number(value) - min) / (max - min) == 1 && 'right'};
+  position:relative;
     width: ${thumbSize}px;
     border-radius: 50%;
     box-shadow: 0px 0px 2px 0px ${theme.color.black};
@@ -55,8 +57,9 @@ const Slider = ({
   const trackDefaultStyles = `
     height: ${trackSize}px;
     background: linear-gradient(to right, ${theme.color.primary}, ${theme.color.primary}), ${theme.color.grey};
-    background-size: ${(Number(value) / max) * 100}%, 100%;
+    background-size: ${((Number(value) - min) / (max - min)) * 100}%, 100%;
     background-repeat: no-repeat;
+    
     border-radius: 16px;`;
 
   const sliderStyles = css`
@@ -105,9 +108,8 @@ const Slider = ({
         min={min}
         max={max}
         step={step}
-        // defaultValue={defaultValue}
-
-        value={value}
+        {...(defaultValue || { value: value })}
+        defaultValue={defaultValue}
         type='range'
         onChange={handleOnChange}
         {...props}

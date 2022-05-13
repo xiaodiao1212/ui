@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from '@emotion/react';
+import { useFunctionLikeValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
+import vars from '../../styles/vars';
 import { Base } from '../props';
 type TextProps = Base &
   Partial<{
@@ -10,6 +12,7 @@ type TextProps = Base &
     right: boolean;
     thin: boolean;
     blod: boolean;
+    primary: boolean;
     inline: boolean;
     color: ((theme: Theme) => string) | string;
     size: string;
@@ -28,6 +31,7 @@ const Text = ({
   right = false,
   thin = false,
   dark = false,
+  primary = false,
   maxLength,
   size,
   blod,
@@ -38,20 +42,22 @@ const Text = ({
 }: TextProps) => {
   const theme = useTheme() as Theme;
   const computedColor =
-    typeof color == 'function'
-      ? (color as (theme: Theme) => string)(theme)
-      : color ||
-        ((dark
-          ? theme
-            ? theme.color.white
-            : '#fff'
-          : theme
-          ? theme.mode == 'light'
-            ? theme.color.black
-            : theme.color.white
-          : '#111827') as string);
+    useFunctionLikeValue(theme, color) ||
+    (primary
+      ? theme
+        ? theme.color.primary
+        : vars.color.primary
+      : dark
+      ? theme
+        ? theme.color.white
+        : vars.color.white
+      : theme
+      ? theme.mode == 'light'
+        ? theme.color.black
+        : theme.color.white
+      : vars.color.white);
   const styles = css({
-    fontSize: size as string,
+    fontSize: size,
     fontWeight: blod ? 700 : thin ? 200 : 500,
     display: 'inline',
     alignItems: 'center',
@@ -61,7 +67,7 @@ const Text = ({
     whiteSpace: maxLength ? 'nowrap' : undefined,
     overflow: maxLength ? 'hidden' : undefined,
     color: computedColor,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, co),
   });
   return (
     <div css={styles} {...props}>

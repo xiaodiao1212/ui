@@ -2,15 +2,17 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { useState, ReactNode, CSSProperties } from 'react';
+import { useState, ReactNode, CSSProperties, useMemo } from 'react';
+import { useFunctionLikeValue } from '../../styles/css';
+import vars from '../../styles/vars';
 
 type InputProps = {
   number?: boolean;
   clearable?: boolean;
   flex?: number;
   gap?: string;
-  label?: string;
-  message?: string;
+  label?: ReactNode;
+  message?: ReactNode;
   closable?: boolean;
   loading?: boolean;
   borderRadius?: string;
@@ -21,11 +23,12 @@ type InputProps = {
   icon?: ReactNode;
   extra?: ReactNode;
   value?: any;
-  outline?: boolean;
+  outlined?: boolean;
   contain?: boolean;
   disabled?: boolean;
-  placeholder?: string;
+  placeholder?: ReactNode;
   className?: string;
+  placeholderStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   containerStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   contentStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   messageStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
@@ -51,7 +54,7 @@ const Input = ({
   contain = true,
   maxLength,
   number = false,
-  outline = false,
+  outlined = false,
   format,
   verify,
   disabled,
@@ -59,57 +62,86 @@ const Input = ({
   inputStyle,
   messageStyle,
   containerStyle,
+  placeholderStyle,
   contentStyle,
   labelStyle,
   iconStyle,
   extraStyle,
   ...props
 }: InputProps) => {
-  console.log('input update');
-
   const theme = useTheme() as Theme;
+
   const [showMessage, setShowMessage] = useState(false);
+  const [focus, setFocus] = useState(false);
+  const [innerValue, setInnerValue] = useState('');
+  const padding = useMemo(() => (theme ? theme.input.padding : vars.input.padding), []);
   const inputStyles = css({
-    width: '100%',
-    color: disabled ? theme?.color?.grey || '#6b7280' : theme?.color?.black || '#111827',
-    ...(typeof inputStyle == 'function' ? inputStyle(theme) : inputStyle),
+    position: 'relative',
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding,
+    '& > input': {},
+    ...useFunctionLikeValue(theme, inputStyle),
   });
+
   const containerStyles = css({
-    textAlign: 'left',
-    ...(typeof containerStyle == 'function' ? containerStyle?.(theme) : containerStyle),
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    ...useFunctionLikeValue(theme, containerStyle),
   });
 
   const contentStyles = css({
-    display: 'flex',
+    position: 'relative',
+    display: 'inline-flex',
     alignItems: 'center',
     backgroundColor: contain
-      ? theme?.color?.white || '#FEFEFE'
+      ? theme
+        ? theme.color.grey
+        : vars.color.grey
       : disabled
-      ? theme?.color?.white || '#FEFEFE'
+      ? theme
+        ? theme.color.grey
+        : vars.color.grey
       : 'transparent',
-    border: outline ? `1px solid ${theme?.color?.black || '#FEFEFE'}` : '',
-    ...(typeof contentStyle == 'function' ? contentStyle?.(theme) : contentStyle),
+    border: outlined ? `1px solid ${theme ? theme.color.black : vars.color.black}` : '',
+    ...useFunctionLikeValue(theme, contentStyle),
   });
   const labelStyles = css({
-    ...(typeof labelStyle == 'function' ? labelStyle?.(theme) : labelStyle),
+    ...useFunctionLikeValue(theme, labelStyle),
   });
   const iconStyles = css({
-    position: 'relative',
+    padding,
+    ...useFunctionLikeValue(theme, iconStyle),
+  });
+  const placeholderStyles = css({
+    position: 'absolute',
     left: 0,
-    top: '50%',
-    ...(typeof iconStyle == 'function' ? iconStyle?.(theme) : iconStyle),
+    padding,
+    transition: 'all .25s ease-out',
+    userSelect: 'none',
+    cursor: 'text',
+    pointerEvents: 'none',
+    opacity: focus ? 0 : 0.4,
+    ...useFunctionLikeValue(theme, placeholderStyle),
   });
   const extraStyles = css({
-    ...(typeof extraStyle == 'function' ? extraStyle?.(theme) : extraStyle),
+    padding,
+    ...useFunctionLikeValue(theme, extraStyle),
+  });
+  const loadingStyles = css({
+    padding,
+    ...useFunctionLikeValue(theme, extraStyle),
   });
   const messageStyles = css({
-    color: showMessage ? theme.color.red || 'red' : '',
-    ...(typeof messageStyle == 'function' ? messageStyle?.(theme) : messageStyle),
+    color: showMessage ? (theme ? theme.color.red : vars.color.red) : '',
+    ...useFunctionLikeValue(theme, messageStyle),
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = e;
+
     if (verify && !verify(value, e)) {
       setShowMessage(true);
     } else {
@@ -125,23 +157,32 @@ const Input = ({
       : format?.(value, e) || value;
 
     if (maxLength) r = r.slice(0, maxLength);
+    setInnerValue(r);
     onChange?.(r, e);
   };
 
   return (
-    <div css={containerStyles} {...props}>
+    <div css={containerStyles}>
       {label && <div css={labelStyles}>{label}</div>}
       <div css={contentStyles}>
         {icon && <div css={iconStyles}>{icon}</div>}
-        <input
-          value={value}
-          type={number ? 'number' : 'text'}
-          css={inputStyles}
-          placeholder={placeholder}
-          onChange={handleInputChange}
-        />
-        {extra && <div css={extraStyles}>{extra}</div>}
+        <div css={inputStyles}>
+          <input
+            onBlur={() => {
+              innerValue.length == 0 && setFocus(false);
+            }}
+            onFocus={() => setFocus(true)}
+            value={value}
+            type={number ? 'number' : 'text'}
+            onChange={handleInputChange}
+          />
+          {placeholder && <div css={placeholderStyles}>{placeholder}</div>}
+        </div>
+        {loading && <div css={loadingStyles}></div>}
+
+        {!loading && extra && <div css={extraStyles}>{extra}</div>}
       </div>
+
       {showMessage && <div css={messageStyles}>{message}</div>}
     </div>
   );
