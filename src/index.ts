@@ -44,6 +44,7 @@ import Collapse from './components/Collapse';
 import Navigation from './components/Navigation';
 import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
+import Spacer from './components/Spacer';
 import Switch from './components/Switch';
 import Tabs from './components/Tabs';
 import Toast from './components/Toast';
@@ -74,6 +75,7 @@ export {
   Chip,
   ScrollView,
   CountDown,
+  Spacer,
   Container,
   Radio,
   CheckBox,

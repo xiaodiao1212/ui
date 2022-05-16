@@ -20,8 +20,8 @@ type InputProps = {
   verify?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => boolean;
   format?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => string;
   onChange?: (value: string, e: React.ChangeEvent<HTMLInputElement>) => any;
-  icon?: ReactNode;
-  extra?: ReactNode;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
   value?: any;
   outlined?: boolean;
   contain?: boolean;
@@ -34,8 +34,8 @@ type InputProps = {
   messageStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   labelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
   inputStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  iconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  extraStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
+  prefixStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
+  suffixStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
 };
 
 /**
@@ -43,15 +43,15 @@ type InputProps = {
  * if has prefix or suffix, the property flex is required.
  */
 const Input = ({
-  icon,
-  extra,
+  prefix,
+  suffix,
   label,
   message,
   closable,
   loading,
   value,
   placeholder,
-  contain = true,
+  contain,
   maxLength,
   number = false,
   outlined = false,
@@ -65,8 +65,8 @@ const Input = ({
   placeholderStyle,
   contentStyle,
   labelStyle,
-  iconStyle,
-  extraStyle,
+  prefixStyle,
+  suffixStyle,
   ...props
 }: InputProps) => {
   const theme = useTheme() as Theme;
@@ -110,9 +110,9 @@ const Input = ({
   const labelStyles = css({
     ...useFunctionLikeValue(theme, labelStyle),
   });
-  const iconStyles = css({
+  const prefixStyles = css({
     padding,
-    ...useFunctionLikeValue(theme, iconStyle),
+    ...useFunctionLikeValue(theme, prefixStyle),
   });
   const placeholderStyles = css({
     position: 'absolute',
@@ -125,13 +125,13 @@ const Input = ({
     opacity: focus ? 0 : 0.4,
     ...useFunctionLikeValue(theme, placeholderStyle),
   });
-  const extraStyles = css({
+  const suffixStyles = css({
     padding,
-    ...useFunctionLikeValue(theme, extraStyle),
+    ...useFunctionLikeValue(theme, suffixStyle),
   });
   const loadingStyles = css({
     padding,
-    ...useFunctionLikeValue(theme, extraStyle),
+    ...useFunctionLikeValue(theme, suffixStyle),
   });
   const messageStyles = css({
     color: showMessage ? (theme ? theme.color.red : vars.color.red) : '',
@@ -165,7 +165,7 @@ const Input = ({
     <div css={containerStyles}>
       {label && <div css={labelStyles}>{label}</div>}
       <div css={contentStyles}>
-        {icon && <div css={iconStyles}>{icon}</div>}
+        {prefix && <div css={prefixStyles}>{prefix}</div>}
         <div css={inputStyles}>
           <input
             onBlur={() => {
@@ -179,10 +179,8 @@ const Input = ({
           {placeholder && <div css={placeholderStyles}>{placeholder}</div>}
         </div>
         {loading && <div css={loadingStyles}></div>}
-
-        {!loading && extra && <div css={extraStyles}>{extra}</div>}
+        {!loading && suffix && <div css={suffixStyles}>{suffix}</div>}
       </div>
-
       {showMessage && <div css={messageStyles}>{message}</div>}
     </div>
   );

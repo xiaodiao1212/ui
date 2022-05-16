@@ -39,10 +39,10 @@ import InputExamples from './src/Input.examples';
 import { useCustomTheme } from './build/styles/themes';
 const container = document.getElementById('root');
 const components = [
+  'introduction',
   'input',
   'appbar',
   'swiper',
-  'introduction',
   'slider',
   'link',
   'switch',
@@ -104,6 +104,7 @@ if (container) {
           <Row>
             <Col
               flex={1}
+              alignSelf='normal'
               co={{
                 background: '#F4F7F8',
               }}>

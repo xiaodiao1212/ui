@@ -38,33 +38,53 @@ const AppBarExamples = () => {
       <Example title='Default' desc=''>
         <Input placeholder='name' />
       </Example>
-      <Example title='Contain & Outlined' desc=''>
-        <Input contain={false} />
-        <div></div>
-        <Input contain={false} outlined />
+      <Example title='Contain' desc=''>
+        <Input
+          contain
+          placeholder='name'
+          contentStyle={{
+            background: 'red',
+          }}
+        />
+        <div
+          style={{
+            margin: '1em 0',
+          }}></div>
+        <Input contain placeholder='name' />
       </Example>
-      <Example title='Default' desc=''>
-        <Input placeholder='name' />
+      <Example title='Outlined' desc=''>
+        <Input
+          outlined
+          placeholder='name'
+          contentStyle={{
+            border: '1px solid red',
+          }}
+        />
+        <div
+          style={{
+            margin: '1em 0',
+          }}></div>
+        <Input outlined placeholder='name' />
       </Example>
+
       <Example title='Label' desc='Add a label to the input with the property label'>
-        <Input label='@Label' placeholder='name' />
+        <Input label='UserName:' placeholder='name' contain />
       </Example>
-      <Example title='icon & extra' desc='Add an icon to the input before or after'>
-        <Input icon='@icon' placeholder='name' />
+
+      <Example title='prefix & suffix' desc='Add an icon to the input before or after'>
+        <Input contain prefix='+233' placeholder='phone' />
         <div></div>
-        <Input contain={false} extra='@icon' placeholder='name' />
+        <Input contain suffix={<i className='bx bx-show'></i>} placeholder='password' />
       </Example>
-      <Example title='message & verify' desc='Add an icon to the input before or after'>
+      <Example title='message & verify' desc=''>
+        {'输入>10触发警告'}
         <Input verify={v => v.length < 10} message='length must < 10!' placeholder='name' />
         <div></div>
-        <Input verify={v => v.length < 10} message={<Text blod>{`length must < 10!`}</Text>} placeholder='name' />
-        <div></div>
+        {'输入<10触发警告'}
+        <Input verify={v => v.length > 10} message={<Text blod>{`length must > 10!`}</Text>} placeholder='name' />
       </Example>
       <Example title='loading' desc='Add an icon to the input before or after'>
         <Input placeholder='name' loading />
-        <div></div>
-        <Input contain={false} placeholder='name' />
-        <div></div>
       </Example>
       <APITable apis={apis} />
     </Container>

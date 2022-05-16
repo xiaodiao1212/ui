@@ -8,7 +8,14 @@ const copy = (text: string) => {
   }
   document.body.removeChild(transfer);
 };
-const debounce = (fn: Function, delay: number = 500): Function => {
+function addCSSLink(url: string) {
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = url;
+  document.getElementsByTagName('head')[0].appendChild(link);
+}
+function debounce(fn: Function, delay: number = 500) {
   let timer: any;
   return function (this: any, ...args: any) {
     if (timer) clearTimeout(timer);
@@ -16,7 +23,7 @@ const debounce = (fn: Function, delay: number = 500): Function => {
       fn.apply(this, args);
     }, delay);
   };
-};
+}
 function isBrowerTabInView() {
   return !document.hidden;
 }
@@ -136,6 +143,7 @@ export {
   isBrowerDarkMode,
   isObject,
   debounce,
+  addCSSLink,
   randomString,
   utf8ToB64,
   b64ToUtf8,
