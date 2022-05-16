@@ -36,7 +36,6 @@ import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
 import AppBarExamples from './src/AppBar.examples';
 import InputExamples from './src/Input.examples';
-import { useCustomTheme } from './build/styles/themes';
 const container = document.getElementById('root');
 const components = [
   'introduction',

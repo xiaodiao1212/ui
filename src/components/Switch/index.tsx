@@ -86,8 +86,8 @@ const Switch = memo(
 
     const getTrackColorOff = useCallback(() => {
       return theme
-        ? useFunctionLikeValue(theme, trackColorOff) || theme.color.grey
-        : useFunctionLikeValue(theme, trackColorOff) || vars.color.grey;
+        ? useFunctionLikeValue(theme, trackColorOff) || theme.color.greyLight
+        : useFunctionLikeValue(theme, trackColorOff) || vars.color.greyLight;
     }, [trackColorOff]);
 
     const loadingStyles = useMemo(

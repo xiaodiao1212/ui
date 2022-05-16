@@ -5,8 +5,8 @@ const vars = {
   color: {
     primary: '#5568FE',
     secondary: '#FB7173',
-    black: '#232149',
-    grey: '#F3F4F6',
+    black: '#1a1a1a',
+    grey: '#7d7d7d',
     red: '#e32b3a',
     accent: '#56538D',
     greyLight: '#F3F4F6',

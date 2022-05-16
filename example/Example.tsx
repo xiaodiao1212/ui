@@ -13,9 +13,10 @@ const Example = ({ title, desc, children }: any) => {
         {title}
       </Row>
       <Row
-        co={{
+        co={t => ({
+          color: t.color.grey,
           margin: '.5rem 0',
-        }}>
+        })}>
         {desc}
       </Row>
       <Container

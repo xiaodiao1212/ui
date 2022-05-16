@@ -45,7 +45,7 @@ const NoticeBar = ({
   const styles = css({
     display: 'flex',
     alignItems: 'center',
-    background: theme.mode == 'light' ? theme.color.accent : theme.color.grey,
+    background: theme.mode == 'light' ? theme.color.accent : theme.color.greyLight,
     color: theme.mode == 'light' ? theme.color.primary : theme.color.greyLight,
     padding: '.5em',
     ...(co && (typeof co == 'function' ? co(theme) : co)),

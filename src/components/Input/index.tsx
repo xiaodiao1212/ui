@@ -2,12 +2,12 @@
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { useState, ReactNode, CSSProperties, useMemo } from 'react';
+import { useState, ReactNode, CSSProperties, useMemo, ComponentPropsWithoutRef, useEffect } from 'react';
 import { useFunctionLikeValue } from '../../styles/css';
 import vars from '../../styles/vars';
 
 type InputProps = {
-  number?: boolean;
+  type?: 'number' | 'text' | 'password' | 'tel' | 'email' | 'url';
   clearable?: boolean;
   flex?: number;
   gap?: string;
@@ -26,6 +26,7 @@ type InputProps = {
   outlined?: boolean;
   contain?: boolean;
   disabled?: boolean;
+  zeroStart?: boolean;
   placeholder?: ReactNode;
   className?: string;
   placeholderStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
@@ -43,6 +44,7 @@ type InputProps = {
  * if has prefix or suffix, the property flex is required.
  */
 const Input = ({
+  type,
   prefix,
   suffix,
   label,
@@ -53,8 +55,8 @@ const Input = ({
   placeholder,
   contain,
   maxLength,
-  number = false,
   outlined = false,
+  zeroStart = false,
   format,
   verify,
   disabled,
@@ -67,10 +69,9 @@ const Input = ({
   labelStyle,
   prefixStyle,
   suffixStyle,
-  ...props
 }: InputProps) => {
   const theme = useTheme() as Theme;
-
+  const [showClose, setShowClose] = useState(closable);
   const [showMessage, setShowMessage] = useState(false);
   const [focus, setFocus] = useState(false);
   const [innerValue, setInnerValue] = useState('');
@@ -95,15 +96,7 @@ const Input = ({
     position: 'relative',
     display: 'inline-flex',
     alignItems: 'center',
-    backgroundColor: contain
-      ? theme
-        ? theme.color.grey
-        : vars.color.grey
-      : disabled
-      ? theme
-        ? theme.color.grey
-        : vars.color.grey
-      : 'transparent',
+    backgroundColor: contain ? (theme ? theme.color.greyLight : vars.color.greyLight) : 'transparent',
     border: outlined ? `1px solid ${theme ? theme.color.black : vars.color.black}` : '',
     ...useFunctionLikeValue(theme, contentStyle),
   });
@@ -129,10 +122,6 @@ const Input = ({
     padding,
     ...useFunctionLikeValue(theme, suffixStyle),
   });
-  const loadingStyles = css({
-    padding,
-    ...useFunctionLikeValue(theme, suffixStyle),
-  });
   const messageStyles = css({
     color: showMessage ? (theme ? theme.color.red : vars.color.red) : '',
     ...useFunctionLikeValue(theme, messageStyle),
@@ -148,18 +137,29 @@ const Input = ({
       setShowMessage(false);
     }
 
-    let r = number
-      ? value.length > 1
-        ? value[0] == '0'
-          ? value.substring(1)
+    let r =
+      type == 'number'
+        ? value.length > 1
+          ? zeroStart
+            ? value
+            : value[0] == '0'
+            ? value.substring(1)
+            : value
           : value
-        : value
-      : format?.(value, e) || value;
+        : format?.(value, e) || value;
 
     if (maxLength) r = r.slice(0, maxLength);
     setInnerValue(r);
     onChange?.(r, e);
   };
+
+  useEffect(() => {
+    if (innerValue == '' && !!showClose) {
+      setShowClose(false);
+    } else if (closable) {
+      setShowClose(true);
+    }
+  }, [innerValue]);
 
   return (
     <div css={containerStyles}>
@@ -172,14 +172,22 @@ const Input = ({
               innerValue.length == 0 && setFocus(false);
             }}
             onFocus={() => setFocus(true)}
-            value={value}
-            type={number ? 'number' : 'text'}
+            value={value || innerValue}
+            type={type}
             onChange={handleInputChange}
           />
           {placeholder && <div css={placeholderStyles}>{placeholder}</div>}
         </div>
-        {loading && <div css={loadingStyles}></div>}
-        {!loading && suffix && <div css={suffixStyles}>{suffix}</div>}
+
+        {(suffix || showClose) && (
+          <div
+            css={suffixStyles}
+            onClick={() => {
+              showClose && handleInputChange({ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>);
+            }}>
+            {showClose ? 'x' : suffix}
+          </div>
+        )}
       </div>
       {showMessage && <div css={messageStyles}>{message}</div>}
     </div>

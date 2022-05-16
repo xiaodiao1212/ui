@@ -56,7 +56,7 @@ const Slider = ({
 
   const trackDefaultStyles = `
     height: ${trackSize}px;
-    background: linear-gradient(to right, ${theme.color.primary}, ${theme.color.primary}), ${theme.color.grey};
+    background: linear-gradient(to right, ${theme.color.primary}, ${theme.color.primary}), ${theme.color.greyLight};
     background-size: ${((Number(value) - min) / (max - min)) * 100}%, 100%;
     background-repeat: no-repeat;
     
