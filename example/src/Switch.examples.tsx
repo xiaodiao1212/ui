@@ -8,21 +8,77 @@ const apis: APIs = [
     attributes: 'on',
     type: 'boolean',
     acceptedValues: 'true/false',
-    description: 'turn on or not',
+    description: '是否处于打开状态',
     defaultValue: 'false',
+  },
+  {
+    attributes: 'trackColorOff',
+    type: '((theme: Theme) => string) | string',
+    acceptedValues: '-',
+    description: '关闭状态的轨道颜色',
+    defaultValue: '-',
+  },
+  {
+    attributes: 'radius',
+    type: 'string',
+    acceptedValues: '-',
+    description: '边框弯曲度',
+    defaultValue: '-',
+  },
+  {
+    attributes: 'textOn',
+    type: 'string',
+    acceptedValues: '-',
+    description: '打开时显示的文字',
+    defaultValue: '-',
+  },
+  {
+    attributes: 'textOff',
+    type: 'string',
+    acceptedValues: '-',
+    description: '关闭时显示的文字',
+    defaultValue: '-',
+  },
+  {
+    attributes: 'trackColorOn',
+    type: '((theme: Theme) => string) | string',
+    acceptedValues: '-',
+    description: '关闭状态的轨道颜色',
+    defaultValue: '-',
   },
   {
     attributes: 'disabled',
     type: 'boolean',
     acceptedValues: 'true/false',
-    description: 'Disable switch',
+    description: '是否禁用',
+    defaultValue: 'false',
+  },
+  {
+    attributes: 'loading',
+    type: 'boolean',
+    acceptedValues: 'true/false',
+    description: '是否处于加载状态',
     defaultValue: 'false',
   },
   {
     attributes: 'onChange',
     type: '(e:SwitchEvent) => void',
     acceptedValues: '-',
-    description: 'The callback invoked when the on state of the switch changes',
+    description: '-',
+    defaultValue: '-',
+  },
+  {
+    attributes: 'thumbStyles',
+    type: '((theme: Theme) => React.CSSProperties) | React.CSSProperties',
+    acceptedValues: '-',
+    description: '按钮自定义样式',
+    defaultValue: '-',
+  },
+  {
+    attributes: 'trackStyles',
+    type: '((theme: Theme) => React.CSSProperties) | React.CSSProperties',
+    acceptedValues: '-',
+    description: '轨道自定义样式',
     defaultValue: '-',
   },
 ];
@@ -30,13 +86,12 @@ const apis: APIs = [
 const SwitchExamples = () => {
   const [on, setOn] = useState(true);
   const [on2, setOn2] = useState(true);
-  const [on3, setOn3] = useState(false);
-  const [on4, setOn4] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [on4, setOn4] = useState(true);
+  const [loading, setLoading] = useState(true);
   return (
     <Container pa='1em'>
       <Example
-        title='Default or Disabled'
+        title='Default & Disabled'
         desc='Generate a switch element easily with beautiful animations and functionality'>
         <Row gap='1em'>
           <Col>
@@ -45,11 +100,9 @@ const SwitchExamples = () => {
           <Col>
             <Switch disabled on={on2} onChange={() => setOn2(v => !v)} />
           </Col>
-          <Col>
-            <Switch disabled on={on3} onChange={() => setOn3(v => !v)} />
-          </Col>
         </Row>
       </Example>
+
       <Example
         title='Color'
         desc='Change the color of the component when it is in active state, the allowed values ​​are (main colors of vuesax,
@@ -105,6 +158,8 @@ const SwitchExamples = () => {
           <Col>
             <Switch
               on={on4}
+              textOn='loading'
+              textOff='not loading'
               onChange={() => {
                 setLoading(v => !v);
                 setOn4(v => !v);

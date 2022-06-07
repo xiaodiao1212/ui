@@ -20,6 +20,7 @@ export default ({ apis }: { apis: APIs }) => {
       </Text>
       <Row
         py='1em'
+        pt='2em'
         px='.5em'
         co={{
           background: '#f4f7f8',
