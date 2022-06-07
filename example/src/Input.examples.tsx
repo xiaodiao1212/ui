@@ -1,5 +1,5 @@
 import APITable, { APIs } from '../APITable';
-import { Input, Container, Text } from '../build';
+import { Input, Container, Text, Spacer } from '../build';
 import Left from '../Left';
 import Example from '../Example';
 const apis: APIs = [
@@ -35,37 +35,66 @@ const apis: APIs = [
 const AppBarExamples = () => {
   return (
     <Container pa='1em'>
-      <Example title='Default' desc=''>
+      <Example title='Default' desc='默认的input框，伴随着placeholder'>
         <Input placeholder='name' />
       </Example>
-      <Example title='Contain & Outlined' desc=''>
-        <Input contain={false} />
-        <div></div>
-        <Input contain={false} outlined />
+      <Example title='Contain' desc='包裹背景的样式'>
+        <Input
+          contain
+          placeholder='name'
+          contentStyle={{
+            background: 'red',
+          }}
+        />
+        <Spacer vertical />
+        <Input contain placeholder='name' />
       </Example>
-      <Example title='Default' desc=''>
-        <Input placeholder='name' />
+      <Example title='Outlined' desc='有边框的样式'>
+        <Input
+          outlined
+          placeholder='name'
+          contentStyle={{
+            border: '1px solid red',
+          }}
+        />
+        <Spacer vertical />
+        <Input outlined placeholder='name' />
       </Example>
-      <Example title='Label' desc='Add a label to the input with the property label'>
-        <Input label='@Label' placeholder='name' />
+
+      <Example title='Label' desc='一个显示在input上方的组件'>
+        <Input label='UserName:' placeholder='name' contain />
       </Example>
-      <Example title='icon & extra' desc='Add an icon to the input before or after'>
-        <Input icon='@icon' placeholder='name' />
-        <div></div>
-        <Input contain={false} extra='@icon' placeholder='name' />
+
+      <Example title='prefix & suffix' desc='input框前后缀组件'>
+        <Input contain prefix='+233' placeholder='phone' />
+        <Spacer vertical />
+        <Input contain suffix={<i className='bx bx-show'></i>} placeholder='password' />
       </Example>
-      <Example title='message & verify' desc='Add an icon to the input before or after'>
-        <Input verify={v => v.length < 10} message='length must < 10!' placeholder='name' />
-        <div></div>
-        <Input verify={v => v.length < 10} message={<Text blod>{`length must < 10!`}</Text>} placeholder='name' />
-        <div></div>
+      <Example title='message & verify' desc='verify设置value校验规则,触发校验后显示message'>
+        <Input
+          label={'输入大于10个字符触发警告：'}
+          verify={v => v.length <= 10}
+          message='输入数量必须小于等于10个字符!'
+          placeholder='name'
+        />
+        <Spacer vertical />
+
+        <Input
+          label={'自定义警告样式'}
+          verify={v => v.length <= 10}
+          message={
+            <Text blod color='red'>
+              输入数量必须小于等于10个字符!
+            </Text>
+          }
+          placeholder='name'
+        />
       </Example>
-      <Example title='loading' desc='Add an icon to the input before or after'>
-        <Input placeholder='name' loading />
-        <div></div>
-        <Input contain={false} placeholder='name' />
-        <div></div>
+
+      <Example title='Closeable' desc='是否可以一键清除(此时suffix会失效)'>
+        <Input contain placeholder='name' closable />
       </Example>
+
       <APITable apis={apis} />
     </Container>
   );

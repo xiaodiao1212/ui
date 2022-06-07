@@ -1,10 +1,6 @@
 import { deepMerge } from '../utils';
 import vars from './vars';
 
-function useCustomTheme(customTheme: Theme) {
-  return deepMerge(theme, customTheme) as Theme;
-}
-
 type Theme = {
   mode: 'dark' | 'light';
   appBar: {
@@ -73,4 +69,4 @@ const theme: Theme = {
     height: '3em',
   },
 };
-export { theme, Theme, useCustomTheme };
+export { theme, Theme };

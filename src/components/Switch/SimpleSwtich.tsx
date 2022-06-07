@@ -29,7 +29,8 @@ const Switch = ({ on = false, onChange, color, radius, co, width = 2.8, height =
     background:
       typeof color == 'function'
         ? color(theme)
-        : color || (theme ? (on ? theme.color.primary : theme.color.grey) : on ? vars.color.primary : vars.color.grey),
+        : color ||
+          (theme ? (on ? theme.color.primary : theme.color.greyLight) : on ? vars.color.primary : vars.color.greyLight),
     borderRadius: radius || (theme ? theme.border.full : '999px'),
     position: 'relative',
     transition: `background ${vars.transition.time}`,

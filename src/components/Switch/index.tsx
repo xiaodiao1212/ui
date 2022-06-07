@@ -14,7 +14,6 @@ type SwitchProps = Base & {
   on?: boolean;
   trackColorOff?: ((theme: Theme) => string) | string;
   trackColorOn?: ((theme: Theme) => string) | string;
-  height?: string;
   trackMinWidth?: string;
   trackHeight?: string;
   thumbWidth?: string;
@@ -86,8 +85,8 @@ const Switch = memo(
 
     const getTrackColorOff = useCallback(() => {
       return theme
-        ? useFunctionLikeValue(theme, trackColorOff) || theme.color.grey
-        : useFunctionLikeValue(theme, trackColorOff) || vars.color.grey;
+        ? useFunctionLikeValue(theme, trackColorOff) || theme.color.greyLight
+        : useFunctionLikeValue(theme, trackColorOff) || vars.color.greyLight;
     }, [trackColorOff]);
 
     const loadingStyles = useMemo(
@@ -119,7 +118,7 @@ const Switch = memo(
       minWidth: loading ? trackHeight : trackMinWidth,
       width: loading && trackHeight,
       height: trackHeight,
-      opacity: disabled ? 0.25 : 1,
+      opacity: disabled ? 0.1 : 1,
       background: getTrackColorOff(),
       borderRadius: radius || (theme ? theme.border.full : vars.radius.full),
       position: 'relative',
@@ -165,7 +164,7 @@ const Switch = memo(
 
       '& > .switch-text': {
         position: 'relative',
-        fontSize: '.7em',
+
         padding: '5px 5px 5px 25px',
         color: on ? (theme ? theme.color.white : vars.color.white) : theme ? theme.color.black : vars.color.black,
         ...useCenter(),

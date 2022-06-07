@@ -17,7 +17,7 @@ type ColProps = Base & {
 const Col = ({
   children,
   noFlex,
-  flex = 'auto',
+  flex = 'none',
   autoMargin,
   co,
   alignSelf = 'center',

@@ -1,32 +1,6 @@
 import { StrictMode, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  Drawer,
-  Swiper,
-  App,
-  Center,
-  Input,
-  Button,
-  Col,
-  AppBar,
-  Container,
-  Row,
-  Switch,
-  List,
-  Text,
-  Segment,
-  Chip,
-  Badge,
-  Card,
-  Divider,
-  Upload,
-  Textarea,
-  Toast,
-  Slider,
-  Navigation,
-  Overlay,
-  Image,
-} from './build';
+import { App, Button, Col, Container, Row, Text } from './build';
 import Introduction from './src/Introduction';
 import SliderExamples from './src/Slider.examples';
 import ButtonExamples from './src/Button.examples';
@@ -36,13 +10,13 @@ import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
 import AppBarExamples from './src/AppBar.examples';
 import InputExamples from './src/Input.examples';
-import { useCustomTheme } from './build/styles/themes';
 const container = document.getElementById('root');
 const components = [
+  '介绍',
+  '快速入门',
   'input',
   'appbar',
   'swiper',
-  'introduction',
   'slider',
   'link',
   'switch',
@@ -54,7 +28,8 @@ type Components =
   | 'input'
   | 'appbar'
   | 'swiper'
-  | 'introduction'
+  | '介绍'
+  | '快速入门'
   | 'slider'
   | 'link'
   | 'switch'
@@ -65,14 +40,14 @@ if (container) {
   const root = createRoot(container);
 
   const Main = () => {
-    const [example, setExample] = useState<Components>('input');
+    const [example, setExample] = useState<Components>('switch');
     const renderContent = () => {
       switch (example) {
         case 'button':
           return <ButtonExamples />;
         case 'input':
           return <InputExamples />;
-        case 'introduction':
+        case '介绍':
           return <Introduction />;
         case 'divider':
           return <DividerExamples />;
@@ -100,25 +75,29 @@ if (container) {
             primary: '#011B69',
           },
         }}>
-        <Container fullScreen pa='1em'>
+        <Container fullScreen>
           <Row>
             <Col
               flex={1}
+              alignSelf='normal'
               co={{
                 background: '#F4F7F8',
+                height: '100%',
+                textAlign: 'left',
+                overflow: 'auto',
               }}>
               <Container fullScreen>
                 {components.map(v => (
                   <Button block text co={{ margin: '1em 0' }} onClick={() => setExample(v as any)}>
-                    <Text size='1.3rem' blod color={t => t.color.primary}>
+                    <Text size='1.2rem' blod color={t => t.color.primary}>
                       {v}
                     </Text>
                   </Button>
                 ))}
               </Container>
             </Col>
-            <Col co={{ textAlign: 'left' }} flex={3}>
-              {renderContent()}
+            <Col co={{ height: '100%', textAlign: 'left', overflow: 'auto' }} flex={3}>
+              <Container fullScreen>{renderContent()} </Container>
             </Col>
           </Row>
         </Container>

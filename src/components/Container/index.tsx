@@ -15,15 +15,7 @@ type ContainerProps = Base &
     fullScreen?: boolean;
   };
 
-const Container = ({
-  background,
-
-  fullHeight = false,
-  fullScreen = false,
-  co,
-  children,
-  ...props
-}: ContainerProps) => {
+const Container = ({ background, fullHeight = false, fullScreen = false, co, children, ...props }: ContainerProps) => {
   const theme = useTheme() as Theme;
   const styles = css({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
