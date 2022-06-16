@@ -21,7 +21,7 @@ import Button from './components/Button';
 import NoticeBar from './components/NoticeBar';
 import Dialog from './components/Dialog';
 import Fab from './components/Fab';
-import Chip from './components/Chip';
+import Tag from './components/Tag';
 import Skeleton from './components/Skeleton';
 import Card from './components/Card';
 import Container from './components/Container';
@@ -72,7 +72,7 @@ export {
   Dropdown,
   Image,
   Grid,
-  Chip,
+  Tag,
   ScrollView,
   CountDown,
   Spacer,

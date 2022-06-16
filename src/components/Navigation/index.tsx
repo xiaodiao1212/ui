@@ -5,6 +5,7 @@ import { Theme } from '../../styles/themes';
 import NavigationItem from './NavigationItem';
 import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
 import { Base } from '../props';
+import vars from '../../styles/vars';
 type Navigation = Omit<Base, 'co'> & {
   onTap?: (index: number) => void; // Called when one of the items is tapped.
   iconSize?: string; // The size of all of the NavigationItem icons
@@ -86,6 +87,7 @@ const Navigation = ({
   const theme = useTheme() as Theme;
   const styles = css({
     display: 'flex',
+    minHeight: vars.navigation.height,
     background:
       (backgroundColor && (typeof backgroundColor == 'function' ? backgroundColor(theme) : backgroundColor)) ||
       theme.color.white ||
