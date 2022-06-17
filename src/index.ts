@@ -9,6 +9,7 @@ import AppBar from './components/AppBar';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
 import Slider from './components/Slider';
+import Cell from './components/Cell';
 import CheckBox from './components/CheckBox';
 import Radio from './components/Radio';
 import SortButton from './components/SortButton';
@@ -59,6 +60,7 @@ export {
   List,
   AppBar,
   Icon,
+  Cell,
   Link,
   Drawer,
   SortButton,

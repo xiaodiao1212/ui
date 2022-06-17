@@ -1,7 +1,8 @@
 import APITable, { APIs } from '../APITable';
-import { Link, Container } from '../build';
+import { Cell, Container } from '../build';
 import Left from '../Left';
 import Example from '../Example';
+import { useState } from 'react';
 const apis: APIs = [
   {
     attributes: 'title',
@@ -19,6 +20,8 @@ const apis: APIs = [
   },
 ];
 const LinkExamples = () => {
+  const [title, setTitle] = useState('1212');
+  const [center, setCenter] = useState(false);
   return (
     <Container pa='1em'>
       <Example
@@ -26,11 +29,22 @@ const LinkExamples = () => {
         desc='The Link component allows you to easily customize anchor elements with your theme colors and indicator
       styles.'>
         <Left>
-          <Link to='#'>default</Link>
-
-          <Link to='#' indicatorAction='none'>
-            no indicator
-          </Link>
+          <Cell
+            center={center}
+            title={title}
+            value='!3'
+            onClick={() => {
+              setTitle('33333');
+              setCenter(v => !v);
+            }}
+            css={
+              {
+                '& section': {
+                  background: 'red',
+                },
+              } as any
+            }
+          />
         </Left>
       </Example>
 

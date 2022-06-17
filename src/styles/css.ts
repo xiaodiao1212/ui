@@ -12,7 +12,7 @@ export function useVerticalCenter() {
   return { display: 'flex', alignItems: 'center' };
 }
 
-export function useFunctionLikeValue(theme: Theme, target: any) {
+export function useFunctionLikeValue(theme?: Theme, target?: any) {
   return target && (typeof target == 'function' ? target(theme) : target);
 }
 

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, keyframes, useTheme } from '@emotion/react';
-import { Theme } from '../../styles/themes';
-import * as React from 'react';
-import { useState } from 'react';
 import { Base } from '../props';
+import { Theme } from '../../styles/themes';
+import { css as useCSS, useTheme } from '@emotion/react';
+import { ReactNode, useEffect, useState } from 'react';
+import { useFunctionLikeValue } from '../../styles/css';
 
 type TooltipProps = Base & {
   backgroundColor?: ((theme: Theme) => string) | string;
@@ -16,7 +16,7 @@ type TooltipProps = Base & {
 };
 
 const ToolTip = ({
-  co,
+  css,
   children,
   className,
   backgroundColor = '#000',
@@ -30,10 +30,10 @@ const ToolTip = ({
   const [computedPosition, setComputedPosition] = useState({});
   const [afterPosition, setAfterPosition] = useState({});
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     position: 'relative',
     display: 'inline-block',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
     '& .tooltiptext': {
       visibility: show ? 'visible' : 'hidden',
       fontSize: '12px',
@@ -60,7 +60,7 @@ const ToolTip = ({
       visibility: show ? 'visible' : 'hidden',
     },
   });
-  React.useEffect(() => {
+  useEffect(() => {
     switch (position) {
       case 'top':
         setComputedPosition({

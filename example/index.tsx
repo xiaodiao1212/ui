@@ -10,6 +10,7 @@ import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
 import AppBarExamples from './src/AppBar.examples';
 import InputExamples from './src/Input.examples';
+import CellExamples from './src/Cell.examples copy';
 const container = document.getElementById('root');
 const components = [
   '介绍',
@@ -23,6 +24,7 @@ const components = [
   'button',
   'image',
   'divider',
+  'cell',
 ];
 type Components =
   | 'input'
@@ -31,6 +33,7 @@ type Components =
   | '介绍'
   | '快速入门'
   | 'slider'
+  | 'cell'
   | 'link'
   | 'switch'
   | 'button'
@@ -59,6 +62,8 @@ if (container) {
           return <LinkExamples />;
         case 'image':
           return <LinkExamples />;
+        case 'cell':
+          return <CellExamples />;
         case 'slider':
           return <SliderExamples />;
         case 'appbar':
@@ -88,7 +93,7 @@ if (container) {
               }}>
               <Container fullScreen>
                 {components.map(v => (
-                  <Button block text co={{ margin: '1em 0' }} onClick={() => setExample(v as any)}>
+                  <Button fullWidth text co={{ margin: '1em 0' }} onClick={() => setExample(v as any)}>
                     <Text size='1.2rem' blod color={t => t.color.primary}>
                       {v}
                     </Text>

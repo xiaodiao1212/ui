@@ -1,49 +1,41 @@
-import { App, Button, Col, Container, Row } from '../build';
+import { useState } from 'react';
+import { Col as DefaultCol, Container, Row, Button } from '../build';
+import APITable, { APIs } from '../APITable';
+import Example from '../Example';
+const Col = ({ children }: any) => <DefaultCol left>{children}</DefaultCol>;
+const apis: APIs = [
+  {
+    attributes: 'on',
+    type: 'boolean',
+    acceptedValues: 'true/false',
+    description: '是否处于打开状态',
+    defaultValue: 'false',
+  },
+];
 
 const ButtonExamples = () => {
   return (
-    <App>
-      <Container pa='1em'>
-        <Row>
+    <Container pa='1em'>
+      <Example title='Default & Disabled' desc=''>
+        <Row gap='1em'>
           <Col>
-            <Button>default</Button>
-          </Col>
-          <Col>
-            <Button text>text</Button>
-          </Col>
-          <Col>
-            <Button rounded>rounded</Button>
-          </Col>
-
-          <Col>
-            <Button outlined>outlinedd</Button>
-          </Col>
-        </Row>
-      </Container>
-      <Container pa='1em'>
-        <Row>
-          <Col>
-            <Button disabled>default</Button>
-          </Col>
-          <Col>
-            <Button text disabled>
-              text
-            </Button>
-          </Col>
-          <Col>
-            <Button rounded disabled>
-              rounded
-            </Button>
-          </Col>
-
-          <Col>
-            <Button disabled outlined>
-              outlinedd
+            <Button
+              css={
+                {
+                  background: 'red',
+                  '&>div': {
+                    color: 'red',
+                  },
+                } as any
+              }>
+              ok
             </Button>
           </Col>
         </Row>
-      </Container>
-    </App>
+      </Example>
+
+      <APITable apis={apis} />
+    </Container>
   );
 };
 

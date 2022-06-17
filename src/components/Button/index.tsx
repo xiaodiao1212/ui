@@ -3,27 +3,26 @@
 // 上面的这个是必要的，为了方便的使用css方法设置动态css，emotion要求的
 // 下面就是引入需要的工具类库和theme，vars
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
+import { css as useCSS, useTheme } from '@emotion/react';
 import { useFunctionLikeValue } from '../../styles/css';
-
 // 组件库有一些例如下面Base一样的常用的props type定义
 // 组件中直接使用节约代码量
 
 type ButtonProps = Base & {
   padding?: string;
-  block?: boolean;
+  fullWidth?: boolean;
   disabled?: boolean;
   text?: boolean;
   outlined?: boolean;
   icon?: boolean;
   tile?: boolean;
   rounded?: boolean;
-  onClick?: () => any;
   radius?: string;
+
   color?: ((theme: Theme) => string) | string; // 许多prop都应该考虑提供基于主题的函数赋值，和直接进行赋值两种方式的样式覆写
 };
 
@@ -35,13 +34,13 @@ type ButtonProps = Base & {
  * @returns
  */
 const Button = ({
-  block = false,
+  fullWidth = false,
   disabled = false,
   text = false,
   outlined = false,
   rounded = false,
   radius,
-  co,
+  css,
   icon = false,
   tile = false,
   color,
@@ -68,15 +67,16 @@ const Button = ({
    * vars是一个对象，里面包括了整个组件库要用到的大部分的初始值，
    * 一旦以后出现大量重绘问题，影响性能的部分会借助css变量做特别优化。
    */
-  const styles = css({
+
+  const styles = useCSS({
     padding: padding || (icon || text ? '' : padding),
-    width: block ? '100%' : '',
+    width: fullWidth ? '100%' : '',
     border: outlined ? '1px solid ' + computedColor : 'none',
     borderRadius: computedRadius,
     color: text || outlined || icon ? computedColor : theme ? theme.color.white : vars.color.white,
     background: text || outlined || icon ? 'transparent' : computedColor,
-
-    ...useFunctionLikeValue(theme, co),
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    ...useFunctionLikeValue(theme, css),
   });
 
   // 比较普通的点击方法实现
