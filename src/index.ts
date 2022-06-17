@@ -9,6 +9,7 @@ import AppBar from './components/AppBar';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
 import Slider from './components/Slider';
+import Cell from './components/Cell';
 import CheckBox from './components/CheckBox';
 import Radio from './components/Radio';
 import SortButton from './components/SortButton';
@@ -21,7 +22,7 @@ import Button from './components/Button';
 import NoticeBar from './components/NoticeBar';
 import Dialog from './components/Dialog';
 import Fab from './components/Fab';
-import Chip from './components/Chip';
+import Tag from './components/Tag';
 import Skeleton from './components/Skeleton';
 import Card from './components/Card';
 import Container from './components/Container';
@@ -59,6 +60,7 @@ export {
   List,
   AppBar,
   Icon,
+  Cell,
   Link,
   Drawer,
   SortButton,
@@ -72,7 +74,7 @@ export {
   Dropdown,
   Image,
   Grid,
-  Chip,
+  Tag,
   ScrollView,
   CountDown,
   Spacer,

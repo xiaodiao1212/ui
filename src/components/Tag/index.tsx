@@ -5,7 +5,7 @@ import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 import { lighten } from 'polished';
 import vars from '../../styles/vars';
-type ChipProps = Base & {
+type TagProps = Base & {
   outlined?: boolean;
   color?: ((theme: Theme) => string) | string;
   radius?: number;
@@ -13,10 +13,10 @@ type ChipProps = Base & {
 };
 
 /**
- * Chips appear in form fields – mainly in search bars –
+ * Tags appear in form fields – mainly in search bars –
  * and are used as an indicator for filtered content.
  * They reflect the input a user types in.
- * Chips can be manipulated by editing the text or deleted by clicking on the x.
+ * Tags can be manipulated by editing the text or deleted by clicking on the x.
  *
  * ```js
  *
@@ -26,7 +26,7 @@ type ChipProps = Base & {
  * @param hollow (Optional) weather the background hollow out
  * @param radius (Optional) the css property `borderRadius` size
  */
-const Chip = ({ outlined = false, radius, color, co, children, ...props }: ChipProps) => {
+const Tag = ({ outlined = false, radius, color, co, children, ...props }: TagProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = () =>
     (typeof color == 'function' ? color(theme) : color) ||
@@ -54,4 +54,4 @@ const Chip = ({ outlined = false, radius, color, co, children, ...props }: ChipP
   );
 };
 
-export default Chip;
+export default Tag;

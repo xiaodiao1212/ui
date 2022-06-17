@@ -1,21 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from '@emotion/react';
+import { Base } from '../props';
+import { css as useCSS, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
-type UploadProps = Partial<{
-  onlyImg?: boolean;
-  className: string;
-  children: React.ReactNode;
-  onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+import { useFunctionLikeValue } from '../../styles/css';
+
+type UploadProps = Base &
+  Partial<{
+    onlyImg?: boolean;
+    className: string;
+    children: React.ReactNode;
+    onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any;
+  }>;
 
 const Upload = ({
   onlyImg,
   accept,
   onFileChange,
   children,
-  co,
+  css,
   ...props
 }: React.InputHTMLAttributes<HTMLInputElement> & UploadProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,9 +26,10 @@ const Upload = ({
     onFileChange?.(file, URL.createObjectURL(file), e);
   };
   const theme = useTheme() as Theme;
-  const styles = css({
+
+  const styles = useCSS({
     cursor: ' pointer',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

@@ -1,5 +1,7 @@
-import React from 'react';
+import { css } from '@emotion/react';
+import React, { CSSProperties } from 'react';
 import { Theme } from '../styles/themes';
+export type CSS = Parameters<typeof css>;
 export type ColorFormat = 'rgb' | 'rgba' | 'hsl' | 'hsla';
 export type Padding = Partial<{
   pt: string;
@@ -34,6 +36,7 @@ export type Base = Partial<{
   onClick: () => any;
   className: string;
   children: React.ReactNode;
+  css: ((theme: Theme) => CSS) | CSS;
   co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 }>;
 
