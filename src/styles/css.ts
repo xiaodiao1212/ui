@@ -1,6 +1,8 @@
-import { theme, Theme } from '../styles/themes';
-import { deepMerge } from '../utils';
+import { Theme } from '../styles/themes';
 import { Margin, Padding, Position } from '../components/props';
+import { css, useTheme as ut } from '@emotion/react';
+export const useTheme = ut;
+export const useCSS = css;
 export function useCenter() {
   return { display: 'flex', alignItems: 'center', justifyContent: 'center' };
 }

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes, useTheme } from '@emotion/react';
+import { css as useCSS, keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
+import vars from '../../styles/vars';
 import { Base } from '../props';
 
 type DialogProps = Base & {
@@ -19,6 +20,7 @@ const Dialog = ({
   loading,
   close,
   mask,
+  css,
   onClose,
   animationType = 'slide',
   children,
@@ -73,7 +75,7 @@ const Dialog = ({
       : {},
   );
 
-  const containerStyles = css({
+  const containerStyles = useCSS({
     position: 'fixed',
     inset: 0,
     display: 'flex',
@@ -87,11 +89,11 @@ const Dialog = ({
     overflowX: 'hidden',
     paddingTop: '80px',
     paddingBottom: '80px',
-    backgroundColor: 'rgba(0,0,0,.5)',
+    backgroundColor: vars.dialog.maskColor,
     visibility: visible ? 'visible' : 'hidden',
   });
   // The CSS properties of drawer content container,
-  const contentStyles = css({
+  const contentStyles = useCSS({
     touchAction: 'none',
     position: 'fixed',
     zIndex: theme.zIndex.drawer,
@@ -99,7 +101,7 @@ const Dialog = ({
 
     transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
   });
-  const closeStyles = css({
+  const closeStyles = useCSS({
     position: 'absolute',
     top: '-6px',
     right: '-6px',
@@ -109,7 +111,7 @@ const Dialog = ({
     borderRadius: '12px',
     transition: 'all .25s ease',
   });
-  const loadingStyles = css({
+  const loadingStyles = useCSS({
     position: 'absolute',
     top: '0',
     left: '0',
@@ -120,8 +122,8 @@ const Dialog = ({
     justifyContent: 'center',
     background: 'rgba(255,255,255,.8)',
   });
-  const headerStyles = css({});
-  const footerStyles = css({});
+  const headerStyles = useCSS({});
+  const footerStyles = useCSS({});
 
   const handleClickClose = () => {
     shy && onClose?.();

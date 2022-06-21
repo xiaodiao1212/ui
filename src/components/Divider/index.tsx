@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import { Base } from '../props';
 import { useMemo } from 'react';
 import vars from '../../styles/vars';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 
 type DividerProps = Base &
   Partial<{
@@ -28,7 +27,16 @@ type DividerProps = Base &
  * main props:
  * @param size Thickness of dividing line.
  */
-const Divider = ({ text, size = 1, vertical = false, dashed = false, color, co, children, ...props }: DividerProps) => {
+const Divider = ({
+  text,
+  size = 1,
+  vertical = false,
+  dashed = false,
+  color,
+  css,
+  children,
+  ...props
+}: DividerProps) => {
   const theme = useTheme() as Theme;
   // Use border properties in different positions to easily and concisely simulate dividing lines
   const borderStyles = useMemo(
@@ -47,7 +55,7 @@ const Divider = ({ text, size = 1, vertical = false, dashed = false, color, co, 
           },
     [size, dashed, color],
   );
-  const styles = css({
+  const styles = useCSS({
     position: 'relative',
     border: 'none',
     ...borderStyles,
@@ -60,7 +68,7 @@ const Divider = ({ text, size = 1, vertical = false, dashed = false, color, co, 
         right: 0,
       },
     }),
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
   return (
     <hr css={styles} {...props}>

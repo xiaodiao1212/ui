@@ -20,14 +20,9 @@ const ButtonExamples = () => {
         <Row gap='1em'>
           <Col>
             <Button
-              css={
-                {
-                  background: 'red',
-                  '&>div': {
-                    color: 'red',
-                  },
-                } as any
-              }>
+              css={{
+                ':hover': {},
+              }}>
               ok
             </Button>
           </Col>
