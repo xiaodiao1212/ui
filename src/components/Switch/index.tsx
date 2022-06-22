@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 import { memo, ReactNode, useCallback, useMemo } from 'react';
 import vars from '../../styles/vars';
-import { useCenter, useFunctionLikeValue } from '../../styles/css';
+import { useCenter, useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
 import { darken } from 'polished';
 import { rotate } from '../../styles/animations';
 
@@ -77,7 +76,7 @@ const Switch = memo(
     loading,
     thumbActiveOffset = '0.3125em',
     thumbStartPosition = '4px',
-    co,
+    css,
     ...props
   }: SwitchProps) => {
     const { disabled } = props;
@@ -107,7 +106,7 @@ const Switch = memo(
       [radius],
     );
 
-    const styles = css({
+    const styles = useCSS({
       //switch track css implement
       overflow: 'hidden',
       padding: '5px',
@@ -212,7 +211,7 @@ const Switch = memo(
         ...useFunctionLikeValue(theme, trackStyles),
       },
 
-      ...useFunctionLikeValue(theme, co),
+      ...useFunctionLikeValue(theme, css),
     });
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

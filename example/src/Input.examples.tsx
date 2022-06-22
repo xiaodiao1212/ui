@@ -1,5 +1,5 @@
 import APITable, { APIs } from '../APITable';
-import { Input, Container, Text, Spacer } from '../build';
+import { Input, Container, Text, Spacer, Row, Col } from '../build';
 import Left from '../Left';
 import Example from '../Example';
 const apis: APIs = [
@@ -46,7 +46,7 @@ const AppBarExamples = () => {
             background: 'red',
           }}
         />
-        <Spacer vertical />
+
         <Input contain placeholder='name' />
       </Example>
       <Example title='Outlined' desc='有边框的样式'>
@@ -57,7 +57,7 @@ const AppBarExamples = () => {
             border: '1px solid red',
           }}
         />
-        <Spacer vertical />
+
         <Input outlined placeholder='name' />
       </Example>
 
@@ -67,7 +67,7 @@ const AppBarExamples = () => {
 
       <Example title='prefix & suffix' desc='input框前后缀组件'>
         <Input contain prefix='+233' placeholder='phone' />
-        <Spacer vertical />
+
         <Input contain suffix={<i className='bx bx-show'></i>} placeholder='password' />
       </Example>
       <Example title='message & verify' desc='verify设置value校验规则,触发校验后显示message'>
@@ -77,7 +77,6 @@ const AppBarExamples = () => {
           message='输入数量必须小于等于10个字符!'
           placeholder='name'
         />
-        <Spacer vertical />
 
         <Input
           label={'自定义警告样式'}

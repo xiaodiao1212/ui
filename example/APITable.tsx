@@ -22,7 +22,7 @@ export default ({ apis }: { apis: APIs }) => {
         py='1em'
         pt='2em'
         px='.5em'
-        co={{
+        css={{
           background: '#f4f7f8',
         }}>
         <Td>Attribute</Td>

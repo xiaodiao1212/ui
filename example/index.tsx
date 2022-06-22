@@ -10,7 +10,7 @@ import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
 import AppBarExamples from './src/AppBar.examples';
 import InputExamples from './src/Input.examples';
-import CellExamples from './src/Cell.examples copy';
+import CellExamples from './src/Cell.examples';
 const container = document.getElementById('root');
 const components = [
   '介绍',
@@ -84,16 +84,14 @@ if (container) {
           <Row>
             <Col
               flex={1}
-              alignSelf='normal'
-              co={{
+              css={{
                 background: '#F4F7F8',
                 height: '100%',
-                textAlign: 'left',
                 overflow: 'auto',
               }}>
               <Container fullScreen>
                 {components.map(v => (
-                  <Button fullWidth text co={{ margin: '1em 0' }} onClick={() => setExample(v as any)}>
+                  <Button block text css={{ margin: '1em 0' }} onClick={() => setExample(v as any)}>
                     <Text size='1.2rem' blod color={t => t.color.primary}>
                       {v}
                     </Text>
@@ -101,7 +99,7 @@ if (container) {
                 ))}
               </Container>
             </Col>
-            <Col co={{ height: '100%', textAlign: 'left', overflow: 'auto' }} flex={3}>
+            <Col css={{ height: '100%', textAlign: 'left', overflow: 'auto' }} flex={5}>
               <Container fullScreen>{renderContent()} </Container>
             </Col>
           </Row>

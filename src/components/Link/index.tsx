@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
 import { Base } from '../props';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
 
 type LinkProps = Base & {
   indicatorColor?: string;
@@ -49,7 +48,7 @@ const Link = ({
   blank = false,
   to,
   indicatorSize = '1px',
-  co,
+  css,
   backTop,
   children,
   ...props
@@ -73,12 +72,12 @@ const Link = ({
     [indicatorSize, indicatorColor, indicatorAction],
   );
 
-  const styles = css({
+  const styles = useCSS({
     cursor: !disabled ? 'pointer' : 'initial',
     color: textColor || (theme ? theme.color.black : vars.color.black),
     ...memoedIndicatorStyles,
     opacity: disabled ? 0.25 : 1,
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 import { Base } from '../props';
@@ -37,7 +36,7 @@ const Text = ({
   blod,
   color,
   children,
-  co,
+  css,
   ...props
 }: TextProps) => {
   const theme = useTheme() as Theme;
@@ -56,7 +55,7 @@ const Text = ({
         ? theme.color.black
         : theme.color.white
       : vars.color.white);
-  const styles = css({
+  const styles = useCSS({
     fontSize: size,
     fontWeight: blod ? 700 : thin ? 200 : 500,
     display: 'inline',
@@ -67,7 +66,7 @@ const Text = ({
     whiteSpace: maxLength ? 'nowrap' : undefined,
     overflow: maxLength ? 'hidden' : undefined,
     color: computedColor,
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
   return (
     <div css={styles} {...props}>

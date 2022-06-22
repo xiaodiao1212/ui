@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Col, Container, Row } from './build';
+import { Container, Row } from './build';
 
-const Example = ({ title, desc, children }: any) => {
+const Example = ({ title, desc, gap = '1em', children }: any) => {
   return (
-    <Container co={{ marginBottom: '2em' }}>
+    <Container css={{ marginBottom: '2em' }}>
       <Row
-        co={{
+        css={{
           margin: '.5em 0',
           fontSize: '2em',
           fontWeight: 'blod',
@@ -13,7 +13,7 @@ const Example = ({ title, desc, children }: any) => {
         {title}
       </Row>
       <Row
-        co={t => ({
+        css={t => ({
           color: t.color.grey,
           margin: '.5rem 0',
         })}>
@@ -21,10 +21,11 @@ const Example = ({ title, desc, children }: any) => {
       </Row>
       <Container
         pa='1em'
-        co={{
+        css={{
+          border: '2px solid #ECEBED',
           borderRadius: '8px',
         }}>
-        {children}
+        <Row gap={gap}>{children}</Row>
       </Container>
     </Container>
   );

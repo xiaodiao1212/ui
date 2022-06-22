@@ -12,7 +12,6 @@ type ButtonProps = Base & {
   text?: boolean;
   outlined?: boolean;
   icon?: boolean;
-  tile?: boolean;
   rounded?: boolean;
   radius?: string;
   color?: Themed<string>;
@@ -33,9 +32,8 @@ const Button = ({
   radius,
   css,
   icon = false,
-  tile = false,
   color,
-  padding = '.5em 1em',
+  padding = '.2em 1em',
   children,
   onClick,
   ...props
@@ -43,17 +41,22 @@ const Button = ({
   const theme = useTheme() as Theme;
   const computedColor = useMemo(() => color || (theme ? theme.color.primary : vars.color.primary), [color]);
   const computedRadius = useMemo(
-    () => (tile ? '0px' : rounded ? (theme ? theme.border.full : vars.radius.full) : radius),
-    [radius, tile, rounded],
+    () => radius || (rounded ? (theme ? theme.border.full : vars.radius.full) : vars.radius.none),
+    [radius, rounded],
   );
 
   const styles = useCSS({
+    verticalAlign: 'middle',
+    textAlign: 'center',
     display: block ? 'block' : '',
-    padding: text ? '' : icon ? (theme ? theme.button.defaultPadding : vars.padding['.5em']) : padding,
+    minWidth: block ? '100%' : '',
+    width: icon ? vars.em['2.5em'] : '',
+    height: icon ? vars.em['2.5em'] : '',
+    padding: text || icon ? '' : padding,
     border: outlined ? `1px solid ${computedColor}` : 'none',
     borderRadius: computedRadius,
-    color: text || outlined || icon ? computedColor : theme ? theme.color.white : vars.color.white,
-    background: text || outlined || icon ? 'transparent' : computedColor,
+    color: text || outlined ? computedColor : theme ? theme.color.white : vars.color.white,
+    background: text || outlined ? 'transparent' : computedColor,
     cursor: disabled ? 'not-allowed' : 'pointer',
     ...useFunctionLikeValue(theme, css),
   });

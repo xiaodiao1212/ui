@@ -2,8 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import { Base, Margin, Position, Padding } from '../props';
-import { usePadding, useMargin, useFunctionLikeValue } from '../../styles/css';
-import { css, useTheme } from '@emotion/react';
+import { useCSS, useTheme, usePadding, useMargin, useFunctionLikeValue } from '../../styles/css';
 
 type ContainerProps = Base &
   Margin &
@@ -15,15 +14,14 @@ type ContainerProps = Base &
     fullScreen?: boolean;
   };
 
-const Container = ({ background, fullHeight = false, fullScreen = false, co, children, ...props }: ContainerProps) => {
+const Container = ({ background, fullHeight = false, fullScreen = false, css, children, ...props }: ContainerProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     ...useMargin(props),
     ...usePadding(props),
     background: useFunctionLikeValue(theme, background),
-
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

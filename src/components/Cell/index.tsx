@@ -2,28 +2,27 @@
 
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
-
-import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
 type CellProps = Base & {
   title?: ReactNode;
   caption?: ReactNode;
   value?: ReactNode;
-  center?: boolean;
+  centered?: boolean;
 };
 
-const Cell = ({ title, value, caption, co, center = true, children, onClick }: CellProps) => {
+const Cell = ({ title, value, caption, css, centered = true, children, onClick }: CellProps) => {
   const theme = useTheme() as Theme;
 
-  const styles = css({
+  const styles = useCSS({
     textAlign: 'initial',
     display: 'flex',
-    alignItems: center ? 'center' : 'initial',
+    width: '100%',
+    alignItems: centered ? 'center' : 'initial',
     '& > section:nth-of-type(2n)': {
       marginLeft: 'auto',
     },
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleClickCell = () => {
