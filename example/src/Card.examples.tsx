@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Button } from '../build';
-import APITable, { APIs } from './APITable';
-import Example from './Example';
+import APITable, { APIs } from './common/APITable';
+import Example from './common/Example';
 
 const apis: APIs = [
   {

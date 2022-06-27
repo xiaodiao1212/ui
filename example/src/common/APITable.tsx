@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Col, Container, Row, Text } from '../build';
+import { Col, Container, Row, Text } from '../../build';
 export type APIs = {
   attributes: ReactNode;
   type: ReactNode;

@@ -1,7 +1,7 @@
-import APITable, { APIs } from './APITable';
+import APITable, { APIs } from './common/APITable';
 import { AppBar, Container } from '../build';
 import Left from './Left';
-import Example from './Example';
+import Example from './common/Example';
 const apis: APIs = [
   {
     attributes: 'title',

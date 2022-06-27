@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Row } from '../build';
+import { Container, Row } from '../../build';
 
 const Example = ({ title, desc, gap = '1em', children }: any) => {
   return (

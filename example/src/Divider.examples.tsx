@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { App, Link, Col, Container, Row, Divider } from '../build';
-import Example from './Example';
+import Example from './common/Example';
 const DividerExamples = () => {
   return (
     <Container pa='1em'>
