@@ -1,18 +1,23 @@
 /** @jsxImportSource @emotion/react */
-
-import React from 'react';
-import { css } from '@emotion/react';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 type CenterProps = Base;
 
-const Center = ({ children }: CenterProps) => {
-  const styles = css({
+const Center = ({ css, children, ...props }: CenterProps) => {
+  const theme = useTheme() as Theme;
+  const styles = useCSS({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'cener',
+    justifyContent: 'center',
+    ...useFunctionLikeValue(theme, css),
   });
 
-  return <div css={styles}>{children}</div>;
+  return (
+    <div css={styles} {...props}>
+      {children}
+    </div>
+  );
 };
 
 export default Center;

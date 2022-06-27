@@ -5,8 +5,7 @@ const ContainerExamples = () => {
   return (
     <Container pa='1em'>
       <Example title='Default' desc=''>
-        <Divider />
-        <Divider vertical />
+        <Container />
       </Example>
       <Example title='Size' desc=''>
         <>

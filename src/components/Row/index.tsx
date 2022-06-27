@@ -8,8 +8,8 @@ type RowProps = Margin &
   Padding &
   Base & {
     vertical?: boolean;
-    alignItems?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
-    justifyContent?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
+    align?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
+    justify?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
     gap?: string;
     wrap?: boolean;
     fullHeight?: boolean;
@@ -28,18 +28,18 @@ type RowProps = Margin &
  * @param blank open url with new window.
  * @returns <a> tag 
  */
-const Row = ({ children, vertical, wrap, fullHeight, alignItems, justifyContent, gap, css, ...props }: RowProps) => {
+const Row = ({ children, vertical, wrap, fullHeight, align, justify, gap, css, ...props }: RowProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({
     display: 'flex',
     width: '100%',
     ...useMargin(props),
     ...usePadding(props),
-    justifyContent: justifyContent || '',
+    justifyContent: justify || '',
     flexDirection: vertical ? 'column' : 'row',
     height: fullHeight ? '100%' : 'initial',
     gap: gap,
-    alignItems,
+    alignItems: align || '',
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
     ...useFunctionLikeValue(theme, css),
   });

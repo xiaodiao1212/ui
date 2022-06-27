@@ -19,12 +19,7 @@ const Example = ({ title, desc, gap = '1em', children }: any) => {
         })}>
         {desc}
       </Row>
-      <Container
-        pa='1em'
-        css={{
-          border: '2px solid #ECEBED',
-          borderRadius: '8px',
-        }}>
+      <Container pa='1em'>
         <Row gap={gap}>{children}</Row>
       </Container>
     </Container>

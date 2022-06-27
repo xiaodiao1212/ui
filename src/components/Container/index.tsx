@@ -1,15 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Margin, Position, Padding } from '../props';
+import { Base, Margin, Position, Padding, Themed } from '../props';
 import { useCSS, useTheme, usePadding, useMargin, useFunctionLikeValue } from '../../styles/css';
 
 type ContainerProps = Base &
   Margin &
   Position &
   Padding & {
-    background?: ((theme: Theme) => string) | string;
-
+    background?: Themed<string>;
     fullHeight?: boolean;
     fullScreen?: boolean;
   };

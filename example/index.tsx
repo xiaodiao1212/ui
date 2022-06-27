@@ -13,6 +13,7 @@ import SwiperExamples from './src/Swiper.examples';
 import AppBarExamples from './src/AppBar.examples';
 import InputExamples from './src/Input.examples';
 import CellExamples from './src/Cell.examples';
+import ContainerExamples from './src/Container.examples';
 const container = document.getElementById('root');
 const components = [
   '介绍',
@@ -20,6 +21,7 @@ const components = [
   'input',
   'appbar',
   'swiper',
+  'container',
   'slider',
   'link',
   'switch',
@@ -37,6 +39,7 @@ type Components =
   | '介绍'
   | '快速入门'
   | 'slider'
+  | 'container'
   | 'cell'
   | 'link'
   | 'switch'
@@ -52,6 +55,8 @@ if (container) {
       switch (example) {
         case 'button':
           return <ButtonExamples />;
+        case 'container':
+          return <ContainerExamples />;
         case 'input':
           return <InputExamples />;
         case '介绍':
