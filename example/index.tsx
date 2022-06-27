@@ -5,6 +5,8 @@ import Introduction from './src/Introduction';
 import SliderExamples from './src/Slider.examples';
 import ButtonExamples from './src/Button.examples';
 import SwitchExamples from './src/Switch.examples';
+import ImageExamples from './src/Image.examples';
+import CardExamples from './src/Card.examples';
 import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
@@ -25,11 +27,13 @@ const components = [
   'image',
   'divider',
   'cell',
+  'card',
 ];
 type Components =
   | 'input'
   | 'appbar'
   | 'swiper'
+  | 'card'
   | '介绍'
   | '快速入门'
   | 'slider'
@@ -61,7 +65,9 @@ if (container) {
         case 'link':
           return <LinkExamples />;
         case 'image':
-          return <LinkExamples />;
+          return <ImageExamples />;
+        case 'card':
+          return <CardExamples />;
         case 'cell':
           return <CellExamples />;
         case 'slider':

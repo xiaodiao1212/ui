@@ -1,7 +1,7 @@
-import APITable, { APIs } from '../APITable';
+import APITable, { APIs } from './APITable';
 import { Input, Container, Text, Spacer, Row, Col } from '../build';
-import Left from '../Left';
-import Example from '../Example';
+
+import Example from './Example';
 const apis: APIs = [
   {
     attributes: 'placeholder',

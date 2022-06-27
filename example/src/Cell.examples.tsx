@@ -1,7 +1,7 @@
-import APITable, { APIs } from '../APITable';
+import APITable, { APIs } from './APITable';
 import { Cell, Col, Container, Row } from '../build';
-import Left from '../Left';
-import Example from '../Example';
+import Left from './Left';
+import Example from './Example';
 import { useState } from 'react';
 const apis: APIs = [
   {

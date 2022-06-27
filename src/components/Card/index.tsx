@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import React from 'react';
-
-import { useTheme, css } from '@emotion/react';
-import { Base } from '../props';
+import { Base, Themed } from '../props';
+import vars from '../../styles/vars';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 type CardProps = Base &
   Partial<{
     title: React.ReactNode;
     extra: React.ReactNode;
-    color: ((theme: Theme) => string) | string;
+    color: Themed<string>;
   }>;
 
-const Card = ({ title, extra, co, children, onClick, color, ...props }: CardProps) => {
+const Card = ({ title, extra, css, children, onClick, color, ...props }: CardProps) => {
   const theme = useTheme() as Theme;
 
-  const styles = css({
+  const styles = useCSS({
     textAlign: 'initial',
     display: 'flex',
     padding: '1em',
@@ -30,7 +29,7 @@ const Card = ({ title, extra, co, children, onClick, color, ...props }: CardProp
         marginLeft: '0',
       },
     },
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleClickCard = () => {

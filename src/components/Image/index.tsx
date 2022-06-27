@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
-import { useTheme, css } from '@emotion/react';
+
 import { useState, ReactNode, useLayoutEffect, useRef, ReactEventHandler, SyntheticEvent } from 'react';
-import { Base } from '../props';
+import { Theme } from '../../styles/themes';
+import { Base, Themed } from '../props';
+import vars from '../../styles/vars';
+import { useMemo } from 'react';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 
 type ImageProps = Base & {
   mask?: ReactNode;
@@ -33,14 +36,14 @@ const Image = ({
   height,
   onError,
   onLoad,
-  co,
+  css,
   loadingImg,
   ...props
 }: Omit<React.ComponentPropsWithoutRef<'img'>, 'onLoad' | 'onError'> & ImageProps) => {
   const ref = useRef(null);
   const theme = useTheme() as Theme;
   const [loadingState, setLoadingState] = useState<'error' | 'success' | 'loading'>('loading');
-  const styles = css({
+  const styles = useCSS({
     verticalAlign: 'middle',
     background: 'transparent',
     borderRadius: ((circle as boolean) && '50%') || '',
@@ -49,9 +52,24 @@ const Image = ({
     imageRendering: 'initial',
     imageOrientation: 'initial',
     height: height,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme,css),
   });
 
+  const containerStyles = useCSS({
+    display: 'inline-flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  })
+
+  const maskStyles = useCSS({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    inset: 0,
+    backdropFilter,
+  })
   const handleImgLoadError = (e: SyntheticEvent<HTMLImageElement>) => {
     setLoadingState('error');
     onError && onError(e);
@@ -78,24 +96,12 @@ const Image = ({
   const renderRightImg = () => {
     return (
       <div
-        css={css({
-          display: 'inline-flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'relative',
-        })}>
+        css={containerStyles}>
         {loadingState == 'loading' && loadingImg}
         {loadingState == 'error' ? errorImg : img}
         {loadingState == 'success' && mask && (
           <div
-            css={css({
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-              inset: 0,
-              backdropFilter,
-            })}>
+            css={maskStyles}>
             {mask}
           </div>
         )}

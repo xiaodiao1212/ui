@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Slider, Col as DefaultCol, Container, Row } from '../build';
-import APITable, { APIs } from '../APITable';
-import Example from '../Example';
+import APITable, { APIs } from './APITable';
+import Example from './Example';
 const Col = ({ children }: any) => <DefaultCol left>{children}</DefaultCol>;
 const apis: APIs = [
   {
