@@ -4,8 +4,9 @@ import { Theme } from '../../styles/themes';
 import React from 'react';
 
 import Text from '../Text';
-import { useTheme, css, keyframes } from '@emotion/react';
+import { useTheme, keyframes } from '@emotion/react';
 import { Base } from '../props';
+import { useFunctionLikeValue, useCSS } from '../../styles/css';
 
 type ProgressProps = Base & {
   radius?: number;
@@ -28,7 +29,7 @@ const Progress = ({
   color,
   animated = false,
   className,
-  co,
+  css,
   ...props
 }: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
@@ -57,7 +58,7 @@ const Progress = ({
       left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
     },
   });
-  const styles = css({
+  const styles = useCSS({
     position: 'relative',
     height: height,
     backgroundColor: backgroundColor || theme.color.accent,
@@ -102,7 +103,7 @@ const Progress = ({
         },
       },
     }),
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (
@@ -110,14 +111,14 @@ const Progress = ({
       <div className='progress-bar' />
       {text && (
         <div className='progress-text'>
-          <Text size='.8em' dark>
+          <Text size={0.8} dark>
             {text}
           </Text>
         </div>
       )}
       {tips && (
         <div className='progress-tips'>
-          <Text size='.8em' dark>
+          <Text size={0.8} dark>
             {tips}
           </Text>
         </div>

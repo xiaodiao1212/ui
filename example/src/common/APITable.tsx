@@ -15,7 +15,7 @@ const Td = ({ children }: any) => (
 export default ({ apis }: { apis: APIs }) => {
   return (
     <Container>
-      <Text blod size='2rem' primary>
+      <Text blod size={2}>
         Props
       </Text>
       <Row

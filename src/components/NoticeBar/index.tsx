@@ -6,6 +6,7 @@ import * as React from 'react';
 import Row from '../Row';
 import Col from '../Col';
 import { Base } from '../props';
+import { useCSS, useFunctionLikeValue } from '../../styles/css';
 
 type NoticeBarProps = Base &
   Partial<{
@@ -29,7 +30,7 @@ type NoticeBarProps = Base &
 const NoticeBar = ({
   icon,
   action,
-  co,
+  css,
   title,
   content,
   duration = 10,
@@ -42,13 +43,13 @@ const NoticeBar = ({
    *The main style part of the component
    */
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     display: 'flex',
     alignItems: 'center',
     background: theme.mode == 'light' ? theme.color.accent : theme.color.greyLight,
     color: theme.mode == 'light' ? theme.color.primary : theme.color.greyLight,
     padding: '.5em',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   /**
@@ -61,7 +62,7 @@ const NoticeBar = ({
       return scroll ? (
         <article style={{ overflow: 'hidden', margin: `0em ${action ? '0.5em' : '0'} 0 ${icon ? '0.5em' : '0'}` }}>
           <div
-            css={css({
+            css={useCSS({
               animation: `${keyframes({
                 '0%': {
                   transform: 'translateX(200%)',
@@ -80,7 +81,7 @@ const NoticeBar = ({
     }
 
     return (
-      <Row vertical alignItems='start'>
+      <Row vertical align='start'>
         <Col>{title}</Col>
         <Col co={{ fontSize: '.8em' }}>{content}</Col>
       </Row>
