@@ -1,21 +1,25 @@
 import { useState } from 'react';
 import { Container, Divider } from '../build';
 import Example from './common/Example';
-const DividerExamples = () => {
+const ContainerExamples = () => {
   return (
     <Container pa='1em'>
       <Example title='Default' desc=''>
         <Divider />
+        <Divider vertical />
       </Example>
       <Example title='Size' desc=''>
-        <Divider size={1} />
+        <>
+          <Divider size={1} />
+        </>
+
         <Divider size={2} />
         <Divider size={3} />
         <Divider size={4} />
         <Divider size={5} />
       </Example>
       <Example title='Type' desc=''>
-        <Divider dashed size={2} />
+        <Divider dashed />
       </Example>
       <Example title='Color' desc=''>
         <Divider color='#f69d3c' />
@@ -24,31 +28,16 @@ const DividerExamples = () => {
       <Example title='Text' desc=''>
         <Divider>line</Divider>
         <Divider>
-          <div
+          <span
             style={{
               color: 'red',
             }}>
             back
-          </div>
-        </Divider>
-      </Example>
-      <Example title='Vertical' desc=''>
-        <Divider vertical size={3} dashed />
-        <Divider vertical size={5} color='red' />
-        <Divider
-          vertical
-          size={4}
-          css={{
-            height: '5em',
-            '& > .css-u73vd5-Divider': {
-              color: 'red',
-            },
-          }}>
-          142
+          </span>
         </Divider>
       </Example>
     </Container>
   );
 };
 
-export default DividerExamples;
+export default ContainerExamples;
