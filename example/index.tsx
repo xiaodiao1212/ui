@@ -10,7 +10,7 @@ import CardExamples from './src/Card.examples';
 import LinkExamples from './src/Link.examples';
 import DividerExamples from './src/Divider.examples';
 import SwiperExamples from './src/Swiper.examples';
-import AppBarExamples from './src/AppBar.examples';
+import NavBarExamples from './src/NavBar.examples';
 import InputExamples from './src/Input.examples';
 import CellExamples from './src/Cell.examples';
 import TextExamples from './src/Text.examples';
@@ -21,7 +21,7 @@ const components = [
   '介绍',
   '快速入门',
   'input',
-  'appbar',
+  'navbar',
   'text',
   'swiper',
   'container',
@@ -36,7 +36,7 @@ const components = [
 ];
 type Components =
   | 'input'
-  | 'appbar'
+  | 'navbar'
   | 'text'
   | 'swiper'
   | 'card'
@@ -83,8 +83,8 @@ if (container) {
           return <CellExamples />;
         case 'slider':
           return <SliderExamples />;
-        case 'appbar':
-          return <AppBarExamples />;
+        case 'navbar':
+          return <NavBarExamples />;
         default:
           return undefined;
       }

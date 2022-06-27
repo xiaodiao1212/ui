@@ -5,7 +5,7 @@ import Col from './components/Col';
 import Textarea from './components/Textarea';
 import Divider from './components/Divider';
 import Upload from './components/Upload';
-import AppBar from './components/AppBar';
+import NavBar from './components/NavBar';
 import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
 import Slider from './components/Slider';
@@ -58,7 +58,7 @@ export {
   Navigation,
   ToolTip,
   List,
-  AppBar,
+  NavBar,
   Icon,
   Cell,
   Link,

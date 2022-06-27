@@ -1,31 +1,30 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
+import { ReactNode } from 'react';
 import { Base } from '../props';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useFunctionLikeValue } from '../../styles/css';
 
-type AppBarProps = Base & {
+type NavBarProps = Base & {
   left?: boolean;
-  navIcon?: React.ReactNode;
-  extra?: React.ReactNode;
-  title?: React.ReactNode;
+  navIcon?: ReactNode;
+  extra?: ReactNode;
+  title?: ReactNode;
   color?: string;
   gap?: string;
   fixed?: boolean;
   sticky?: boolean;
-  children?: React.ReactNode;
 };
 
 /**
- * The top app bar provides content and actions related to the current screen.
+ * The nav app bar provides content and actions related to the current screen.
  * It’s used for branding, screen titles, navigation, and actions.
  * ```
- * <AppBar
+ * <NavBar
  *    title='Title'
  *    extra={<Menu onClick={()=>{}}/>}>
- * </AppBar>
+ * </NavBar>
  * ```
  * @param left weather use the title left layout.
  * @param navIcon some operation icons like arrow,back,memu aligned on the left of the bar.
@@ -34,9 +33,9 @@ type AppBarProps = Base & {
  * @param color bar's background color.
  * @param gap the gap of the title,extra,navIcon
  */
-const AppBar = ({ left, navIcon, extra, title, color, co, gap, children, ...props }: AppBarProps) => {
+const NavBar = ({ left, navIcon, extra, title, color, css, gap, children, ...props }: NavBarProps) => {
   const theme = useTheme() as Theme;
-  const containerStyles = css({
+  const styles = useCSS({
     backgroundColor: color,
     width: '100%',
     '& > ul': {
@@ -55,19 +54,19 @@ const AppBar = ({ left, navIcon, extra, title, color, co, gap, children, ...prop
         textAlign: 'right',
       },
     },
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (
-    <header css={containerStyles} {...props}>
+    <nav css={styles} {...props}>
       <ul>
         <li>{navIcon}</li>
         <li>{title}</li>
         <li>{extra}</li>
       </ul>
       {children}
-    </header>
+    </nav>
   );
 };
 
-export default AppBar;
+export default NavBar;

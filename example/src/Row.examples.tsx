@@ -1,23 +1,23 @@
 import { useState } from 'react';
-import { Container } from '../build';
+import { Container, Row, Col } from '../build';
 import Example from './common/Example';
 const ContainerExamples = () => {
   return (
     <Container pa='1em'>
       <Example title='Default' desc=''>
-        <Container></Container>
+        <Row></Row>
       </Example>
       <Example title='Size' desc=''>
-        <Container />
+        <Row></Row>
       </Example>
       <Example title='Type' desc=''>
-        <Container />
+        <Row></Row>
       </Example>
       <Example title='Color' desc=''>
-        <Container />
+        <Row></Row>
       </Example>
       <Example title='Text' desc=''>
-        <Container />
+        <Row></Row>
       </Example>
     </Container>
   );
