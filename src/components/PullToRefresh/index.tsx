@@ -8,7 +8,7 @@ import { debounce } from '../../utils';
 import { Base } from '../props';
 
 type PullToRefreshProps = Base & {
-  triggerValue?: number;
+  threshold?: number;
   pullDelay?: number;
   refreshDelay?: number;
   onPullStart?: () => any;
@@ -19,7 +19,7 @@ type PullToRefreshProps = Base & {
 type RefreshLoadingProps = Base;
 
 const PullToRefresh = ({
-  triggerValue = 80,
+  threshold = 80,
   pullDelay = 30,
   refreshDelay = 1000,
   onPull,
@@ -56,7 +56,7 @@ const PullToRefresh = ({
     if (startY != 0) {
       e.stopPropagation();
       const length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)));
-      const pl = Math.min(triggerValue + pullDelay, length);
+      const pl = Math.min(threshold + pullDelay, length);
       setTranslateY(pl > (pullDelay as number) ? pl - (pullDelay as number) : 0);
       setPullLength(length);
       onPull?.(length);
@@ -70,7 +70,7 @@ const PullToRefresh = ({
   };
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (pullLength >= triggerValue + pullDelay) {
+    if (pullLength >= threshold + pullDelay) {
       const ty = ((translateY / 1.2).toFixed(2) as any) * 1;
       setTranslateY(ty);
       setIsRefresh(v => !v);
