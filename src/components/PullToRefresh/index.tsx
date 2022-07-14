@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
 import React, { useEffect, useState } from 'react';
-
-import { useTheme, css } from '@emotion/react';
-import { debounce } from '../../utils';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
 type PullToRefreshProps = Base & {
@@ -27,7 +25,7 @@ const PullToRefresh = ({
   onPullEnd,
   onRefresh,
   children,
-  co,
+  css,
   ...props
 }: PullToRefreshProps) => {
   const [pullLength, setPullLength] = useState(0);
@@ -35,7 +33,7 @@ const PullToRefresh = ({
   const [translateY, setTranslateY] = useState(0);
   const [startY, setStartY] = useState(0);
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     height: '100%',
     overflow: 'hidden',
     '& > .refresh-container': {
@@ -43,7 +41,7 @@ const PullToRefresh = ({
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
       scrollBehavior: 'smooth',
       height: '100%',
-      ...(co && (typeof co == 'function' ? co(theme) : co)),
+      ...useFunctionLikeValue(theme, css),
     },
   });
 
@@ -120,15 +118,15 @@ const PullToRefresh = ({
   );
 };
 
-const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
+const RefreshLoading = ({ css, children, className }: RefreshLoadingProps) => {
   const theme = useTheme() as Theme;
-  const style = css({
+  const style = useCSS({
     position: 'absolute',
     width: '100%',
     left: 0,
     textAlign: 'center',
     transform: 'translateY(-100%)',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

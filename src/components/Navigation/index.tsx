@@ -4,27 +4,28 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import NavigationItem from './NavigationItem';
 import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
-import { Base } from '../props';
+import { Base, Themed } from '../props';
 import vars from '../../styles/vars';
-type Navigation = Omit<Base, 'co'> & {
+import { useCSS } from '../../styles/css';
+type Navigation = Base & {
   onTap?: (index: number) => void; // Called when one of the items is tapped.
   iconSize?: string; // The size of all of the NavigationItem icons
   labelSize?: string; // The size of all of the NavigationItem labels
-  selectedItemColor?: ((theme: Theme) => string) | string;
-  selectedIconColor?: ((theme: Theme) => string) | string;
-  selectedLabelColor?: ((theme: Theme) => string) | string;
-  unselectedIconColor?: ((theme: Theme) => string) | string;
-  unselectedLabelColor?: ((theme: Theme) => string) | string;
-  unselectedItemColor?: ((theme: Theme) => string) | string;
-  backgroundColor?: ((theme: Theme) => string) | string; // The color of the Navigation itself
+  selectedItemColor?: Themed<string>;
+  selectedIconColor?: Themed<string>;
+  selectedLabelColor?: Themed<string>;
+  unselectedIconColor?: Themed<string>;
+  unselectedLabelColor?: Themed<string>;
+  unselectedItemColor?: Themed<string>;
+  backgroundColor?: Themed<string>; // The color of the Navigation itself
   currentIndex?: number; // The index into items for the current active
-  selectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The size, opacity, and color of the icon in the currently selected NavigationItem.icons.
-  selectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; //The style of the selected NavigationItem.icon and NavigationItem.labels. [...]
-  selectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The style of the NavigationItem labels when they are selected.
-  unselectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The size, opacity, and color of the icon in the currently unselected NavigationItem.icons.
-  unselectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; //The style of the unselected NavigationItem.icon and NavigationItem.labels. [...]
-  unselectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties; // The style of the NavigationItem labels when they are not selected.
-  navigationStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
+  selectedIconStyle?: Themed<CSSProperties>; // The size, opacity, and color of the icon in the currently selected NavigationItem.icons.
+  selectedItemStyle?: Themed<CSSProperties>; //The style of the selected NavigationItem.icon and NavigationItem.labels. [...]
+  selectedLabelStyle?: Themed<CSSProperties>; // The style of the NavigationItem labels when they are selected.
+  unselectedIconStyle?: Themed<CSSProperties>; // The size, opacity, and color of the icon in the currently unselected NavigationItem.icons.
+  unselectedItemStyle?: Themed<CSSProperties>; //The style of the unselected NavigationItem.icon and NavigationItem.labels. [...]
+  unselectedLabelStyle?: Themed<CSSProperties>; // The style of the NavigationItem labels when they are not selected.
+  navigationStyle?: Themed<CSSProperties>;
 };
 /**
  * A component that's displayed at the bottom of an app for selecting 
@@ -66,6 +67,7 @@ const Navigation = ({
   onTap,
   currentIndex = 0,
   iconSize,
+  css,
   labelSize,
   selectedItemColor,
   selectedIconColor,
@@ -85,7 +87,7 @@ const Navigation = ({
   ...props
 }: Navigation) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     display: 'flex',
     minHeight: vars.navigation.height,
     background:

@@ -10,10 +10,11 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Text from './components/Text';
 import Slider from './components/Slider';
 import Cell from './components/Cell';
-import CheckBox from './components/CheckBox';
-import Radio from './components/Radio';
-import SortButton from './components/SortButton';
+// import CheckBox from './components/CheckBox';
+// import Radio from './components/Radio';
+// import SortButton from './components/SortButton';
 import TimePicker from './components/TimePicker';
+// import Timeline from './components/Timeline';
 import DatePicker from './components/DatePicker';
 import Overlay from './components/Overlay';
 import Icon from './components/Icon';
@@ -29,7 +30,7 @@ import Container from './components/Container';
 import CountDown from './components/CountDown';
 import ScrollView from './components/ScrollView';
 import Image from './components/Image';
-import Swiper from './components/Swiper';
+// import Swiper from './components/Swiper';
 import Grid from './components/Grid';
 import Dropdown from './components/Dropdown';
 import Progress from './components/Progress';
@@ -43,15 +44,16 @@ import Picker from './components/Picker';
 import PullToRefresh from './components/PullToRefresh';
 import Collapse from './components/Collapse';
 import Navigation from './components/Navigation';
-import Steps from './components/Steps';
+// import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
 import Spacer from './components/Spacer';
 import Switch from './components/Switch';
-import Tabs from './components/Tabs';
+// import Tabs from './components/Tabs';
 import Toast from './components/Toast';
 import Center from './components/Center';
 export {
-  Tabs,
+  // Timeline,
+  // Tabs,
   Center,
   Toast,
   Picker,
@@ -63,7 +65,7 @@ export {
   Cell,
   Link,
   Drawer,
-  SortButton,
+  // SortButton,
   Input,
   Collapse,
   Segment,
@@ -79,10 +81,10 @@ export {
   CountDown,
   Spacer,
   Container,
-  Radio,
-  CheckBox,
+  // Radio,
+  // CheckBox,
   Card,
-  Swiper,
+  // Swiper,
   Skeleton,
   Fab,
   Dialog,
@@ -101,6 +103,6 @@ export {
   Upload,
   Textarea,
   Divider,
-  Steps,
+  // Steps,
   Switch,
 };

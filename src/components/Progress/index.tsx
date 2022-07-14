@@ -1,12 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
+import { keyframes } from '@emotion/react';
 import React from 'react';
-
-import Text from '../Text';
-import { useTheme, keyframes } from '@emotion/react';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
-import { useFunctionLikeValue, useCSS } from '../../styles/css';
 
 type ProgressProps = Base & {
   radius?: number;
@@ -73,6 +71,7 @@ const Progress = ({
     },
     ...(text.length > 0 && {
       '& > .progress-text': {
+        fontSize: '.8rem',
         position: 'absolute',
         left: `calc(${percent}% - ${Math.max(0, text.length - 2.5)}em)`,
         top: 0,
@@ -83,6 +82,7 @@ const Progress = ({
     }),
     ...(tips.length > 0 && {
       '& > .progress-tips': {
+        fontSize: '.8rem',
         position: 'absolute',
         left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
         animation: animated ? `${kfTips} 1.5s` : '',
@@ -109,20 +109,8 @@ const Progress = ({
   return (
     <div css={styles} role='progressbar' {...props}>
       <div className='progress-bar' />
-      {text && (
-        <div className='progress-text'>
-          <Text size={0.8} dark>
-            {text}
-          </Text>
-        </div>
-      )}
-      {tips && (
-        <div className='progress-tips'>
-          <Text size={0.8} dark>
-            {tips}
-          </Text>
-        </div>
-      )}
+      {text && <div className='progress-text'>{text}</div>}
+      {tips && <div className='progress-tips'>{tips}</div>}
     </div>
   );
 };

@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { createRoot } from 'react-dom/client';
 import { ReactNode } from 'react';
 import { Base } from '../props';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+
 type ToastProps = Base &
   Partial<{
     visible: boolean;
@@ -15,9 +16,9 @@ type ToastProps = Base &
     color: string;
   }>;
 
-const Toast = ({ title, content, color, children, co, ...props }: ToastProps) => {
+const Toast = ({ title, content, color, children, css, ...props }: ToastProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     position: 'fixed',
     top: '50%',
     left: '50%',
@@ -29,7 +30,7 @@ const Toast = ({ title, content, color, children, co, ...props }: ToastProps) =>
     background: color || theme?.color?.black || 'rgba(0, 0, 0, 0.45)',
     color: 'white',
     padding: '.4em 1em',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (
@@ -48,7 +49,7 @@ Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
   const aside = document.createElement('aside');
   document.body.appendChild(aside);
   const root = createRoot(aside);
-  root.render(<Toast {...{ title, icon, color, ...rest }} />);
+  root.render(<Toast {...({ title, icon, color, ...rest } as any)} />);
 
   setTimeout(() => {
     root.unmount();

@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { css as useCSS, keyframes, useTheme } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import vars from '../../styles/vars';
 import { Base } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import vars from '../../styles/vars';
 
 type DialogProps = Base & {
   shy?: boolean;
@@ -20,11 +22,10 @@ const Dialog = ({
   loading,
   close,
   mask,
-  css,
   onClose,
   animationType = 'slide',
   children,
-  co,
+  css,
   ...props
 }: DialogProps) => {
   const theme = useTheme() as Theme;

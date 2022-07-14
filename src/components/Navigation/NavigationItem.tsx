@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { ReactNode, CSSProperties } from 'react';
-import { Base } from '../props';
-
-export type NavigationItemProps = Omit<Base, 'co'> & {
+import { Base, Themed } from '../props';
+import { useCSS, useFunctionLikeValue } from '../../styles/css';
+export type NavigationItemProps = Base & {
   index?: number;
   onTap?: (index?: number) => void;
   selected?: boolean;
@@ -14,18 +14,18 @@ export type NavigationItemProps = Omit<Base, 'co'> & {
   activeIcon?: ReactNode;
   iconSize?: string;
   labelSize?: string;
-  selectedItemColor?: ((theme: Theme) => string) | string;
-  selectedIconColor?: ((theme: Theme) => string) | string;
-  selectedLabelColor?: ((theme: Theme) => string) | string;
-  unselectedIconColor?: ((theme: Theme) => string) | string;
-  unselectedLabelColor?: ((theme: Theme) => string) | string;
-  unselectedItemColor?: ((theme: Theme) => string) | string;
-  selectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  selectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  selectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  unselectedIconStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  unselectedItemStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
-  unselectedLabelStyle?: ((theme: Theme) => CSSProperties) | CSSProperties;
+  selectedItemColor?: Themed<string>;
+  selectedIconColor?: Themed<string>;
+  selectedLabelColor?: Themed<string>;
+  unselectedIconColor?: Themed<string>;
+  unselectedLabelColor?: Themed<string>;
+  unselectedItemColor?: Themed<string>;
+  selectedIconStyle?: Themed<CSSProperties>;
+  selectedItemStyle?: Themed<CSSProperties>;
+  selectedLabelStyle?: Themed<CSSProperties>;
+  unselectedIconStyle?: Themed<CSSProperties>;
+  unselectedItemStyle?: Themed<CSSProperties>;
+  unselectedLabelStyle?: Themed<CSSProperties>;
 };
 
 const NavigationItem = ({
@@ -49,11 +49,12 @@ const NavigationItem = ({
   unselectedLabelStyle,
   onTap,
   index,
+  css,
   children,
   ...props
 }: NavigationItemProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
@@ -74,7 +75,7 @@ const NavigationItem = ({
       ? unselectedItemStyle(theme)
       : unselectedItemStyle),
   });
-  const labelStyles = css({
+  const labelStyles = useCSS({
     fontSize: labelSize,
     color: selected
       ? typeof selectedLabelColor == 'function'
@@ -91,7 +92,7 @@ const NavigationItem = ({
       ? unselectedLabelStyle(theme)
       : unselectedLabelStyle),
   });
-  const iconStyles = css({
+  const iconStyles = useCSS({
     fontSize: iconSize,
     color: selected
       ? typeof selectedIconColor == 'function'

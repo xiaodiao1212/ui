@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
+import { useEffect, useState } from 'react';
+
 import { Base } from '../props';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { css as useCSS, useTheme } from '@emotion/react';
-import { ReactNode, useEffect, useState } from 'react';
-import { useFunctionLikeValue } from '../../styles/css';
+import vars from '../../styles/vars';
 
 type TooltipProps = Base & {
   backgroundColor?: ((theme: Theme) => string) | string;

@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
 import { Base } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 
 type DropdownProps = Base & {
   show?: boolean;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 
-const Dropdown = ({ co, children, ...props }: React.ComponentPropsWithoutRef<'div'> & DropdownProps) => {
+const Dropdown = ({ css, children, ...props }: DropdownProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+  const styles = useCSS({
+    ...useFunctionLikeValue(theme, css),
   });
 
   return <div css={styles} {...props}></div>;

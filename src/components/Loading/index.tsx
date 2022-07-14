@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, keyframes, useTheme } from '@emotion/react';
+import { keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
+
 import { Base } from '../props';
+import { useCSS, useFunctionLikeValue } from '../../styles/css';
 
 type LoadingProps = Base & {
   bit?: boolean;
@@ -22,7 +23,7 @@ const Loading = ({
   color = '#555',
   backgroudColor = '#f3f3f3',
   bit = false,
-  co,
+  css,
   ...props
 }: LoadingProps & Omit<React.ComponentPropsWithoutRef<'div'>, 'color'>) => {
   const theme = useTheme() as Theme;
@@ -42,7 +43,7 @@ const Loading = ({
       transform: 'scale(1.5)',
     },
   });
-  const styles = css({
+  const styles = useCSS({
     '& .nomal': {
       border: `${borderWidth} solid ${
         typeof backgroudColor == 'string' ? backgroudColor : (backgroudColor as (theme: Theme) => string)(theme)
@@ -130,7 +131,7 @@ const Loading = ({
       },
     },
 
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

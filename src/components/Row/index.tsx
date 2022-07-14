@@ -14,20 +14,7 @@ type RowProps = Margin &
     wrap?: boolean;
     fullHeight?: boolean;
   };
-/**
- * Links allow users to navigate to a different location. They can be presented inline inside a paragraph or as standalone text.
- * ```
- * <Link href='#' indicatorAction='none' color='green'>
-      customr link
-   </Link>
- * ```
- * @param indicatorColor link's underline color.
- * @param color link's text color.
- * @param indicatorAction link's underline triger way.
- * @param indicatorSize link's underline coarseness.
- * @param blank open url with new window.
- * @returns <a> tag 
- */
+
 const Row = ({ children, vertical, wrap, fullHeight, align, justify, gap, css, ...props }: RowProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({

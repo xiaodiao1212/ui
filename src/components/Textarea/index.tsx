@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import { Base } from '../props';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 type TextareaProps = Base & {
   showCount?: boolean | ((length: number, maxLength?: number) => React.ReactNode);
   onChange?: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -15,7 +15,7 @@ type TextareaProps = Base & {
  * @returns Textarea
  */
 const Textarea = ({
-  co,
+  css,
   showCount,
   className,
   onChange,
@@ -23,12 +23,12 @@ const Textarea = ({
 }: Omit<React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, 'onChange'> &
   TextareaProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     width: '100%',
     padding: '12px',
     backgroundColor: theme.mode == 'light' ? theme.color.greyLight : theme.color.white,
     color: theme.mode == 'light' ? theme.color.black : theme.color.white,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

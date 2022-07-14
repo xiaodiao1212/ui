@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import { Base } from '../props';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 type TimePickerProps = Base &
   Partial<{
     min: string;
@@ -16,7 +16,7 @@ const TimePicker = ({
   max,
   onChange,
   children,
-  co,
+  css,
   ...props
 }: React.ComponentPropsWithoutRef<'label'> & TimePickerProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,13 +24,13 @@ const TimePicker = ({
   };
 
   const theme = useTheme() as Theme;
-  const styles = css({
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+  const styles = useCSS({
+    ...useFunctionLikeValue(theme, css),
   });
   return (
     <label css={styles} {...props}>
       <input min={min} max={max} hidden={!!children} type='time' onChange={handleChange} />
-      {children || 'Time'}
+      {children}
     </label>
   );
 };

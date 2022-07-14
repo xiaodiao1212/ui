@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Base } from '../props';
-import { css as useCSS, useTheme } from '@emotion/react';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
-import { useFunctionLikeValue } from '../../styles/css';
 
 type UploadProps = Base &
   Partial<{
@@ -35,13 +33,13 @@ const Upload = ({
   return (
     <label css={styles} aria-label='file upload input'>
       <input
-        accept={onlyImg ? 'image/png,image/jpeg,image/jpg' : accept}
+        accept={accept || (onlyImg ? 'image/png,image/jpeg,image/jpg' : '')}
         hidden
         type='file'
         onChange={handleFileChange}
         {...props}
       />
-      {children || 'Upload'}
+      {children}
     </label>
   );
 };

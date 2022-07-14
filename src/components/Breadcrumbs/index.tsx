@@ -1,30 +1,31 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import React from 'react';
-import { Base } from '../props';
+import { Base, Themed } from '../props';
 
-type BreadcrumbsItem = Partial<{
-  link: boolean;
-  title: string;
-  onClick: () => any;
-}>;
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+
+type BreadcrumbsItem = Base &
+  Partial<{
+    link: boolean;
+    title: string;
+    onClick: () => any;
+  }>;
 type BreadcrumbsProps = Base &
   Partial<{
     divider: React.ReactNode;
     items: BreadcrumbsItem[];
   }>;
 
-const Breadcrumbs = ({ divider = '/', items = [], className, co }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ divider = '/', items = [], className, css }: BreadcrumbsProps) => {
   const theme = useTheme() as Theme;
-  const sliderStyles = css({
+  const sliderStyles = useCSS({
     display: 'inline-flex',
     alignItems: 'center',
     '& > *': {
       display: 'inline-flex',
     },
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

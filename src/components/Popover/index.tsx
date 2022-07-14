@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
+import React from 'react';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
 import { Base } from '../props';
 
 type PopoverProps = Base & {
@@ -18,15 +18,15 @@ type PopoverContentProps = Base & {
  * @param boolean hover
  * @returns Popover
  */
-const Popover = ({ hover = false, co, children, ...props }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
+const Popover = ({ hover = false, css, children, ...props }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
   const theme = useTheme() as Theme;
   const [isContentShow, setIsContentShow] = React.useState(false);
-  const styles = css({
+  const styles = useCSS({
     position: 'relative',
     display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleChildrenRender = () => {
@@ -64,19 +64,19 @@ const Popover = ({ hover = false, co, children, ...props }: React.ComponentProps
 const PopoverContent = ({
   show = false,
   position = 'bottom',
-  co,
+  css,
   children,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & PopoverContentProps) => {
   const theme = useTheme() as Theme;
   const [cp, setCp] = React.useState({});
-  const styles = css({
+  const styles = useCSS({
     position: 'absolute',
     ...cp,
     display: show ? 'block' : 'none',
 
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
   const [usePropsShow, setUsePropsShow] = React.useState(true);
   const handleMouseOver = (e: any) => {

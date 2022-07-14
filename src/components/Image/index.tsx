@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-
 import { useState, ReactNode, useLayoutEffect, useRef, ReactEventHandler, SyntheticEvent } from 'react';
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
-import vars from '../../styles/vars';
-import { useMemo } from 'react';
+
 import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 
 type ImageProps = Base & {
@@ -52,7 +50,7 @@ const Image = ({
     imageRendering: 'initial',
     imageOrientation: 'initial',
     height: height,
-    ...useFunctionLikeValue(theme,css),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const containerStyles = useCSS({
@@ -60,7 +58,7 @@ const Image = ({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-  })
+  });
 
   const maskStyles = useCSS({
     display: 'flex',
@@ -69,7 +67,7 @@ const Image = ({
     position: 'absolute',
     inset: 0,
     backdropFilter,
-  })
+  });
   const handleImgLoadError = (e: SyntheticEvent<HTMLImageElement>) => {
     setLoadingState('error');
     onError && onError(e);
@@ -95,16 +93,10 @@ const Image = ({
 
   const renderRightImg = () => {
     return (
-      <div
-        css={containerStyles}>
+      <div css={containerStyles}>
         {loadingState == 'loading' && loadingImg}
         {loadingState == 'error' ? errorImg : img}
-        {loadingState == 'success' && mask && (
-          <div
-            css={maskStyles}>
-            {mask}
-          </div>
-        )}
+        {loadingState == 'success' && mask && <div css={maskStyles}>{mask}</div>}
       </div>
     );
   };

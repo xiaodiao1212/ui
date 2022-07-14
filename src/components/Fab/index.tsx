@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
+import { Base, Themed } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+
 import { debounce } from '../../utils';
-import { Base } from '../props';
+import { useState } from 'react';
 
 type FabProps = Base &
   Partial<{
@@ -24,20 +26,20 @@ const Fab = ({
     top: 0,
   },
   children,
-  co,
+  css,
   ...props
-}: FabProps & React.ComponentPropsWithoutRef<'aside'>) => {
-  const [computedPosition, setComputedPosition] = React.useState(position);
-  const [maxLeft, setMaxLeft] = React.useState(0);
-  const [maxTop, setMaxTop] = React.useState(0);
-  const [clientProperty, setClientProperty] = React.useState<any>(0);
+}: FabProps) => {
+  const [computedPosition, setComputedPosition] = useState(position);
+  const [maxLeft, setMaxLeft] = useState(0);
+  const [maxTop, setMaxTop] = useState(0);
+  const [clientProperty, setClientProperty] = useState<any>(0);
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     position: 'fixed',
     ...position,
     zIndex: theme.zIndex.floatingWindow,
-    transition: '.1s all',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    transition: '.25s all',
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleTouchStart = (e: any) => {

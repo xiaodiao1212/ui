@@ -41,7 +41,6 @@ export type Base = Partial<{
   className: string;
   children: React.ReactNode;
   css: Themed<CSSObject>;
-  co: Themed<CSSObject>;
 }>;
 
 export interface ColorObject {
