@@ -83,7 +83,7 @@ const NoticeBar = ({
     return (
       <Row vertical align='start'>
         <Col>{title}</Col>
-        <Col co={{ fontSize: '.8em' }}>{content}</Col>
+        <Col css={{ fontSize: '.8em' }}>{content}</Col>
       </Row>
     );
   };

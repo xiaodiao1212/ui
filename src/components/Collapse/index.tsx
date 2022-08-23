@@ -37,7 +37,7 @@ const Collapse = ({ title, animated = true, expand = false, trigger, children, .
           height='1.2em'
           color={theme.color.black}
           src={arrowSVG}
-          co={{
+          css={{
             marginLeft: 'auto',
             transition: 'transform .1s',
             transform: `rotate(${expand ? '0deg' : '180deg'})`,

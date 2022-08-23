@@ -1,8 +1,15 @@
 import { Theme } from '../styles/themes';
 import { Margin, Padding, Position } from '../components/props';
 import { css, useTheme as ut } from '@emotion/react';
+
+import vars from './vars';
 export const useTheme = ut;
 export const useCSS = css;
+type Color = keyof typeof vars.color;
+
+export function useColor(color: Color, theme: Theme, defaultColor?: string) {
+  return defaultColor || (theme ? theme.color[color] : vars.color[color]);
+}
 export function useCenter() {
   return { display: 'flex', alignItems: 'center', justifyContent: 'center' };
 }
