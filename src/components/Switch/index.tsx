@@ -6,7 +6,7 @@ import { memo, ReactNode, useCallback, useMemo } from 'react';
 import vars from '../../styles/vars';
 import { useCenter, useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
 import { darken } from 'polished';
-import { rotate } from '../../styles/animations';
+import { rotate } from '../../styles/keyframes';
 
 type SwitchProps = Base & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
