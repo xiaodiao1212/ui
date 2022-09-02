@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
 import { memo, ReactNode } from 'react';
 import vars from '../../styles/vars';
+import { useCSS, useFunctionLikeValue, useTheme } from '../../styles/css';
 
 type SwitchProps = Base & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
@@ -16,10 +16,10 @@ type SwitchProps = Base & {
   disabled?: boolean;
 };
 
-const Switch = ({ on = false, onChange, color, radius, co, width = 2.8, height = 1.4, ...props }: SwitchProps) => {
+const Switch = ({ on = false, onChange, color, radius, css, width = 2.8, height = 1.4, ...props }: SwitchProps) => {
   const theme = useTheme() as Theme;
 
-  const styles = css({
+  const styles = useCSS({
     //switch track css implement
     display: 'inline-flex',
     alignItems: 'center',
@@ -60,7 +60,7 @@ const Switch = ({ on = false, onChange, color, radius, co, width = 2.8, height =
       transform: on ? 'translateX(-0.2em)' : '',
     },
 
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

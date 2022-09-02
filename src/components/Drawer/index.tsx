@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import React, { useEffect, useState } from 'react';
-
-import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useEffect, useState } from 'react';
 
 type DrawerProps = Base & {
   width?: string;
@@ -50,7 +50,7 @@ const Drawer = ({
   onClose,
   children,
 
-  co,
+  css,
   ...props
 }: DrawerProps) => {
   const theme = useTheme() as Theme;
@@ -60,7 +60,7 @@ const Drawer = ({
   const [openStyle, setOpenStyle] = useState({});
 
   // The CSS properties of drawer content container,
-  const contentStyles = css({
+  const contentStyles = useCSS({
     touchAction: 'none',
     background: theme.color.white || 'white',
     position: 'fixed',
@@ -68,14 +68,14 @@ const Drawer = ({
     transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     ...contentStyle,
     ...(open ? openStyle : {}),
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   /**
    * The CSS properties of the background layer,
    * mainly the fixed layout and the corresponding color, animation
    */
-  const maskStyles = css({
+  const maskStyles = useCSS({
     touchAction: 'none',
     position: 'fixed',
     zIndex: theme.zIndex.drawer,

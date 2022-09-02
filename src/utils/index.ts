@@ -15,13 +15,31 @@ function addCSSLink(url: string) {
   link.href = url;
   document.getElementsByTagName('head')[0].appendChild(link);
 }
-function debounce(fn: Function, delay: number = 500) {
-  let timer: any;
-  return function (this: any, ...args: any) {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
+function debounce(fn: Function, ms = 300) {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+}
+function throttle(fn: Function, wait: number = 300) {
+  let inThrottle: boolean, lastFn: ReturnType<typeof setTimeout>, lastTime: number;
+  return function (this: any) {
+    const context = this,
+      args = arguments;
+    if (!inThrottle) {
+      fn.apply(context, args);
+      lastTime = Date.now();
+      inThrottle = true;
+    } else {
+      clearTimeout(lastFn);
+      lastFn = setTimeout(() => {
+        if (Date.now() - lastTime >= wait) {
+          fn.apply(context, args);
+          lastTime = Date.now();
+        }
+      }, Math.max(wait - (Date.now() - lastTime), 0));
+    }
   };
 }
 function isBrowerTabInView() {
@@ -117,9 +135,6 @@ function isObject(item: any) {
 }
 
 function deepMerge(target: any, source: any) {
-  // console.log(target)
-  // console.log(source)
-  // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
   for (const key of Object.keys(source)) {
     if (source[key] instanceof Object) Object.assign(source[key], deepMerge(target[key], source[key]));
   }
@@ -157,6 +172,7 @@ export {
   isAndroid,
   isIos,
   isBrowerTabInView,
+  throttle,
   copy,
   clamp,
   getUUID,

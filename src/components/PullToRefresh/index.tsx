@@ -1,14 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
 import React, { useEffect, useState } from 'react';
-
-import { useTheme, css } from '@emotion/react';
-import { debounce } from '../../utils';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
 type PullToRefreshProps = Base & {
-  triggerValue?: number;
+  threshold?: number;
   pullDelay?: number;
   refreshDelay?: number;
   onPullStart?: () => any;
@@ -19,7 +17,7 @@ type PullToRefreshProps = Base & {
 type RefreshLoadingProps = Base;
 
 const PullToRefresh = ({
-  triggerValue = 80,
+  threshold = 80,
   pullDelay = 30,
   refreshDelay = 1000,
   onPull,
@@ -27,7 +25,7 @@ const PullToRefresh = ({
   onPullEnd,
   onRefresh,
   children,
-  co,
+  css,
   ...props
 }: PullToRefreshProps) => {
   const [pullLength, setPullLength] = useState(0);
@@ -35,7 +33,7 @@ const PullToRefresh = ({
   const [translateY, setTranslateY] = useState(0);
   const [startY, setStartY] = useState(0);
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     height: '100%',
     overflow: 'hidden',
     '& > .refresh-container': {
@@ -43,7 +41,7 @@ const PullToRefresh = ({
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
       scrollBehavior: 'smooth',
       height: '100%',
-      ...(co && (typeof co == 'function' ? co(theme) : co)),
+      ...useFunctionLikeValue(theme, css),
     },
   });
 
@@ -56,7 +54,7 @@ const PullToRefresh = ({
     if (startY != 0) {
       e.stopPropagation();
       const length = Math.max(0, parseFloat((e.touches[0].clientY - startY).toFixed(2)));
-      const pl = Math.min(triggerValue + pullDelay, length);
+      const pl = Math.min(threshold + pullDelay, length);
       setTranslateY(pl > (pullDelay as number) ? pl - (pullDelay as number) : 0);
       setPullLength(length);
       onPull?.(length);
@@ -70,7 +68,7 @@ const PullToRefresh = ({
   };
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (pullLength >= triggerValue + pullDelay) {
+    if (pullLength >= threshold + pullDelay) {
       const ty = ((translateY / 1.2).toFixed(2) as any) * 1;
       setTranslateY(ty);
       setIsRefresh(v => !v);
@@ -120,15 +118,15 @@ const PullToRefresh = ({
   );
 };
 
-const RefreshLoading = ({ co, children, className }: RefreshLoadingProps) => {
+const RefreshLoading = ({ css, children, className }: RefreshLoadingProps) => {
   const theme = useTheme() as Theme;
-  const style = css({
+  const style = useCSS({
     position: 'absolute',
     width: '100%',
     left: 0,
     textAlign: 'center',
     transform: 'translateY(-100%)',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

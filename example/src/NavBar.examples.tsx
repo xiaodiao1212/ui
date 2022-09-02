@@ -1,7 +1,7 @@
-import APITable, { APIs } from '../APITable';
-import { AppBar, Container } from '../build';
-import Left from '../Left';
-import Example from '../Example';
+import APITable, { APIs } from './common/APITable';
+import { NavBar, Container } from '../build';
+import Left from './Left';
+import Example from './common/Example';
 const apis: APIs = [
   {
     attributes: 'title',
@@ -11,11 +11,11 @@ const apis: APIs = [
     defaultValue: '-',
   },
 ];
-const AppBarExamples = () => {
+const NavBarExamples = () => {
   return (
     <Container pa='1em'>
       <Example title='Default' desc='Title show app'>
-        <AppBar title='Title'></AppBar>
+        <NavBar title='Title'></NavBar>
       </Example>
 
       <APITable apis={apis} />
@@ -23,4 +23,4 @@ const AppBarExamples = () => {
   );
 };
 
-export default AppBarExamples;
+export default NavBarExamples;

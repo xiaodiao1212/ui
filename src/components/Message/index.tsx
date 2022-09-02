@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 import { Base } from '../props';
 import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
 
-type ToastProps = Base &
+type MessageProps = Base &
   Partial<{
     visible: boolean;
     duration: number;
@@ -16,7 +16,7 @@ type ToastProps = Base &
     color: string;
   }>;
 
-const Toast = ({ title, content, color, children, css, ...props }: ToastProps) => {
+const Message = ({ title, content, color, children, css, ...props }: MessageProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({
     position: 'fixed',
@@ -45,11 +45,11 @@ const Toast = ({ title, content, color, children, css, ...props }: ToastProps) =
   );
 };
 
-Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
+Message.show = ({ title, color, icon, duration = 2000, ...rest }: MessageProps) => {
   const aside = document.createElement('aside');
   document.body.appendChild(aside);
   const root = createRoot(aside);
-  root.render(<Toast {...({ title, icon, color, ...rest } as any)} />);
+  root.render(<Message {...({ title, icon, color, ...rest } as any)} />);
 
   setTimeout(() => {
     root.unmount();
@@ -57,4 +57,4 @@ Toast.show = ({ title, color, icon, duration = 2000, ...rest }: ToastProps) => {
   }, duration);
 };
 
-export default Toast;
+export default Message;

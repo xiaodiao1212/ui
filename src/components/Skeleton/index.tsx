@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import React from 'react';
-
-import { useTheme, css, keyframes } from '@emotion/react';
 import { Base } from '../props';
+
+import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { keyframes } from '@emotion/react';
+
 type SkeletonProps = Base & {
   duration?: number;
   delay?: number;
@@ -21,11 +22,11 @@ const Skeleton = ({
   circle = false,
   rect = false,
   text = false,
-  co,
+  css,
   width,
   height = '100%',
   ...props
-}: SkeletonProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: SkeletonProps) => {
   const theme = useTheme() as Theme;
 
   const anim = keyframes({
@@ -34,7 +35,7 @@ const Skeleton = ({
     },
   });
 
-  const styles = css({
+  const styles = useCSS({
     width: width,
     height: height,
     borderRadius: circle ? '50%' : '4px',
@@ -44,7 +45,7 @@ const Skeleton = ({
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
-    ...(typeof co == 'function' ? co?.(theme) : co),
+    ...useFunctionLikeValue(theme, css),
   });
   return <div css={styles} {...props} />;
 };

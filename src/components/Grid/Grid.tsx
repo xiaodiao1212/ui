@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
+import { Base, Themed } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+
 import GridContainer from './GridContainer';
-import { Base } from '../props';
 type GridProps = Base & {
   row?: number;
   col?: number;
@@ -11,15 +12,15 @@ type GridProps = Base & {
   colGap?: string;
 };
 
-const Grid = ({ row, col, rowGap, colGap, co, children, ...props }: GridProps) => {
+const Grid = ({ row, col, rowGap, colGap, css, children, ...props }: GridProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     display: 'grid',
     gridTemplateColumns: `repeat(${col}, 1fr)`,
     gridAutoRows: '1fr',
     gridColumnGap: colGap,
     gridRowGap: rowGap,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

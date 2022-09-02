@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, keyframes, useTheme } from '@emotion/react';
+import { keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { ComponentPropsWithoutRef, CSSProperties, ReactNode } from 'react';
+
 import { Base } from '../props';
+import { useCSS, useFunctionLikeValue } from '../../styles/css';
+import { ReactNode } from 'react';
 
 type ListItem = {
   id?: string | number;
@@ -33,7 +35,7 @@ const List = ({
   renderItem,
   gap,
   innerGap,
-  co,
+  css,
   divider,
   pa,
   ma,
@@ -43,14 +45,14 @@ const List = ({
   mx,
   children,
   ...props
-}: ListProps & ComponentPropsWithoutRef<'section'>) => {
+}: ListProps) => {
   const theme = useTheme() as Theme;
-  const listStyles = css({
+  const listStyles = useCSS({
     display: 'flex',
     flexDirection: 'column',
     gap,
   });
-  const itemStyles = css({
+  const itemStyles = useCSS({
     display: 'flex',
     alignItems: 'center',
     innerGap,
@@ -65,7 +67,7 @@ const List = ({
     marginLeft: px,
     marginRight: px,
     borderBottom: divider ? '1px solid #F4F5F7' : '',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const defaulRenderItem = ({ id, avator, title, content, extra }: ListItem) => {
@@ -73,7 +75,7 @@ const List = ({
       <li key={id} css={itemStyles}>
         {avator && (
           <div
-            css={css({
+            css={useCSS({
               flex: 'none',
             })}>
             {avator}
@@ -81,7 +83,7 @@ const List = ({
         )}
         {(title || content) && (
           <div
-            css={css({
+            css={useCSS({
               flex: 'auto',
             })}>
             <div>{title}</div>
@@ -90,7 +92,7 @@ const List = ({
         )}
         {extra && (
           <div
-            css={css({
+            css={useCSS({
               marginLeft: 'auto',
             })}>
             {extra}

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
-import { useTheme, css } from '@emotion/react';
+import * as React from 'react';
 import { Base } from '../props';
-import { lighten } from 'polished';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 type TagProps = Base & {
   outlined?: boolean;
@@ -26,13 +26,12 @@ type TagProps = Base & {
  * @param hollow (Optional) weather the background hollow out
  * @param radius (Optional) the css property `borderRadius` size
  */
-const Tag = ({ outlined = false, radius, color, co, children, ...props }: TagProps) => {
+const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = () =>
-    (typeof color == 'function' ? color(theme) : color) ||
-    (theme.mode == 'light' ? theme.color.black : theme.color.white);
+    useFunctionLikeValue(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
 
-  const styles = css({
+  const styles = useCSS({
     display: 'inline-flex',
     padding: '0.2em 0.6em',
     borderRadius: radius || (theme ? theme.border.full : vars.radius.full),
@@ -45,7 +44,7 @@ const Tag = ({ outlined = false, radius, color, co, children, ...props }: TagPro
           border: '1px solid ' + getComputedColor(),
           color: getComputedColor(),
         }),
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
   return (
     <span css={styles} {...props}>

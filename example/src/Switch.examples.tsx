@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Switch, Col as DefaultCol, Container, Row } from '../build';
-import APITable, { APIs } from '../APITable';
-import Example from '../Example';
+import APITable, { APIs } from './common/APITable';
+import Example from './common/Example';
 const Col = ({ children }: any) => <DefaultCol left>{children}</DefaultCol>;
 const apis: APIs = [
   {
@@ -93,14 +93,9 @@ const SwitchExamples = () => {
       <Example
         title='Default & Disabled'
         desc='Generate a switch element easily with beautiful animations and functionality'>
-        <Row gap='1em'>
-          <Col>
-            <Switch on={on} onChange={() => setOn(v => !v)} />
-          </Col>
-          <Col>
-            <Switch disabled on={on2} onChange={() => setOn2(v => !v)} />
-          </Col>
-        </Row>
+        <Switch on={on} onChange={() => setOn(v => !v)} />
+
+        <Switch disabled on={on2} onChange={() => setOn2(v => !v)} />
       </Example>
 
       <Example

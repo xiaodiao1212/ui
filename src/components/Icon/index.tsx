@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { useTheme, css } from '@emotion/react';
-import { Base } from '../props';
+import { Base, Themed } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme, useColor } from '../../styles/css';
+import vars from '../../styles/vars';
 
 type IconProps = Base & {
   width?: string;
@@ -12,16 +14,16 @@ type IconProps = Base & {
 
   onClick?: () => any;
 };
-const Icon = ({ width, height, color, co, src, onClick, ...props }: IconProps) => {
+const Icon = ({ width, height, color, css, src, onClick, ...props }: IconProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     display: 'inline-block',
     width: width,
     height: height,
     backgroundColor: color,
     mask: `url(${src}) no-repeat`,
     maskSize: '100% 100%',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleClickIcon = () => {

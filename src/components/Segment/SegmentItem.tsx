@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import React from 'react';
-
-import { useTheme, css } from '@emotion/react';
 import { Base } from '../props';
+
+import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+
 type SegmentItemProps = Base &
   Partial<{
     itemkey: React.Key | null | undefined;
@@ -15,19 +15,19 @@ const SegmentItem = ({
   itemkey,
   currentKey,
   onClickItem,
-  co,
+  css,
   children,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & SegmentItemProps) => {
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     padding: '0 .4em',
     flex: 1,
     textAlign: 'center',
     color: itemkey == currentKey ? theme.color.primary : theme.color.black,
     transition: '.3s all',
     fontWeight: itemkey == currentKey ? 700 : 500,
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   const handleClickSegmentItem = () => {

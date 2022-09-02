@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
+
 import { Base } from '../props';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useFunctionLikeValue } from '../../styles/css';
 
 type AppBarProps = Base & {
   left?: boolean;
@@ -34,9 +34,9 @@ type AppBarProps = Base & {
  * @param color bar's background color.
  * @param gap the gap of the title,extra,navIcon
  */
-const Menu = ({ left, navIcon, extra, title, color, co, gap, children, ...props }: AppBarProps) => {
+const Menu = ({ left, navIcon, extra, title, color, css, gap, children, ...props }: AppBarProps) => {
   const theme = useTheme() as Theme;
-  const containerStyles = css({
+  const containerStyles = useCSS({
     backgroundColor: color,
     width: '100%',
     '& > ul': {
@@ -55,7 +55,7 @@ const Menu = ({ left, navIcon, extra, title, color, co, gap, children, ...props 
         textAlign: 'right',
       },
     },
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

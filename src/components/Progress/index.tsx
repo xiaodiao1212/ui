@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
+import { keyframes } from '@emotion/react';
 import React from 'react';
-
-import Text from '../Text';
-import { useTheme, css, keyframes } from '@emotion/react';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
 type ProgressProps = Base & {
@@ -28,7 +27,7 @@ const Progress = ({
   color,
   animated = false,
   className,
-  co,
+  css,
   ...props
 }: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
   const theme = useTheme() as Theme;
@@ -57,7 +56,7 @@ const Progress = ({
       left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
     },
   });
-  const styles = css({
+  const styles = useCSS({
     position: 'relative',
     height: height,
     backgroundColor: backgroundColor || theme.color.accent,
@@ -72,6 +71,7 @@ const Progress = ({
     },
     ...(text.length > 0 && {
       '& > .progress-text': {
+        fontSize: '.8rem',
         position: 'absolute',
         left: `calc(${percent}% - ${Math.max(0, text.length - 2.5)}em)`,
         top: 0,
@@ -82,6 +82,7 @@ const Progress = ({
     }),
     ...(tips.length > 0 && {
       '& > .progress-tips': {
+        fontSize: '.8rem',
         position: 'absolute',
         left: `calc(${percent}% - ${Math.max(0, tips.length / 2)}em)`,
         animation: animated ? `${kfTips} 1.5s` : '',
@@ -102,26 +103,14 @@ const Progress = ({
         },
       },
     }),
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (
     <div css={styles} role='progressbar' {...props}>
       <div className='progress-bar' />
-      {text && (
-        <div className='progress-text'>
-          <Text size='.8em' dark>
-            {text}
-          </Text>
-        </div>
-      )}
-      {tips && (
-        <div className='progress-tips'>
-          <Text size='.8em' dark>
-            {tips}
-          </Text>
-        </div>
-      )}
+      {text && <div className='progress-text'>{text}</div>}
+      {tips && <div className='progress-tips'>{tips}</div>}
     </div>
   );
 };

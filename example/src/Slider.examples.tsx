@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Slider, Col as DefaultCol, Container, Row } from '../build';
-import APITable, { APIs } from '../APITable';
-import Example from '../Example';
-const Col = ({ children }: any) => <DefaultCol left>{children}</DefaultCol>;
+import { Slider, Container } from '../build';
+import APITable, { APIs } from './common/APITable';
+import Example from './common/Example';
 const apis: APIs = [
   {
     attributes: 'on',
@@ -41,22 +40,16 @@ const SwitchExamples = () => {
       <Example
         title='Default or Disabled'
         desc='Generate a switch element easily with beautiful animations and functionality'>
-        <Row gap='1em'>
-          <Col>
-            {v}
-
-            <Slider
-              trackSize={4}
-              thumbSize={30}
-              max={max}
-              min={min}
-              step={step}
-              value={v}
-              defaultValue={max}
-              onChange={v => ((v as unknown as number) * 1 + step > max ? setV(max + '') : setV(v))}
-            />
-          </Col>
-        </Row>
+        <Slider
+          trackSize={4}
+          thumbSize={30}
+          max={max}
+          min={min}
+          step={step}
+          value={v}
+          defaultValue={max}
+          onChange={v => ((v as unknown as number) * 1 + step > max ? setV(max + '') : setV(v))}
+        />
       </Example>
 
       <APITable apis={apis} />

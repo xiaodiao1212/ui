@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
-import { Theme } from '../../styles/themes';
 import { useEffect, useState } from 'react';
-import * as React from 'react';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
 type PickerItem = {
@@ -17,7 +16,7 @@ type PickerProps = Base & {
   value: string[];
 };
 
-const Picker = ({ data = [], onChange, value, children, co, ...props }: PickerProps) => {
+const Picker = ({ data = [], onChange, value, children, css, ...props }: PickerProps) => {
   const theme = useTheme() as Theme;
   const [pickerStyle, setPickerStyle] = useState<any>({
     position: 'relative',
@@ -25,7 +24,7 @@ const Picker = ({ data = [], onChange, value, children, co, ...props }: PickerPr
     flexDirection: 'column',
     minHeight: '10em',
     cursor: 'grab',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
     '& > .container': {
       display: 'flex',
       justifyContent: 'center',
@@ -200,7 +199,7 @@ const Picker = ({ data = [], onChange, value, children, co, ...props }: PickerPr
     setPickerStyle({ ...ps });
   }, [translateYlength]);
   return (
-    <div css={css(pickerStyle)} {...props}>
+    <div css={useCSS(pickerStyle)} {...props}>
       <div className='container'>
         {computedData.map((columnData, i) => (
           <div

@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { useState, ReactNode, CSSProperties, useMemo, ComponentPropsWithoutRef, useEffect } from 'react';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useState, ReactNode, CSSProperties, useMemo, useEffect } from 'react';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 import vars from '../../styles/vars';
+import { Base } from '../props';
 
-type InputProps = {
+type InputProps = Pick<Base, 'css'> & {
+  readOnly?: boolean;
   type?: 'number' | 'text' | 'password' | 'tel' | 'email' | 'url';
   clearable?: boolean;
   flex?: number;
@@ -60,6 +61,7 @@ const Input = ({
   format,
   verify,
   disabled,
+  readOnly,
   onChange,
   inputStyle,
   messageStyle,
@@ -76,23 +78,22 @@ const Input = ({
   const [focus, setFocus] = useState(false);
   const [innerValue, setInnerValue] = useState('');
   const padding = useMemo(() => (theme ? theme.input.padding : vars.input.padding), []);
-  const inputStyles = css({
+  const inputStyles = useCSS({
     position: 'relative',
     display: 'inline-flex',
     alignItems: 'center',
     padding,
-    '& > input': {},
     ...useFunctionLikeValue(theme, inputStyle),
   });
 
-  const containerStyles = css({
+  const containerStyles = useCSS({
     display: 'inline-flex',
     flexDirection: 'column',
     alignItems: 'start',
     ...useFunctionLikeValue(theme, containerStyle),
   });
 
-  const contentStyles = css({
+  const contentStyles = useCSS({
     position: 'relative',
     display: 'inline-flex',
     alignItems: 'center',
@@ -100,14 +101,14 @@ const Input = ({
     border: outlined ? `1px solid ${theme ? theme.color.black : vars.color.black}` : '',
     ...useFunctionLikeValue(theme, contentStyle),
   });
-  const labelStyles = css({
+  const labelStyles = useCSS({
     ...useFunctionLikeValue(theme, labelStyle),
   });
-  const prefixStyles = css({
+  const prefixStyles = useCSS({
     padding,
     ...useFunctionLikeValue(theme, prefixStyle),
   });
-  const placeholderStyles = css({
+  const placeholderStyles = useCSS({
     position: 'absolute',
     left: 0,
     padding,
@@ -118,14 +119,15 @@ const Input = ({
     opacity: focus ? 0 : 0.4,
     ...useFunctionLikeValue(theme, placeholderStyle),
   });
-  const suffixStyles = css({
+  const suffixStyles = useCSS({
     padding,
     ...useFunctionLikeValue(theme, suffixStyle),
   });
-  const messageStyles = css({
+  const messageStyles = useCSS({
     color: showMessage ? (theme ? theme.color.red : vars.color.red) : '',
     ...useFunctionLikeValue(theme, messageStyle),
   });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -175,6 +177,8 @@ const Input = ({
             value={value || innerValue}
             type={type}
             onChange={handleInputChange}
+            disabled={disabled}
+            readOnly={readOnly}
           />
           {placeholder && <div css={placeholderStyles}>{placeholder}</div>}
         </div>

@@ -1,39 +1,35 @@
 /** @jsxImportSource @emotion/react */
 
+import * as React from 'react';
+import { Base } from '../props';
+import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import React from 'react';
-
-import { useTheme, css } from '@emotion/react';
+import vars from '../../styles/vars';
 import Button from '../Button';
 
-interface TabsProps {
+type TabsProps = Base & {
   noIndicator?: boolean;
   onClickTab: (key: React.Key) => void;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
   tab: React.Key;
-}
+};
 
-type TabItemProps = Partial<{
-  noIndicator: boolean;
-  indicator: React.ReactNode;
-  tab: Readonly<React.Key>;
-  tabKey: React.Key;
-  children: React.ReactNode;
-  className: string;
-  onClick: (key: React.Key) => void;
-  co: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties;
-}>;
+type TabItemProps = Base &
+  Partial<{
+    noIndicator: boolean;
+    indicator: React.ReactNode;
+    tab: Readonly<React.Key>;
+    tabKey: React.Key;
+    onClick: (key: React.Key) => void;
+    css: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties;
+  }>;
 
-type TabsIndicatorProps = Partial<{
-  children: React.ReactNode;
-  co?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+type TabsIndicatorProps = Base;
 
 const Tabs = ({
   onClickTab,
   noIndicator = false,
   tab,
-  co,
+  css,
   children,
   ...props
 }: React.ComponentPropsWithoutRef<'nav'> & TabsProps) => {
@@ -62,9 +58,9 @@ const Tabs = ({
   const renderTab = (tab: React.ReactNode) => tab;
   return (
     <nav
-      css={css({
+      css={useCSS({
         display: 'flex',
-        ...(co && (typeof co == 'function' ? co(theme) : co)),
+        ...useFunctionLikeValue(theme, css),
       })}
       {...props}>
       {typeof children === 'function' && children(renderTab)}
@@ -73,13 +69,13 @@ const Tabs = ({
   );
 };
 
-const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, ...props }: TabItemProps) => {
+const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, css, children, ...props }: TabItemProps) => {
   const theme = useTheme() as Theme;
-  const tabsIndicatorStyles = css({
+  const tabsIndicatorStyles = useCSS({
     position: 'relative',
     flex: 1,
     textAlign: 'center',
-    ...(typeof co == 'function' && co(theme, tab == tabKey)),
+    ...(typeof css == 'function' && css(theme, tab == tabKey)),
   });
 
   const handleClickTab = () => {
@@ -87,7 +83,7 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, .
   };
   const tabCssOptions = (theme: Theme) => ({
     borderRadius: '',
-    ...co?.(theme, tab == tabKey),
+    ...css?.(theme, tab == tabKey),
   });
   return (
     <Button {...props} css={tabsIndicatorStyles} onClick={handleClickTab} co={tabCssOptions}>
@@ -97,16 +93,16 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, co, children, .
   );
 };
 
-const TabsIndicator = ({ co, className, ...props }: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
+const TabsIndicator = ({ css, className, ...props }: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
   const theme = useTheme() as Theme;
-  const tabsIndicatorStyles = css({
+  const tabsIndicatorStyles = useCSS({
     position: 'absolute',
     height: '1px',
     background: 'white',
     bottom: 0,
     left: '50%',
     transform: 'translateX(-50%)',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return <span css={tabsIndicatorStyles} {...props} />;

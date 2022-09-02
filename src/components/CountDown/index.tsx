@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
 import { useEffect, useState } from 'react';
-import { useTheme, keyframes, css } from '@emotion/react';
+import { keyframes } from '@emotion/react';
+
+import { Theme } from '../../styles/themes';
 import { Base } from '../props';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 
 type CountDownProps = Base & {
   h?: number;
@@ -14,7 +16,7 @@ type CountDownProps = Base & {
   animation?: boolean;
 };
 
-const CountDown = ({ h = 0, m = 0, s = 0, time = 0, label, animation, co, ...props }: CountDownProps) => {
+const CountDown = ({ h = 0, m = 0, s = 0, time = 0, label, animation, css, ...props }: CountDownProps) => {
   const theme = useTheme() as Theme;
   const end: number = h * 3600 + m * 60 + s;
   const timeEnd: number = time;
@@ -83,10 +85,10 @@ const CountDown = ({ h = 0, m = 0, s = 0, time = 0, label, animation, co, ...pro
       transform: 'rotate(360deg)',
     },
   });
-  const styles = css({
+  const styles = useCSS({
     display: 'inline-flex',
     alignItems: 'center',
-    ...(co && (typeof co == 'function' ? co(theme) : co)),
+    ...useFunctionLikeValue(theme, css),
     '.text': {
       marginLeft: '5px',
       marginTop: '-1px',

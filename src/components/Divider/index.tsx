@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
+import { ReactNode } from 'react';
 import { Base } from '../props';
 import { useMemo } from 'react';
 import vars from '../../styles/vars';
-import { useFunctionLikeValue } from '../../styles/css';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 
 type DividerProps = Base &
   Partial<{
@@ -14,7 +13,7 @@ type DividerProps = Base &
     vertical: boolean;
     color: string;
     dashed: boolean;
-    text: React.ReactNode;
+    text: ReactNode;
   }>;
 
 /**
@@ -28,44 +27,63 @@ type DividerProps = Base &
  * main props:
  * @param size Thickness of dividing line.
  */
-const Divider = ({ text, size = 1, vertical = false, dashed = false, color, co, children, ...props }: DividerProps) => {
+const Divider = ({
+  text,
+  size = 1,
+  vertical = false,
+  dashed = false,
+  color,
+  css,
+  children,
+  ...props
+}: DividerProps) => {
   const theme = useTheme() as Theme;
   // Use border properties in different positions to easily and concisely simulate dividing lines
   const borderStyles = useMemo(
     () =>
       vertical
         ? {
-            display: 'inline',
+            display: 'inline-flex',
+            justifyContent: 'center',
             borderLeft: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
-              color || theme ? theme.color.greyLight : vars.color.greyLight
+              color || (theme ? theme.color.greyLight : vars.color.greyLight)
             }`,
           }
         : {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+
             borderTop: `${size}px ${dashed ? 'dashed' : 'solid'}  ${
-              color || theme ? theme.color.greyLight : vars.color.greyLight
+              color || (theme ? theme.color.greyLight : vars.color.greyLight)
             }`,
           },
     [size, dashed, color],
   );
-  const styles = css({
-    position: 'relative',
-    border: 'none',
+  const dividerStyles = useCSS({
     ...borderStyles,
     ...(children && {
       '& > *': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
+        height: 'fit-content',
+        padding: vertical ? '.5em 0' : '0 .5em',
+        background: vars.color.white,
+        textAlign: 'center',
+        transform: vertical ? 'translate3d(-50%,50%,0)' : 'translateY(-50%)',
       },
     }),
-    ...useFunctionLikeValue(theme, co),
+    ...useFunctionLikeValue(theme, css),
+  });
+  const childrenStyles = useCSS({
+    height: 'fit-content',
+    padding: vertical ? '.5em 0' : '0 .5em',
+    background: vars.color.white,
+    textAlign: 'center',
+    transform: vertical ? 'translate3d(-50%,50%,0)' : 'translateY(-50%)',
   });
   return (
-    <hr css={styles} {...props}>
-      {children}
-    </hr>
+    <div css={dividerStyles} {...props}>
+      {children && <span css={childrenStyles}>{children}</span>}
+    </div>
   );
 };
 

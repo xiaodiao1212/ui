@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
-import { Base } from '../props';
+import { Base, Themed } from '../props';
+
+import { useFunctionLikeValue, useCSS, useTheme, useColor } from '../../styles/css';
+import vars from '../../styles/vars';
 
 type BadgeProps = Base &
   Partial<{
@@ -19,7 +20,7 @@ type BadgeProps = Base &
 const Badge = ({
   size = 14,
   show = true,
-  co,
+  css,
   offsetX,
   offsetY,
   color,
@@ -89,14 +90,14 @@ const Badge = ({
         };
     }
   };
-  const badgeStyles = css({
+  const badgeStyles = useCSS({
     display: 'inline-flex',
     position: 'relative',
     '& > *:first-of-child': {
-      borderRadius: 999,
+      borderRadius: vars.radius.full,
       visibility: show ? 'visible' : 'hidden',
-      background: color || theme.color.red,
-      color: theme.color.white,
+      background: useColor('red', theme, color),
+      color: useColor('white', theme),
       lineHeight: `${size}px`,
       minWidth: `${size}px`,
       fontSize: '12px',
@@ -106,7 +107,7 @@ const Badge = ({
       ...getInset(),
       boxShadow: `0 0 0 1px ${theme.color.white}`,
       transition: 'visibility all .3s',
-      ...(co && (typeof co == 'function' ? co(theme) : co)),
+      ...useFunctionLikeValue(theme, css),
     },
   });
   return (

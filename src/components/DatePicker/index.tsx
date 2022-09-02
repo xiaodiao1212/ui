@@ -1,17 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from '@emotion/react';
+
 import { Theme } from '../../styles/themes';
-import * as React from 'react';
+import { Base } from '../props';
+import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
 import { useState } from 'react';
-type DatePickerProps = Partial<{
-  onlyImg?: boolean;
-  className: string;
-  children: React.ReactNode;
-  placeholder: string;
-  formater: (date: string) => string;
-  onChange: (date: string, e: React.ChangeEvent<HTMLInputElement>) => any;
-  co: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
-}>;
+
+type DatePickerProps = Base &
+  Partial<{
+    onlyImg?: boolean;
+    className: string;
+    children: React.ReactNode;
+    placeholder: string;
+    formater: (date: string) => string;
+    onChange: (date: string, e: React.ChangeEvent<HTMLInputElement>) => any;
+  }>;
 
 const DatePicker = ({
   onlyImg,
@@ -20,7 +22,7 @@ const DatePicker = ({
   formater,
   children,
   placeholder,
-  co,
+  css,
   ...props
 }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'placeholder'> & DatePickerProps) => {
   const [value, setValue] = useState('');
@@ -29,9 +31,9 @@ const DatePicker = ({
     onChange?.(formater ? formater(e.target.value) : e.target.value, e);
   };
   const theme = useTheme() as Theme;
-  const styles = css({
+  const styles = useCSS({
     cursor: ' pointer',
-    ...(typeof co == 'function' ? co(theme) : co),
+    ...useFunctionLikeValue(theme, css),
   });
 
   return (

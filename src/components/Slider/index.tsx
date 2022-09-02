@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
-/**
- * In webkit based browsers, the track is styled with a special pseudo selector ::-webkit-slider-runnable-track, and the thumb with ::webkit-slider-thumb.
- */
-import { css, useTheme } from '@emotion/react';
-import { memo } from 'react';
+
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
+
+import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
 
 type SliderProps = Base & {
   disable?: boolean;
@@ -34,6 +32,7 @@ const Slider = ({
   thumbColor,
   trackSize = 10,
   thumbSize = 20,
+  css,
   ...props
 }: SliderProps) => {
   const theme = useTheme() as Theme;
@@ -62,7 +61,7 @@ const Slider = ({
     
     border-radius: 16px;`;
 
-  const sliderStyles = css`
+  const sliderStyles = useCSS`
     input[type='range'] {
       -webkit-appearance: none;
       -moz-appearance: none;
