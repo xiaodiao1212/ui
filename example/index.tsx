@@ -15,6 +15,7 @@ import InputExamples from './src/Input.examples';
 import CellExamples from './src/Cell.examples';
 import TextExamples from './src/Text.examples';
 import ContainerExamples from './src/Container.examples';
+import TabsExamples from './src/Tabs.examples';
 
 const container = document.getElementById('root');
 const components = [
@@ -28,6 +29,7 @@ const components = [
   'slider',
   'link',
   'switch',
+  'tabs',
   'button',
   'image',
   'divider',
@@ -44,6 +46,7 @@ type Components =
   | '快速入门'
   | 'slider'
   | 'container'
+  | 'tabs'
   | 'cell'
   | 'link'
   | 'switch'
@@ -59,6 +62,9 @@ if (container) {
       switch (example) {
         case 'button':
           return <ButtonExamples />;
+        case 'tabs':
+          return <TabsExamples />;
+
         case 'container':
           return <ContainerExamples />;
         case 'input':

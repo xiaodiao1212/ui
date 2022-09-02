@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { useMemo } from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { usePadding, useMargin, useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
-import { Base, Themed } from '../props';
+import { Base, Margin, Padding, Themed } from '../props';
 type TextProps = Base &
   Partial<{
     gradient: string;
@@ -15,7 +16,9 @@ type TextProps = Base &
     size: number;
     maxLength: number;
     dark: boolean;
-  }>;
+  }> &
+  Margin &
+  Padding;
 
 /**
  * The Text widget lets you create a run of styled text within your application.
@@ -46,6 +49,8 @@ const Text = ({
     fontSize: size ? size + 'rem' : 'initial',
     fontWeight: blod ? 700 : thin ? 200 : 500,
     display: 'inline',
+    ...useMargin(props),
+    ...usePadding(props),
     textOverflow: maxLength ? 'ellipsis' : undefined,
     whiteSpace: maxLength ? 'nowrap' : undefined,
     overflow: maxLength ? 'hidden' : undefined,

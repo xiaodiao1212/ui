@@ -48,12 +48,12 @@ import Navigation from './components/Navigation';
 import ToolTip from './components/ToolTip';
 import Spacer from './components/Spacer';
 import Switch from './components/Switch';
-// import Tabs from './components/Tabs';
+import Tabs from './components/Tabs';
 import Toast from './components/Toast';
 import Center from './components/Center';
 export {
   // Timeline,
-  // Tabs,
+  Tabs,
   Center,
   Toast,
   Picker,

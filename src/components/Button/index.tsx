@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { Base, Margin, Themed } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useFunctionLikeValue, useCSS, useTheme, useMargin } from '../../styles/css';
 type ButtonProps = Base & {
   padding?: string;
   block?: boolean;
@@ -15,7 +15,7 @@ type ButtonProps = Base & {
   rounded?: boolean;
   radius?: string;
   color?: Themed<string>;
-};
+} & Margin;
 
 /**
  * @example
@@ -52,6 +52,7 @@ const Button = ({
     minWidth: block ? '100%' : '',
     width: icon ? vars.em['2.5em'] : '',
     height: icon ? vars.em['2.5em'] : '',
+    ...useMargin(props),
     padding: text || icon ? '' : padding,
     border: outlined ? `1px solid ${computedColor}` : 'none',
     borderRadius: computedRadius,

@@ -19,7 +19,6 @@ type TabItemProps = Base &
     indicator: React.ReactNode;
     tab: Readonly<React.Key>;
     tabKey: React.Key;
-
     onClick: (key: React.Key) => void;
     css: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties;
   }>;
