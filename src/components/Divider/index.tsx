@@ -2,10 +2,10 @@
 
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
-import { Base } from '../props';
+import { Base, Margin, Padding } from '../props';
 import { useMemo } from 'react';
 import vars from '../../styles/vars';
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
 type DividerProps = Base &
   Partial<{
@@ -14,7 +14,9 @@ type DividerProps = Base &
     color: string;
     dashed: boolean;
     text: ReactNode;
-  }>;
+  }> &
+  Margin &
+  Padding;
 
 /**
  * A divider is a thin line that groups content in lists and layouts.
@@ -62,6 +64,8 @@ const Divider = ({
   );
   const dividerStyles = useCSS({
     ...borderStyles,
+    ...useMargin(props),
+    ...usePadding(props),
     ...(children && {
       '& > *': {
         height: 'fit-content',
@@ -71,7 +75,7 @@ const Divider = ({
         transform: vertical ? 'translate3d(-50%,50%,0)' : 'translateY(-50%)',
       },
     }),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   const childrenStyles = useCSS({
     height: 'fit-content',

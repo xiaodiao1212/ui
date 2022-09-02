@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
-import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 
 type SegmentItemProps = Base &
   Partial<{
@@ -27,7 +27,7 @@ const SegmentItem = ({
     color: itemkey == currentKey ? theme.color.primary : theme.color.black,
     transition: '.3s all',
     fontWeight: itemkey == currentKey ? 700 : 500,
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleClickSegmentItem = () => {

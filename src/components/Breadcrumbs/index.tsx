@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 type BreadcrumbsItem = Base &
   Partial<{
@@ -25,7 +25,7 @@ const Breadcrumbs = ({ divider = '/', items = [], className, css }: BreadcrumbsP
     '& > *': {
       display: 'inline-flex',
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 import { debounce } from '../../utils';
 import { useState } from 'react';
@@ -39,7 +39,7 @@ const Fab = ({
     ...position,
     zIndex: theme.zIndex.floatingWindow,
     transition: '.25s all',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleTouchStart = (e: any) => {

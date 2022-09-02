@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme, useColor } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme, useColor } from '../../styles/css';
 import vars from '../../styles/vars';
 
 type BadgeProps = Base &
@@ -107,7 +107,7 @@ const Badge = ({
       ...getInset(),
       boxShadow: `0 0 0 1px ${theme.color.white}`,
       transition: 'visibility all .3s',
-      ...useFunctionLikeValue(theme, css),
+      ...useThemedCSS(theme, css),
     },
   });
   return (

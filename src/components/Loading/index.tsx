@@ -4,7 +4,7 @@ import { keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 
 import { Base } from '../props';
-import { useCSS, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useThemedCSS } from '../../styles/css';
 
 type LoadingProps = Base & {
   bit?: boolean;
@@ -131,7 +131,7 @@ const Loading = ({
       },
     },
 
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

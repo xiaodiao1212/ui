@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 type TimePickerProps = Base &
   Partial<{
@@ -25,7 +25,7 @@ const TimePicker = ({
 
   const theme = useTheme() as Theme;
   const styles = useCSS({
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   return (
     <label css={styles} {...props}>

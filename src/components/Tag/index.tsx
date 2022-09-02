@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 type TagProps = Base & {
@@ -29,7 +29,7 @@ type TagProps = Base & {
 const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagProps) => {
   const theme = useTheme() as Theme;
   const getComputedColor = () =>
-    useFunctionLikeValue(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
+    useThemedCSS(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
 
   const styles = useCSS({
     display: 'inline-flex',
@@ -44,7 +44,7 @@ const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagPr
           border: '1px solid ' + getComputedColor(),
           color: getComputedColor(),
         }),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   return (
     <span css={styles} {...props}>

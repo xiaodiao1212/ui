@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import { Base, Margin, Position, Padding, Themed } from '../props';
-import { useCSS, useTheme, usePadding, useMargin, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, usePadding, useMargin, useThemedCSS } from '../../styles/css';
 
 type ContainerProps = Base &
   Margin &
@@ -19,8 +19,8 @@ const Container = ({ background, fullHeight = false, fullScreen = false, css, ch
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     ...useMargin(props),
     ...usePadding(props),
-    background: useFunctionLikeValue(theme, background),
-    ...useFunctionLikeValue(theme, css),
+    background: useThemedCSS(theme, background),
+    ...useThemedCSS(theme, css),
   });
 
   return (

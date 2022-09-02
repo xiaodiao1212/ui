@@ -4,7 +4,7 @@ import { useState, ReactNode, useLayoutEffect, useRef, ReactEventHandler, Synthe
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 type ImageProps = Base & {
   mask?: ReactNode;
@@ -50,7 +50,7 @@ const Image = ({
     imageRendering: 'initial',
     imageOrientation: 'initial',
     height: height,
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const containerStyles = useCSS({

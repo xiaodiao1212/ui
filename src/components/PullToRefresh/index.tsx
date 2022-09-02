@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useEffect, useState } from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
@@ -41,7 +41,7 @@ const PullToRefresh = ({
       transition: '.3s all cubic-bezier(0, 0, 0.19, 1.25)',
       scrollBehavior: 'smooth',
       height: '100%',
-      ...useFunctionLikeValue(theme, css),
+      ...useThemedCSS(theme, css),
     },
   });
 
@@ -126,7 +126,7 @@ const RefreshLoading = ({ css, children, className }: RefreshLoadingProps) => {
     left: 0,
     textAlign: 'center',
     transform: 'translateY(-100%)',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

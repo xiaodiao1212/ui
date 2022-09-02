@@ -4,7 +4,7 @@ import { useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
 import { Base } from '../props';
-import { useCSS, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useThemedCSS } from '../../styles/css';
 
 type NavBarProps = Base & {
   left?: boolean;
@@ -54,7 +54,7 @@ const NavBar = ({ left, navIcon, extra, title, color, css, gap, children, ...pro
         textAlign: 'right',
       },
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

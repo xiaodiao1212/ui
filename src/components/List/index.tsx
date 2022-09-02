@@ -4,7 +4,7 @@ import { keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 
 import { Base } from '../props';
-import { useCSS, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useThemedCSS } from '../../styles/css';
 import { ReactNode } from 'react';
 
 type ListItem = {
@@ -67,7 +67,7 @@ const List = ({
     marginLeft: px,
     marginRight: px,
     borderBottom: divider ? '1px solid #F4F5F7' : '',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const defaulRenderItem = ({ id, avator, title, content, extra }: ListItem) => {

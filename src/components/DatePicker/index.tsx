@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import { useState } from 'react';
 
 type DatePickerProps = Base &
@@ -33,7 +33,7 @@ const DatePicker = ({
   const theme = useTheme() as Theme;
   const styles = useCSS({
     cursor: ' pointer',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

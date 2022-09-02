@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useMemo } from 'react';
-import { usePadding, useMargin, useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
@@ -59,7 +59,7 @@ const Text = ({
       backgroundImage: gradient,
       backgroundClip: 'text',
     }),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (
