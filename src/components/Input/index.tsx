@@ -2,7 +2,7 @@
 
 import { Theme } from '../../styles/themes';
 import { useState, ReactNode, CSSProperties, useMemo, useEffect } from 'react';
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import vars from '../../styles/vars';
 import { Base } from '../props';
 
@@ -83,14 +83,14 @@ const Input = ({
     display: 'inline-flex',
     alignItems: 'center',
     padding,
-    ...useFunctionLikeValue(theme, inputStyle),
+    ...useThemedCSS(theme, inputStyle),
   });
 
   const containerStyles = useCSS({
     display: 'inline-flex',
     flexDirection: 'column',
     alignItems: 'start',
-    ...useFunctionLikeValue(theme, containerStyle),
+    ...useThemedCSS(theme, containerStyle),
   });
 
   const contentStyles = useCSS({
@@ -99,14 +99,14 @@ const Input = ({
     alignItems: 'center',
     backgroundColor: contain ? (theme ? theme.color.greyLight : vars.color.greyLight) : 'transparent',
     border: outlined ? `1px solid ${theme ? theme.color.black : vars.color.black}` : '',
-    ...useFunctionLikeValue(theme, contentStyle),
+    ...useThemedCSS(theme, contentStyle),
   });
   const labelStyles = useCSS({
-    ...useFunctionLikeValue(theme, labelStyle),
+    ...useThemedCSS(theme, labelStyle),
   });
   const prefixStyles = useCSS({
     padding,
-    ...useFunctionLikeValue(theme, prefixStyle),
+    ...useThemedCSS(theme, prefixStyle),
   });
   const placeholderStyles = useCSS({
     position: 'absolute',
@@ -117,15 +117,15 @@ const Input = ({
     cursor: 'text',
     pointerEvents: 'none',
     opacity: focus ? 0 : 0.4,
-    ...useFunctionLikeValue(theme, placeholderStyle),
+    ...useThemedCSS(theme, placeholderStyle),
   });
   const suffixStyles = useCSS({
     padding,
-    ...useFunctionLikeValue(theme, suffixStyle),
+    ...useThemedCSS(theme, suffixStyle),
   });
   const messageStyles = useCSS({
     color: showMessage ? (theme ? theme.color.red : vars.color.red) : '',
-    ...useFunctionLikeValue(theme, messageStyle),
+    ...useThemedCSS(theme, messageStyle),
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

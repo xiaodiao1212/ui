@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 type ScrollViewProps = Base & {
@@ -30,7 +30,7 @@ const ScrollView = ({
     '&::-webkit-scrollbar': {
       display: 'none',
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleScrollToBottom = () => {

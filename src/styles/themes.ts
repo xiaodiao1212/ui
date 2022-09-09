@@ -22,9 +22,9 @@ type Theme = {
   shadow: {
     color: string;
   };
-  button:{
-    defaultPadding:string
-  }
+  button: {
+    defaultPadding: string;
+  };
   input: {
     padding: string;
   };
@@ -37,6 +37,7 @@ type Theme = {
     greyLight: string;
     white: string;
     red: string;
+    green: string;
     accent: string;
   };
   common: {
@@ -49,8 +50,9 @@ const theme: Theme = {
   color: vars.color,
   border: {
     full: 999,
-  }, button:{
-    defaultPadding:'.5em 1em'
+  },
+  button: {
+    defaultPadding: '.5em 1em',
   },
   input: { padding: '7px 13px 7px 10px' },
   zIndex: {

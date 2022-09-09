@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
 import { Base } from '../props';
-import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 type CellProps = Base & {
   title?: ReactNode;
   caption?: ReactNode;
@@ -22,7 +22,7 @@ const Cell = ({ title, value, caption, css, centered = true, children, onClick }
     '& > section:nth-of-type(2n)': {
       marginLeft: 'auto',
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleClickCell = () => {

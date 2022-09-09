@@ -4,7 +4,7 @@ import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 import { memo, ReactNode, useCallback, useMemo } from 'react';
 import vars from '../../styles/vars';
-import { useCenter, useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useCenter, useThemedCSS, useTheme, useCSS } from '../../styles/css';
 import { darken } from 'polished';
 import { rotate } from '../../styles/keyframes';
 
@@ -84,8 +84,8 @@ const Switch = memo(
 
     const getTrackColorOff = useCallback(() => {
       return theme
-        ? useFunctionLikeValue(theme, trackColorOff) || theme.color.greyLight
-        : useFunctionLikeValue(theme, trackColorOff) || vars.color.greyLight;
+        ? useThemedCSS(theme, trackColorOff) || theme.color.greyLight
+        : useThemedCSS(theme, trackColorOff) || vars.color.greyLight;
     }, [trackColorOff]);
 
     const loadingStyles = useMemo(
@@ -194,7 +194,7 @@ const Switch = memo(
         left: on ? `calc(calc(100% - ${thumbStartPosition}) - ${thumbWidth})` : thumbStartPosition,
         background: theme ? theme.color.white : vars.color.white,
         ...useCenter(),
-        ...useFunctionLikeValue(theme, thumbStyles),
+        ...useThemedCSS(theme, thumbStyles),
       },
 
       '& .switch-track': {
@@ -208,10 +208,10 @@ const Switch = memo(
         borderRadius: radius || (theme ? theme.border.full : '999px'),
         paddingBottom: '100%',
         visibility: loading ? 'hidden' : 'visible',
-        ...useFunctionLikeValue(theme, trackStyles),
+        ...useThemedCSS(theme, trackStyles),
       },
 
-      ...useFunctionLikeValue(theme, css),
+      ...useThemedCSS(theme, css),
     });
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

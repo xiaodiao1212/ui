@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useState } from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
@@ -40,7 +40,7 @@ const Overlay = ({
     '& > *': {
       margin: 'auto',
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

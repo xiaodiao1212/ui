@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Base, Margin, Padding } from '../props';
-import { usePadding, useMargin, useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
 import { Theme } from '../../styles/themes';
 type ColProps = Base & {
@@ -33,7 +33,7 @@ const Col = ({
     ...usePadding(props),
     marginLeft: autoMargin ? 'auto' : props.ml || props.mx,
     ...(!autoMargin && { flex: noFlex ? '' : flex }),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   return (
     <div css={styles} {...props}>

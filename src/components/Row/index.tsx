@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useMargin, usePadding, useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useMargin, usePadding, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base, Margin, Padding } from '../props';
 
@@ -28,7 +28,7 @@ const Row = ({ children, vertical, wrap, fullHeight, align, justify, gap, css, .
     gap: gap,
     alignItems: align || '',
     ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   return (
     <div css={styles} {...props}>

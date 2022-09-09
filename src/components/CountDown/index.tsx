@@ -5,7 +5,7 @@ import { keyframes } from '@emotion/react';
 
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 type CountDownProps = Base & {
   h?: number;
@@ -88,7 +88,7 @@ const CountDown = ({ h = 0, m = 0, s = 0, time = 0, label, animation, css, ...pr
   const styles = useCSS({
     display: 'inline-flex',
     alignItems: 'center',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
     '.text': {
       marginLeft: '5px',
       marginTop: '-1px',

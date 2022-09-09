@@ -4,7 +4,7 @@ import { Theme } from '../../styles/themes';
 import { createRoot } from 'react-dom/client';
 import { ReactNode } from 'react';
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
 type MessageProps = Base &
   Partial<{
@@ -30,7 +30,7 @@ const Message = ({ title, content, color, children, css, ...props }: MessageProp
     background: color || theme?.color?.black || 'rgba(0, 0, 0, 0.45)',
     color: 'white',
     padding: '.4em 1em',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

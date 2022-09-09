@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
-import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 import { keyframes } from '@emotion/react';
 
 type SkeletonProps = Base & {
@@ -45,7 +45,7 @@ const Skeleton = ({
     backgroundSize: '200% 100%',
     backgroundPositionX: '180%',
     animation: `${anim} ${duration}s ${delay}s ease-in-out infinite`,
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   return <div css={styles} {...props} />;
 };

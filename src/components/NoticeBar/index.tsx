@@ -6,7 +6,7 @@ import * as React from 'react';
 import Row from '../Row';
 import Col from '../Col';
 import { Base } from '../props';
-import { useCSS, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useThemedCSS } from '../../styles/css';
 
 type NoticeBarProps = Base &
   Partial<{
@@ -49,7 +49,7 @@ const NoticeBar = ({
     background: theme.mode == 'light' ? theme.color.accent : theme.color.greyLight,
     color: theme.mode == 'light' ? theme.color.primary : theme.color.greyLight,
     padding: '.5em',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   /**

@@ -3,7 +3,7 @@ import { keyframes } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import vars from '../../styles/vars';
 
 type DialogProps = Base & {

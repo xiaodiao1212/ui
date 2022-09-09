@@ -2,7 +2,7 @@
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 import { Children, cloneElement, useEffect, useState } from 'react';
-import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 import SegmentItem from './SegmentItem';
 
 type SegmentProps = Base &
@@ -40,7 +40,7 @@ const Segment = ({ css, children, ...props }: SegmentProps) => {
       background: theme.color.white,
       transition: '.3s all',
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleChildrenRender = () => {

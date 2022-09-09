@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 
@@ -34,7 +34,7 @@ const ToolTip = ({
   const styles = useCSS({
     position: 'relative',
     display: 'inline-block',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
     '& .tooltiptext': {
       visibility: show ? 'visible' : 'hidden',
       fontSize: '12px',

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 type CenterProps = Base;
@@ -10,7 +10,7 @@ const Center = ({ css, children, ...props }: CenterProps) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

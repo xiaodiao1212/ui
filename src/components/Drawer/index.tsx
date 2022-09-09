@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import { useEffect, useState } from 'react';
 
 type DrawerProps = Base & {
@@ -68,7 +68,7 @@ const Drawer = ({
     transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     ...contentStyle,
     ...(open ? openStyle : {}),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   /**

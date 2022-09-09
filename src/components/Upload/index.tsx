@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 
 type UploadProps = Base &
@@ -27,7 +27,7 @@ const Upload = ({
 
   const styles = useCSS({
     cursor: ' pointer',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

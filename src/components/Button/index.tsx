@@ -4,7 +4,7 @@ import { Theme } from '../../styles/themes';
 import { Base, Margin, Themed } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
-import { useFunctionLikeValue, useCSS, useTheme, useMargin } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme, useMargin } from '../../styles/css';
 type ButtonProps = Base & {
   padding?: string;
   block?: boolean;
@@ -59,7 +59,7 @@ const Button = ({
     color: text || outlined ? computedColor : theme ? theme.color.white : vars.color.white,
     background: text || outlined ? 'transparent' : computedColor,
     cursor: disabled ? 'not-allowed' : 'pointer',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {

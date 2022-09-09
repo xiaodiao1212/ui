@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 type TextareaProps = Base & {
   showCount?: boolean | ((length: number, maxLength?: number) => React.ReactNode);
@@ -28,7 +28,7 @@ const Textarea = ({
     padding: '12px',
     backgroundColor: theme.mode == 'light' ? theme.color.greyLight : theme.color.white,
     color: theme.mode == 'light' ? theme.color.black : theme.color.white,
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -2,7 +2,7 @@
 
 import { keyframes } from '@emotion/react';
 import React from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
@@ -103,7 +103,7 @@ const Progress = ({
         },
       },
     }),
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

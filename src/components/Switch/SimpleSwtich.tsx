@@ -4,7 +4,7 @@ import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 import { memo, ReactNode } from 'react';
 import vars from '../../styles/vars';
-import { useCSS, useFunctionLikeValue, useTheme } from '../../styles/css';
+import { useCSS, useThemedCSS, useTheme } from '../../styles/css';
 
 type SwitchProps = Base & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
@@ -60,7 +60,7 @@ const Switch = ({ on = false, onChange, color, radius, css, width = 2.8, height 
       transform: on ? 'translateX(-0.2em)' : '',
     },
 
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

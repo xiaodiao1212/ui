@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Base } from '../props';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 import Button from '../Button';
@@ -60,7 +60,7 @@ const Tabs = ({
     <nav
       css={useCSS({
         display: 'flex',
-        ...useFunctionLikeValue(theme, css),
+        ...useThemedCSS(theme, css),
       })}
       {...props}>
       {typeof children === 'function' && children(renderTab)}
@@ -102,7 +102,7 @@ const TabsIndicator = ({ css, className, ...props }: React.ComponentPropsWithout
     bottom: 0,
     left: '50%',
     transform: 'translateX(-50%)',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return <span css={tabsIndicatorStyles} {...props} />;

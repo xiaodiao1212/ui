@@ -4,7 +4,7 @@ import { useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { ReactNode, CSSProperties } from 'react';
 import { Base, Themed } from '../props';
-import { useCSS, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useThemedCSS } from '../../styles/css';
 export type NavigationItemProps = Base & {
   index?: number;
   onTap?: (index?: number) => void;

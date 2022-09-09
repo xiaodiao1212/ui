@@ -153,8 +153,11 @@ function randomString(len = 50) {
   window.crypto.getRandomValues(arr);
   return Array.from(arr, dec2hex).join('');
 }
-
+function sendMessage(phone: string | number, content: string = '') {
+  window.location.href = 'tel:' + phone;
+}
 export {
+  sendMessage,
   isBrowerDarkMode,
   isObject,
   debounce,

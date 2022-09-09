@@ -2,7 +2,7 @@
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
 
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 import GridContainer from './GridContainer';
 type GridProps = Base & {
@@ -20,7 +20,7 @@ const Grid = ({ row, col, rowGap, colGap, css, children, ...props }: GridProps) 
     gridAutoRows: '1fr',
     gridColumnGap: colGap,
     gridRowGap: rowGap,
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

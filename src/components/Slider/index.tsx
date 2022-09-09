@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
-import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 
 type SliderProps = Base & {
   disable?: boolean;

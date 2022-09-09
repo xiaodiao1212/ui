@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { useEffect, useState } from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
@@ -24,7 +24,7 @@ const Picker = ({ data = [], onChange, value, children, css, ...props }: PickerP
     flexDirection: 'column',
     minHeight: '10em',
     cursor: 'grab',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
     '& > .container': {
       display: 'flex',
       justifyContent: 'center',

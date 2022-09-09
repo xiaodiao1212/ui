@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React from 'react';
-import { useCSS, useTheme, useFunctionLikeValue } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 
@@ -26,7 +26,7 @@ const Popover = ({ hover = false, css, children, ...props }: React.ComponentProp
     display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleChildrenRender = () => {
@@ -76,7 +76,7 @@ const PopoverContent = ({
     ...cp,
     display: show ? 'block' : 'none',
 
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
   const [usePropsShow, setUsePropsShow] = React.useState(true);
   const handleMouseOver = (e: any) => {

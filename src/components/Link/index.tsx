@@ -4,7 +4,7 @@ import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
 import { Base } from '../props';
-import { useFunctionLikeValue, useTheme, useCSS } from '../../styles/css';
+import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 
 type LinkProps = Base & {
   indicatorColor?: string;
@@ -77,7 +77,7 @@ const Link = ({
     color: textColor || (theme ? theme.color.black : vars.color.black),
     ...memoedIndicatorStyles,
     opacity: disabled ? 0.25 : 1,
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   return (

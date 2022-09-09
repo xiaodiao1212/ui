@@ -3,7 +3,7 @@
 import { Theme } from '../../styles/themes';
 import { Base, Themed } from '../props';
 import vars from '../../styles/vars';
-import { useFunctionLikeValue, useCSS, useTheme } from '../../styles/css';
+import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 type CardProps = Base &
   Partial<{
     title: React.ReactNode;
@@ -29,7 +29,7 @@ const Card = ({ title, extra, css, children, onClick, color, ...props }: CardPro
         marginLeft: '0',
       },
     },
-    ...useFunctionLikeValue(theme, css),
+    ...useThemedCSS(theme, css),
   });
 
   const handleClickCard = () => {
