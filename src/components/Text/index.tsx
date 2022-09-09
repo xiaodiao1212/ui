@@ -21,15 +21,16 @@ type TextProps = Base &
   Padding;
 
 /**
- * The Text widget lets you create a run of styled text within your application.
+ * Text component is the used to render text and paragraphs within an interface using well-defined typographic styles. It renders a <p> tag by default.
  * @param param0
  * @returns
  */
 const Text = ({
   thin = false,
+  bloder,bloder,light,lighter
   dark = false,
   maxLength,
-  size,
+  size = 1,
   blod,
   gradient,
   ellipsis = '...',
@@ -46,7 +47,7 @@ const Text = ({
   }, [color, theme, dark]);
 
   const styles = useCSS({
-    fontSize: size ? size + 'rem' : 'initial',
+    fontSize: size + 'rem',
     fontWeight: blod ? 700 : thin ? 200 : 500,
     display: 'inline',
     ...useMargin(props),
@@ -63,9 +64,9 @@ const Text = ({
   });
 
   return (
-    <div css={styles} {...props}>
+    <p css={styles} {...props}>
       {maxLength ? (children as string).substring(0, maxLength) + ellipsis : children}
-    </div>
+    </p>
   );
 };
 
