@@ -43,6 +43,7 @@
     }
   ],
   "homepage": "https://github.com/fogcity/ui#readme",
+  
   "devDependencies": {
     "@babel/core": "^7.18.5",
     "@emotion/eslint-plugin": "^11.7.0",

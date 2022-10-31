@@ -22,16 +22,14 @@ type TextProps = Base &
 
 /**
  * Text component is the used to render text and paragraphs within an interface using well-defined typographic styles. It renders a <p> tag by default.
- * @param param0
  * @returns
  */
 const Text = ({
   thin = false,
-  bloder,bloder,light,lighter
   dark = false,
   maxLength,
   size = 1,
-  blod,
+  blod=false,
   gradient,
   ellipsis = '...',
   color,

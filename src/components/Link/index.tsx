@@ -11,7 +11,7 @@ type LinkProps = Base & {
   indicatorSize?: string;
   indicatorAction?: 'always' | 'none' | 'hover';
   textColor?: string;
-  blank?: boolean;
+  external?: boolean;
   disabled?: boolean;
   backTop?: boolean;
   to?: string;
@@ -34,7 +34,7 @@ type LinkProps = Base & {
  * @param textColor link's text color.
  * @param indicatorAction link's underline triger way.
  * @param indicatorSize link's underline coarseness.
- * @param blank open url with new window.
+ * @param external open url with new window.
  * @param backTop click to return the top of page.
  * @param download change open way to download & set file name by download value.
  * @param to destination url.
@@ -45,7 +45,7 @@ const Link = ({
   indicatorColor,
   indicatorAction = 'always',
   textColor,
-  blank = false,
+  external = false,
   to,
   indicatorSize = '1px',
   css,
@@ -81,7 +81,7 @@ const Link = ({
   });
 
   return (
-    <a {...(!disabled && { target: blank ? '_blank' : '_self', href: backTop ? '#' : to })} css={styles} {...props}>
+    <a {...(!disabled && { target: external ? '_blank' : '_self', href: backTop ? '#' : to })} css={styles} {...props}>
       {children}
     </a>
   );

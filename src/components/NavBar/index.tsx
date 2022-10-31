@@ -15,6 +15,7 @@ type NavBarProps = Base & {
   gap?: string;
   fixed?: boolean;
   sticky?: boolean;
+  shouldHideOnScroll?:boolean
 };
 
 /**
