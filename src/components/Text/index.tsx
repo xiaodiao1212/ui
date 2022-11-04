@@ -29,7 +29,7 @@ const Text = ({
   dark = false,
   maxLength,
   size = 1,
-  blod=false,
+  blod = false,
   gradient,
   ellipsis = '...',
   color,

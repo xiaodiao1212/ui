@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "rana-ui",
   "version": "0.0.1",
   "description": "The most developer-friendly mobile component library",
   "main": "example/build/index.umd.js",
@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "concurrently --kill-others \"rollup -wc rollup.config.js\" \"cd example && npm start\" ",
     "build:dev": "cross-env NODE_ENV=development && rollup -c rollup.config.js",
-    "build:prod": "cross-env NODE_ENV=production && npm run lint && npm run test && rollup -c rollup.config.js",
+    "build:prod": "cross-env NODE_ENV=production && rollup -c rollup.config.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "size": "size-limit",
@@ -23,11 +23,12 @@
     "url": "git+https://github.com/fogcity/ui.git"
   },
   "keywords": [
+    "frontend",
     "emotion",
     "mobile",
-    "css-in-ts",
-    "rollup",
-    "react 18"
+    "components",
+    "ui",
+    "react"
   ],
   "author": {
     "name": "xuyanming"

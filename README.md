@@ -3,11 +3,9 @@
   <img src="./images/logo.jpg" alt="ui: An ui component">
   
 </p>
-<h1 align="center">UI</h1>
+<h1 align="center">RanaUI</h1>
 
 <div align="center">
-
-This is a superset of the most commonly used front-end components based on Emotion CSS, guiding you to recognize, learn and use the right components to build your own pages, including PC and Mobile, shop around for experience, and very low-cost style copying , easily build your own theme system, let the page get the same experience as the native APP
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mui-org/material-ui/blob/HEAD/LICENSE)
 [![npm latest package](https://img.shields.io/npm/v/@mui/material/latest.svg)](https://www.npmjs.com/package/@mui/material)
@@ -17,23 +15,16 @@ This is a superset of the most commonly used front-end components based on Emoti
 [![Renovate status](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://github.com/mui-org/material-ui/issues/27062)
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/mui-org/material-ui.svg)](https://isitmaintained.com/project/mui-org/material-ui 'Average time to resolve an issue')
 [![Crowdin](https://badges.crowdin.net/material-ui-docs/localized.svg)](https://translate.mui.com/project/material-ui-docs)
-[![Open Collective backers and sponsors](https://img.shields.io/opencollective/all/mui)](https://opencollective.com/mui)
 
 </div>
 
-## Installation
+## Introduction
 
-UI is unavailable as an [npm package](https://www.npmjs.com/package/).
+This is a superset of the most commonly used front-end components based on Emotion CSS, guiding you to recognize, learn and use the right components to build your own pages, including PC and Mobile, shop around for experience, and very low-cost style copying , easily build your own theme system, let the page get the same experience as the native APP
 
-**[Stable channel v0.1](https:///)**
+## Browser Support
 
-```sh
-// with npm
-npm install ui @emotion/react
-
-// with yarn
-yarn add ui @emotion/react
-```
+Recent versions of **Firefox**, **Chrome**, **Edge**, **Opera** and **Safari**. **IE11+**
 
 ## Major features
 
@@ -46,14 +37,37 @@ yarn add ui @emotion/react
 - Sophisticated and elegant style design
 - An [API](https:///) for JavaScript and Typescript
 
-## Usage
+## CDN Links
+
+- https://cdn.jsdelivr.net/npm/rana-ui/dist/index.umd.js
+
+# Install inside a NPM project
+
+```bash
+# npm
+npm install rana-ui
+```
+
+```bash
+# yarn
+yarn add rana-ui
+```
+
+```bash
+# pnpm
+pnpm add rana-ui
+```
+
+## Use
+
+### Use individual components:
 
 Here is a quick example to get you started, **it's all you need**:
 
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Button from 'ui';
+import { Button } from 'rana-ui';
 
 function App() {
   return <Button>Hello World</Button>;

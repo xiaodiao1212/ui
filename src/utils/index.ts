@@ -9,7 +9,7 @@ const copy = (text: string) => {
   document.body.removeChild(transfer);
 };
 function addCSSLink(url: string) {
-  var link = document.createElement('link');
+  const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.type = 'text/css';
   link.href = url;
@@ -22,7 +22,7 @@ function debounce(fn: Function, ms = 300) {
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
 }
-function throttle(fn: Function, wait: number = 300) {
+function throttle(fn: Function, wait = 300) {
   let inThrottle: boolean, lastFn: ReturnType<typeof setTimeout>, lastTime: number;
   return function (this: any) {
     const context = this,
@@ -153,7 +153,7 @@ function randomString(len = 50) {
   window.crypto.getRandomValues(arr);
   return Array.from(arr, dec2hex).join('');
 }
-function sendMessage(phone: string | number, content: string = '') {
+function sendMessage(phone: string | number, content = '') {
   window.location.href = 'tel:' + phone;
 }
 export {

@@ -10,7 +10,7 @@ const Center = ({ css, children, ...props }: CenterProps) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height:'100%',
+    height: '100%',
     ...useThemedCSS(theme, css),
   });
 
