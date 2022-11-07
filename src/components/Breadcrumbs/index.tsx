@@ -17,6 +17,15 @@ type BreadcrumbsProps = Base &
     items: BreadcrumbsItem[];
   }>;
 
+/**
+ * A breadcrumb displays the current location within a hierarchy. 
+ * It allows going back to states higher up in the hierarchy.
+ * ```js
+ * <Button>submit</Button>
+ * ```
+ * @param divider ever item's divider component
+ * @param items breadcrumb items
+ */
 const Breadcrumbs = ({ divider = '/', items = [], className, css }: BreadcrumbsProps) => {
   const theme = useTheme() as Theme;
   const sliderStyles = useCSS({

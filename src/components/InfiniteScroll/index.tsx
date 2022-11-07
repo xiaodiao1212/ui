@@ -4,14 +4,28 @@ import React from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { Base } from '../props';
-type ScrollViewProps = Base & {
+type InfiniteScrollProps = Base & {
   threshold?: number;
   bottomed?: boolean;
   onScrollToBottom?: () => any;
   ending?: React.ReactNode;
 };
-
-const ScrollView = ({
+/**
+ * Refresher provides pull-to-refresh functionality on a content component. 
+ * The pull-to-refresh pattern lets a user pull down on a list of data in order to retrieve more data.
+ * ```js
+ *  <Refresher onRefresh={()=>{}}>
+      <Refresher.Content>
+        <Container>hello</Container>
+      </Refresher.Content>
+    </Refresher>
+ * ```
+ * @param threshold load trigger value
+ * @param ending bottom ending component
+ * @param onScrollToBottom scroll to bottom handler
+ * @param bottomed arrived or not bottom
+ */
+const InfiniteScroll = ({
   ending,
   threshold = 40,
   onScrollToBottom,
@@ -20,7 +34,7 @@ const ScrollView = ({
   className,
   children,
   ...props
-}: ScrollViewProps & React.ComponentPropsWithoutRef<'div'>) => {
+}: React.ComponentPropsWithoutRef<'div'> & InfiniteScrollProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({
     height: '100%',
@@ -51,4 +65,4 @@ const ScrollView = ({
   );
 };
 
-export default ScrollView;
+export default InfiniteScroll;

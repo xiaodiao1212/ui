@@ -11,6 +11,11 @@ type UploadProps = Base &
     onFileChange: (file: Blob, preview: string, e: React.ChangeEvent<HTMLInputElement>) => any;
   }>;
 
+  
+/**
+ * Textarea component is a multi-line Input which allows you to write large texts.
+ * @param ...
+ */
 const Upload = ({
   onlyImg,
   accept,

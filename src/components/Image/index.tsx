@@ -21,6 +21,28 @@ type ImageProps = Base & {
   onLoad?: ReactEventHandler<HTMLImageElement>;
   height?: string;
 };
+
+/**
+ * The Image component is used to display images.
+ *
+ * ```
+ * <Image href='#' indicatorAction='none' color='green' />
+ * ```
+ *
+ * @param circle circle style.
+ * @param mask mask component on surface.
+ * @param lazy lazy load.
+ * @param cover css 'objectFit' value.
+ * @param scale css 'objectFit' value.
+ * @param contain css 'objectFit' value.
+ * @param width imgae width.
+ * @param height imgae height
+ * @param errorImg load error image
+ * @param onError image load error handler
+ * @param onLoad image loading handler
+ * @param backdropFilter css 'backdropFilter' value
+ * @param loadingImg showing image in loading
+ */
 const Image = ({
   circle = false,
   mask,

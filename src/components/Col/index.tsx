@@ -8,31 +8,46 @@ type ColProps = Base & {
   alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
   flex?: number | string;
   noFlex?: boolean;
-  autoMargin?: boolean;
-  left?: boolean;
-  right?: boolean;
+  rightFloat?: boolean;
+  leftText?: boolean;
+  rightText?: boolean;
 } & Margin &
   Padding;
 
+/**
+ * Component provides a way to represent a column in the grid system. It is used when we want to display data in the form of columns.
+ * ```js
+ * <Row>
+ *  <Col>left</Col>
+ *  <Col>right</Col>
+ * </Row>
+ * ```
+ * @param flex flex value
+ * @param noFlex not use flex
+ * @param alignSelf flex layout align self
+ * @param leftText text align left
+ * @param rightText text align right
+ * @param rightFloat auto float to right
+ */
 const Col = ({
   children,
   noFlex,
   flex = 'none',
-  autoMargin,
+  rightFloat,
   css,
   alignSelf = 'center',
-  left = false,
-  right = false,
+  leftText = false,
+  rightText = false,
   ...props
 }: ColProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({
     alignSelf: alignSelf,
-    textAlign: (left && 'left') || (right && 'right') || 'center',
+    textAlign: (leftText && 'left') || (rightText && 'right') || 'center',
     ...useMargin(props),
     ...usePadding(props),
-    marginLeft: autoMargin ? 'auto' : props.ml || props.mx,
-    ...(!autoMargin && { flex: noFlex ? '' : flex }),
+    marginLeft: rightFloat ? 'auto' : props.ml || props.mx,
+    ...(!rightFloat && { flex: noFlex ? '' : flex }),
     ...useThemedCSS(theme, css),
   });
   return (

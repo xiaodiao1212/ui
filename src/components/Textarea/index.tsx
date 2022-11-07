@@ -10,9 +10,8 @@ type TextareaProps = Base & {
 };
 
 /**
- * The <textarea> HTML element represents a multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form.
- * @param props React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
- * @returns Textarea
+ * Textarea component is a multi-line Input which allows you to write large texts.
+ * @param ...
  */
 const Textarea = ({
   css,

@@ -13,6 +13,18 @@ type ContainerProps = Base &
     fullScreen?: boolean;
   };
 
+/**
+ * The universal component packer
+ * ```js
+ *  <Container pa='1em'>
+        <Button>ok</Button>
+    </Container>
+ * ```
+ * @param background backgroud color
+ * @param fullHeight full height or not
+ * @param fullScreen full screen or not
+ * @returns
+ */
 const Container = ({ background, fullHeight = false, fullScreen = false, css, children, ...props }: ContainerProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({

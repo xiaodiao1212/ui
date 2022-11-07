@@ -4,6 +4,15 @@ import { Theme } from '../../styles/themes';
 import { Base } from '../props';
 type CenterProps = Base;
 
+/**
+ * A component conveniently centres a child component vertically.
+ * ```js
+ * <Center>
+        <Text>A basic card</Text>
+   </Center>
+ * ```
+ * @param children component need to be centred
+ */
 const Center = ({ css, children, ...props }: CenterProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({
@@ -11,6 +20,7 @@ const Center = ({ css, children, ...props }: CenterProps) => {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
+
     ...useThemedCSS(theme, css),
   });
 

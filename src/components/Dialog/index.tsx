@@ -16,6 +16,12 @@ type DialogProps = Base & {
   onClose?: () => void;
 };
 
+/*
+ * Displays a dialog with a custom content that requires attention or provides additional information.
+ * ```js
+ * 
+ * ```
+ */
 const Dialog = ({
   visible = false,
   shy = true,

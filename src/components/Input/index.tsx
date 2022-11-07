@@ -41,8 +41,8 @@ type InputProps = Pick<Base, 'css'> & {
 };
 
 /**
- * Input:
- * if has prefix or suffix, the property flex is required.
+ * inputs fields are used to get the user input in a text field.
+ * @param ...
  */
 const Input = ({
   type,

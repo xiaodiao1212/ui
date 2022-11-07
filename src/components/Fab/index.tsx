@@ -18,6 +18,19 @@ type FabProps = Base &
     };
   }>;
 
+/**
+ * Fabs are container elements that contain one or more fab buttons. 
+ * They should be placed in a fixed position that does not scroll with the content. 
+ *
+ * ```
+ * <Fab>
+    <Icon src='****' />
+   </Fab>
+ * ```
+ * @param position initial position.
+ * @param draggable draggable or not.
+ * @param adsorption does it attach to the edge of the screen.
+ */
 const Fab = ({
   draggable = false,
   adsorption = false,

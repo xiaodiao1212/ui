@@ -6,7 +6,7 @@ import arrowSVG from '../../icons/arrow-up.svg';
 import { css, useTheme, keyframes } from '@emotion/react';
 import Icon from '../Icon';
 import { Base } from '../props';
-//ExpansionPanel
+
 type CollapseProps = Base & {
   title?: React.ReactNode | (() => React.ReactNode) | string;
   expand: boolean;
@@ -15,6 +15,20 @@ type CollapseProps = Base & {
   onChange: () => void;
 };
 
+/**
+ * Collapse display a list of high-level options that can expand/collapse to reveal more information.
+ * ```js
+ *  <Collapse title="Option A">
+        <Text>
+          Lorem ipsum dolor sit amet
+        </Text>
+    </Collapse>
+ * ```
+ * @param title collapse title content
+ * @param animated enable or disable the collapse animation
+ * @param expand manage the expand behaivor by prop
+ * @param trigger trigger component overide
+ */
 const Collapse = ({ title, animated = true, expand = false, trigger, children, ...props }: CollapseProps) => {
   const theme = useTheme() as Theme;
 

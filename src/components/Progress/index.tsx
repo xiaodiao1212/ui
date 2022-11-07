@@ -14,11 +14,25 @@ type ProgressProps = Base & {
   color?: string;
   animated?: boolean;
   tips?: string;
-  text?: string;
+  content?: string;
 };
 
+/**
+ * The Progress component allows you to view the progress of any activity.
+ * ```
+ *  <Progress color="primary" percent={75} />
+ * ```
+ * @param radius progress border radius
+ * @param content progress content text
+ * @param tips progress tips content
+ * @param height progress height
+ * @param percent progress border radius
+ * @param backgroundColor progress backgroundColor
+ * @param color progress color
+
+ */
 const Progress = ({
-  text = '',
+  content = '',
   tips = '',
   radius = 999,
   height = '1em',
@@ -45,7 +59,7 @@ const Progress = ({
       left: '0%',
     },
     to: {
-      left: `calc(${percent}% - ${Math.max(0, text.length - 2.5)}em)`,
+      left: `calc(${percent}% - ${Math.max(0, content.length - 2.5)}em)`,
     },
   });
   const kfTips = keyframes({
@@ -69,11 +83,11 @@ const Progress = ({
     '&, &>.progress-bar': {
       borderRadius: radius,
     },
-    ...(text.length > 0 && {
-      '& > .progress-text': {
+    ...(content.length > 0 && {
+      '& > .progress-content': {
         fontSize: '.8rem',
         position: 'absolute',
-        left: `calc(${percent}% - ${Math.max(0, text.length - 2.5)}em)`,
+        left: `calc(${percent}% - ${Math.max(0, content.length - 2.5)}em)`,
         top: 0,
         bottom: 0,
         color: color || theme?.color?.white || '#FEFEFE',
@@ -109,7 +123,7 @@ const Progress = ({
   return (
     <div css={styles} role='progressbar' {...props}>
       <div className='progress-bar' />
-      {text && <div className='progress-text'>{text}</div>}
+      {content && <div className='progress-content'>{content}</div>}
       {tips && <div className='progress-tips'>{tips}</div>}
     </div>
   );

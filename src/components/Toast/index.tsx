@@ -16,6 +16,10 @@ type ToastProps = Base &
     color: string;
   }>;
 
+/**
+ * Textarea component is a multi-line Input which allows you to write large texts.
+ * @param ...
+ */
 const Toast = ({ title, content, color, children, css, ...props }: ToastProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({

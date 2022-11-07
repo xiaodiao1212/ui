@@ -10,12 +10,28 @@ import vars from '../../styles/vars';
 type TooltipProps = Base & {
   backgroundColor?: ((theme: Theme) => string) | string;
   color?: ((theme: Theme) => string) | string;
-  info?: React.ReactNode;
+  content?: React.ReactNode;
   width?: string;
   show?: boolean;
   position?: 'top' | 'left' | 'right' | 'bottom';
 };
 
+/**
+ * Tooltips displays informative text when users hover, focus, or click an element.
+ * ```js
+ * <Tooltip content={"hellow"}>
+      <Button>
+        Do hover here
+      </Button>
+    </Tooltip>
+ * ```
+ * @param backgroundColor tooltip background color
+ * @param color tooltip text color
+ * @param width tooltip width color
+ * @param position tooltip show position
+ * @param content tooltip content text
+
+ */
 const ToolTip = ({
   css,
   children,
@@ -25,7 +41,7 @@ const ToolTip = ({
   width = '60px',
   position = 'right',
   show,
-  info,
+  content,
   ...props
 }: TooltipProps & Omit<React.ComponentPropsWithoutRef<'div'>, 'color'>) => {
   const [computedPosition, setComputedPosition] = useState({});
@@ -117,7 +133,7 @@ const ToolTip = ({
   return (
     <div css={styles} {...props}>
       {children}
-      <span className={`tooltiptext`}>{info}</span>
+      <span className={`tooltiptext`}>{content}</span>
     </div>
   );
 };

@@ -10,7 +10,18 @@ type CardProps = Base &
     extra: React.ReactNode;
     color: Themed<string>;
   }>;
-
+/**
+ * Card is a container for text, photos, and actions in the context of a single subject.
+ * ```js
+ * <Card css={{ mw: "400px" }}>
+      <Card.Body>
+        <Text>A basic card</Text>
+      </Card.Body>
+    </Card>
+ * ```
+ * @param title card header title
+ * @param extra card header extra operators
+ */
 const Card = ({ title, extra, css, children, onClick, color, ...props }: CardProps) => {
   const theme = useTheme() as Theme;
 

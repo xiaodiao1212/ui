@@ -28,22 +28,7 @@ type SwitchProps = Base & {
   trackStyles?: ((theme: Theme) => React.CSSProperties) | React.CSSProperties;
 };
 /**
- * @description
  * A Switch is a visual toggle between two mutually exclusive states — on and off,
- * usually has track and thumb, it successfully toggled
- * when the switch thumb slides to the other side of the track upon user interaction.
- * this component behaves the same on ios and android,
- * especially on mobile instead of a checkbox.
- *
- * The following points can be referred to:
- *
- * 1.Avoid adding labels to describe the values of a switch.
- *
- * 2.Use switches in table or list rows only.
- *
- * 3.Consider using switches to manage the availability of related interface elements.
- *
- * @example
  * ```js
  * const [on, setOn] = useState(false);
  *

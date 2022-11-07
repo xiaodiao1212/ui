@@ -1,4 +1,5 @@
 import { render, cleanup, waitFor, screen } from '@testing-library/react';
+import React from 'react';
 import { App, Button } from '../src';
 describe('Button testing...', () => {
   beforeEach(() => {});

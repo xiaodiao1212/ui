@@ -19,8 +19,7 @@ type NavBarProps = Base & {
 };
 
 /**
- * The nav app bar provides content and actions related to the current screen.
- * It’s used for branding, screen titles, navigation, and actions.
+ * A responsive navigation header positioned on top side of your page that includes support for branding, links, navigation, collapse and more.
  * ```
  * <NavBar
  *    title='Title'

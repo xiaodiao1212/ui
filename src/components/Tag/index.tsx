@@ -13,18 +13,15 @@ type TagProps = Base & {
 };
 
 /**
- * Tags appear in form fields – mainly in search bars –
- * and are used as an indicator for filtered content.
- * They reflect the input a user types in.
- * Tags can be manipulated by editing the text or deleted by clicking on the x.
+ * Tags appear in form fields
  *
  * ```js
- *
+ * <Tag color="#eee">greet!</Tag>
  * ```
- * @param outlined (Optional) set style with outlined
- * @param color (Optional) the css property `color`
- * @param hollow (Optional) weather the background hollow out
- * @param radius (Optional) the css property `borderRadius` size
+ * @param outlined outlined style
+ * @param color tag color
+ * @param hollow weather the background hollow out
+ * @param radius tag border radius size
  */
 const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagProps) => {
   const theme = useTheme() as Theme;

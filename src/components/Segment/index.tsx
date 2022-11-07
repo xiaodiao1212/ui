@@ -10,6 +10,12 @@ type SegmentProps = Base &
     vertical: boolean;
   }>;
 
+  /**
+   * Segments display a group of related buttons, sometimes known as segmented controls, in a horizontal row. 
+   * They can be displayed inside of a toolbar or the main content.
+   * @param param0 
+   * @returns 
+   */
 const Segment = ({ css, children, ...props }: SegmentProps) => {
   const [offsetX, setOffsetX] = useState(0);
   const [current, setCurrent] = useState(0);

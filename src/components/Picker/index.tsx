@@ -15,7 +15,15 @@ type PickerProps = Base & {
   onChange: (item: PickerItem[]) => any;
   value: string[];
 };
-
+/**
+ * Provides multiple collections of options for the user to choose from,
+ * supporting single column selection and multi-column cascading,
+ * often used in conjunction with a pop-up layer component.
+ * ```
+ * <Picker data={[{key:'1',value:"1"}]} />
+ * ```
+ * @param data picker items
+ */
 const Picker = ({ data = [], onChange, value, children, css, ...props }: PickerProps) => {
   const theme = useTheme() as Theme;
   const [pickerStyle, setPickerStyle] = useState<any>({

@@ -1,4 +1,5 @@
 import { render, cleanup, fireEvent, screen } from '@testing-library/react';
+import React from 'react';
 import { App, Switch } from '../src';
 import vars from '../src/styles/vars';
 describe('Switch testing...', () => {

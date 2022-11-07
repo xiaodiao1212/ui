@@ -3,7 +3,7 @@
 import { keyframes, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 
-import { Base } from '../props';
+import { Base, Padding } from '../props';
 import { useCSS, useThemedCSS } from '../../styles/css';
 import { ReactNode } from 'react';
 
@@ -13,18 +13,12 @@ type ListItem = {
   avator?: ReactNode;
   title?: ReactNode;
   content?: ReactNode;
-
   extra?: ReactNode;
 };
+
 type ListProps = Base & {
   divider?: boolean | ReactNode;
   data: ListItem[];
-  pa?: string;
-  ma?: string;
-  py?: string;
-  px?: string;
-  my?: string;
-  mx?: string;
   renderItem?: (item: ListItem) => ReactNode;
   gap?: string;
   innerGap?: string;
@@ -37,12 +31,6 @@ const List = ({
   innerGap,
   css,
   divider,
-  pa,
-  ma,
-  py,
-  px,
-  my,
-  mx,
   children,
   ...props
 }: ListProps) => {
@@ -56,16 +44,6 @@ const List = ({
     display: 'flex',
     alignItems: 'center',
     innerGap,
-    padding: pa,
-    margin: ma,
-    paddingTop: py,
-    paddingBottom: py,
-    paddingLeft: px,
-    paddingRight: px,
-    marginTop: py,
-    marginBottom: py,
-    marginLeft: px,
-    marginRight: px,
     borderBottom: divider ? '1px solid #F4F5F7' : '',
     ...useThemedCSS(theme, css),
   });

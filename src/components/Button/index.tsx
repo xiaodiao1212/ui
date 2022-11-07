@@ -18,10 +18,20 @@ type ButtonProps = Base & {
 } & Margin;
 
 /**
- * @example
+ * Buttons allow users to perform actions and choose with a single tap.
  * ```js
- * <Button>Got it</Button>
+ * <Button>submit</Button>
  * ```
+ * @param block full width
+ * @param disabled button disabled
+ * @param text text button style
+ * @param outlined outlined button style
+ * @param rounded rounded button style
+ * @param radius button border radius
+ * @param icon icon button style
+ * @param color button color
+ * @param padding button size
+ * @param onClick click handler
  */
 const Button = ({
   block = false,

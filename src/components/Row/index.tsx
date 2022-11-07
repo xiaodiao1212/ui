@@ -11,11 +11,26 @@ type RowProps = Margin &
     align?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
     justify?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
     gap?: string;
-    wrap?: boolean;
+    wrapped?: boolean;
     fullHeight?: boolean;
   };
 
-const Row = ({ children, vertical, wrap, fullHeight, align, justify, gap, css, ...props }: RowProps) => {
+  /**
+ * Component provides a way to represent a row in the grid system. It is used when we want to display data in the form of rows..
+ * ```js
+ * <Row>
+ *  <Col>left</Col>
+ *  <Col>right</Col>
+ * </Row>
+ * ```
+ * @param vertical vertical flex direction
+ * @param wrapped flex wrap
+ * @param fullHeight full height or not
+ * @param align flex align items
+ * @param justify flex justify content
+ * @param gap children's gap
+ */
+const Row = ({ children, vertical, wrapped, fullHeight, align, justify, gap, css, ...props }: RowProps) => {
   const theme = useTheme() as Theme;
   const styles = useCSS({
     display: 'flex',
@@ -27,7 +42,7 @@ const Row = ({ children, vertical, wrap, fullHeight, align, justify, gap, css, .
     height: fullHeight ? '100%' : 'initial',
     gap: gap,
     alignItems: align || '',
-    ...(vertical ? {} : { flexWrap: wrap ? 'wrap' : 'nowrap' }),
+    ...(vertical ? {} : { flexWrap: wrapped ? 'wrap' : 'nowrap' }),
     ...useThemedCSS(theme, css),
   });
   return (

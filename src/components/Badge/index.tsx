@@ -17,6 +17,23 @@ type BadgeProps = Base &
     content: React.ReactNode;
   }>;
 
+/**
+ * Badges are used as a small numerical value or status descriptor for UI elements.
+ * ```js
+ * <Badge color="#eee" content={5}>
+      <Image
+        src="https://i.pravatar.cc/300?u=a042581f4e29026707d"
+      />
+    </Badge>
+ * ```
+ * @param content The content of the badge.
+ * @param size The size of the badge
+ * @param show if show the badge content
+ * @param offsetX badge x-offset
+ * @param offsetY badge y-offset
+ * @param position badge position relative to its children.
+ * @param offsetY badge background color
+ */
 const Badge = ({
   size = 14,
   show = true,

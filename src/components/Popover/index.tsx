@@ -14,9 +14,21 @@ type PopoverContentProps = Base & {
 };
 
 /**
- * A Popover can be used to display some content on top of another.
- * @param boolean hover
- * @returns Popover
+ * Popover is a non-modal dialog that floats around its disclosure. 
+ * It's commonly used for displaying additional rich content on top of something. 
+ * ```
+ * <Popover>
+      <Popover.Trigger>
+        <Button auto flat>Open Popover</Button>
+      </Popover.Trigger>
+      <Popover.Content>
+        <Text css={{ p: "$10" }}>
+          This is the content of the popover.
+        </Text>
+      </Popover.Content>
+    </Popover>
+ *  ```
+ * @param hover Trigger method
  */
 const Popover = ({ hover = false, css, children, ...props }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
   const theme = useTheme() as Theme;
@@ -61,6 +73,10 @@ const Popover = ({ hover = false, css, children, ...props }: React.ComponentProp
     </div>
   );
 };
+
+
+
+
 const PopoverContent = ({
   show = false,
   position = 'bottom',
