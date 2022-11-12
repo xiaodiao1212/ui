@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
-
 import React, { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { Theme } from '../../styles/themes';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
 import { Base } from '../props';
+import { useTheme, useCSS } from '../../styles/css';
 type SwipeItem = {
   index: number;
   content: React.ReactNode;
@@ -79,7 +78,7 @@ const Swiper = ({
   const [translateY, setTranslateY] = useState<string | number>(0);
   const [translateX, setTranslateX] = useState<string | number>(0);
 
-  const styles = css({
+  const styles = useCSS({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     '& > ul': {
