@@ -3,10 +3,10 @@
 import { useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useCSS, useThemedCSS } from '../../styles/css';
 
-type NavBarProps = Base & {
+type NavBarProps = ComponentBaseProps & {
   left?: boolean;
   navIcon?: ReactNode;
   extra?: ReactNode;
@@ -34,7 +34,7 @@ type NavBarProps = Base & {
  * @param gap the gap of the title,extra,navIcon
  */
 const NavBar = ({ left, navIcon, extra, title, color, css, gap, children, ...props }: NavBarProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     backgroundColor: color,
     width: '100%',

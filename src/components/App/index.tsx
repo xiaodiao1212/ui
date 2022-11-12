@@ -1,31 +1,29 @@
 import { ThemeProvider, Global, CSSObject } from '@emotion/react';
-import { useCallback, useEffect } from 'react';
+import { useMemo, useLayoutEffect } from 'react';
 import { globalStyles } from '../../styles/global';
 import { theme as defaultTheme, Theme } from '../../styles/themes';
 import { addCSSLink, deepMerge } from '../../utils';
 
 type AppProps = {
   children?: React.ReactNode;
-  theme?: object;
+  theme?: Partial<Theme>;
 };
 
 /**
- * Application
- * app组件和navigation、drawer、appbar、footer等组件配合使用，
- * 帮助你的应用围绕 <v-main> 组件进行适当的大小调整。
- * 这使你可以创建真正独特的界面，无需因管理布局尺寸而烦恼。
- * 所有应用都应该在app组件里这是许多组件和功能的挂载点，
- * 但组件本身也被设计得能够脱离app单独使用，
- * app只应该在你的应用中渲染一次。
- * @param theme 自定义的主题覆盖项
+ * The app component works with components such as navigation, drawer, appbar, footer, etc.
+ * Helps your app to resize properly around <main>.
+ * This allows you to create truly unique interfaces without the hassle of managing layout dimensions.
+ * All apps should be in the app component which is the mount point for many components and features.
+ * but the components themselves are also designed to be able to be used independently of the app.
+ * apps should only be rendered once in your application.
  */
 export default function App({ children, theme }: AppProps) {
-  const computedTheme = useCallback(() => deepMerge(defaultTheme, theme || {}), [theme]);
-  useEffect(() => {
+  const computedTheme = useMemo(() => deepMerge(defaultTheme, theme || {}), [theme]);
+  useLayoutEffect(() => {
     addCSSLink('https://unpkg.com/boxicons@latest/css/boxicons.min.css');
   }, []);
   return (
-    <ThemeProvider theme={computedTheme()}>
+    <ThemeProvider theme={computedTheme}>
       <Global styles={globalStyles as CSSObject} />
       {children}
     </ThemeProvider>

@@ -29,17 +29,19 @@ type Theme = {
     padding: string;
   };
   system: Record<string, unknown>;
-  color: {
+  color: Partial<{
     primary: string;
     secondary: string;
     black: string;
     grey: string;
     greyLight: string;
+    whiteLight: string;
     white: string;
+    blue: string;
     red: string;
     green: string;
     accent: string;
-  };
+  }>;
   common: {
     circularEdge: string;
   };

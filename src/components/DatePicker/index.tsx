@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import { useState } from 'react';
 
-type DatePickerProps = Base &
+type DatePickerProps = ComponentBaseProps &
   Partial<{
     onlyImg?: boolean;
     className: string;
@@ -30,7 +30,7 @@ const DatePicker = ({
     setValue(formater ? formater(e.target.value) : e.target.value);
     onChange?.(formater ? formater(e.target.value) : e.target.value, e);
   };
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     cursor: ' pointer',
     ...useThemedCSS(theme, css),

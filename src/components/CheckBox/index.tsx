@@ -4,10 +4,10 @@ import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import CheckBoxGroup from './CheckBoxGroup';
 import { CheckboxGroupContext } from './CheckBoxGroup';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 type CheckboxValue = string | number;
 
-type CheckBoxProps = Base & {
+type CheckBoxProps = ComponentBaseProps & {
   disabled?: boolean;
   checked?: boolean;
 
@@ -60,7 +60,7 @@ const CheckBox = ({
       }
     }
   };
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const checkedShapeStyle = {
     transformOrigin: 'bottom left',
     clipPath: 'polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%)',

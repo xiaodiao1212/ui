@@ -3,10 +3,10 @@
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 
-type LinkProps = Base & {
+type LinkProps = ComponentBaseProps & {
   indicatorColor?: string;
   indicatorSize?: string;
   indicatorAction?: 'always' | 'none' | 'hover';
@@ -52,7 +52,7 @@ const Link = ({
   children,
   ...props
 }: LinkProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const memoedIndicatorStyles = useMemo(
     () =>
       indicatorAction == 'always'

@@ -1,25 +1,25 @@
 /** @jsxImportSource @emotion/react */
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { Children, cloneElement, useEffect, useState } from 'react';
 import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 import SegmentItem from './SegmentItem';
 
-type SegmentProps = Base &
+type SegmentProps = ComponentBaseProps &
   Partial<{
     vertical: boolean;
   }>;
 
-  /**
-   * Segments display a group of related buttons, sometimes known as segmented controls, in a horizontal row. 
-   * They can be displayed inside of a toolbar or the main content.
-   * @param param0 
-   * @returns 
-   */
+/**
+ * Segments display a group of related buttons, sometimes known as segmented controls, in a horizontal row.
+ * They can be displayed inside of a toolbar or the main content.
+ * @param param0
+ * @returns
+ */
 const Segment = ({ css, children, ...props }: SegmentProps) => {
   const [offsetX, setOffsetX] = useState(0);
   const [current, setCurrent] = useState(0);
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     height: '2em',
     display: 'flex',

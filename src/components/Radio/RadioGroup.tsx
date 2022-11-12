@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import { createContext } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 type RadioValue = string | number;
 
@@ -14,7 +14,7 @@ export const RadioGroupContext = createContext<{
   uncheck: (val: RadioValue) => void;
 } | null>(null);
 
-type CheckBoxGroupProps = Base & {
+type CheckBoxGroupProps = ComponentBaseProps & {
   value: RadioValue | null;
   onChange: (val: RadioValue) => void;
   defaultValue?: RadioValue | null;
@@ -22,7 +22,7 @@ type CheckBoxGroupProps = Base & {
 };
 
 const RadioGroup = ({ disabled = false, onChange, children, value, co, ...props }: CheckBoxGroupProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [isValue, setValue] = useState(value);
   const style = css({
     display: 'flex',

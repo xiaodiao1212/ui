@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import { useTheme, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import * as React from 'react';
 import Row from '../Row';
 import Col from '../Col';
-import { Base } from '../props';
-import { useCSS, useThemedCSS } from '../../styles/css';
+import { ComponentBaseProps } from '../props';
+import { useCSS, useThemedCSS, useTheme } from '../../styles/css';
 
-type NoticeBarProps = Base &
+type NoticeBarProps = ComponentBaseProps &
   Partial<{
     action: React.ReactNode;
     icon: React.ReactNode;
@@ -42,7 +42,7 @@ const NoticeBar = ({
   /**
    *The main style part of the component
    */
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
     alignItems: 'center',

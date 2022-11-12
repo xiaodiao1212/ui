@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 
-type SliderProps = Base & {
+type SliderProps = ComponentBaseProps & {
   disable?: boolean;
   defaultValue?: number;
   step?: number;
@@ -35,7 +35,7 @@ const Slider = ({
   css,
   ...props
 }: SliderProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   const handleOnChange = (e: { target: { value: string } }) => {
     onChange?.(e.target.value);

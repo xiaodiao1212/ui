@@ -2,11 +2,11 @@
 
 import { useMargin, usePadding, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base, Margin, Padding } from '../props';
+import { ComponentBaseProps, Margin, Padding } from '../props';
 
 type RowProps = Margin &
   Padding &
-  Base & {
+  ComponentBaseProps & {
     vertical?: boolean;
     align?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
     justify?: 'start' | 'center' | 'end' | 'space-around' | 'space-between';
@@ -15,7 +15,7 @@ type RowProps = Margin &
     fullHeight?: boolean;
   };
 
-  /**
+/**
  * Component provides a way to represent a row in the grid system. It is used when we want to display data in the form of rows..
  * ```js
  * <Row>
@@ -31,7 +31,7 @@ type RowProps = Margin &
  * @param gap children's gap
  */
 const Row = ({ children, vertical, wrapped, fullHeight, align, justify, gap, css, ...props }: RowProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
     width: '100%',

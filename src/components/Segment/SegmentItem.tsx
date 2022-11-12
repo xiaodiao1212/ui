@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 
-type SegmentItemProps = Base &
+type SegmentItemProps = ComponentBaseProps &
   Partial<{
     itemkey: React.Key | null | undefined;
     currentKey: React.Key | null | undefined;
@@ -19,7 +19,7 @@ const SegmentItem = ({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & SegmentItemProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     padding: '0 .4em',
     flex: 1,

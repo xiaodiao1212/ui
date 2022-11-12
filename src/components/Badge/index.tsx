@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme, useColor } from '../../styles/css';
 import vars from '../../styles/vars';
 
-type BadgeProps = Base &
-  Partial<{
-    size: number;
-    show: boolean;
-    color: string;
-    offsetX: string | number;
-    offsetY: string | number;
-    position: 'top' | 'left' | 'bottom' | 'right' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-    content: React.ReactNode;
-  }>;
+type BadgeProps = ComponentBaseProps & {
+  size?: number;
+  show?: boolean;
+  color?: string;
+  offsetX?: string | number;
+  offsetY?: string | number;
+  position?: 'top' | 'left' | 'bottom' | 'right' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  content?: React.ReactNode;
+};
 
 /**
  * Badges are used as a small numerical value or status descriptor for UI elements.
@@ -47,7 +46,7 @@ const Badge = ({
   className,
   ...props
 }: BadgeProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const getInset = () => {
     switch (position) {
       case 'top':

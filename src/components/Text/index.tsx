@@ -5,8 +5,8 @@ import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../sty
 
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
-import { Base, Margin, Padding, Themed } from '../props';
-type TextProps = Base &
+import { ComponentBaseProps, Margin, Padding, Themed } from '../props';
+type TextProps = ComponentBaseProps &
   Partial<{
     gradient: string;
     ellipsis: string;
@@ -37,7 +37,7 @@ const Text = ({
   css,
   ...props
 }: TextProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const computedColor = useMemo(() => {
     return (
       color || (dark ? (theme ? theme.color.white : vars.color.white) : theme ? theme.color.black : vars.color.black)

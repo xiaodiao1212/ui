@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 import { debounce } from '../../utils';
 import { useState } from 'react';
 
-type FabProps = Base &
+type FabProps = ComponentBaseProps &
   Partial<{
     adsorption?: boolean;
     draggable?: boolean;
@@ -46,7 +46,7 @@ const Fab = ({
   const [maxLeft, setMaxLeft] = useState(0);
   const [maxTop, setMaxTop] = useState(0);
   const [clientProperty, setClientProperty] = useState<any>(0);
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     position: 'fixed',
     ...position,

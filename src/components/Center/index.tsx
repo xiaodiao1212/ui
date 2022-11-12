@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
-type CenterProps = Base;
+import { ComponentBaseProps } from '../props';
+type CenterProps = ComponentBaseProps;
 
 /**
  * A component conveniently centres a child component vertically.
@@ -14,7 +14,7 @@ type CenterProps = Base;
  * @param children component need to be centred
  */
 const Center = ({ css, children, ...props }: CenterProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
     alignItems: 'center',

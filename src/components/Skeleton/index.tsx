@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
 import { keyframes } from '@emotion/react';
 
-type SkeletonProps = Base & {
+type SkeletonProps = ComponentBaseProps & {
   duration?: number;
   delay?: number;
   circle?: boolean;
@@ -27,7 +27,7 @@ const Skeleton = ({
   height = '100%',
   ...props
 }: SkeletonProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   const anim = keyframes({
     to: {

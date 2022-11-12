@@ -3,9 +3,9 @@
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { useState, useEffect } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type SortButtonProps = Base & {
+type SortButtonProps = ComponentBaseProps & {
   state?: -1 | 1 | 0;
   onClick?: ((state: any) => void) | undefined;
   color?: string;
@@ -19,7 +19,7 @@ const SortButton = ({
   co,
   ...props
 }: SortButtonProps & React.ComponentPropsWithoutRef<'button'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const primary = color ? color : theme.color.primary;
   const gray = '#979797';
   const [count, setCount] = useState<number>(state || 0);

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme, useColor } from '../../styles/css';
 import vars from '../../styles/vars';
 
-type IconProps = Base & {
+type IconProps = ComponentBaseProps & {
   width?: string;
   height?: string;
   color?: string;
@@ -15,7 +15,7 @@ type IconProps = Base & {
   onClick?: () => any;
 };
 const Icon = ({ width, height, color, css, src, onClick, ...props }: IconProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: 'inline-block',
     width: width,

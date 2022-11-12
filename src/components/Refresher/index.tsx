@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type RefresherProps = Base & {
+type RefresherProps = ComponentBaseProps & {
   threshold?: number;
   pullDelay?: number;
   refreshDelay?: number;
@@ -14,7 +14,7 @@ type RefresherProps = Base & {
   onPullEnd?: () => any;
   onRefresh?: (refreshOver: () => any) => any;
 };
-type RefreshLoadingProps = Base;
+type RefreshLoadingProps = ComponentBaseProps;
 
 /**
  * Refresher provides pull-to-refresh functionality on a content component. 
@@ -50,7 +50,7 @@ const Refresher = ({
   const [isRefresh, setIsRefresh] = useState(false);
   const [translateY, setTranslateY] = useState(0);
   const [startY, setStartY] = useState(0);
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     height: '100%',
     overflow: 'hidden',
@@ -137,7 +137,7 @@ const Refresher = ({
 };
 
 const RefreshLoading = ({ css, children, className }: RefreshLoadingProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const style = useCSS({
     position: 'absolute',
     width: '100%',

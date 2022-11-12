@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import NavigationItem from './NavigationItem';
 import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 import vars from '../../styles/vars';
-import { useCSS } from '../../styles/css';
-type Navigation = Base & {
+import { useCSS ,useTheme} from '../../styles/css';
+type Navigation = ComponentBaseProps & {
   onTap?: (index: number) => void; // Called when one of the items is tapped.
   iconSize?: string; // The size of all of the NavigationItem icons
   labelSize?: string; // The size of all of the NavigationItem labels
@@ -86,7 +85,7 @@ const Navigation = ({
   children,
   ...props
 }: Navigation) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
     minHeight: vars.navigation.height,

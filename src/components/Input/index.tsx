@@ -4,9 +4,9 @@ import { Theme } from '../../styles/themes';
 import { useState, ReactNode, CSSProperties, useMemo, useEffect } from 'react';
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import vars from '../../styles/vars';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type InputProps = Pick<Base, 'css'> & {
+type InputProps = Pick<ComponentBaseProps, 'css'> & {
   readOnly?: boolean;
   type?: 'number' | 'text' | 'password' | 'tel' | 'email' | 'url';
   clearable?: boolean;
@@ -72,7 +72,7 @@ const Input = ({
   prefixStyle,
   suffixStyle,
 }: InputProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [showClose, setShowClose] = useState(closable);
   const [showMessage, setShowMessage] = useState(false);
   const [focus, setFocus] = useState(false);

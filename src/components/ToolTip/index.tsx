@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 
-type TooltipProps = Base & {
+type TooltipProps = ComponentBaseProps & {
   backgroundColor?: ((theme: Theme) => string) | string;
   color?: ((theme: Theme) => string) | string;
   content?: React.ReactNode;
@@ -46,7 +46,7 @@ const ToolTip = ({
 }: TooltipProps & Omit<React.ComponentPropsWithoutRef<'div'>, 'color'>) => {
   const [computedPosition, setComputedPosition] = useState({});
   const [afterPosition, setAfterPosition] = useState({});
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     position: 'relative',
     display: 'inline-block',

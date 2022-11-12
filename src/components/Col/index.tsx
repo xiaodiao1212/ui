@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { Base, Margin, Padding } from '../props';
+import { ComponentBaseProps, Margin, Padding } from '../props';
 import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
-import { Theme } from '../../styles/themes';
-type ColProps = Base & {
+type ColProps = ComponentBaseProps & {
   alignSelf?: 'start' | 'center' | 'end' | 'baseline' | 'stretch' | 'normal';
   flex?: number | string;
   noFlex?: boolean;
@@ -40,7 +39,7 @@ const Col = ({
   rightText = false,
   ...props
 }: ColProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     alignSelf: alignSelf,
     textAlign: (leftText && 'left') || (rightText && 'right') || 'center',

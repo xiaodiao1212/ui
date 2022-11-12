@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import * as React from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-type TimePickerProps = Base &
+type TimePickerProps = ComponentBaseProps &
   Partial<{
     min: string;
     max: string;
@@ -23,7 +23,7 @@ const TimePicker = ({
     onChange?.(e.target.value);
   };
 
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     ...useThemedCSS(theme, css),
   });

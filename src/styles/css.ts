@@ -1,9 +1,9 @@
 import { Theme } from '../styles/themes';
 import { Margin, Padding, Position } from '../components/props';
-import { css, useTheme as ut } from '@emotion/react';
-
+import { css, useTheme as useEmotionTheme } from '@emotion/react';
 import vars from './vars';
-export const useTheme = ut;
+
+export const useTheme = () => useEmotionTheme() as Theme;
 export const useCSS = css;
 type Color = keyof typeof vars.color;
 
@@ -21,7 +21,7 @@ export function useVerticalCenter() {
   return { display: 'flex', alignItems: 'center' };
 }
 
-export function useThemedCSS(theme?: Theme, target?: any) {
+export function useThemedCSS(theme?: Partial<Theme>, target?: any) {
   return target && (typeof target == 'function' ? target(theme) : target);
 }
 

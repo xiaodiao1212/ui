@@ -36,7 +36,7 @@ export type Position = Partial<{
 export type Radius = Partial<{
   radius: number;
 }>;
-export type Base = Partial<{
+export type ComponentBaseProps = Partial<{
   onClick: () => any;
   className: string;
   children: React.ReactNode;

@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { useTheme } from '@emotion/react';
-import { Theme } from '../../styles/themes';
+
 import { ReactNode, CSSProperties } from 'react';
-import { Base, Themed } from '../props';
-import { useCSS, useThemedCSS } from '../../styles/css';
-export type NavigationItemProps = Base & {
+import { ComponentBaseProps, Themed } from '../props';
+import { useCSS,useTheme } from '../../styles/css';
+export type NavigationItemProps = ComponentBaseProps & {
   index?: number;
   onTap?: (index?: number) => void;
   selected?: boolean;
@@ -53,7 +52,7 @@ const NavigationItem = ({
   children,
   ...props
 }: NavigationItemProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     cursor: 'pointer',
     display: 'flex',

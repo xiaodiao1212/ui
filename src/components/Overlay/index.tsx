@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type OverlayProps = Base &
+type OverlayProps = ComponentBaseProps &
   Partial<{
     color: string;
     visible: boolean;
@@ -25,7 +25,7 @@ const Overlay = ({
   css,
   ...props
 }: OverlayProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: visible ? 'flex' : 'none',
     position: 'fixed',

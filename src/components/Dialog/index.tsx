@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { keyframes } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import vars from '../../styles/vars';
 
-type DialogProps = Base & {
+type DialogProps = ComponentBaseProps & {
   shy?: boolean;
   visible: boolean;
   mask?: boolean;
@@ -19,7 +19,7 @@ type DialogProps = Base & {
 /*
  * Displays a dialog with a custom content that requires attention or provides additional information.
  * ```js
- * 
+ *
  * ```
  */
 const Dialog = ({
@@ -34,7 +34,7 @@ const Dialog = ({
   css,
   ...props
 }: DialogProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const mountAnim = keyframes(
     animationType == 'fade'
       ? {

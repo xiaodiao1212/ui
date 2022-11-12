@@ -4,9 +4,9 @@ import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { ReactNode, useState } from 'react';
 import { Step, StepProps } from './Step';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type StepsProps = Base & {
+type StepsProps = ComponentBaseProps & {
   type?: 'default' | 'navigation';
 
   current?: number;
@@ -35,7 +35,7 @@ const Steps = ({
   onChange,
   ...props
 }: StepsProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const color = theme.color.primary;
   let n = 0;
   const styles = css({

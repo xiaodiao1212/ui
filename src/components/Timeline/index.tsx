@@ -5,12 +5,12 @@ import { Theme } from '../../styles/themes';
 import React, { ReactNode } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { TimelineItemProps, TimelineItem } from './item';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type TimelineProps = Base;
+type TimelineProps = ComponentBaseProps;
 
 const Timeline = ({ children, co, ...props }: TimelineProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = css({
     display: 'flex',
     alignItems: 'center',

@@ -3,10 +3,10 @@
 import { Theme } from '../../styles/themes';
 import { createRoot } from 'react-dom/client';
 import { ReactNode } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
-type ToastProps = Base &
+type ToastProps = ComponentBaseProps &
   Partial<{
     visible: boolean;
     duration: number;
@@ -21,7 +21,7 @@ type ToastProps = Base &
  * @param ...
  */
 const Toast = ({ title, content, color, children, css, ...props }: ToastProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     position: 'fixed',
     top: '50%',

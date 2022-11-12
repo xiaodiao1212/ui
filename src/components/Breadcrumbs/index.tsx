@@ -1,24 +1,24 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
-type BreadcrumbsItem = Base &
+type BreadcrumbsItem = ComponentBaseProps &
   Partial<{
     link: boolean;
     title: string;
     onClick: () => any;
   }>;
-type BreadcrumbsProps = Base &
+type BreadcrumbsProps = ComponentBaseProps &
   Partial<{
     divider: React.ReactNode;
     items: BreadcrumbsItem[];
   }>;
 
 /**
- * A breadcrumb displays the current location within a hierarchy. 
+ * A breadcrumb displays the current location within a hierarchy.
  * It allows going back to states higher up in the hierarchy.
  * ```js
  * <Button>submit</Button>
@@ -27,7 +27,7 @@ type BreadcrumbsProps = Base &
  * @param items breadcrumb items
  */
 const Breadcrumbs = ({ divider = '/', items = [], className, css }: BreadcrumbsProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme()
   const sliderStyles = useCSS({
     display: 'inline-flex',
     alignItems: 'center',

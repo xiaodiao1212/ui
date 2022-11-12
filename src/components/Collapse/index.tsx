@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
 import React from 'react';
 import arrowSVG from '../../icons/arrow-up.svg';
-import { css, useTheme, keyframes } from '@emotion/react';
+import {  useCSS, useTheme } from '../../styles/css';
 import Icon from '../Icon';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type CollapseProps = Base & {
+type CollapseProps = ComponentBaseProps & {
   title?: React.ReactNode | (() => React.ReactNode) | string;
   expand: boolean;
   animated?: boolean;
@@ -30,7 +29,7 @@ type CollapseProps = Base & {
  * @param trigger trigger component overide
  */
 const Collapse = ({ title, animated = true, expand = false, trigger, children, ...props }: CollapseProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   const handleClickTrigger = () => {
     props?.onChange?.();
@@ -38,7 +37,7 @@ const Collapse = ({ title, animated = true, expand = false, trigger, children, .
   const renderTrigger = () => {
     if (trigger)
       return React.cloneElement(typeof trigger === 'function' ? trigger() : trigger, {
-        css: css({
+        css: useCSS({
           marginLeft: 'auto',
           transformOrigin: '50% 50%',
           transform: `rotate(${expand ? '0deg' : '180deg'})`,
@@ -79,7 +78,7 @@ const Collapse = ({ title, animated = true, expand = false, trigger, children, .
   return (
     <div>
       <div
-        css={css({
+        css={useCSS({
           display: 'flex',
           alignItems: 'center',
           '& > .title': {

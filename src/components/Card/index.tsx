@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 import vars from '../../styles/vars';
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
-type CardProps = Base &
+type CardProps = ComponentBaseProps &
   Partial<{
     title: React.ReactNode;
     extra: React.ReactNode;
@@ -23,7 +23,7 @@ type CardProps = Base &
  * @param extra card header extra operators
  */
 const Card = ({ title, extra, css, children, onClick, color, ...props }: CardProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   const styles = useCSS({
     textAlign: 'initial',

@@ -4,11 +4,11 @@ import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
 import RadioGroup from './RadioGroup';
 import { RadioGroupContext } from './RadioGroup';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 type RadioValue = string | number;
 
-type RadioProps = Base & {
+type RadioProps = ComponentBaseProps & {
   disabled?: boolean;
   checked?: boolean;
 
@@ -47,7 +47,7 @@ const Radio = ({
       onChange?.(e);
     }
   };
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const inputStyle = css({
     width: '18px',
     height: '18px',

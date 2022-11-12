@@ -4,9 +4,9 @@ import React from 'react';
 
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-export type TimelineItemProps = Base & {
+export type TimelineItemProps = ComponentBaseProps & {
   icon?: React.ReactNode;
   interval?: string;
   subtitle?: string;
@@ -19,7 +19,7 @@ export const TimelineItem = ({
   co,
   ...props
 }: TimelineItemProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const color = theme.color.primary;
   const styles = css({
     // position: 'absolute',

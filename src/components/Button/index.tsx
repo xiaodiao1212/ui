@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base, Margin, Themed } from '../props';
+import { ComponentBaseProps, Margin, Themed } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
 import { useThemedCSS, useCSS, useTheme, useMargin } from '../../styles/css';
-type ButtonProps = Base & {
+type ButtonProps = ComponentBaseProps & {
   padding?: string;
   block?: boolean;
   disabled?: boolean;
@@ -48,7 +48,7 @@ const Button = ({
   onClick,
   ...props
 }: ButtonProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const computedColor = useMemo(() => color || (theme ? theme.color.primary : vars.color.primary), [color]);
   const computedRadius = useMemo(
     () => radius || (rounded ? (theme ? theme.border.full : vars.radius.full) : vars.radius.none),

@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import * as React from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
-type TagProps = Base & {
+type TagProps = ComponentBaseProps & {
   outlined?: boolean;
   color?: ((theme: Theme) => string) | string;
   radius?: number;
@@ -24,7 +24,7 @@ type TagProps = Base & {
  * @param radius tag border radius size
  */
 const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const getComputedColor = () =>
     useThemedCSS(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
 

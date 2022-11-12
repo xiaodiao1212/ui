@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { keyframes, useTheme } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 
-import { Base } from '../props';
-import { useCSS, useThemedCSS } from '../../styles/css';
+import { ComponentBaseProps } from '../props';
+import { useCSS, useThemedCSS, useTheme } from '../../styles/css';
 
-type LoadingProps = Base & {
+type LoadingProps = ComponentBaseProps & {
   bit?: boolean;
   duration?: string;
 
@@ -26,7 +26,7 @@ const Loading = ({
   css,
   ...props
 }: LoadingProps & Omit<React.ComponentPropsWithoutRef<'div'>, 'color'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const kfSpin = keyframes({
     '0%': {
       transform: 'rotate(0deg)',

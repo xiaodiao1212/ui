@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 import { useEffect, useState } from 'react';
 
-type DrawerProps = Base & {
+type DrawerProps = ComponentBaseProps & {
   width?: string;
   height?: string;
   position?: 'left' | 'right' | 'top' | 'bottom';
@@ -53,7 +53,7 @@ const Drawer = ({
   css,
   ...props
 }: DrawerProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   // Main style of drawer container
   const [contentStyle, setContentStyle] = useState({});

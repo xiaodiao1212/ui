@@ -2,12 +2,12 @@
 
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
-import { Base, Margin, Padding } from '../props';
+import { ComponentBaseProps, Margin, Padding } from '../props';
 import { useMemo } from 'react';
 import vars from '../../styles/vars';
 import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
-type DividerProps = Base &
+type DividerProps = ComponentBaseProps &
   Partial<{
     size: number;
     vertical: boolean;
@@ -39,7 +39,7 @@ const Divider = ({
   children,
   ...props
 }: DividerProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   // Use border properties in different positions to easily and concisely simulate dividing lines
   const borderStyles = useMemo(
     () =>

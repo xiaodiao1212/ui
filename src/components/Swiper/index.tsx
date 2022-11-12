@@ -4,14 +4,14 @@ import React, { useCallback, useEffect, useImperativeHandle, useLayoutEffect, us
 import { Theme } from '../../styles/themes';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useTheme, useCSS } from '../../styles/css';
 type SwipeItem = {
   index: number;
   content: React.ReactNode;
 };
 
-type SwiperProps = Base & {
+type SwiperProps = ComponentBaseProps & {
   defaultIndex?: number;
   items: SwipeItem[];
   onChange?: (current: number, distance: number) => any;
@@ -54,7 +54,7 @@ const Swiper = ({
   children,
   ...props
 }: SwiperProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const defaultIndicatorProps = {
     color: theme.color.white,
     show: true,

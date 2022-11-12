@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
 type PickerItem = {
   key: string;
   value: string | number;
 };
 
-type PickerProps = Base & {
+type PickerProps = ComponentBaseProps & {
   data: PickerItem[][];
   onChange: (item: PickerItem[]) => any;
   value: string[];
@@ -25,7 +25,7 @@ type PickerProps = Base & {
  * @param data picker items
  */
 const Picker = ({ data = [], onChange, value, children, css, ...props }: PickerProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [pickerStyle, setPickerStyle] = useState<any>({
     position: 'relative',
     display: 'flex',

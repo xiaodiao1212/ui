@@ -3,12 +3,12 @@
 import React from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type PopoverProps = Base & {
+type PopoverProps = ComponentBaseProps & {
   hover?: boolean;
 };
-type PopoverContentProps = Base & {
+type PopoverContentProps = ComponentBaseProps & {
   position?: 'top' | 'left' | 'right' | 'bottom';
   show?: boolean;
 };
@@ -31,7 +31,7 @@ type PopoverContentProps = Base & {
  * @param hover Trigger method
  */
 const Popover = ({ hover = false, css, children, ...props }: React.ComponentPropsWithoutRef<'div'> & PopoverProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [isContentShow, setIsContentShow] = React.useState(false);
   const styles = useCSS({
     position: 'relative',
@@ -74,9 +74,6 @@ const Popover = ({ hover = false, css, children, ...props }: React.ComponentProp
   );
 };
 
-
-
-
 const PopoverContent = ({
   show = false,
   position = 'bottom',
@@ -85,7 +82,7 @@ const PopoverContent = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & PopoverContentProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [cp, setCp] = React.useState({});
   const styles = useCSS({
     position: 'absolute',

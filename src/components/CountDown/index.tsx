@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { keyframes } from '@emotion/react';
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
-type CountDownProps = Base & {
+type CountDownProps = ComponentBaseProps & {
   h?: number;
   m?: number;
   s?: number;
@@ -17,7 +17,7 @@ type CountDownProps = Base & {
 };
 
 const CountDown = ({ h = 0, m = 0, s = 0, time = 0, label, animation, css, ...props }: CountDownProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const end: number = h * 3600 + m * 60 + s;
   const timeEnd: number = time;
   const [loading, setLoading] = useState(false);

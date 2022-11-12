@@ -2,9 +2,9 @@
 
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { useThemedCSS, useTheme, useCSS } from '../../styles/css';
-type CellProps = Base & {
+type CellProps = ComponentBaseProps & {
   title?: ReactNode;
   subTitle?: ReactNode;
   value?: ReactNode;
@@ -23,7 +23,7 @@ type CellProps = Base & {
  * @param onClick click handler
  */
 const Cell = ({ title, value, subTitle, css, centered = true, onClick }: CellProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   const styles = useCSS({
     textAlign: 'initial',

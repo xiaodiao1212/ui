@@ -2,11 +2,11 @@
 
 import { useState, ReactNode, useLayoutEffect, useRef, ReactEventHandler, SyntheticEvent } from 'react';
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
-type ImageProps = Base & {
+type ImageProps = ComponentBaseProps & {
   mask?: ReactNode;
   circle?: boolean;
   lazy?: boolean;
@@ -61,7 +61,7 @@ const Image = ({
   ...props
 }: Omit<React.ComponentPropsWithoutRef<'img'>, 'onLoad' | 'onError'> & ImageProps) => {
   const ref = useRef(null);
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [loadingState, setLoadingState] = useState<'error' | 'success' | 'loading'>('loading');
   const styles = useCSS({
     verticalAlign: 'middle',

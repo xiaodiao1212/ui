@@ -4,9 +4,9 @@ import { keyframes } from '@emotion/react';
 import React from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-type ProgressProps = Base & {
+type ProgressProps = ComponentBaseProps & {
   radius?: number;
   height?: string;
   percent?: number;
@@ -44,7 +44,7 @@ const Progress = ({
   css,
   ...props
 }: ProgressProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const kf = keyframes({
     from: {
       width: '0%',

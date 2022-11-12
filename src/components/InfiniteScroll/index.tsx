@@ -3,8 +3,8 @@
 import React from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
-type InfiniteScrollProps = Base & {
+import { ComponentBaseProps } from '../props';
+type InfiniteScrollProps = ComponentBaseProps & {
   threshold?: number;
   bottomed?: boolean;
   onScrollToBottom?: () => any;
@@ -35,7 +35,7 @@ const InfiniteScroll = ({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & InfiniteScrollProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     height: '100%',
     overflow: 'auto',

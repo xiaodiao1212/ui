@@ -3,7 +3,7 @@
 import { useState, createContext } from 'react';
 import { Theme } from '../../styles/themes';
 import { useTheme, css } from '@emotion/react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 type CheckboxValue = string | number;
 
 export const CheckboxGroupContext = createContext<{
@@ -13,7 +13,7 @@ export const CheckboxGroupContext = createContext<{
   uncheck: (val: CheckboxValue) => void;
 } | null>(null);
 
-type CheckBoxGroupProps = Base & {
+type CheckBoxGroupProps = ComponentBaseProps & {
   disabled?: boolean;
   value?: CheckboxValue[];
   defaultValue?: CheckboxValue[];
@@ -22,7 +22,7 @@ type CheckBoxGroupProps = Base & {
 };
 
 const CheckBoxGroup = ({ disabled = false, onChange, children, value = [], co }: CheckBoxGroupProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const [isValue, setValue] = useState<CheckboxValue[]>(value);
   const style = css({
     display: 'flex',

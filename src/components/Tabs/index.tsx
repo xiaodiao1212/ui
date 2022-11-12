@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import * as React from 'react';
-import { Base } from '../props';
+import React from 'react';
+import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
-import Button from '../Button';
 
-type TabsProps = Base & {
+type TabsProps = ComponentBaseProps & {
   noIndicator?: boolean;
   onClickTab: (key: React.Key) => void;
   tab: React.Key;
 };
 
-type TabItemProps = Base &
+type TabItemProps = ComponentBaseProps &
   Partial<{
     noIndicator: boolean;
     indicator: React.ReactNode;
@@ -23,7 +22,7 @@ type TabItemProps = Base &
     css: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties;
   }>;
 
-type TabsIndicatorProps = Base;
+type TabsIndicatorProps = ComponentBaseProps;
 
 const Tabs = ({
   onClickTab,
@@ -32,12 +31,14 @@ const Tabs = ({
   css,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<'nav'> & TabsProps) => {
-  const theme = useTheme() as Theme;
+}: React.ComponentPropsWithoutRef<'div'> & TabsProps) => {
+  const theme = useTheme();
 
   const handleChildrenRender = () => {
     return React.Children.map(children, (child: any, i) => {
       const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
+      console.log(element);
+
       if (child.type.name == 'TabItem') {
         return React.cloneElement(element, {
           onClick: () => {
@@ -55,7 +56,9 @@ const Tabs = ({
       return undefined;
     });
   };
+
   const renderTab = (tab: React.ReactNode) => tab;
+
   return (
     <nav
       css={useCSS({
@@ -70,7 +73,7 @@ const Tabs = ({
 };
 
 const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, css, children, ...props }: TabItemProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const tabsIndicatorStyles = useCSS({
     position: 'relative',
     flex: 1,
@@ -81,20 +84,17 @@ const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, css, children, 
   const handleClickTab = () => {
     onClick?.(tabKey as React.Key);
   };
-  const tabCssOptions = (theme: Theme) => ({
-    borderRadius: '',
-    ...css?.(theme, tab == tabKey),
-  });
+
   return (
-    <Button {...props} css={tabsIndicatorStyles} onClick={handleClickTab} co={tabCssOptions}>
+    <div css={tabsIndicatorStyles} onClick={handleClickTab} {...props}>
       {children}
       {tab == tabKey && !noIndicator && (indicator || <TabsIndicator />)}
-    </Button>
+    </div>
   );
 };
 
 const TabsIndicator = ({ css, className, ...props }: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const tabsIndicatorStyles = useCSS({
     position: 'absolute',
     height: '1px',

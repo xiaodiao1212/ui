@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { Theme } from '../../styles/themes';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 import { memo, ReactNode } from 'react';
 import vars from '../../styles/vars';
 import { useCSS, useThemedCSS, useTheme } from '../../styles/css';
 
-type SwitchProps = Base & {
+type SwitchProps = ComponentBaseProps & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
   on?: boolean;
   width?: number;
@@ -17,7 +17,7 @@ type SwitchProps = Base & {
 };
 
 const Switch = ({ on = false, onChange, color, radius, css, width = 2.8, height = 1.4, ...props }: SwitchProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
 
   const styles = useCSS({
     //switch track css implement

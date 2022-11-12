@@ -3,9 +3,9 @@
 import { css, useTheme } from '@emotion/react';
 import { Theme } from '../../styles/themes';
 import React, { ReactNode } from 'react';
-import { Base } from '../props';
+import { ComponentBaseProps } from '../props';
 
-export type StepProps = Base & {
+export type StepProps = ComponentBaseProps & {
   title?: ReactNode;
 
   status?: 'wait' | 'process' | 'finish' | 'error';
@@ -23,7 +23,7 @@ export const Step = ({
   isDashed,
   ...props
 }: StepProps & React.ComponentPropsWithoutRef<'div'>) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const color = theme.color.primary;
   const styles = css({
     display: 'block',

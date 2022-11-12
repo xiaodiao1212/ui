@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Theme } from '../../styles/themes';
-import { Base, Themed } from '../props';
+import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
 
 import GridContainer from './GridContainer';
-type GridProps = Base & {
+type GridProps = ComponentBaseProps & {
   row?: number;
   col?: number;
   rowGap?: string;
@@ -13,7 +13,7 @@ type GridProps = Base & {
 };
 
 const Grid = ({ row, col, rowGap, colGap, css, children, ...props }: GridProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const styles = useCSS({
     display: 'grid',
     gridTemplateColumns: `repeat(${col}, 1fr)`,
