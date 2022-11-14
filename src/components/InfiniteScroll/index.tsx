@@ -11,14 +11,14 @@ type InfiniteScrollProps = ComponentBaseProps & {
   ending?: React.ReactNode;
 };
 /**
- * Refresher provides pull-to-refresh functionality on a content component. 
+ * PullRefresh provides pull-to-refresh functionality on a content component. 
  * The pull-to-refresh pattern lets a user pull down on a list of data in order to retrieve more data.
  * ```js
- *  <Refresher onRefresh={()=>{}}>
-      <Refresher.Content>
+ *  <PullRefresh onRefresh={()=>{}}>
+      <PullRefresh.Content>
         <Container>hello</Container>
-      </Refresher.Content>
-    </Refresher>
+      </PullRefresh.Content>
+    </PullRefresh>
  * ```
  * @param threshold load trigger value
  * @param ending bottom ending component

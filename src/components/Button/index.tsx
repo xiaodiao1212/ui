@@ -47,7 +47,7 @@ const Button = ({
   children,
   onClick,
   ...props
-}: ButtonProps) => {
+}: React.ComponentPropsWithoutRef<'button'> & ButtonProps) => {
   const theme = useTheme();
   const computedColor = useMemo(() => color || (theme ? theme.color.primary : vars.color.primary), [color]);
   const computedRadius = useMemo(

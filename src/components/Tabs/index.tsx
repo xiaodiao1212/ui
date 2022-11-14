@@ -1,6 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import React from 'react';
+import {
+  createContext,
+  Children,
+  CSSProperties,
+  cloneElement,
+  ComponentPropsWithoutRef,
+  DetailedReactHTMLElement,
+} from 'react';
 import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
@@ -8,7 +15,7 @@ import vars from '../../styles/vars';
 
 type TabsProps = ComponentBaseProps & {
   noIndicator?: boolean;
-  onClickTab: (key: React.Key) => void;
+  onChange: (key: string) => void;
   tab: React.Key;
 };
 
@@ -19,60 +26,53 @@ type TabItemProps = ComponentBaseProps &
     tab: Readonly<React.Key>;
     tabKey: React.Key;
     onClick: (key: React.Key) => void;
-    css: (theme: Theme, isCurrentTab: boolean) => React.CSSProperties;
+    css: (theme: Theme, isCurrentTab: boolean) => CSSProperties;
   }>;
 
 type TabsIndicatorProps = ComponentBaseProps;
 
 const Tabs = ({
-  onClickTab,
+  onChange,
   noIndicator = false,
   tab,
   css,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & TabsProps) => {
+}: ComponentPropsWithoutRef<'div'> & TabsProps) => {
+  const context = createContext({});
   const theme = useTheme();
+  const styles = useCSS({
+    display: 'flex',
+    ...useThemedCSS(theme, css),
+  });
 
-  const handleChildrenRender = () => {
-    return React.Children.map(children, (child: any, i) => {
-      const element = child as React.DetailedReactHTMLElement<any, HTMLElement>;
-      console.log(element);
+   return (
+    <div css={styles} {...props}>
+      {Children.map(children, (child: any, i) => {
+        const element = child as DetailedReactHTMLElement<any, HTMLElement>;
+        console.log('1' + i, element);
 
-      if (child.type.name == 'TabItem') {
-        return React.cloneElement(element, {
-          onClick: () => {
-            onClickTab?.(element.key || `${child.type.name}${i}`);
-          },
-          tab: tab,
-          tabKey: element.key,
-          noIndicator: noIndicator,
-          indicator: React.Children.map(children, (c: any, i) => {
-            if (c.type.name == 'TabsIndicator') return c;
-          })[0],
-          ...{ ...element.props, key: element.key },
-        });
-      }
-      return undefined;
-    });
-  };
-
-  const renderTab = (tab: React.ReactNode) => tab;
-
-  return (
-    <nav
-      css={useCSS({
-        display: 'flex',
-        ...useThemedCSS(theme, css),
+        if (child.type.name == 'TabItem') {
+          return cloneElement(element, {
+            onClick: () => {
+              onChange?.('1');
+            },
+            tab: tab,
+            tabKey: element.key,
+            noIndicator: noIndicator,
+            indicator: Children.map(children, (c: any, i) => {
+              if (c.type.name == 'TabsIndicator') return c;
+            })[0],
+            ...{ ...element.props, key: element.key },
+          });
+        }
+        return undefined;
       })}
-      {...props}>
-      {typeof children === 'function' && children(renderTab)}
-      {children instanceof Array && handleChildrenRender()}
-    </nav>
+    </div>
   );
 };
 
-const TabItem = ({ tab, tabKey, onClick, noIndicator, indicator, css, children, ...props }: TabItemProps) => {
+const TabsItem = ({ tab, tabKey, onClick, noIndicator, indicator, css, children, ...props }: TabItemProps) => {
   const theme = useTheme();
   const tabsIndicatorStyles = useCSS({
     position: 'relative',
@@ -108,6 +108,6 @@ const TabsIndicator = ({ css, className, ...props }: React.ComponentPropsWithout
   return <span css={tabsIndicatorStyles} {...props} />;
 };
 
-Tabs.Item = TabItem;
+Tabs.Item = TabsItem;
 Tabs.Indicator = TabsIndicator;
 export default Tabs;

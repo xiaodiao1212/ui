@@ -36,9 +36,9 @@ const Container = ({ background, fullHeight = false, fullScreen = false, css, ch
   });
 
   return (
-    <div css={styles} {...props}>
+    <section css={styles} {...props}>
       {children}
-    </div>
+    </section>
   );
 };
 

@@ -41,7 +41,7 @@ import Link from './components/Link';
 import Drawer from './components/Drawer';
 import Input from './components/Input';
 import Picker from './components/Picker';
-import Refresher from './components/Refresher';
+import PullRefresh from './components/PullRefresh';
 import Collapse from './components/Collapse';
 import Navigation from './components/Navigation';
 // import Steps from './components/Steps';
@@ -69,7 +69,7 @@ export {
   Collapse,
   Segment,
   Loading,
-  Refresher,
+  PullRefresh,
   Progress,
   Slider,
   Dropdown,

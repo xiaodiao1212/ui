@@ -5,7 +5,7 @@ import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { ComponentBaseProps } from '../props';
 
-type RefresherProps = ComponentBaseProps & {
+type PullRefreshProps = ComponentBaseProps & {
   threshold?: number;
   pullDelay?: number;
   refreshDelay?: number;
@@ -17,14 +17,14 @@ type RefresherProps = ComponentBaseProps & {
 type RefreshLoadingProps = ComponentBaseProps;
 
 /**
- * Refresher provides pull-to-refresh functionality on a content component. 
+ * PullRefresh provides pull-to-refresh functionality on a content component. 
  * The pull-to-refresh pattern lets a user pull down on a list of data in order to retrieve more data.
  * ```js
- *  <Refresher onRefresh={()=>{}}>
-      <Refresher.Content>
+ *  <PullRefresh onRefresh={()=>{}}>
+      <PullRefresh.Content>
         <Container>hello</Container>
-      </Refresher.Content>
-    </Refresher>
+      </PullRefresh.Content>
+    </PullRefresh>
  * ```
  * @param threshold refresh trigger value
  * @param pullDelay pull action delay
@@ -34,7 +34,7 @@ type RefreshLoadingProps = ComponentBaseProps;
  * @param onPullEnd pull end handler
  * @param onRefresh refresh handler
  */
-const Refresher = ({
+const PullRefresh = ({
   threshold = 80,
   pullDelay = 30,
   refreshDelay = 1000,
@@ -45,7 +45,7 @@ const Refresher = ({
   children,
   css,
   ...props
-}: RefresherProps) => {
+}: PullRefreshProps) => {
   const [pullLength, setPullLength] = useState(0);
   const [isRefresh, setIsRefresh] = useState(false);
   const [translateY, setTranslateY] = useState(0);
@@ -154,5 +154,5 @@ const RefreshLoading = ({ css, children, className }: RefreshLoadingProps) => {
   );
 };
 
-Refresher.Loading = RefreshLoading;
-export default Refresher;
+PullRefresh.Loading = RefreshLoading;
+export default PullRefresh;

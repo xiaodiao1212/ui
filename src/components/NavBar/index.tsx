@@ -5,13 +5,12 @@ import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
 import { ComponentBaseProps } from '../props';
 import { useCSS, useThemedCSS } from '../../styles/css';
+type NavBarItemProps = ComponentBaseProps & {
+  content?: ReactNode;
+};
 
 type NavBarProps = ComponentBaseProps & {
-  left?: boolean;
-  navIcon?: ReactNode;
-  extra?: ReactNode;
-  title?: ReactNode;
-  color?: string;
+  bgColor?: string;
   gap?: string;
   fixed?: boolean;
   sticky?: boolean;
@@ -22,51 +21,69 @@ type NavBarProps = ComponentBaseProps & {
  * A responsive navigation header positioned on top side of your page that includes support for branding, links, navigation, collapse and more.
  * ```
  * <NavBar
- *    title='Title'
- *    extra={<Menu onClick={()=>{}}/>}>
+ *    content='content'
+ *    extra={</>}>
  * </NavBar>
  * ```
- * @param left weather use the title left layout.
- * @param navIcon some operation icons like arrow,back,memu aligned on the left of the bar.
- * @param extra some extra operation icons aligned on the right of the bar.
- * @param title bar's and page's title aligned on the center of the bar.
- * @param color bar's background color.
- * @param gap the gap of the title,extra,navIcon
+ * @param content bar's and page's content aligned on the center of the bar.
+ * @param bgColor bar's background color.
+ * @param gap the gap of the content,extra,navIcon
  */
-const NavBar = ({ left, navIcon, extra, title, color, css, gap, children, ...props }: NavBarProps) => {
+const NavBar = ({ bgColor, css, gap, children, ...props }: NavBarProps) => {
   const theme = useTheme();
   const styles = useCSS({
-    backgroundColor: color,
-    width: '100%',
-    '& > ul': {
-      display: 'flex',
-      width: '100%',
+    backgroundColor: bgColor, display: 'flex',
       gap,
-      '& > li:nth-child(1)': {
-        flex: left ? 'none' : 1,
-      },
-      '& > li:nth-child(2)': {
-        flex: left ? 'auto' : 1,
-        textAlign: left ? 'left' : 'center',
-      },
-      '& > li:nth-child(3)': {
-        flex: 1,
-        textAlign: 'right',
-      },
-    },
     ...useThemedCSS(theme, css),
   });
 
   return (
     <nav css={styles} {...props}>
-      <ul>
-        <li>{navIcon}</li>
-        <li>{title}</li>
-        <li>{extra}</li>
-      </ul>
       {children}
     </nav>
   );
 };
+const NavBarBrand = ({ content, css, children, ...props }: NavBarItemProps) => {
+  const theme = useTheme();
+  const styles = useCSS({
+    flex: 'none',
 
+    ...useThemedCSS(theme, css),
+  });
+  return (
+    <div css={styles} {...props}>
+      {children}
+    </div>
+  );
+};
+const NavBarContent = ({ content, css, children, ...props }: NavBarItemProps) => {
+  const theme = useTheme();
+  const styles = useCSS({
+    textAlign: 'center',
+    flex: 1,
+
+    ...useThemedCSS(theme, css),
+  });
+  return (
+    <div css={styles} {...props}>
+      {children}
+    </div>
+  );
+};
+const NavBarExtra = ({ content, css, children, ...props }: NavBarItemProps) => {
+  const theme = useTheme();
+  const styles = useCSS({
+    flex: 'none',
+    ...useThemedCSS(theme, css),
+  });
+  return (
+    <div css={styles} {...props}>
+      {children}
+    </div>
+  );
+};
+
+NavBar.Brand = NavBarBrand;
+NavBar.Content = NavBarContent;
+NavBar.Extra = NavBarExtra;
 export default NavBar;

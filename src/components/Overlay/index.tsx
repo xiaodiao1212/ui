@@ -26,6 +26,7 @@ const Overlay = ({
   ...props
 }: OverlayProps) => {
   const theme = useTheme();
+
   const styles = useCSS({
     display: visible ? 'flex' : 'none',
     position: 'fixed',
