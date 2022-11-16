@@ -36,8 +36,12 @@ export function usePadding(props: Padding) {
 }
 
 export function usePosition(props: Position) {
-  const { relative, absolute, sticky, fixed } = props;
+  const { relative, absolute, sticky, fixed,left,top,right,bottom } = props;
   return {
+    left:left,
+    top:top,
+    right:right,
+    bottom:bottom,
     position: relative ? 'relative' : absolute ? 'absolute' : fixed ? 'fixed' : sticky ? 'sticky' : 'static',
   };
 }

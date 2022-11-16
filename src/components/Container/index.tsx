@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
 import { ComponentBaseProps, Margin, Position, Padding, Themed } from '../props';
-import { useCSS, useTheme, usePadding, useMargin, useThemedCSS } from '../../styles/css';
+import { useCSS, useTheme, usePadding, usePosition, useMargin, useThemedCSS } from '../../styles/css';
 
 type ContainerProps = ComponentBaseProps &
   Margin &
@@ -31,14 +30,16 @@ const Container = ({ background, fullHeight = false, fullScreen = false, css, ch
     height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
     ...useMargin(props),
     ...usePadding(props),
+    ...usePosition(props),
+    width: props.fixed ? '100%' : '',
     background: useThemedCSS(theme, background),
     ...useThemedCSS(theme, css),
   });
 
   return (
-    <section css={styles} {...props}>
+    <div css={styles} {...props}>
       {children}
-    </section>
+    </div>
   );
 };
 

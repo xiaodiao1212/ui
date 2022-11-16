@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
-import { Theme } from '../../styles/themes';
 import { clamp } from '../../utils';
 import SwiperItem from './SwiperItem';
 import { ComponentBaseProps } from '../props';
-import { useTheme, useCSS } from '../../styles/css';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
+import vars from '../../styles/vars';
+
 type SwipeItem = {
   index: number;
   content: React.ReactNode;
@@ -52,6 +53,7 @@ const Swiper = ({
   indicatorProps,
   indicator,
   children,
+  css,
   ...props
 }: SwiperProps) => {
   const theme = useTheme();
@@ -88,6 +90,7 @@ const Swiper = ({
           : `translate3d(${translateX},${translateY},0)`
       }`,
     },
+    ...useThemedCSS(theme, css),
   });
 
   const swipeTo = (index: number) => {

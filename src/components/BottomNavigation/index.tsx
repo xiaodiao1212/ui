@@ -5,8 +5,8 @@ import NavigationItem from './NavigationItem';
 import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
 import { ComponentBaseProps, Themed } from '../props';
 import vars from '../../styles/vars';
-import { useCSS ,useTheme} from '../../styles/css';
-type Navigation = ComponentBaseProps & {
+import { useCSS, useTheme } from '../../styles/css';
+type BottomNavigation = ComponentBaseProps & {
   onTap?: (index: number) => void; // Called when one of the items is tapped.
   iconSize?: string; // The size of all of the NavigationItem icons
   labelSize?: string; // The size of all of the NavigationItem labels
@@ -16,7 +16,7 @@ type Navigation = ComponentBaseProps & {
   unselectedIconColor?: Themed<string>;
   unselectedLabelColor?: Themed<string>;
   unselectedItemColor?: Themed<string>;
-  backgroundColor?: Themed<string>; // The color of the Navigation itself
+  backgroundColor?: Themed<string>; // The color of the BottomNavigation itself
   currentIndex?: number; // The index into items for the current active
   selectedIconStyle?: Themed<CSSProperties>; // The size, opacity, and color of the icon in the currently selected NavigationItem.icons.
   selectedItemStyle?: Themed<CSSProperties>; //The style of the selected NavigationItem.icon and NavigationItem.labels. [...]
@@ -36,7 +36,7 @@ type Navigation = ComponentBaseProps & {
  * this is an exampe with override lastest item
  * ```js
  *  const [currentIndex, setCurrentIndex] = useState(2);
- *  <Navigation
+ *  <BottomNavigation
         currentIndex={currentIndex}
         onTap={i => {
           console.log(i);
@@ -47,7 +47,7 @@ type Navigation = ComponentBaseProps & {
           color: 'red',
         }}>
         {item.map((v, i) => (
-          <Navigation.Item key={i} label={v + ''} icon={'1212'}>
+          <BottomNavigation.Item key={i} label={v + ''} icon={'1212'}>
             {i == 3 && (
               <div
                 style={{
@@ -56,13 +56,13 @@ type Navigation = ComponentBaseProps & {
                 sdsd
               </div>
             )}
-          </Navigation.Item>
+          </BottomNavigation.Item>
         ))}
-    </Navigation>
+    </BottomNavigation>
  * ```
  *
  */
-const Navigation = ({
+const BottomNavigation = ({
   onTap,
   currentIndex = 0,
   iconSize,
@@ -84,7 +84,7 @@ const Navigation = ({
   navigationStyle,
   children,
   ...props
-}: Navigation) => {
+}: BottomNavigation) => {
   const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
@@ -124,6 +124,6 @@ const Navigation = ({
   );
 };
 
-Navigation.Item = NavigationItem;
+BottomNavigation.Item = NavigationItem;
 
-export default Navigation;
+export default BottomNavigation;

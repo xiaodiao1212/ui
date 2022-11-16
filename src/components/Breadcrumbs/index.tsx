@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
-import { ComponentBaseProps, Themed } from '../props';
+import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
+import { ReactNode, createContext } from 'react';
 
 type BreadcrumbsItem = ComponentBaseProps &
   Partial<{
@@ -13,21 +13,26 @@ type BreadcrumbsItem = ComponentBaseProps &
   }>;
 type BreadcrumbsProps = ComponentBaseProps &
   Partial<{
-    divider: React.ReactNode;
+    separator: ReactNode;
     items: BreadcrumbsItem[];
   }>;
-
+type BreadcrumbsContext = {};
+const breadcrumbsContext = createContext<BreadcrumbsContext>({});
 /**
- * A breadcrumb displays the current location within a hierarchy.
- * It allows going back to states higher up in the hierarchy.
+ * Breadcrumbs are navigation items that are used to indicate where a user is on an app or site. 
  * ```js
- * <Button>submit</Button>
+ * <Breadcrumbs>
+      <Breadcrumbs.Item href="#home">Home</Breadcrumbs>
+      <Breadcrumbs.Item href="#electronics">Electronics</Breadcrumbs>
+      <Breadcrumbs.Item href="#cameras">Cameras</Breadcrumbs>
+      <Breadcrumbs.Item href="#film">Film</Breadcrumbs>
+    </IonBreadcrumbs>
  * ```
- * @param divider ever item's divider component
+ * @param separator ever item's separator component
  * @param items breadcrumb items
  */
-const Breadcrumbs = ({ divider = '/', items = [], className, css }: BreadcrumbsProps) => {
-  const theme = useTheme()
+const Breadcrumbs = ({ separator = '/', children, className, css }: BreadcrumbsProps) => {
+  const theme = useTheme();
   const sliderStyles = useCSS({
     display: 'inline-flex',
     alignItems: 'center',
@@ -39,26 +44,37 @@ const Breadcrumbs = ({ divider = '/', items = [], className, css }: BreadcrumbsP
 
   return (
     <nav css={sliderStyles} className={'breadcrumbs ' + className}>
-      {items.map((v, i) => {
-        return (
-          <div key={v.title}>
-            <div onClick={v?.onClick}>{v.title}</div>
-            {i != items.length - 1 &&
-              (typeof divider == 'string' ? (
-                <div
-                  style={{
-                    margin: '0em .4em',
-                  }}>
-                  {divider}
-                </div>
-              ) : (
-                divider
-              ))}
-          </div>
-        );
-      })}
+      {children}
     </nav>
   );
 };
+const Breadcrumb = ({ children, className, css }: BreadcrumbsProps) => {
+  const theme = useTheme();
+  const sliderStyles = useCSS({
+    display: 'inline-flex',
+    flex: 1,
+    ...useThemedCSS(theme, css),
+  });
 
+  return (
+    <div css={sliderStyles} className={'breadcrumbs ' + className}>
+      {children}
+    </div>
+  );
+};
+const BreadcrumbsSeparator = ({ children, className, css }: BreadcrumbsProps) => {
+  const theme = useTheme();
+  const sliderStyles = useCSS({
+    display: 'inline-flex',
+    ...useThemedCSS(theme, css),
+  });
+
+  return (
+    <div css={sliderStyles} className={'breadcrumbs ' + className}>
+      {children}
+    </div>
+  );
+};
+Breadcrumbs.Item = Breadcrumb;
+Breadcrumbs.Separator = BreadcrumbsSeparator;
 export default Breadcrumbs;

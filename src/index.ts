@@ -43,7 +43,7 @@ import Input from './components/Input';
 import Picker from './components/Picker';
 import PullRefresh from './components/PullRefresh';
 import Collapse from './components/Collapse';
-import Navigation from './components/Navigation';
+import BottomNavigation from './components/BottomNavigation';
 // import Steps from './components/Steps';
 import ToolTip from './components/ToolTip';
 import Switch from './components/Switch';
@@ -56,7 +56,7 @@ export {
   Center,
   Toast,
   Picker,
-  Navigation,
+  BottomNavigation,
   ToolTip,
   List,
   NavBar,

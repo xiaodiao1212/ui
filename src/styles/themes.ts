@@ -7,6 +7,11 @@ type Theme = {
     height: string;
   };
   border: {
+    8: number;
+    4: number;
+    12: number;
+    16: number;
+    0: number;
     full: number;
   };
   zIndex: {
@@ -51,6 +56,11 @@ const theme: Theme = {
   mode: 'light',
   color: vars.color,
   border: {
+    8: 8,
+    4: 4,
+    12: 12,
+    16: 16,
+    0: 0,
     full: 999,
   },
   button: {

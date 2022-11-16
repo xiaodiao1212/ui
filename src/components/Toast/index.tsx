@@ -17,7 +17,8 @@ type ToastProps = ComponentBaseProps &
   }>;
 
 /**
- * Textarea component is a multi-line Input which allows you to write large texts.
+ * Datetimes present a calendar interface and time wheel, 
+ * making it easy for users to select dates and times.
  * @param ...
  */
 const Toast = ({ title, content, color, children, css, ...props }: ToastProps) => {

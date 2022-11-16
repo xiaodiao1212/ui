@@ -27,6 +27,10 @@ export type Margin = Partial<{
 }>;
 
 export type Position = Partial<{
+  left: string;
+  right: string;
+  top: string;
+  bottom: string;
   relative: boolean;
   absolute: boolean;
   fixed: boolean;

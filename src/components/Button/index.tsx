@@ -51,7 +51,7 @@ const Button = ({
   const theme = useTheme();
   const computedColor = useMemo(() => color || (theme ? theme.color.primary : vars.color.primary), [color]);
   const computedRadius = useMemo(
-    () => radius || (rounded ? (theme ? theme.border.full : vars.radius.full) : vars.radius.none),
+    () => radius || (rounded ? (theme ? theme.border.full : vars.radius.full) : vars.radius[0]),
     [radius, rounded],
   );
 

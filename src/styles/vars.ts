@@ -1,14 +1,18 @@
 const vars = {
   radius: {
-    none: '0px',
-    full: '999px',
+    8: 8,
+    4: 4,
+    12: 12,
+    16: 16,
+    0: 0,
+    full: 999,
   },
   color: {
     primary: '#0137c3',
     secondary: '#FB7173',
     black: '#03060B',
     grey: '#2D4665',
-    blue:'#0038c9',
+    blue: '#0038c9',
     red: '#F31260',
     green: '#17C964',
     accent: '#CCE4FF',

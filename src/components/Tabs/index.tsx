@@ -7,6 +7,8 @@ import {
   cloneElement,
   ComponentPropsWithoutRef,
   DetailedReactHTMLElement,
+  useMemo,
+  useContext,
 } from 'react';
 import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
@@ -14,100 +16,121 @@ import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 
 type TabsProps = ComponentBaseProps & {
-  noIndicator?: boolean;
-  onChange: (key: string) => void;
-  tab: React.Key;
+  onTabsChange: (label: string) => void;
+  activeTab: string;
+};
+type TabsIndicatorProps = ComponentBaseProps & {};
+
+type TabItemProps = ComponentBaseProps & {
+  label: string;
+  disabled?: boolean;
+  onClick?: (label: string) => void;
+  css?: (theme: Theme, isCurrentTab: boolean) => CSSProperties;
 };
 
-type TabItemProps = ComponentBaseProps &
-  Partial<{
-    noIndicator: boolean;
-    indicator: React.ReactNode;
-    tab: Readonly<React.Key>;
-    tabKey: React.Key;
-    onClick: (key: React.Key) => void;
-    css: (theme: Theme, isCurrentTab: boolean) => CSSProperties;
-  }>;
+type TabsContext = {
+  handleTabClick?: (label: string) => void;
+  indicatorTranslateX?: any;
+  indicatorWidth?: number;
+  activeTab?: string;
+};
 
-type TabsIndicatorProps = ComponentBaseProps;
+const tabsContext = createContext<TabsContext>({});
 
-const Tabs = ({
-  onChange,
-  noIndicator = false,
-  tab,
-  css,
-  children,
-  ...props
-}: ComponentPropsWithoutRef<'div'> & TabsProps) => {
-  const context = createContext({});
+const Tabs = ({ onTabsChange, activeTab, css, children, ...props }: TabsProps) => {
   const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
+    position: 'relative',
     ...useThemedCSS(theme, css),
   });
-
-   return (
-    <div css={styles} {...props}>
-      {Children.map(children, (child: any, i) => {
-        const element = child as DetailedReactHTMLElement<any, HTMLElement>;
-        console.log('1' + i, element);
-
-        if (child.type.name == 'TabItem') {
-          return cloneElement(element, {
-            onClick: () => {
-              onChange?.('1');
-            },
-            tab: tab,
-            tabKey: element.key,
-            noIndicator: noIndicator,
-            indicator: Children.map(children, (c: any, i) => {
-              if (c.type.name == 'TabsIndicator') return c;
-            })[0],
-            ...{ ...element.props, key: element.key },
-          });
+  const context = useMemo(() => {
+    const tabItems = Children.toArray(children).filter((c: any) => c.type.name == 'TabItem');
+    return {
+      handleTabClick: (label: string) => {
+        onTabsChange(label);
+      },
+      indicatorTranslateX: tabItems.reduce((a: number, v: any, i: number) => {
+        if (v.props.label == activeTab) {
+          a = i * 100;
         }
-        return undefined;
-      })}
-    </div>
+        return a;
+      }, 0),
+      activeTab,
+      indicatorWidth: 100 / tabItems.length,
+    };
+  }, [children]);
+
+  return (
+    <tabsContext.Provider value={context}>
+      <div css={styles} {...props}>
+        {Children.map(children, (child: any, i) => {
+          const element = child as DetailedReactHTMLElement<any, HTMLElement>;
+
+          if (child.type.name == 'TabItem') {
+            return cloneElement(element, {
+              ...{ ...element.props, key: element.key },
+            });
+          }
+
+          if (child.type.name == 'TabsIndicator') {
+            return cloneElement(element, {
+              ...{ ...element.props, key: element.key },
+            });
+          }
+          return undefined;
+        })}
+      </div>
+    </tabsContext.Provider>
   );
 };
 
-const TabsItem = ({ tab, tabKey, onClick, noIndicator, indicator, css, children, ...props }: TabItemProps) => {
+const TabItem = ({ label, disabled, onClick, css, children, ...props }: TabItemProps) => {
   const theme = useTheme();
+  const context = useContext(tabsContext);
   const tabsIndicatorStyles = useCSS({
-    position: 'relative',
     flex: 1,
     textAlign: 'center',
-    ...(typeof css == 'function' && css(theme, tab == tabKey)),
+    padding: '.8em 1em',
+    color: disabled
+      ? context.activeTab == label
+        ? theme.color.primary || vars.color.primary
+        : theme.color.black || vars.color.black
+      : theme.color.grey || vars.color.grey,
+    ...useThemedCSS(theme, css),
   });
 
   const handleClickTab = () => {
-    onClick?.(tabKey as React.Key);
+    onClick?.(label);
+    context.handleTabClick?.(label);
   };
 
   return (
     <div css={tabsIndicatorStyles} onClick={handleClickTab} {...props}>
-      {children}
-      {tab == tabKey && !noIndicator && (indicator || <TabsIndicator />)}
+      {label}
     </div>
   );
 };
 
 const TabsIndicator = ({ css, className, ...props }: React.ComponentPropsWithoutRef<'span'> & TabsIndicatorProps) => {
   const theme = useTheme();
+  const context = useContext(tabsContext);
   const tabsIndicatorStyles = useCSS({
+    width: context.indicatorWidth + '%',
     position: 'absolute',
     height: '1px',
-    background: 'white',
+    background: vars.color.primary,
+    left: 0,
     bottom: 0,
-    left: '50%',
-    transform: 'translateX(-50%)',
+    transform: `translateX(${context.indicatorTranslateX}%)`,
+    transition: 'transform .25s',
+    willChange: 'transform',
     ...useThemedCSS(theme, css),
   });
 
   return <span css={tabsIndicatorStyles} {...props} />;
 };
 
-Tabs.Item = TabsItem;
+Tabs.Item = TabItem;
 Tabs.Indicator = TabsIndicator;
 export default Tabs;

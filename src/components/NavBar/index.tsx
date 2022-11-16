@@ -32,8 +32,12 @@ type NavBarProps = ComponentBaseProps & {
 const NavBar = ({ bgColor, css, gap, children, ...props }: NavBarProps) => {
   const theme = useTheme();
   const styles = useCSS({
-    backgroundColor: bgColor, display: 'flex',
-      gap,
+    padding: '0 1em',
+    alignItems: 'center',
+    height: '3em',
+    backgroundColor: bgColor,
+    display: 'flex',
+    gap,
     ...useThemedCSS(theme, css),
   });
 

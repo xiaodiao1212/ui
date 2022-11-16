@@ -17,7 +17,7 @@ type DrawerProps = ComponentBaseProps & {
 };
 
 /**
- * Navigation drawers (or "sidebars") provide access to destinations and app functionality,
+ * BottomNavigation drawers (or "sidebars") provide access to destinations and app functionality,
  * such as switching accounts. They can either be permanently on-screen or
  * controlled by a navigation menu icon..
  * The component is initially not visible on the screen,

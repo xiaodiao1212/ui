@@ -31,7 +31,8 @@ const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagPr
   const styles = useCSS({
     display: 'inline-flex',
     padding: '0.2em 0.6em',
-    borderRadius: radius || (theme ? theme.border.full : vars.radius.full),
+    borderRadius: radius || (theme ? theme.border[8] : vars.radius[8]),
+
     ...(!outlined
       ? {
           background: getComputedColor(),
@@ -41,6 +42,7 @@ const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagPr
           border: '1px solid ' + getComputedColor(),
           color: getComputedColor(),
         }),
+
     ...useThemedCSS(theme, css),
   });
   return (

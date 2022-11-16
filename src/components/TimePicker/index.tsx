@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import * as React from 'react';
 import { ComponentBaseProps } from '../props';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
-import { Theme } from '../../styles/themes';
+
 type TimePickerProps = ComponentBaseProps &
   Partial<{
     min: string;
