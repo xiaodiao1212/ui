@@ -7,6 +7,8 @@ type ContainerProps = ComponentBaseProps &
   Margin &
   Position &
   Padding & {
+    w?: string;
+    h?: string;
     background?: Themed<string>;
     fullHeight?: boolean;
     fullScreen?: boolean;
@@ -24,14 +26,23 @@ type ContainerProps = ComponentBaseProps &
  * @param fullScreen full screen or not
  * @returns
  */
-const Container = ({ background, fullHeight = false, fullScreen = false, css, children, ...props }: ContainerProps) => {
+const Container = ({
+  w,
+  h,
+  background,
+  fullHeight = false,
+  fullScreen = false,
+  css,
+  children,
+  ...props
+}: ContainerProps) => {
   const theme = useTheme();
   const styles = useCSS({
-    height: fullScreen ? '100vh' : fullHeight ? '100%' : 'auto',
+    height: h ? (fullScreen ? '100vh' : fullHeight ? '100%' : 'auto') : '',
     ...useMargin(props),
     ...usePadding(props),
     ...usePosition(props),
-    width: props.fixed ? '100%' : '',
+    width: w ? (props.fixed ? '100%' : '') : '',
     background: useThemedCSS(theme, background),
     ...useThemedCSS(theme, css),
   });

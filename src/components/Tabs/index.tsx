@@ -69,13 +69,13 @@ const Tabs = ({ onTabsChange, activeTab, css, children, ...props }: TabsProps) =
 
           if (child.type.name == 'TabItem') {
             return cloneElement(element, {
-              ...{ ...element.props, key: element.key },
+              ...{ ...element.props },
             });
           }
 
           if (child.type.name == 'TabsIndicator') {
             return cloneElement(element, {
-              ...{ ...element.props, key: element.key },
+              ...{ ...element.props },
             });
           }
           return undefined;

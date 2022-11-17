@@ -13,6 +13,7 @@ import {
   Tabs,
   Text,
   InfiniteScroll,
+  Breadcrumbs,
 } from './build';
 
 const container = document.getElementById('root');
@@ -44,7 +45,14 @@ if (container) {
             <Tabs.Item label='3' />
             <Tabs.Indicator />
           </Tabs>
-          <Container css={{ height: '40vh' }}>
+          <Container pa='1em'>
+            <Breadcrumbs>
+              <Breadcrumbs.Item>11</Breadcrumbs.Item>
+              <Breadcrumbs.Item>11</Breadcrumbs.Item>
+              <Breadcrumbs.Item>11</Breadcrumbs.Item>
+            </Breadcrumbs>
+          </Container>
+          <Container h='40vh' >
             <PullRefresh>
               <InfiniteScroll>
                 <List>

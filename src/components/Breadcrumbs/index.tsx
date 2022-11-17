@@ -3,20 +3,18 @@
 import { ComponentBaseProps } from '../props';
 
 import { useThemedCSS, useCSS, useTheme } from '../../styles/css';
-import { ReactNode, createContext } from 'react';
+import { ReactNode, createContext, Children, cloneElement, DetailedReactHTMLElement } from 'react';
 
-type BreadcrumbsItem = ComponentBaseProps &
-  Partial<{
-    link: boolean;
-    title: string;
-    onClick: () => any;
-  }>;
+type BreadcrumbsItemProps = ComponentBaseProps & Partial<{}>;
 type BreadcrumbsProps = ComponentBaseProps &
   Partial<{
     separator: ReactNode;
-    items: BreadcrumbsItem[];
+    gap: string;
   }>;
+
+type BreadcrumbsSeparatorProps = ComponentBaseProps & {};
 type BreadcrumbsContext = {};
+
 const breadcrumbsContext = createContext<BreadcrumbsContext>({});
 /**
  * Breadcrumbs are navigation items that are used to indicate where a user is on an app or site. 
@@ -31,24 +29,36 @@ const breadcrumbsContext = createContext<BreadcrumbsContext>({});
  * @param separator ever item's separator component
  * @param items breadcrumb items
  */
-const Breadcrumbs = ({ separator = '/', children, className, css }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ separator = '/', gap = '1em', children, css, ...props }: BreadcrumbsProps) => {
   const theme = useTheme();
   const sliderStyles = useCSS({
     display: 'inline-flex',
     alignItems: 'center',
-    '& > *': {
-      display: 'inline-flex',
-    },
+    gap,
     ...useThemedCSS(theme, css),
   });
 
   return (
-    <nav css={sliderStyles} className={'breadcrumbs ' + className}>
-      {children}
+    <nav css={sliderStyles} {...props}>
+      {Children.map(children, (child: any, i) => {
+        const element = child as DetailedReactHTMLElement<any, HTMLElement>;
+
+        if (child.type.name == 'Breadcrumb') {
+          return (
+            <>
+              {cloneElement(element, {
+                ...{ ...element.props },
+              })}
+              {i != Children.count(children) - 1 && <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator>}
+            </>
+          );
+        }
+        return undefined;
+      })}
     </nav>
   );
 };
-const Breadcrumb = ({ children, className, css }: BreadcrumbsProps) => {
+const Breadcrumb = ({ children, css, ...props }: BreadcrumbsItemProps) => {
   const theme = useTheme();
   const sliderStyles = useCSS({
     display: 'inline-flex',
@@ -57,20 +67,21 @@ const Breadcrumb = ({ children, className, css }: BreadcrumbsProps) => {
   });
 
   return (
-    <div css={sliderStyles} className={'breadcrumbs ' + className}>
+    <div css={sliderStyles} {...props}>
       {children}
     </div>
   );
 };
-const BreadcrumbsSeparator = ({ children, className, css }: BreadcrumbsProps) => {
+const BreadcrumbsSeparator = ({ children, css, ...props }: BreadcrumbsSeparatorProps) => {
   const theme = useTheme();
   const sliderStyles = useCSS({
     display: 'inline-flex',
+    flex: 1,
     ...useThemedCSS(theme, css),
   });
 
   return (
-    <div css={sliderStyles} className={'breadcrumbs ' + className}>
+    <div css={sliderStyles} {...props}>
       {children}
     </div>
   );
