@@ -1,129 +1,93 @@
 /** @jsxImportSource @emotion/react */
 
+import {
+  createContext,
+  Children,
+  CSSProperties,
+  cloneElement,
+  ComponentPropsWithoutRef,
+  DetailedReactHTMLElement,
+  useMemo,
+  useContext,
+} from 'react';
+import { ComponentBaseProps } from '../props';
+import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
-import NavigationItem from './NavigationItem';
-import { ReactNode, CSSProperties, Children, cloneElement, ReactElement } from 'react';
-import { ComponentBaseProps, Themed } from '../props';
 import vars from '../../styles/vars';
-import { useCSS, useTheme } from '../../styles/css';
-type BottomNavigation = ComponentBaseProps & {
-  onTap?: (index: number) => void; // Called when one of the items is tapped.
-  iconSize?: string; // The size of all of the NavigationItem icons
-  labelSize?: string; // The size of all of the NavigationItem labels
-  selectedItemColor?: Themed<string>;
-  selectedIconColor?: Themed<string>;
-  selectedLabelColor?: Themed<string>;
-  unselectedIconColor?: Themed<string>;
-  unselectedLabelColor?: Themed<string>;
-  unselectedItemColor?: Themed<string>;
-  backgroundColor?: Themed<string>; // The color of the BottomNavigation itself
-  currentIndex?: number; // The index into items for the current active
-  selectedIconStyle?: Themed<CSSProperties>; // The size, opacity, and color of the icon in the currently selected NavigationItem.icons.
-  selectedItemStyle?: Themed<CSSProperties>; //The style of the selected NavigationItem.icon and NavigationItem.labels. [...]
-  selectedLabelStyle?: Themed<CSSProperties>; // The style of the NavigationItem labels when they are selected.
-  unselectedIconStyle?: Themed<CSSProperties>; // The size, opacity, and color of the icon in the currently unselected NavigationItem.icons.
-  unselectedItemStyle?: Themed<CSSProperties>; //The style of the unselected NavigationItem.icon and NavigationItem.labels. [...]
-  unselectedLabelStyle?: Themed<CSSProperties>; // The style of the NavigationItem labels when they are not selected.
-  navigationStyle?: Themed<CSSProperties>;
-};
-/**
- * A component that's displayed at the bottom of an app for selecting 
- * among a small number of views, typically between three and five.
- * The bottom navigation bar consists of multiple items in the form of text labels,icons, 
- * or both It provides quick navigation between the top-level views of an app. 
- * For larger screens, side navigation may be a better fit.
- * 
- * this is an exampe with override lastest item
- * ```js
- *  const [currentIndex, setCurrentIndex] = useState(2);
- *  <BottomNavigation
-        currentIndex={currentIndex}
-        onTap={i => {
-          console.log(i);
 
-          setCurrentIndex(i);
-        }}
-        selectedLabelStyle={{
-          color: 'red',
-        }}>
-        {item.map((v, i) => (
-          <BottomNavigation.Item key={i} label={v + ''} icon={'1212'}>
-            {i == 3 && (
-              <div
-                style={{
-                  color: currentIndex == i ? 'red' : 'green',
-                }}>
-                sdsd
-              </div>
-            )}
-          </BottomNavigation.Item>
-        ))}
-    </BottomNavigation>
- * ```
- *
- */
-const BottomNavigation = ({
-  onTap,
-  currentIndex = 0,
-  iconSize,
-  css,
-  labelSize,
-  selectedItemColor,
-  selectedIconColor,
-  selectedLabelColor,
-  unselectedIconColor,
-  unselectedLabelColor,
-  unselectedItemColor,
-  backgroundColor,
-  selectedIconStyle,
-  selectedItemStyle,
-  selectedLabelStyle,
-  unselectedIconStyle,
-  unselectedItemStyle,
-  unselectedLabelStyle,
-  navigationStyle,
-  children,
-  ...props
-}: BottomNavigation) => {
+type BottomNavigationProps = ComponentBaseProps & {
+  onItemChange: (label: string) => void;
+  activeItem: string;
+};
+
+type BottomNavigationItemProps = ComponentBaseProps & {
+  label: string;
+  disabled?: boolean;
+  onClick?: (label: string) => void;
+  css?: (theme: Theme, isCurrentItem: boolean) => CSSProperties;
+};
+
+type BottomNavigationContext = {
+  handleItemClick?: (label: string) => void;
+  activeItem?: string;
+};
+
+const tabsContext = createContext<BottomNavigationContext>({});
+
+const BottomNavigation = ({ onItemChange, activeItem, css, children, ...props }: BottomNavigationProps) => {
   const theme = useTheme();
   const styles = useCSS({
     display: 'flex',
-    minHeight: vars.navigation.height,
-    background:
-      (backgroundColor && (typeof backgroundColor == 'function' ? backgroundColor(theme) : backgroundColor)) ||
-      theme.color.white ||
-      'white',
-    alignItems: 'center',
-    ...(navigationStyle && (typeof navigationStyle == 'function' ? navigationStyle(theme) : navigationStyle)),
+    position: 'relative',
+    ...useThemedCSS(theme, css),
   });
+  const context = useMemo(() => {
+    const tabItems = Children.toArray(children).filter((c: any) => c.type.name == 'BottomNavigationItem');
+    return {
+      handleItemClick: (label: string) => {
+        onItemChange(label);
+      },
+
+      activeItem,
+    };
+  }, [children]);
 
   return (
-    <ul css={styles} {...props}>
-      {Children.map(children, (child, i) => {
-        return cloneElement(child as ReactElement, {
-          selected: i == currentIndex,
-          index: i,
-          onTap,
-          iconSize,
-          labelSize,
-          selectedItemColor,
-          selectedIconColor,
-          selectedLabelColor,
-          unselectedIconColor,
-          unselectedLabelColor,
-          unselectedItemColor,
-          selectedIconStyle,
-          selectedItemStyle,
-          selectedLabelStyle,
-          unselectedIconStyle,
-          unselectedItemStyle,
-          unselectedLabelStyle,
-        });
-      })}
-    </ul>
+    <tabsContext.Provider value={context}>
+      <div css={styles} {...props}>
+        {children}
+      </div>
+    </tabsContext.Provider>
   );
 };
 
-BottomNavigation.Item = NavigationItem;
+const BottomNavigationItem = ({ label, disabled, onClick, css, children, ...props }: BottomNavigationItemProps) => {
+  const theme = useTheme();
+  const context = useContext(tabsContext);
+  const tabsIndicatorStyles = useCSS({
+    flex: 1,
+    textAlign: 'center',
+    padding: '.8em 1em',
+    color: disabled
+      ? context.activeItem == label
+        ? theme.color.primary || vars.color.primary
+        : theme.color.black || vars.color.black
+      : theme.color.grey || vars.color.grey,
+    ...useThemedCSS(theme, css),
+  });
+
+  const handleClickItem = () => {
+    onClick?.(label);
+    context.handleItemClick?.(label);
+  };
+
+  return (
+    <div css={tabsIndicatorStyles} onClick={handleClickItem} {...props}>
+      {label}
+    </div>
+  );
+};
+
+BottomNavigation.Item = BottomNavigationItem;
 
 export default BottomNavigation;

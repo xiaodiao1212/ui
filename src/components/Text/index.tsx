@@ -38,7 +38,7 @@ const Text = ({
   ...props
 }: TextProps) => {
   const theme = useTheme();
-  const computedColor = useMemo(() => {
+  const computedColor: any = useMemo(() => {
     return (
       color || (dark ? (theme ? theme.color.white : vars.color.white) : theme ? theme.color.black : vars.color.black)
     );

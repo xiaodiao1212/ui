@@ -6,6 +6,7 @@ import {
   Tag,
   Container,
   List,
+  Swiper,
   NavBar,
   BottomNavigation,
   PullRefresh,
@@ -23,7 +24,7 @@ if (container) {
 
   const Main = () => {
     const [tab, setTab] = useState('1');
-
+    const [activeItem, setActiveItem] = useState('1');
     return (
       <App>
         <Container fullScreen>
@@ -52,21 +53,17 @@ if (container) {
               <Breadcrumbs.Item>11</Breadcrumbs.Item>
             </Breadcrumbs>
           </Container>
-          <Container h='40vh' >
-            <PullRefresh>
-              <InfiniteScroll>
-                <List>
-                  {['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't1', 't2', 't3', 't4', 't5', 't6', 't7'].map((v, i) => (
-                    <List.Item title={v} extra={<Tag>{i}</Tag>} css={{ margin: '1em' }} />
-                  ))}
-                </List>
-              </InfiniteScroll>
-            </PullRefresh>
+          <Container h='40vh'>
+            <Swiper></Swiper>
           </Container>
           <Container fixed bottom='0'>
-            <BottomNavigation>
+            <BottomNavigation
+              onItemChange={i => {
+                setActiveItem(i);
+              }}
+              activeItem={activeItem}>
               {[1, 2, 3].map(v => (
-                <BottomNavigation.Item>{v}</BottomNavigation.Item>
+                <BottomNavigation.Item label={v + ''} />
               ))}
             </BottomNavigation>
           </Container>

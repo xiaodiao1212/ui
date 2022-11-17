@@ -13,9 +13,9 @@ import Cell from './components/Cell';
 // import CheckBox from './components/CheckBox';
 // import Radio from './components/Radio';
 // import SortButton from './components/SortButton';
-// import TimePicker from './components/TimePicker';
+import TimePicker from './components/TimePicker';
 // import Timeline from './components/Timeline';
-// import DatePicker from './components/DatePicker';
+import DatePicker from './components/DatePicker';
 // import Overlay from './components/Overlay';
 import Icon from './components/Icon';
 import Popover from './components/Popover';
@@ -30,7 +30,7 @@ import Container from './components/Container';
 // import CountDown from './components/CountDown';
 import InfiniteScroll from './components/InfiniteScroll';
 import Image from './components/Image';
-// import Swiper from './components/Swiper';
+import Swiper from './components/Swiper';
 import Grid from './components/Grid';
 import Dropdown from './components/Dropdown';
 import Progress from './components/Progress';
@@ -82,7 +82,7 @@ export {
   // Radio,
   // CheckBox,
   Card,
-  // Swiper,
+  Swiper,
   Skeleton,
   Fab,
   Dialog,
@@ -90,8 +90,8 @@ export {
   Button,
   Popover,
   // Overlay,
-  // DatePicker,
-  // TimePicker,
+  DatePicker,
+  TimePicker,
   Badge,
   App,
   Breadcrumbs,

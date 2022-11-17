@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { ComponentBaseProps, Margin, Position, Padding, Themed } from '../props';
-import { useCSS, useTheme, usePadding, usePosition, useMargin, useThemedCSS } from '../../styles/css';
+import { useCSS, useTheme, usePadding, usePosition, useMargin, useThemedCSS, useThemedValue } from '../../styles/css';
 
 type ContainerProps = ComponentBaseProps &
   Margin &
@@ -43,8 +43,8 @@ const Container = ({
     ...usePadding(props),
     ...usePosition(props),
     width: w ? (props.fixed ? '100%' : '') : '',
-    background: useThemedCSS(theme, background),
-    ...useThemedCSS(theme, css),
+    background: useThemedValue(theme, background),
+    ...useThemedCSS(theme, css)
   });
 
   return (

@@ -4,7 +4,7 @@ import { Theme } from '../../styles/themes';
 import { ComponentBaseProps } from '../props';
 import { memo, ReactNode, useCallback, useMemo } from 'react';
 import vars from '../../styles/vars';
-import { useCenter, useThemedCSS, useTheme, useCSS } from '../../styles/css';
+import { useCenter, useThemedCSS, useTheme, useCSS, useThemedValue } from '../../styles/css';
 import { darken } from 'polished';
 import { rotate } from '../../styles/keyframes';
 
@@ -62,15 +62,15 @@ const Switch = memo(
     thumbActiveOffset = '0.3125em',
     thumbStartPosition = '4px',
     css,
+    disabled,
     ...props
   }: SwitchProps) => {
-    const { disabled } = props;
     const theme = useTheme();
 
     const getTrackColorOff = useCallback(() => {
       return theme
-        ? useThemedCSS(theme, trackColorOff) || theme.color.greyLight
-        : useThemedCSS(theme, trackColorOff) || vars.color.greyLight;
+        ? useThemedValue(theme, trackColorOff) || theme.color.greyLight
+        : useThemedValue(theme, trackColorOff) || vars.color.greyLight;
     }, [trackColorOff]);
 
     const loadingStyles = useMemo(
@@ -100,7 +100,7 @@ const Switch = memo(
       cursor: 'pointer',
       // ensure the min-width contain the text
       minWidth: loading ? trackHeight : trackMinWidth,
-      width: loading && trackHeight,
+      width: loading ? trackHeight : '',
       height: trackHeight,
       opacity: disabled ? 0.1 : 1,
       background: getTrackColorOff(),
@@ -112,12 +112,12 @@ const Switch = memo(
       ...(loading && {
         '&::after': {
           border: `3px solid ${trackColorOn || (theme ? theme.color.primary : vars.color.primary)}`,
-          ...loadingStyles,
+          // ...loadingStyles,
           zIndex: 2,
         },
         '&::before': {
           border: `3px dashed ${trackColorOn || (theme ? theme.color.primary : vars.color.primary)}`,
-          ...loadingStyles,
+          // ...loadingStyles,
           zIndex: 1,
         },
       }),
@@ -179,7 +179,7 @@ const Switch = memo(
         left: on ? `calc(calc(100% - ${thumbStartPosition}) - ${thumbWidth})` : thumbStartPosition,
         background: theme ? theme.color.white : vars.color.white,
         ...useCenter(),
-        ...useThemedCSS(theme, thumbStyles),
+        ...useThemedValue(theme, thumbStyles),
       },
 
       '& .switch-track': {
@@ -193,7 +193,7 @@ const Switch = memo(
         borderRadius: radius || (theme ? theme.border.full : '999px'),
         paddingBottom: '100%',
         visibility: loading ? 'hidden' : 'visible',
-        ...useThemedCSS(theme, trackStyles),
+        ...useThemedValue(theme, trackStyles),
       },
 
       ...useThemedCSS(theme, css),

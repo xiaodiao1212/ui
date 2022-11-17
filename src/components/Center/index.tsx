@@ -20,7 +20,6 @@ const Center = ({ css, children, ...props }: CenterProps) => {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-
     ...useThemedCSS(theme, css),
   });
 

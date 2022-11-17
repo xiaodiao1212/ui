@@ -30,7 +30,7 @@ const Cell = ({ title, value, subTitle, css, centered = true, onClick }: CellPro
     display: 'flex',
     width: '100%',
     alignItems: centered ? 'center' : 'initial',
-    '& > section:nth-of-type(2n)': {
+    '& > div:nth-of-type(2n)': {
       marginLeft: 'auto',
     },
     ...useThemedCSS(theme, css),
@@ -41,13 +41,13 @@ const Cell = ({ title, value, subTitle, css, centered = true, onClick }: CellPro
   };
 
   return (
-    <article css={styles} onClick={handleClickCell}>
-      <section>
+    <div css={styles} onClick={handleClickCell}>
+      <div>
         {title}
         <div>{subTitle}</div>
-      </section>
-      <section>{value}</section>
-    </article>
+      </div>
+      <div>{value}</div>
+    </div>
   );
 };
 

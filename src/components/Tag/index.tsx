@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
 import * as React from 'react';
-import { ComponentBaseProps } from '../props';
-import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
+import { ComponentBaseProps, Themed } from '../props';
+import { useCSS, useTheme, useThemedCSS, useThemedValue } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 type TagProps = ComponentBaseProps & {
   outlined?: boolean;
-  color?: ((theme: Theme) => string) | string;
+  color?: Themed<string>
   radius?: number;
   hollow?: boolean;
 };
@@ -26,7 +26,7 @@ type TagProps = ComponentBaseProps & {
 const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagProps) => {
   const theme = useTheme();
   const getComputedColor = () =>
-    useThemedCSS(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
+    useThemedValue(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
 
   const styles = useCSS({
     display: 'inline-flex',
