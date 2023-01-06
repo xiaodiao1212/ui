@@ -16,6 +16,7 @@ type BreadcrumbsSeparatorProps = ComponentBaseProps & {};
 type BreadcrumbsContext = {};
 
 const breadcrumbsContext = createContext<BreadcrumbsContext>({});
+
 /**
  * Breadcrumbs are navigation items that are used to indicate where a user is on an app or site. 
  * ```js
@@ -58,6 +59,7 @@ const Breadcrumbs = ({ separator = '/', gap = '1em', children, css, ...props }: 
     </nav>
   );
 };
+
 const Breadcrumb = ({ children, css, ...props }: BreadcrumbsItemProps) => {
   const theme = useTheme();
   const sliderStyles = useCSS({

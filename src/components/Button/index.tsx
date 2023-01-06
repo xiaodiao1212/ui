@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { Theme } from '../../styles/themes';
 import { ComponentBaseProps, Margin, Themed } from '../props';
 import vars from '../../styles/vars';
 import { useMemo } from 'react';
 import { useThemedCSS, useCSS, useTheme, useMargin } from '../../styles/css';
+
 type ButtonProps = ComponentBaseProps & {
   padding?: string;
   block?: boolean;
@@ -62,13 +62,13 @@ const Button = ({
     minWidth: block ? '100%' : '',
     width: icon ? vars.em['2.5em'] : '',
     height: icon ? vars.em['2.5em'] : '',
-    ...useMargin(props),
     padding: text || icon ? '' : padding,
     border: outlined ? `1px solid ${computedColor}` : 'none',
     borderRadius: computedRadius,
     color: text || outlined ? computedColor : theme ? theme.color.white : vars.color.white,
     background: text || outlined ? 'transparent' : computedColor,
     cursor: disabled ? 'not-allowed' : 'pointer',
+    ...useMargin(props),
     ...useThemedCSS(theme, css),
   });
 
