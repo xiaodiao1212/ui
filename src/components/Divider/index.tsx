@@ -2,21 +2,22 @@
 
 import { Theme } from '../../styles/themes';
 import { ReactNode } from 'react';
-import { ComponentBaseProps, Margin, Padding } from '../props';
+import { ComponentBaseProps, Flex, Margin, Padding } from '../props';
 import { useMemo } from 'react';
 import vars from '../../styles/vars';
-import { usePadding, useMargin, useCSS, useTheme, useThemedCSS } from '../../styles/css';
+import { usePadding, useMargin, useFlex,useCSS, useTheme, useThemedCSS } from '../../styles/css';
 
 type DividerProps = ComponentBaseProps &
+  Margin &
+  Padding &
+  Flex & 
   Partial<{
     size: number;
     vertical: boolean;
     color: string;
     dashed: boolean;
     text: ReactNode;
-  }> &
-  Margin &
-  Padding;
+  }> ;
 
 /**
  * A divider is a thin line that groups content in lists and layouts.
@@ -66,6 +67,7 @@ const Divider = ({
     ...borderStyles,
     ...useMargin(props),
     ...usePadding(props),
+    ...useFlex(props),
     ...(children && {
       '& > *': {
         height: 'fit-content',

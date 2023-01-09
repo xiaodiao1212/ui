@@ -37,14 +37,22 @@ export type Position = Partial<{
   sticky: boolean;
   static: boolean;
 }>;
+
 export type Radius = Partial<{
   radius: number;
 }>;
+
 export type ComponentBaseProps = Partial<{
   onClick: () => any;
   className: string;
   children: React.ReactNode;
   css: Themed<CSSObject>;
+}>;
+
+export type Flex = Partial<{
+  flexItem: boolean;
+  flex: boolean;
+
 }>;
 
 export interface ColorObject {

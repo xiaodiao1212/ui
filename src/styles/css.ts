@@ -1,5 +1,5 @@
 import { Theme } from '../styles/themes';
-import { Margin, Padding, Position, Themed } from '../components/props';
+import { Flex, Margin, Padding, Position, Themed } from '../components/props';
 import { css, CSSObject, useTheme as useEmotionTheme } from '@emotion/react';
 import vars from './vars';
 
@@ -10,7 +10,7 @@ type Color = keyof typeof vars.color;
 export function useColor(color: Color, theme: Theme, defaultColor?: string) {
   return defaultColor || (theme ? theme.color[color] : vars.color[color]);
 }
-export function useCenter():CSSObject {
+export function useCenter(): CSSObject {
   return { display: 'flex', alignItems: 'center', justifyContent: 'center' };
 }
 
@@ -24,8 +24,14 @@ export function useVerticalCenter() {
 export function useThemedValue(theme: Partial<Theme>, target?: Themed<any>) {
   return target && (typeof target == 'function' ? target(theme) : target);
 }
+
 export function useThemedCSS(theme: Partial<Theme>, target?: Themed<CSSObject>) {
   return target && (typeof target == 'function' ? target(theme) : target);
+}
+
+export function useFlex(props: Flex): CSSObject {
+  const { flexItem, flex } = props;
+  return { ...(flexItem && { flex: 'none' }), ...(flex && { display: 'flex' }) };
 }
 
 export function useMargin(props: Margin): CSSObject {
