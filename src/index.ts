@@ -16,7 +16,7 @@ import Cell from './components/Cell';
 import TimePicker from './components/TimePicker';
 // import Timeline from './components/Timeline';
 import DatePicker from './components/DatePicker';
-// import Overlay from './components/Overlay';
+import Overlay from './components/Overlay';
 import Icon from './components/Icon';
 import Popover from './components/Popover';
 import Button from './components/Button';
@@ -89,7 +89,7 @@ export {
   NoticeBar,
   Button,
   Popover,
-  // Overlay,
+  Overlay,
   DatePicker,
   TimePicker,
   Badge,

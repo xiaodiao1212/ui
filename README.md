@@ -78,7 +78,7 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 ## Contribution
 
-Please make sure to read the [Contributing Guide](https://github.com/fogcity/ui/contributing.md) before making a pull request and commit with [Commit Guide](https://github.com/fogcity/ui/commit-convention.md).
+Please make sure to read the [Contributing Guide](https://github.com/fogcity/ui/blob/main/contributing.md) before making a pull request and commit with [Commit Guide](https://github.com/fogcity/ui/blob/main/commit-convention.md).
 
 Thank you to all the people who already contributed to us!
 

@@ -5,17 +5,18 @@ import vars from '../../styles/vars';
 import { useMemo } from 'react';
 import { useThemedCSS, useCSS, useTheme, useMargin } from '../../styles/css';
 
-type ButtonProps = ComponentBaseProps & {
-  padding?: string;
-  block?: boolean;
-  disabled?: boolean;
-  text?: boolean;
-  outlined?: boolean;
-  icon?: boolean;
-  rounded?: boolean;
-  radius?: string;
-  color?: Themed<string>;
-} & Margin;
+type ButtonProps = ComponentBaseProps &
+  Margin & {
+    padding?: string;
+    block?: boolean;
+    disabled?: boolean;
+    text?: boolean;
+    outlined?: boolean;
+    icon?: boolean;
+    rounded?: boolean;
+    radius?: string;
+    color?: Themed<string>;
+  };
 
 /**
  * Buttons allow users to perform actions and choose with a single tap.

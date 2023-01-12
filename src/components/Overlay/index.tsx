@@ -1,18 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
 import { Theme } from '../../styles/themes';
 import { ComponentBaseProps } from '../props';
-
+type OverlayEvent = {};
 type OverlayProps = ComponentBaseProps &
+  OverlayEvent &
   Partial<{
     color: string;
     visible: boolean;
     blur: boolean;
     opacity: number;
 
-    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onClick: (event: React.TouchEvent) => void;
   }>;
 
 const Overlay = ({
@@ -44,9 +45,10 @@ const Overlay = ({
     ...useThemedCSS(theme, css),
   });
 
-  const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClickOverlay = (e: React.TouchEvent) => {
     onClick?.(e);
   };
+
   return (
     <aside css={styles} onClick={handleClickOverlay} {...props}>
       {children}
