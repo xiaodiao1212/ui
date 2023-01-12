@@ -76,15 +76,12 @@ function App() {
 ReactDOM.render(<App />, document.querySelector('#app'));
 ```
 
-Yes, it's really all you need to get started as you can see in this live and interactive demo:
+## Contribution
 
-[![Edit Button](https://www.baidu.com)](https://www.baidu.com)
+Please make sure to read the [Contributing Guide](https://github.com/fogcity/ui/contributing.md) before making a pull request and commit with [Commit Guide](https://github.com/fogcity/ui/commit-convention.md).
+
+Thank you to all the people who already contributed to us!
 
 ## License
 
-This project is licensed under the terms of the
-[MIT license](/LICENSE).
-
-## So
-
-Check out the [getting started](https:///) instructions if you want to give your ui a newborn.
+[MIT](https://opensource.org/licenses/MIT)
