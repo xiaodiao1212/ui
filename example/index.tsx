@@ -55,7 +55,10 @@ if (container) {
             </Breadcrumbs>
           </Container>
           <Container h='40vh'>
-            <Swiper></Swiper>
+            <Swiper>
+
+              <Button></Button>
+            </Swiper>
           </Container>
           <Container fixed bottom='0'>
             <BottomNavigation

@@ -2,19 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useCSS, useTheme, useThemedCSS } from '../../styles/css';
-import { Theme } from '../../styles/themes';
-import { ComponentBaseProps } from '../props';
-type OverlayEvent = {};
-type OverlayProps = ComponentBaseProps &
-  OverlayEvent &
-  Partial<{
-    color: string;
-    visible: boolean;
-    blur: boolean;
-    opacity: number;
 
-    onClick: (event: React.TouchEvent) => void;
-  }>;
+import { ComponentBaseProps } from '../props';
+type OverlayProps = ComponentBaseProps & {
+  color?: string;
+  visible?: boolean;
+  blur?: boolean;
+  opacity?: number;
+};
 
 const Overlay = ({
   opacity = 0.4,
@@ -45,12 +40,12 @@ const Overlay = ({
     ...useThemedCSS(theme, css),
   });
 
-  const handleClickOverlay = (e: React.TouchEvent) => {
-    onClick?.(e);
+  const handleClickOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
+    onClick?.();
   };
 
   return (
-    <aside css={styles} onClick={handleClickOverlay} {...props}>
+    <aside css={styles} onClick={handleClickOverlay as any} {...props}>
       {children}
     </aside>
   );
