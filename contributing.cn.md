@@ -1,75 +1,83 @@
-# Rana-ui Contributing Guide
+# Rana-ui 贡献指南
 
-Hi! I'm really excited that you are interested in contributing to Rana-ui. Before submitting your contribution, please make sure to take a moment and read through the following guidelines:
+你好！我很高兴你有兴趣为 Rana-ui 做贡献。在提交您的贡献之前，请务必花点时间阅读以下指南。
 
-<!-- - [Code of Conduct](https://vuejs.org/about/coc.html) -->
+<!-- 暂无 -->
 
-- [Issue Reporting Guidelines](#issue-reporting-guidelines)
-- [Pull Request Guidelines](#pull-request-guidelines)
-- [Development Setup](#development-setup)
-- [Scripts](#scripts)
-- [Project Structure](#project-structure)
-- [Contributing Tests](#contributing-tests)
-- [Financial Contribution](#financial-contribution)
+- [问题报告指南](#issue-reporting-guidelines)
+- [拉取请求指南](#pull-request-guidelines)
+- [开发设置](#development-setup)
+- [脚本](#scripts)
+- [项目结构](#project-structure)
+- [测试](#contributing-tests)
+- [财务捐款](#financial-contribution)
 
-## Issue Reporting Guidelines
+## 问题报告指南
 
-<!-- - Always use [https://new-issue.vuejs.org/](https://new-issue.vuejs.org/) to create new issues. -->
+<!-- 暂无 -->
 
-## Pull Request Guidelines
+## 拉取请求指南
 
-- Checkout a topic branch from a base branch, e.g. `main`, and merge back against that branch.
+- 从基础分支（例如 "main"）签出一个主题分支，并将其合并到该分支。
 
-- [Make sure to tick the "Allow edits from maintainers" box](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork). This allows us to directly make minor edits / refactors and saves a lot of time.
+- [请确保勾选 "允许来自维护者的编辑 "这一选项](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/allowing-changes-to-a-pull-request-branch-created-from-a-fork).这使我们能够直接进行小的编辑/重构，并节省了大量的时间。
 
-- If adding a new feature:
+- 如果增加一个新的功能:
 
-  - Add accompanying test case.
-  - Provide a convincing reason to add this feature. Ideally, you should open a suggestion issue first and have it approved before working on it.
+  - 增加配套的测试案例.
+  - 提供一个令人信服的理由来增加这个功能。理想情况下，你应该先打开一个建议问题，并在工作前得到批准
 
-- If fixing a bug:
+- 如果修复一个 bug:
 
-  - If you are resolving a special issue, add `(fix #xxxx[,#xxxx])` (#xxxx is the issue id) in your PR title for a better release log, e.g. `update entities encoding/decoding (fix #3899)`.
-  - Provide a detailed description of the bug in the PR. Live demo preferred.
-  - Add appropriate test coverage if applicable. You can check the coverage of your code addition by running `npm test`.
+  - 如果你正在解决一个特殊的问题, 添加 `(fix #xxxx[,#xxxx])` (#xxxx 是问题的 id) 在你的 PR 标题中，为了更好地发布日志, 例如 `update entities encoding/decoding (fix #3899)`.
+  - 在 PR 中提供关于该错误的详细描述。最好有现场演示。
+  - 如果适用的话，添加适当的测试覆盖率。你可以通过运行`npm test`来检查你增加的代码的覆盖率。
 
-- It's OK to have multiple small commits as you work on the PR - GitHub can automatically squash them before merging.
+- 当你在 PR 上工作时，有多个小的提交是可以的--GitHub 可以在合并前自动压制它们。
 
-- Make sure tests pass!
+- 确保测试通过!
 
-- Commit messages must follow the [commit message convention](./commit-convention.md) so that changelogs can be automatically generated. Commit messages are automatically validated before commit (by invoking [Git Hooks](https://git-scm.com/docs/githooks) via [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)).
+- 提交信息必须遵循[commit message convention](./commit-convention.md)，这样才能自动生成更新日志。提交信息会在提交前自动验证（通过[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)调用[Git Hooks](https://git-scm.com/docs/githooks)）。
 
-- No need to worry about code style as long as you have installed the dev dependencies - modified files are automatically formatted with Prettier on commit (by invoking [Git Hooks](https://git-scm.com/docs/githooks) via [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)).
+- 只要你安装了 dev 依赖，就不需要担心代码风格--修改的文件在提交时自动用 Prettier 格式化（通过调用[simple-git-hooks](https://github.com/toplenboren/simple-git-hooks)的方式）。
 
-### Advanced Pull Request Tips
+### 高级拉动请求技巧
 
-- The PR should fix the intended bug **only** and not introduce unrelated changes. This includes unnecessary refactors - a PR should focus on the fix and not code style, this makes it easier to trace changes in the future.
+- PR 应该只修复预定的错误\*\*\*，而不是引入不相关的变化。这包括不必要的重构--PR 应该专注于修复，而不是代码风格，这使得在未来更容易追踪变化。
 
-- Consider the performance / size impact of the changes, and whether the bug being fixes justifies the cost. If the bug being fixed is a very niche edge case, we should try to minimize the size / perf cost to make it worthwhile.
+- 考虑变化对性能/大小的影响，以及被修复的 bug 是否能证明其代价。如果被修复的 bug 是一个非常小众的边缘案例，我们应该尽量减少尺寸/性能成本，以使其物有所值。
 
-  - Is the code perf-sensitive (e.g. in "hot paths" like component updates or the vdom patch function?)
+  - 代码是否对性能敏感（例如在 "热点路径"，如组件更新或补丁功能？）
 
-  - If the branch is dev-only, performance is less of a concern.
+  - 如果该分支是仅用于开发的，性能就不那么令人担忧了。
 
-## Development Setup
+## 开发设置
 
-You will need [Node.js](https://nodejs.org) **version 16+**, and [PNPM](https://pnpm.io) **version 7+**.
+环境需要 [Node.js](https://nodejs.org) **version 16+**, 和 [PNPM](https://pnpm.io) **version 7+**.
 
-After cloning the repo, run:
+克隆 repo 后，运行:
 
 ```bash
-$ pnpm i # install the dependencies of the project
+$ pnpm i # install
 $ cd example & pnpm i # install the example dependencies of the project
+$ cd .. & pnpm run dev
 ```
 
-A high level overview of tools used:
+使用到的工具库文档:
 
-- [TypeScript](https://www.typescriptlang.org/) as the development language
-- [Rollup](https://rollupjs.org) for bundling
-- [Jest](https://jestjs.io/) for unit testing
-- [Prettier](https://prettier.io/) for code formatting
+- [TypeScript](https://www.typescriptlang.org/) 开发语言
+- [Emotion](https://emotion.sh/docs/introduction) css-in-js 库
+- [Rollup](https://rollupjs.org) 打包
+- [Jest](https://jestjs.io/) 单元测试
+- [Prettier](https://prettier.io/) 代码格式化
 
-component implement & ui design refer:
+
+移动端ui设计参考:
+
+- [Material Design](https://m3.material.io/)
+- [Ios Design](https://developer.apple.com/design/human-interface-guidelines/components/all-components)
+
+React组件实现参考:
 
 - [Vant](https://react-vant-gitee.3lang.dev/)
 - [Ionic](https://ionicframework.com/docs/components)
@@ -78,18 +86,12 @@ component implement & ui design refer:
 - [Mui](https://mui.com/)
 - [Next ui](https://nextui.org/docs/components/link#)
 
-uidesign refer:
 
-- [Material Design](https://m3.material.io/)
-- [Ios Design](https://developer.apple.com/design/human-interface-guidelines/components/all-components)
-
-## Scripts
+## 脚本
 
 ### `npm run build`
 
-The `build` script builds all public packages (packages without `private: true` in their `package.json`).
-
-Packages to build can be specified with fuzzy matching:
+`build`脚本构建所有的公共软件包（在其`package.json`中没有`private: true`的软件包）。
 
 ```bash
 # build dev only
@@ -101,41 +103,40 @@ npm run build:prod
 
 ### `npm run test`
 
-The `test` script simply calls the `jest` binary, so all [Jest CLI Options](https://jestjs.io/docs/en/cli) can be used. Some examples:
+`test`脚本只是调用`jest`二进制文件，所以可以使用所有的[Jest CLI选项](https://jestjs.io/docs/en/cli)。一些例子。
 
 ```bash
 # run all tests
 $ npm run test
 ```
+默认的`test`脚本包括`--runInBand`的jest标志，以提高测试的稳定性，特别是对CSS过渡相关的测试。当你测试特定的测试规格时，你也可以直接运行`npx jest`与标志，以加快测试速度（jest默认是并行运行）。
 
-The default `test` script includes the `--runInBand` jest flag to improve test stability, especially for the CSS transition related tests. When you are testing specific test specs, you can also run `npx jest` with flags directly to speed up tests (jest runs them in parallel by default).
+## 项目结构
 
-## Project Structure
+这个资源库没有采用[monorepo](https://en.wikipedia.org/wiki/Monorepo)（将来会考虑）。相反，我们从一个更简单的项目结构开始，包括这些核心元素。
 
-This repository not employs a [monorepo](https://en.wikipedia.org/wiki/Monorepo) (will consider in the future). Instead, we start with a simpler project structure that includes these core elements:
+- `test`：用于用jest测试组件的代码。
 
-- `test`: code used to test components with jest.
+- `example`：开发人员可以很容易地查看自己的组件，并做交互和实际使用体验的网站项目。
 
-- `example`: developers can easily view their own components and do interaction and practical use experience with web site projects.
+- `src/components`:所有反应实现的组件。
 
-- `src/components`: all the components react implement.
+- `src/hooks`。用于服务器端渲染的包。
 
-- `src/hooks`: Package for server-side rendering.
+- `src/styles`: 所有组件css utils & theme实现。
 
-- `src/styles`: all the components css utils & theme implement.
+- `src/utils`: 一些工具和组件使用的函数。
 
-- `src/utils`: functions used by some utilities and components.
+### 导入软件包
 
-### Importing Packages
-
-The packages can import each other directly using their package names. Note that when importing a package.
+包可以直接使用它们的包名互相导入:
 
 ```js
 import { Button } from 'rana-ui';
 ```
 
-This is made possible via several configurations:
+这是通过几个配置实现的:
 
-- For TypeScript, `compilerOptions.paths` in `tsconfig.json`
-- For Jest, `moduleNameMapper` in `jest.config.js`
-- For plain Node.js, they are linked using [PNPM Workspaces](https://pnpm.io/workspaces).
+- 对于TypeScript，`tsconfig.json`中的`compilerOptions.paths`。
+- 对于Jest，`moduleNameMapper`在`jest.config.js`中。
+- 对于普通的Node.js，它们使用[PNPM Workspaces](https://pnpm.io/workspaces)链接。
