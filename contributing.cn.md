@@ -1,30 +1,40 @@
 # Rana-ui 贡献指南
 
-你好！很高兴你有兴趣为 Rana-ui 做贡献, Rana-ui 的愿景一直都只有一个，那就是成为世界级的 React 移动端 ui 框架并衍生出一套致力于创建下一代炫酷 web 应用的终极解决方案 `Web Cypher`, 包括基于 d3.js 的数据可视化库 [Rana-Vis](#https://fogcity/vis)、包括科学计算功能的深度学习计算库 [Rana-Jax](#https://fogcity/jax)、支持光线追踪的基于 WebGPU 的 3D 库 [Rana-3D](#https://fogcity/rana)。
+你好！很高兴你有兴趣为 Rana-ui 做贡献, 从创建开始 Rana-ui 的愿景一直都只有一个，那就是成为世界级的 React 移动端 ui 框架服务于一套致力于创建下一代炫酷 web 应用的终极解决方案 **Web Cypher**, 这个方案包括基于 d3.js 的数据可视化库 [Rana-Vis](#https://fogcity/vis)、包括科学计算功能的深度学习计算库 [Rana-Jax](#https://fogcity/jax)、支持光线追踪的基于 WebGPU 的 3D 渲染库 [Rana-3D](#https://fogcity/rana)。
 
-Rana-ui 提供遵守各个平台设计规范的令人惊叹的样式设计、尽可能合理的组件类别和丰富度、以及最重要的，顶级的API和产品设计以及前端开发者体验，有追求有想法的卓越开发者会自然而然的汇聚在这里，但人多事杂，先说断后不乱，所以在提交您的贡献之前，请务必花点时间阅读以下指南:
+Rana-ui 提供遵守 Android 和 IOS 设计规范的令人惊叹的样式设计、合理的组件选择和功能丰富度、顶级的 API 设计和开发者体验，最后，**Web Cypher** 是所有有追求有想法，富有激情的开发者会自然而然汇聚的地方，提供一个优秀的项目描述和贡献指南是我们非常看重的，所以在提交您的贡献之前，请务必花点时间阅读以下指南:
 
-- [开发设置](#development-setup)
-- [脚本](#scripts)
-- [项目结构](#project-structure)
-- [测试](#contributing-tests)
-- [问题报告指南](#issue-reporting-guidelines)
-- [拉取请求指南](#pull-request-guidelines)
-- [财务捐款](#financial-contribution)
+- [开发设置](#开发设置)
+- [项目结构](#项目结构)
+- [测试](#测试)
+- [脚本](#脚本)
+- [问题报告指南](#问题报告指南)
+- [拉取请求指南](#拉取请求指南)
+- [财务捐款](#财务捐款)
 
 ## 开发设置
 
 首先运行环境需要 [Node.js](https://nodejs.org) **version 16+**, 和 [PNPM](https://pnpm.io) **version 7+**.
-
-确保环境 ok 并克隆 repo 后，运行:
+编辑器我们一般使用 vscode , 不过这个不做限制，确保环境一切就绪并克隆 repo 后，运行以下命令:
 
 ```bash
 $ pnpm i # 安装根目录依赖
 $ cd example
 $ pnpm i # 安装案例网站依赖
 $ cd ..
-$ pnpm run dev # 成功运行项目并见听到端口：1234
+$ pnpm run dev # 成功运行项目并见监听端口：1234
 ```
+
+如果能成功打开端口 1234 的网站，请先调整为移动模式预览，因为目前组件库针对移动端构建组件，组件设计都是基于移动端的体验。
+在 example 文件夹下的 index.tsx (该文件不应该被提交，自己用于测试自己需要的内容) 中直接使用导入对应的组件后，即可开始体验组件的真实使用情况:
+
+```js
+import { Button } from './build';
+```
+
+现在，如果你更改 src 中组件的实现，在经过几秒钟的重新构建后，就可以在 example/index.tsx 看到最新的结果了。
+
+欢迎成功成为我们的开发者！👏🏻 以下是一些我们使用的依赖库和认可的组件设计资料：
 
 使用到的工具库文档:
 
@@ -52,44 +62,47 @@ React 组件实现参考:
 
 这个库没有采用[monorepo](https://en.wikipedia.org/wiki/Monorepo)（将来会考虑）。所有，我们从一个更简单的项目结构开始并逐渐扩充至目前的样子，包括这些核心元素，现在让我们为你一一解释一些开发者应该关注的主要目录的作用，没提及到的文件就是你不应该修改的文件，如果需要，可以问我们：
 
-- `test`: 用于存放用 jest 测试组件的代码。
+- `test`: 用于存放用单元测试和组件测试的文件夹，因为组件正在调整，所以只留了几个案例文件，组件全部开发完成后再补测试代码。
 
-- `example`: 开发者可以很容易地体验自己的组件真正的使用体验并获取注释和类型提示的网站项目，是代码库本身以外的一个基于parcel的简易web项目。
+- `example`: 一个给开发者自己体验自己的组件真正的使用感受并查看注释和类型提示的代码库本身以外的一个基于 parcel 的简易 web 项目。
 
-- `src/components`: 所有组件实现代码存放的地方，目前均以一个组件一个index.ts的方式存放所有相关代码，每个组件通用的一些类型定义在同级目录下的`prop.ts`文件里，如果你不知道标准化的组件结构是怎么样的，请查看`Button`的代码结构。
+- `src/components`: 所有组件实现代码存放的地方，目前均以一个组件一个 index.ts 的方式存放单个组件的所有相关代码，每个组件通用的一些类型在同级目录下的`prop.ts`文件里，如果你不知道标准化的组件结构是怎么样的，请查看 Button 和 Tabs 的代码结构，前者提供了基本的组件实现模板，后者提供了有复杂子组件时可以参考的父子组件通信和 api 设计。
 
-- `src/hooks`: 用于存放下一步headless化组件中抽离出的hooks的包，在1,0发布前用不到。
+- `src/hooks`: 用于存放下一步 headless 化组件中抽离出的 hooks 的包，在所有组件编写完成后，2.0 版本的组件重构会涉及到这个，可以先不管。
 
-- `src/styles`: 所有组件 css utils & theme 实现。
+- `src/styles`: 所有 css utils & theme 实现。
 
-- `src/utils`: 一些工具和组件使用的函数。
+- `src/utils`: 常用的工具和会使用到的好用的函数。
 
-### 导入软件包
+## 测试
 
-包可以直接使用它们的包名互相导入:
+单元测试与每个包中被测试的代码并置在名为 tests 的文件夹里. 查阅 Jest 和 @testing-library/react 文档和现有测试用例了解如何编写新的测试规范。以下是一些额外的指南：
 
-```js
-import { Button } from 'rana-ui';
-```
+使用测试用例所需的最少 API。例如，如果可以在不涉及反应系统或组件的情况下编写测试，则应该这样编写。这限制了测试暴露于不相关部分的变化，并使其更加稳定。
 
-这是通过几个配置实现的:
+如果测试断言特定于平台的行为，则仅使用特定于平台的运行时。
 
-- 对于 TypeScript，`tsconfig.json`中的`compilerOptions.paths`。
-- 对于 Jest，`moduleNameMapper`在`jest.config.js`中。
-- 对于普通的 Node.js，它们使用[PNPM Workspaces](https://pnpm.io/workspaces)链接。
-
+欢迎提高测试覆盖率的 PR，但通常应将测试覆盖率用作查找未被测试覆盖的 API 用例的指南。我们不建议添加仅提高覆盖率但未实际测试有意义用例的测试。
 
 ## 脚本
+
+### `npm run dev`
+
+`dev`脚本先执行根目录的`build:dev`创建好 lib 源码，然后进入到 example 文件夹启动 parcel。
+
+```bash
+npm run dev
+```
 
 ### `npm run build`
 
 `build`脚本构建所有的公共软件包（在其`package.json`中没有`private: true`的软件包）。
 
 ```bash
-# build dev only
+# 打基本测试包
 npm run build:dev
 
-# build prod
+# 打生产包，包括一系列 Rollup 中间件的处理
 npm run build:prod
 ```
 
@@ -104,6 +117,26 @@ $ npm run test
 
 默认的`test`脚本包括`--runInBand`的 jest 标志，以提高测试的稳定性，特别是对 CSS 过渡相关的测试。当你测试特定的测试规格时，你也可以直接运行`npx jest`与标志，以加快测试速度（jest 默认是并行运行）。
 
+### `npm run size`
+
+`size`脚本调用`size-limit`库去获取包大小和占比分析
+
+```bash
+# 获取包总体大小
+$ npm run size
+
+# 获取各个具体文件大小分析
+$ npm run analyze
+```
+
+### `npm run lint`
+
+`lint`脚本调用`es-lint`库去做代码规范检查，并自动修复它，无法处理的内容会报错中断生产包的构建，需要人工修复。
+
+```bash
+# run all tests
+$ npm run lint
+```
 
 ## 问题报告指南
 
@@ -158,3 +191,6 @@ $ npm run test
 
   - 如果该分支是仅用于开发的，性能就不那么令人担忧了。
 
+## 财务捐款
+
+感谢所有已经为 Rana-ui 做出贡献的人!
