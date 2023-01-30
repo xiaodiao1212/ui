@@ -36,7 +36,7 @@ const Container = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'> & C
     const theme = useTheme();
     const styles = useCSS({
       width: w,
-      height: h,
+      height: h ? h : fullHeight ? '100%' : fullScreen ? '100vh' : 'auto',
       ...useMargin(props),
       ...usePadding(props),
       ...usePosition(props),

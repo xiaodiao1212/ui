@@ -14,15 +14,15 @@ Rana-ui 提供遵守 Android 和 IOS 设计规范的令人惊叹的样式设计�
 
 ## 开发设置
 
-首先运行环境需要 [Node.js](https://nodejs.org) **version 16+**, 和 [PNPM](https://pnpm.io) **version 7+**.
+首先运行环境需要 [Node.js](https://nodejs.org) **version 16+**.
 编辑器我们一般使用 vscode , 不过这个不做限制，确保环境一切就绪并克隆 repo 后，运行以下命令:
 
 ```bash
-$ pnpm i # 安装根目录依赖
+$ npm i # 安装根目录依赖
 $ cd example
-$ pnpm i # 安装案例网站依赖
+$ npm i # 安装案例网站依赖
 $ cd ..
-$ pnpm run dev # 成功运行项目并见监听端口：1234
+$ npm run dev # 成功运行项目并见监听端口：1234
 ```
 
 如果能成功打开端口 1234 的网站，请先调整为移动模式预览，因为目前组件库针对移动端构建组件，组件设计都是基于移动端的体验。

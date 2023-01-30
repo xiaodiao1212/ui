@@ -58,6 +58,7 @@ const Breadcrumbs = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'> &
   },
 );
 
+
 const BreadcrumbItem = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'> & BreadcrumbsItemProps>(
   ({ children, css, ...props }, ref) => {
     const theme = useTheme();
