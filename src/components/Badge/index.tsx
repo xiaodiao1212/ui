@@ -5,6 +5,9 @@ import { ComponentBaseProps, Themed } from '../props';
 
 import { useThemedCSS, useCSS, useTheme, useColor } from '../../styles/css';
 import vars from '../../styles/vars';
+import { css } from '@emotion/react';
+import { size, position } from 'polished';
+import { forwardRef, ComponentPropsWithoutRef } from 'react';
 
 type BadgeProps = ComponentBaseProps & {
   size?: number;
@@ -33,105 +36,110 @@ type BadgeProps = ComponentBaseProps & {
  * @param position badge position relative to its children.
  * @param offsetY badge background color
  */
-const Badge = ({
-  size = 14,
-  show = true,
-  css,
-  offsetX,
-  offsetY,
-  color,
-  position = 'top-right',
-  content,
-  children,
-  className,
-  ...props
-}: BadgeProps) => {
-  const theme = useTheme();
-  const getInset = () => {
-    switch (position) {
-      case 'top':
-        return {
-          left: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(-50%,-50%,0)',
-        };
-      case 'left':
-        return {
-          left: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(-50%,-0%,0)',
-        };
-      case 'bottom':
-        return {
-          left: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(-50%,-50%,0)',
-        };
-      case 'right':
-        return {
-          left: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(-50%,-50%,0)',
-        };
-
-      case 'top-left':
-        return {
-          left: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(-50%,-50%,0)',
-        };
-      case 'top-right':
-        return {
-          right: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(50%,-50%,0)',
-        };
-      case 'bottom-left':
-        return {
-          left: offsetX || 0,
-          bottom: offsetY || 0,
-          transform: 'translate3d(-50%,50%,0)',
-        };
-      case 'bottom-right':
-        return {
-          right: offsetX || 0,
-          bottom: offsetY || 0,
-          transform: 'translate3d(50%,50%,0)',
-        };
-      default:
-        return {
-          right: offsetX || 0,
-          top: offsetY || 0,
-          transform: 'translate3d(50%,-50%,0)',
-        };
-    }
-  };
-  const badgeStyles = useCSS({
-    display: 'inline-flex',
-    position: 'relative',
-    '& > *:first-of-child': {
-      borderRadius: vars.radius.full,
-      visibility: show ? 'visible' : 'hidden',
-      background: useColor('red', theme, color),
-      color: useColor('white', theme),
-      lineHeight: `${size}px`,
-      minWidth: `${size}px`,
-      fontSize: '12px',
-      height: `${size}px`,
-      textAlign: 'center',
-      position: 'absolute',
-      ...getInset(),
-      boxShadow: `0 0 0 1px ${theme.color.white}`,
-      transition: 'visibility all .3s',
-      ...useThemedCSS(theme, css),
+const Badge = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'> & BadgeProps>(
+  (
+    {
+      size = 14,
+      show = true,
+      css,
+      offsetX,
+      offsetY,
+      color,
+      position = 'top-right',
+      content,
+      children,
+      className,
+      ...props
     },
-  });
-  return (
-    <div css={badgeStyles} {...props}>
-      {['string', 'number'].includes(typeof content) || !content ? <span>{content}</span> : content}
-      {children}
-    </div>
-  );
-};
+    ref,
+  ) => {
+    const theme = useTheme();
+    const getInset = () => {
+      switch (position) {
+        case 'top':
+          return {
+            left: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(-50%,-50%,0)',
+          };
+        case 'left':
+          return {
+            left: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(-50%,-0%,0)',
+          };
+        case 'bottom':
+          return {
+            left: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(-50%,-50%,0)',
+          };
+        case 'right':
+          return {
+            left: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(-50%,-50%,0)',
+          };
+
+        case 'top-left':
+          return {
+            left: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(-50%,-50%,0)',
+          };
+        case 'top-right':
+          return {
+            right: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(50%,-50%,0)',
+          };
+        case 'bottom-left':
+          return {
+            left: offsetX || 0,
+            bottom: offsetY || 0,
+            transform: 'translate3d(-50%,50%,0)',
+          };
+        case 'bottom-right':
+          return {
+            right: offsetX || 0,
+            bottom: offsetY || 0,
+            transform: 'translate3d(50%,50%,0)',
+          };
+        default:
+          return {
+            right: offsetX || 0,
+            top: offsetY || 0,
+            transform: 'translate3d(50%,-50%,0)',
+          };
+      }
+    };
+    const badgeStyles = useCSS({
+      display: 'inline-flex',
+      position: 'relative',
+      '& > *:first-of-child': {
+        borderRadius: vars.radius.full,
+        visibility: show ? 'visible' : 'hidden',
+        background: useColor('red', theme, color),
+        color: useColor('white', theme),
+        lineHeight: `${size}px`,
+        minWidth: `${size}px`,
+        fontSize: '12px',
+        height: `${size}px`,
+        textAlign: 'center',
+        position: 'absolute',
+        ...getInset(),
+        boxShadow: `0 0 0 1px ${theme.color.white}`,
+        transition: 'visibility all .3s',
+        ...useThemedCSS(theme, css),
+      },
+    });
+    return (
+      <div ref={ref} css={badgeStyles} {...props}>
+        {['string', 'number'].includes(typeof content) || !content ? <span>{content}</span> : content}
+        {children}
+      </div>
+    );
+  },
+);
 
 export default Badge;

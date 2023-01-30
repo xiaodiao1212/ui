@@ -49,11 +49,11 @@ import ToolTip from './components/ToolTip';
 import Switch from './components/Switch';
 import Tabs from './components/Tabs';
 import Toast from './components/Toast';
-import Center from './components/Center';
+
 export {
   // Timeline,
   Tabs,
-  Center,
+
   Toast,
   Picker,
   BottomNavigation,

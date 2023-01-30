@@ -2,7 +2,7 @@
 
 import { ComponentBaseProps, Margin, Position, Padding, Themed } from '../props';
 import { useCSS, useTheme, usePadding, usePosition, useMargin, useThemedCSS, useThemedValue } from '../../styles/css';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, MouseEvent, ComponentPropsWithoutRef } from 'react';
 
 type ContainerProps = ComponentBaseProps &
   Margin &
@@ -31,11 +31,8 @@ type ContainerProps = ComponentBaseProps &
  * @returns
  */
 
-const Container = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'> & ContainerProps>(
-  (
-    { w, h, background, fullHeight = false, fullScreen = false, css, children, onClick, ...props },
-    ref,
-  ) => {
+const Container = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'> & ContainerProps>(
+  ({ w, h, background, fullHeight = false, fullScreen = false, css, children, onClick, ...props }, ref) => {
     const theme = useTheme();
     const styles = useCSS({
       width: w,
@@ -47,7 +44,7 @@ const Container = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div
       ...useThemedCSS(theme, css),
     });
 
-    const handleClickContainer = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleClickContainer = (e: MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       onClick?.();
     };
