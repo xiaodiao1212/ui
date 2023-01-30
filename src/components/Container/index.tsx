@@ -2,6 +2,7 @@
 
 import { ComponentBaseProps, Margin, Position, Padding, Themed } from '../props';
 import { useCSS, useTheme, usePadding, usePosition, useMargin, useThemedCSS, useThemedValue } from '../../styles/css';
+import { forwardRef, useMemo } from 'react';
 
 type ContainerProps = ComponentBaseProps &
   Margin &
@@ -21,37 +22,42 @@ type ContainerProps = ComponentBaseProps &
         <Button>ok</Button>
     </Container>
  * ```
- * @param background backgroud color
+ * @param background background color
  * @param fullHeight full height or not
  * @param fullScreen full screen or not
+ * @param w container width
+ * @param h container height
+ * @param onClick click handler
  * @returns
  */
-const Container = ({
-  w,
-  h,
-  background,
-  fullHeight = false,
-  fullScreen = false,
-  css,
-  children,
-  ...props
-}: ContainerProps) => {
-  const theme = useTheme();
-  const styles = useCSS({
-    height: h ? (fullScreen ? '100vh' : fullHeight ? '100%' : 'auto') : '',
-    ...useMargin(props),
-    ...usePadding(props),
-    ...usePosition(props),
-    width: w ? (props.fixed ? '100%' : '') : '',
-    background: useThemedValue(theme, background),
-    ...useThemedCSS(theme, css)
-  });
 
-  return (
-    <div css={styles} {...props}>
-      {children}
-    </div>
-  );
-};
+const Container = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'> & ContainerProps>(
+  (
+    { w, h, background, fullHeight = false, fullScreen = false, css, children, onClick, ...props },
+    ref,
+  ) => {
+    const theme = useTheme();
+    const styles = useCSS({
+      width: w,
+      height: h,
+      ...useMargin(props),
+      ...usePadding(props),
+      ...usePosition(props),
+      background: useThemedValue(theme, background),
+      ...useThemedCSS(theme, css),
+    });
+
+    const handleClickContainer = (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      onClick?.();
+    };
+
+    return (
+      <div ref={ref} onClick={handleClickContainer} css={styles} {...props}>
+        {children}
+      </div>
+    );
+  },
+);
 
 export default Container;
