@@ -35,6 +35,8 @@ bower_components
 # node-waf configuration
 .lock-wscript
 example
+package-lock.json
+pnpm-lock.yaml
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
@@ -83,8 +85,7 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
-example/build
-example/dist
+
 
 # Gatsby files
 .cache/
