@@ -4,10 +4,6 @@ import { ComponentBaseProps, Margin, Position, Padding, Themed } from '../props'
 import { useCSS, useTheme, usePadding, usePosition, useMargin, useThemedCSS, useThemedValue } from '../../styles/css';
 import { forwardRef, useMemo } from 'react';
 
-// type ContainerEvent = {
-//   onClick?: (e: React.MouseEvent<HTMLDivElement>) => any;
-// };
-
 type ContainerProps = ComponentBaseProps &
   Margin &
   Position &
@@ -37,26 +33,13 @@ type ContainerProps = ComponentBaseProps &
 
 const Container = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'> & ContainerProps>(
   (
-    { w = 'auto', h = 'auto', background, fullHeight = false, fullScreen = false, css, children, onClick, ...props },
+    { w, h, background, fullHeight = false, fullScreen = false, css, children, onClick, ...props },
     ref,
   ) => {
     const theme = useTheme();
-    const screen = {
+    const styles = useCSS({
       width: w,
       height: h,
-    };
-
-    if (fullHeight) {
-      screen.height = '100vh';
-    }
-
-    if (fullScreen) {
-      screen.width = '100vw';
-      screen.height = '100vh';
-    }
-
-    const styles = useCSS({
-      ...screen,
       ...useMargin(props),
       ...usePadding(props),
       ...usePosition(props),
