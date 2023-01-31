@@ -1,16 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import * as React from 'react';
-import { ComponentBaseProps, Themed } from '../props';
-import { useCSS, useTheme, useThemedCSS, useThemedValue } from '../../styles/css';
-import { Theme } from '../../styles/themes';
-import vars from '../../styles/vars';
-type TagProps = ComponentBaseProps & {
-  outlined?: boolean;
-  color?: Themed<string>
-  radius?: number;
-  hollow?: boolean;
-};
+import { MouseEvent } from 'react';
+import { TagProps } from './tag-props';
+import { getStyles } from './tag.css';
 
 /**
  * Tags appear in form fields
@@ -23,30 +15,15 @@ type TagProps = ComponentBaseProps & {
  * @param hollow weather the background hollow out
  * @param radius tag border radius size
  */
-const Tag = ({ outlined = false, radius, color, css, children, ...props }: TagProps) => {
-  const theme = useTheme();
-  const getComputedColor = () =>
-    useThemedValue(theme, color) || (theme.mode == 'light' ? theme.color.black : theme.color.white);
+const Tag = ({ outlined = false, show = true, radius, color, css, children, onClick, ...props }: TagProps) => {
+  const styles = getStyles({ outlined, show, radius, color, css, children, onClick, ...props });
+  const handleClickTag = (e: MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+    onClick?.();
+  };
 
-  const styles = useCSS({
-    display: 'inline-flex',
-    padding: '0.2em 0.6em',
-    borderRadius: radius || (theme ? theme.border[8] : vars.radius[8]),
-
-    ...(!outlined
-      ? {
-          background: getComputedColor(),
-          color: theme.color.white,
-        }
-      : {
-          border: '1px solid ' + getComputedColor(),
-          color: getComputedColor(),
-        }),
-
-    ...useThemedCSS(theme, css),
-  });
   return (
-    <span css={styles} {...props}>
+    <span onClick={handleClickTag} css={styles} {...props}>
       {children}
     </span>
   );

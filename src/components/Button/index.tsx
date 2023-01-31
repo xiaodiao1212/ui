@@ -2,7 +2,7 @@
 
 import { ComponentBaseProps, Margin, Themed } from '../props';
 import vars from '../../styles/vars';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, ComponentPropsWithoutRef, MouseEvent } from 'react';
 import { useThemedCSS, useCSS, useTheme, useMargin } from '../../styles/css';
 
 type ButtonEvent = {
@@ -41,7 +41,7 @@ type ButtonProps = ComponentBaseProps &
  * @param textColor button text color
  * @param onClick click handler
  */
-const Button = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'> & ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ComponentPropsWithoutRef<'button'> & ButtonProps>(
   (
     {
       block = false,
@@ -85,7 +85,7 @@ const Button = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'but
       ...useThemedCSS(theme, css),
     });
 
-    const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClickButton = (e: MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       onClick?.();
     };
