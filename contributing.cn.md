@@ -26,38 +26,13 @@ $ npm run dev # 成功运行项目并见监听端口：1234
 ```
 
 如果能成功打开端口 1234 的网站，请先调整为移动模式预览，因为目前组件库针对移动端构建组件，组件设计都是基于移动端的体验。
-在 example 文件夹下的 index.tsx (该文件不应该被提交，自己用于测试自己需要的内容) 中直接使用导入对应的组件后，即可开始体验组件的真实使用情况:
+在 example 文件夹下的 index.tsx 中直接使用导入对应的组件后，即可开始体验组件的真实使用情况。
 
 ```js
 import { Button } from './build';
 ```
 
 现在，如果你更改 src 中组件的实现，在经过几秒钟的重新构建后，就可以在 example/index.tsx 看到最新的结果了。
-
-欢迎成功成为我们的开发者！👏🏻 以下是一些我们使用的依赖库和认可的组件设计资料：
-
-使用到的工具库文档:
-
-- [TypeScript](https://www.typescriptlang.org/) 开发语言
-- [Emotion](https://emotion.sh/docs/introduction) css-in-js 库
-- [Rollup](https://rollupjs.org) 打包
-- [Jest](https://jestjs.io/) 单元测试
-- [Prettier](https://prettier.io/) 代码格式化
-
-移动端 ui 设计参考:
-
-- [Material Design](https://m3.material.io/)
-- [Ios Design](https://developer.apple.com/design/human-interface-guidelines/components/all-components)
-
-React 组件实现参考:
-
-- [Vuetify](https://next.vuetifyjs.com/)
-- [Vant](https://react-vant-gitee.3lang.dev/)
-- [Ionic](https://ionicframework.com/docs/components)
-- [Antd Mobile](https://mobile.ant.design/zh)
-- [Vuesax](https://vuesax.com/)
-- [Mui](https://mui.com/)
-- [Next ui](https://nextui.org/docs/components/link#)
 
 ## 项目结构
 
@@ -75,15 +50,42 @@ React 组件实现参考:
 
 - `src/utils`: 常用的工具和会使用到的好用的函数。
 
+在对组件的设计有建议和或者是组件的问题做反馈时，请花一点时间先参考 👇🏻 的两个文档中对应的组件定义，了解组件的背景，应用场景和大致功能:
+
+**移动端 ui 设计参考:**
+
+- [Material Design](https://m3.material.io/)
+- [Ios Design](https://developer.apple.com/design/human-interface-guidelines/components/all-components)
+
+一旦你确定了解了你所要针对的这个组件“该有”的“较为正确”的样子了，具体的 api 设计，代码编写和样式实现，则推荐去借鉴 👇🏻 的优质的“前辈”们:
+
+**React 组件实现参考:**
+
+- [Vuetify](https://next.vuetifyjs.com/)
+- [Vant](https://react-vant-gitee.3lang.dev/)
+- [Ionic](https://ionicframework.com/docs/components)
+- [Antd Mobile](https://mobile.ant.design/zh)
+- [Vuesax](https://vuesax.com/)
+- [Mui](https://mui.com/)
+- [Next UI](https://nextui.org/docs/components/link#)
+
+最后，也许你可能对我们所使用的技术栈不太了解，这里是对应的各个文档:
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [React TypeScript](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/basic_type_example/) React 类型指南
+- [Emotion](https://emotion.sh/docs/introduction) css 库
+- [Rollup](https://rollupjs.org) 打包工具
+- [Jest](https://jestjs.io/) 组件测试
+
+最后的最后，非常欢迎你成为我们的一员！👏🏻👏🏻👏🏻👏🏻👏🏻
+
 ## 测试
 
-单元测试与每个包中被测试的代码并置在名为 tests 的文件夹里. 查阅 Jest 和 @testing-library/react 文档和现有测试用例了解如何编写新的测试规范。以下是一些额外的指南：
+单元测试与每个包中被测试的代码并置在名为 tests 的文件夹里. 查阅 Jest 和 @testing-library/react 文档和现有测试用例了解如何编写新的测试规范，但有几个点需要注意：
 
-使用测试用例所需的最少 API。例如，如果可以在不涉及反应系统或组件的情况下编写测试，则应该这样编写。这限制了测试暴露于不相关部分的变化，并使其更加稳定。
-
-如果测试断言特定于平台的行为，则仅使用特定于平台的运行时。
-
-欢迎提高测试覆盖率的 PR，但通常应将测试覆盖率用作查找未被测试覆盖的 API 用例的指南。我们不建议添加仅提高覆盖率但未实际测试有意义用例的测试。
+- 使用测试用例所需的最少 API。例如，如果可以在不涉及反应系统或组件的情况下编写测试，则应该这样编写。这限制了测试暴露于不相关部分的变化，并使其更加稳定。
+- 如果测试断言特定于平台的行为，则仅使用特定于平台的运行时。
+- 欢迎提高测试覆盖率的 PR，但通常应将测试覆盖率用作查找未被测试覆盖的 API 用例的指南。我们不建议添加仅提高覆盖率但未实际测试有意义用例的测试。
 
 ## 脚本
 
@@ -184,7 +186,7 @@ $ npm run lint
 
 ### 高级拉动请求技巧
 
-- PR 应该只修复预定的错误\*\*\*，而不是引入不相关的变化。这包括不必要的重构--PR 应该专注于修复，而不是代码风格，这使得在未来更容易追踪变化。
+- PR 应该只修复预定的错误，而不是引入不相关的变化。这包括不必要的重构--PR 应该专注于修复，而不是代码风格，这使得在未来更容易追踪变化。
 
 - 考虑变化对性能/大小的影响，以及被修复的 bug 是否能证明其代价。如果被修复的 bug 是一个非常小众的边缘案例，我们应该尽量减少尺寸/性能成本，以使其物有所值。
 

@@ -14,6 +14,7 @@ describe('Button testing...', () => {
     const button = screen.getByText('test button');
     expect(button).toBeInTheDocument();
   });
+
   it('corretly render with prop "block"', async () => {
     render(
       <App>
@@ -25,6 +26,7 @@ describe('Button testing...', () => {
       width: '100%',
     });
   });
+
   it('corretly render with prop "text"', async () => {
     render(
       <App>
