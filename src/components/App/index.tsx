@@ -18,12 +18,11 @@ type AppProps = {
  * apps should only be rendered once in your application.
  */
 export default function App({ children, theme }: AppProps) {
-  const computedTheme = useMemo(() => deepMerge(defaultTheme, theme || {}), [theme]);
   useLayoutEffect(() => {
     addCSSLink('https://unpkg.com/boxicons@latest/css/boxicons.min.css');
   }, []);
   return (
-    <ThemeProvider theme={computedTheme}>
+    <ThemeProvider theme={deepMerge(defaultTheme, theme || {})}>
       <Global styles={globalStyles as CSSObject} />
       {children}
     </ThemeProvider>

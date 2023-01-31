@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import * as React from 'react';
 import { ComponentBaseProps, Themed } from '../props';
 import { useCSS, useTheme, useThemedCSS, useThemedValue } from '../../styles/css';
-import { Theme } from '../../styles/themes';
 import vars from '../../styles/vars';
 type TagProps = ComponentBaseProps & {
   outlined?: boolean;
-  color?: Themed<string>
+  color?: Themed<string>;
   radius?: number;
   hollow?: boolean;
 };
